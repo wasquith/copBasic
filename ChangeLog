@@ -340,6 +340,7 @@ Version 2.0.5--February 24, 2017
 Version 2.0.6--
 1.  Added convexCOP() as a N-bivariate copula generalization of convex2COP().
 2.  Documentation adjustment to GHcop.Rd.
+3.  Added CLcop() for user R. Adat related to his own coding efforts.
 
 
 TODOs:
