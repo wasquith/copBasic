@@ -15,7 +15,7 @@
           warning("Parameter Theta < -1")
           return(NULL)
        }
-       tau <- para/(para+1)
+       tau <- para/(para+2)
     } else {
        warning("Parameter Theta can not be a vector")
        return(NULL)
