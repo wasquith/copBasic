@@ -337,7 +337,7 @@ Version 2.0.5--February 24, 2017
        example of Kendall function L-moments.
 
 
-Version 2.0.6--
+Version 2.0.6--11/08/2017
 1.  Added convexCOP() as a N-bivariate copula generalization of convex2COP().
 2.  Documentation adjustment to GHcop.Rd.
 3.  Added CLcop() for user R. Adat related to his own coding efforts.
