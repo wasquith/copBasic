@@ -44,11 +44,11 @@ bilmoms(cop=NULL, para=NULL, n=1E5, sobol=TRUE, ...)
 \note{
 The mapping of the bivariate L-moments to their L-comoment matrix counterparts is simple but nuances should be discussed and the meaning of the \code{error.rho} needs further description.  The extra effort to form L-comoment matrices (Serfling and Xiao, 2007; Asquith, 2011) is made so that output matches the structure of the sample L-comoment matrices from the \code{lcomoms2()} function of the \pkg{lmomco} package.
 
-Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 64--65) for demonstration, simulate from it a sample of size \eqn{m = 20{,}000} and compute some sample L-comoments using the following CPU intensive code. The function \code{\link{asCOP}} completes the vectorization needed for non-Monte Carlo integration.
+Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 64--65) for demonstration, simulate from it a sample of size \eqn{m = 20{,}000} and compute some sample L-comoments using the following CPU intensive code. The function \code{\link{asCOP}} completes the vectorization needed for non-Monte Carlo integration for \code{\link{rhoCOP}}.
 \preformatted{
   "cophalf" <- function(u,v, ...) {
      if(length(u) > 1 | length(v) > 1) stop("only scalars for this function")
-     v2<-v/2; if(0   <= u    &  u   <= v2 &  v2 <= 1/2 ) { return(u    )
+     v2<-v/2; if(0   <=   u  &   u  <= v2 &  v2 <= 1/2 ) { return(u    )
      } else   if(0   <=   v2 &   v2 <  u  &  u  <  1-v2) { return(v2   )
      } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u  <= 1   ) { return(u+v-1)
      } else { stop("should not be here in logic") }
@@ -62,15 +62,15 @@ Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 
 \preformatted{
   rhoC <- rhoCOP(cop=UsersCop) # -1.733858e-17
 }
-and used to compute the \code{error.rho} for \code{bilmoms} (see next code snippet). Therefore, the bivariate association of \code{UsersCop} is zero and thus is an example of a perfectly dependent situation yet of zero correlation. The bivariate L-moments and L-comoments of this copula are computed as
+and used to compute the \code{error.rho} for \code{bilmoms} (see next code snippet). The  \eqn{\rho_\mathbf{C}} is obviously zero for this copula. Therefore, the bivariate association of \code{UsersCop} is zero and thus is an example of a perfectly dependent situation yet of zero correlation. The bivariate L-moments and L-comoments of this copula are computed as
 \preformatted{
-  mean(abs(replicate(20, bilmoms(cop=UsersCop)$error.rho))) # 7.650723e-06
+  mean(replicate(20, bilmoms(cop=UsersCop)$error.rho)) # 7.650723e-06
 }
-where the \code{error.rho} is repeated trials appears firmly \eqn{<}\code{1e-5}, which is near zero (\eqn{\epsilon_\rho \approx 0}). The \code{error.rho} term is defined by taking the first bivariate L-moment and numerically integrated \eqn{\rho_\mathbf{C}} by \code{\link{rhoCOP}} and computing the terms
-\deqn{\epsilon^{[12]}_\rho = \delta^{[12]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)\mbox{,}}
-\deqn{\epsilon^{[21]}_\rho = \delta^{[21]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)\mbox{, and}}
+where the \code{error.rho} is repeated trials appears firmly \eqn{<}\code{1e-5}, which is near zero (\eqn{\epsilon_\rho \approx 0}). The \code{error.rho} term is defined by taking the first bivariate L-moment and numerically integrated \eqn{\rho_\mathbf{C}} through \code{\link{rhoCOP}} and computing the terms
+\deqn{\epsilon^{[12]}_\rho = |\delta^{[12]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)|\mbox{,}}
+\deqn{\epsilon^{[21]}_\rho = |\delta^{[21]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)|\mbox{, and}}
 \deqn{\epsilon_\rho = \frac{\epsilon^{[12]}_\rho  + \epsilon^{[21]}_\rho}{2}\mbox{,}}
-where the \code{error.rho} \eqn{=} \eqn{\epsilon_\rho}, and values near zero are obviously favorable because this indicates that the Monte Carlo integration sample size \eqn{n} argument is sufficiently large to effectively canvas the \eqn{\mathcal{I}^2} domain. For the situation here, the theoretical \eqn{\rho_\mathbf{C} = 0}, but for \code{n} \eqn{= n = 100}, the \code{error.rho} \eqn{\approx} 0.006 (\emph{e.g.} \code{bilmoms(n=100,} \code{cop=UsersCop)$error.rho}), which is a hint that 100 samples are not large enough and that should be obvious.
+where the \code{error.rho} \eqn{=} \eqn{\epsilon_\rho}, and values near zero are obviously favorable because this indicates that the Monte Carlo integration sample size \eqn{n} argument is sufficiently large to effectively canvas the \eqn{\mathcal{I}^2} domain. For the situation here, the theoretical \eqn{\rho_\mathbf{C} = 0}, but for \code{n} \eqn{= n = 100}, the \code{error.rho} \eqn{\approx} 0.006 (\emph{e.g.} \code{bilmoms(n=100,} \code{cop=UsersCop)$error.rho}) through a 20 unit replication, which is a hint that 100 samples are not large enough and that should be obvious.
 
 The reasoning behind using the \code{error.rho} between conventional numerical integration and the Monte Carlo integration (\code{error.rho}) is that \eqn{\rho_\mathbf{C}} is symmetrical. This choice of \dQuote{convergence} assessment reduces somewhat the sample size needed for Monte Carlo integration into single number representing error.
 
