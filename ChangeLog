@@ -344,8 +344,8 @@ Version 2.0.6--11/08/2017
 
 
 Version 2.0.7--
-1. 
-
+1.  Clarified some documentation in bilmoms.Rd.
+2.  Expanded description in Examples in kullCOP.Rd.
 
 
 TODOs:
