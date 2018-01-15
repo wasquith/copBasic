@@ -17,11 +17,11 @@ Compute the \emph{bivariate L-moments (ratios)} (\eqn{\delta^{[\ldots]}_{k;\math
 \mathbf{C}(u,v)\,\mathrm{d}u\mathrm{d}v - \frac{1}{2}\mbox{,}}
 where the bivariate L-moments are related to the L-comoment ratios by
 \deqn{6\delta^{[12]}_k = \tau^{[12]}_{k+1}\mbox{\quad and \quad}6\delta^{[21]}_k = \tau^{[21]}_{k+1}\mbox{,}}
-where in other words, say, \dQuote{the 3rd bivariate L-moment \eqn{\delta^{[12]}_3} is one sixth the L-cokurtosis \eqn{\tau^{[12]}_4}.} The first four bivariate L-moments yield the first five L-comoments. The terms and nomenclature are not easy and also the adjective \dQuote{ratios} is not always consistent in the literature. The \eqn{\delta^{[\ldots]}_{k;\mathbf{C}}} are \bold{ratios}, and the returned \code{bilcomoms} element by this function holds matrices for the marginal means, marginal L-scales and L-coscales, and then the \bold{ratio} L-comoments.
+where in other words, say, \dQuote{the 3rd bivariate L-moment \eqn{\delta^{[12]}_3} is one sixth the L-cokurtosis \eqn{\tau^{[12]}_4}.} The first four bivariate L-moments yield the first five L-comoments. The terms and nomenclature are not easy and also the English grammar adjective \dQuote{ratios} is not always consistent in the literature. The \eqn{\delta^{[\ldots]}_{k;\mathbf{C}}} are \bold{ratios}, and the returned \code{bilcomoms} element by this function holds matrices for the marginal means, marginal L-scales and L-coscales, and then the \bold{ratio} L-comoments.
 
 Similarly, the \eqn{\delta^{[21]}_k} are computed by switching \eqn{u \rightarrow v} in the polynomials within the above integrals multiplied to the copula in the system of equations with \eqn{u}. In general, \eqn{\delta^{[12]}_k \not= \delta^{[21]}_k} for \eqn{k > 1} unless in the case of \emph{permutation symmetric} (\code{\link{isCOP.permsym}}) copulas. By theory, \eqn{\delta^{[12]}_1 = \delta^{[21]}_1 = \rho_\mathbf{C}/6} where \eqn{\rho_\mathbf{C}} is \emph{Spearman's Rho} \code{\link{rhoCOP}}.
 
-The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}. These seven equations could be used for parameter estimation of a copula with as many as seven parameters.
+The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}. These seven equations potentially could be used for parameter estimation of a copula with as many as seven parameters.
 }
 \usage{
 bilmoms(cop=NULL, para=NULL, n=1E5, sobol=TRUE, ...)
@@ -48,9 +48,9 @@ Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 
 \preformatted{
   "cophalf" <- function(u,v, ...) {
      if(length(u) > 1 | length(v) > 1) stop("only scalars for this function")
-     v2<-v/2; if(0   <= u    &  u   <= v2 & v2 <= 1/2) { return(u    )
-     } else   if(0   <= v2   & v2   <  u  &  u < 1-v2) { return(v2   )
-     } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u <= 1  ) { return(u+v-1)
+     v2<-v/2; if(0   <= u    &  u   <= v2 &  v2 <= 1/2 ) { return(u    )
+     } else   if(0   <=   v2 &   v2 <  u  &  u  <  1-v2) { return(v2   )
+     } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u  <= 1   ) { return(u+v-1)
      } else { stop("should not be here in logic") }
   }
   "UsersCop" <- function(u,v, ...) { asCOP(u,v, f=cophalf, ...) }
@@ -64,9 +64,9 @@ Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 
 }
 and used to compute the \code{error.rho} for \code{bilmoms} (see next code snippet). Therefore, the bivariate association of \code{UsersCop} is zero and thus is an example of a perfectly dependent situation yet of zero correlation. The bivariate L-moments and L-comoments of this copula are computed as
 \preformatted{
-  theoLC <- bilmoms(cop=UsersCop); print(theoLC$error.rho) # 4.702751e-06
+  mean(abs(replicate(20, bilmoms(cop=UsersCop)$error.rho))) # 7.650723e-06
 }
-where the \code{error.rho} is about \code{4.7e-06}, which is near zero (\eqn{\epsilon_\rho \approx 0}). The \code{error.rho} term is defined by taking the first bivariate L-moment and numerically integrated \eqn{\rho_\mathbf{C}} by \code{\link{rhoCOP}} and computing the terms
+where the \code{error.rho} is repeated trials appears firmly \eqn{<}\code{1e-5}, which is near zero (\eqn{\epsilon_\rho \approx 0}). The \code{error.rho} term is defined by taking the first bivariate L-moment and numerically integrated \eqn{\rho_\mathbf{C}} by \code{\link{rhoCOP}} and computing the terms
 \deqn{\epsilon^{[12]}_\rho = \delta^{[12]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)\mbox{,}}
 \deqn{\epsilon^{[21]}_\rho = \delta^{[21]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)\mbox{, and}}
 \deqn{\epsilon_\rho = \frac{\epsilon^{[12]}_\rho  + \epsilon^{[21]}_\rho}{2}\mbox{,}}
