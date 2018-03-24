@@ -8,7 +8,7 @@ Compute the measure of \emph{permutation asymmetry} named for the \pkg{copBasic}
 \deqn{\nu_\mathbf{C} = 3\mathrm{E}[UV^2 - U^2V] = 6\int\!\!\int_{\mathcal{I}^2} (v-u)\mathbf{C}(u,v)\, \mathrm{d}u\mathrm{d}v\mbox{.}}
 This definition is the \code{type="nu"} for the function. Permutation asymmetry can be thought of as \emph{bivariate skewness}, which is a more recognizable term/concept to many readers.
 
-Numerical results indicate \eqn{\nu_\mathbf{W} \approx 0} (\code{\link{W}}), \eqn{\nu^\star_\mathbf{\Pi} = 0} (\code{\link{P}}), \eqn{\nu_\mathbf{M} \approx 0} (\code{\link{M}}), \eqn{\nu^\star_\mathbf{PL} \approx 0} for all \eqn{\Theta} (\code{\link{PLACKETTcop}}), and the \eqn{\nu^\star_\mathbf{GH} = 0} (\code{\link{GHcop}}); copulas with mirror symmetry across the 1:1 line have \eqn{\nu_\mathbf{C} = 0}. Asymmetric copulas do exist. Consider an asymmetric Gumbel-Hougaard \eqn{\mathbf{GH}} with \eqn{\Theta_p = (5,0.8,p)}
+Numerical results indicate \eqn{\nu_\mathbf{W} \approx 0} (\code{\link{W}}), \eqn{\nu^\star_\mathbf{\Pi} = 0} (\code{\link{P}}), \eqn{\nu_\mathbf{M} \approx 0} (\code{\link{M}}), \eqn{\nu^\star_\mathbf{PL} \approx 0} for all \eqn{\Theta} (\code{\link{PLACKETTcop}}), and the \eqn{\nu^\star_\mathbf{GH} = 0} (\code{\link{GHcop}}); copulas with mirror symmetry across the 1:1 line have \eqn{\nu_\mathbf{C} = 0}. Asymmetric copulas do exist. Consider an asymmetric Gumbel--Hougaard \eqn{\mathbf{GH}} with \eqn{\Theta_p = (5,0.8,p)}
 \preformatted{
   optimize(function(p) { joeskewCOP(cop=GHcop, para=c(5,0.8, p), type="nu") },
            c(0,0.99) )$minimum

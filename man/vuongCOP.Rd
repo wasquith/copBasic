@@ -3,9 +3,9 @@
 \alias{vuongCOP}
 \title{ Vuong's Procedure for Parametric Copula Comparison }
 \description{
-Perform \emph{Vuong's Procedure} following Joe (2014, pp. 257--258). Consider two copula densities \eqn{f_1 = c_1(u,v; \Theta_1)} and \eqn{f_2 = c_2(u,v; \Theta_2)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta_1} and \eqn{\Theta_2} that provide the \dQuote{closest} \emph{Kullback-Leibler divergence} from the true copula density \eqn{g(u,v)}.
+Perform \emph{Vuong's Procedure} following Joe (2014, pp. 257--258). Consider two copula densities \eqn{f_1 = c_1(u,v; \Theta_1)} and \eqn{f_2 = c_2(u,v; \Theta_2)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta_1} and \eqn{\Theta_2} that provide the \dQuote{closest} \emph{Kullback--Leibler divergence} from the true copula density \eqn{g(u,v)}.
 
-The difference of the Kullback-Leibler divergence (\code{\link{kullCOP}}) of the two copulas from the true copula density can be measured for a sample of size \eqn{n} and bivariate sample realizations \eqn{\{u_i, v_i\}} by
+The difference of the Kullback--Leibler divergence (\code{\link{kullCOP}}) of the two copulas from the true copula density can be measured for a sample of size \eqn{n} and bivariate sample realizations \eqn{\{u_i, v_i\}} by
 \deqn{\hat{D}_{12} = n^{-1}\sum_{i=1}^n D_i\mbox{,}}
 where \eqn{\hat{D}_{12}} is referred to in the \pkg{copBasic} package as \dQuote{Vuong's \eqn{D}} and \eqn{D_i} is defined as
 \deqn{D_i = \log\biggl[\frac{f_1(u_i, v_i; \Theta_2)}{f_2(u_i, v_i; \Theta_1)}\biggr]\mbox{.}}
@@ -55,7 +55,7 @@ vuongCOP(u, v=NULL, cop1=NULL, cop2=NULL, para1=NULL, para2=NULL,
 \note{
 The \code{vuongCOP} function along with \code{\link{kullCOP}} and features of function \code{\link{densityCOPplot}} represent collective milestones towards \emph{copula inference} and diagnostics post fitting of copulas to the usual measures of association such as \emph{Kendall's Tau} (\eqn{\tau_K}) and \emph{Spearman's Rho} (\eqn{\rho_S}) and their copula counterparts \eqn{\tau_\mathbf{C}} (\code{\link{tauCOP}}) and \eqn{\rho_\mathbf{C}} (\code{\link{rhoCOP}}).
 
-For an example application, imagine a problem of say low springflow risk at \dQuote{nearby springs} that jointly should converge in the lower tail because drought usually has a strong regional impact. First, it is necessary to form a reflection of the \emph{Gumbel-Hougaard copula} (\eqn{\mathbf{GH}(u,v; \Theta_{\mathbf{GH}})}; \code{\link{GHcop}}) but parameter estimation using \eqn{\tau_\mathbf{C}} is the same because sample \eqn{\hat\tau_K} is invariant to reflection.
+For an example application, imagine a problem of say low springflow risk at \dQuote{nearby springs} that jointly should converge in the lower tail because drought usually has a strong regional impact. First, it is necessary to form a reflection of the \emph{Gumbel--Hougaard copula} (\eqn{\mathbf{GH}(u,v; \Theta_{\mathbf{GH}})}; \code{\link{GHcop}}) but parameter estimation using \eqn{\tau_\mathbf{C}} is the same because sample \eqn{\hat\tau_K} is invariant to reflection.
 \preformatted{
   "rGHcop" <- function(u,v, ...) { u + v - 1 + GHcop(1-u, 1-v, ...) }
   set.seed(385) # setting so reported quantities here are reproducible
@@ -78,7 +78,7 @@ The \emph{Plackett copula} (\eqn{\mathbf{PL}(u,v; \Theta_{\mathbf{PL}})}; \code{
                 Wolf - wolfCOP(cop=rGHcop,      para=p), c(1,30))$root
 }
 
-\emph{STEP 1---Compute Kullback-Leibler sample size:} The Kullback-Leibler divergences (\eqn{\mathrm{KL}(f|g)} and \eqn{\mathrm{KL}(g|f)}) are computed (\code{\link{kullCOP}}) for the evaluation of the sample size as appropriate for distinguishing between the two candidate copulas 95 percent of the time. The Kullback-Leibler sample size (\eqn{n_{f\!g}}) also is computed as the following code illustrates and provides additional commentary.
+\emph{STEP 1---Compute Kullback--Leibler sample size:} The Kullback--Leibler divergences (\eqn{\mathrm{KL}(f|g)} and \eqn{\mathrm{KL}(g|f)}) are computed (\code{\link{kullCOP}}) for the evaluation of the sample size as appropriate for distinguishing between the two candidate copulas 95 percent of the time. The Kullback--Leibler sample size (\eqn{n_{f\!g}}) also is computed as the following code illustrates and provides additional commentary.
 \preformatted{
   KL <- replicate(20, kullCOP(cop1=PLACKETTcop, para1=paraPL,
             cop2=rGHcop, para2=paraGH, n=1E5)$KL.sample.size) # CPU intensive
@@ -174,6 +174,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 \concept{AIC}
 \concept{BIC}
 \concept{Vuong}
+\concept{Kullback--Leibler}
 \concept{Kullback-Leibler}
 \concept{L-comoment copula inference}
 \concept{Lcomoment copula inference}

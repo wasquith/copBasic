@@ -13,7 +13,7 @@ The estimation proceeds as follows:
 
 \bold{Step 2:} Let \eqn{I_n} denote the set of indices that correspond to the observations when \eqn{\widehat{S}_i \ge S_f} and compute \eqn{N_n} as the cardinality of \eqn{N_n = |I_n|}, which simply means the length of the vector \eqn{I_n}.
 
-\bold{Step 3:} Use the \emph{maximum Euclidean likelihood estimator}, which is the 3rd of three methods mentioned by Kiriliouk \emph{et al.} (2016):
+\bold{Step 3:} Use the \emph{maximum Euclidean likelihood estimator}, which is the third of three methods mentioned by Kiriliouk \emph{et al.} (2016):
 \deqn{\widehat{H}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \mathbf{1}[\widehat{W}_i \le w ]\mbox{,}}
 where \eqn{\mathbf{1}[\cdot]} is an \emph{indicator function} that is only triggered if \code{smooth=FALSE}, and following the notation of Kiriliouk \emph{et al.} (2016), the \dQuote{3} represents maximum Euclidean likelihood estimation. The \eqn{\hat{p}_{3,i}} are are the weights
 \deqn{\hat{p}_{3,i} = \frac{1}{N_n}\bigl[ 1 - (\overline{W} - 1/2)S^{-2}_W(\widehat{W}_i - \overline{W}) \bigr]\mbox{,}}
@@ -48,9 +48,9 @@ spectralmeas(u, v=NULL, w=NULL, f=0.90, snv=FALSE,
   An \R \code{vector} of \eqn{H_3(w)}, \eqn{\tilde{H}_3(w)}, or \eqn{\tilde{h}_3(w)} is returned.
 }
 \note{
-The purpose of this section is to describe an extremely CPU intensive study of goodness-of-fit between a \emph{Gumbel-Hougaard copula} (\code{\link{GHcop}}, \eqn{\mathbf{GH}(u,v; \Theta_1)}) parent and a fitted \emph{\enc{Hüsler}{Husler}-Reiss copula} (\code{\link{HRcop}}, \eqn{\mathbf{HR}(u,v; \Theta_2)}). Both of these copulas are extreme values and are somewhat similar to each other, so sample sizes necessary for detection of differences should be large. A two-sided Kolmogorov-Smirnov tests (KS test, \code{ks.test()}) will be used to measure significance in the differences between the estimated spectral measure distributions at \eqn{f=0.90} (the 90th percentile, \eqn{F(S_f)}) into the right tail.
+The purpose of this section is to describe an extremely CPU intensive study of goodness-of-fit between a \emph{Gumbel--Hougaard copula} (\code{\link{GHcop}}, \eqn{\mathbf{GH}(u,v; \Theta_1)}) parent and a fitted \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}, \eqn{\mathbf{HR}(u,v; \Theta_2)}). Both of these copulas are extreme values and are somewhat similar to each other, so sample sizes necessary for detection of differences should be large. A two-sided Kolmogorov--Smirnov tests (KS test, \code{ks.test()}) will be used to measure significance in the differences between the estimated spectral measure distributions at \eqn{f=0.90} (the 90th percentile, \eqn{F(S_f)}) into the right tail.
 
-The true copula will be the \eqn{\mathbf{GH}(\Theta_1)} having parameter \eqn{\Theta_1 = 3.3}. The number of simulations per sample size \code{n} \eqn{\in} \code{seq(50,1000, by=25)} is \code{nsim = 500}. For each sample size, a sample from the true parent is drawn, and a \eqn{\mathbf{HR}(\Theta_2)} fit by maximum likelihood (\code{\link{mleCOP}}). The two spectral measure distributions (\eqn{\widehat{H}_{\mathbf{GH}}(w)}, \code{Htru} and \eqn{\widehat{H}_{\mathbf{HR}}(w)}, \code{Hfit}) are estimated for a uniform variate of the angle \code{W} having length equal to the applicable sample size. The Kolmogorov-Smirnov test is made between \code{Htru} and \code{Hfit}, and number of p-values less than the \eqn{\beta = 0.05} (Type II error because alternative hypothesis is rigged as true) and simulation count are returned and written in file \code{Results.txt}. The sample sizes initially are small and traps of \code{NaN} (abandonment of a simulation run) are made. These traps are needed when the empirical distribution of \code{Htru} or \code{Hfit} degenerates.
+The true copula will be the \eqn{\mathbf{GH}(\Theta_1)} having parameter \eqn{\Theta_1 = 3.3}. The number of simulations per sample size \code{n} \eqn{\in} \code{seq(50,1000, by=25)} is \code{nsim = 500}. For each sample size, a sample from the true parent is drawn, and a \eqn{\mathbf{HR}(\Theta_2)} fit by maximum likelihood (\code{\link{mleCOP}}). The two spectral measure distributions (\eqn{\widehat{H}_{\mathbf{GH}}(w)}, \code{Htru} and \eqn{\widehat{H}_{\mathbf{HR}}(w)}, \code{Hfit}) are estimated for a uniform variate of the angle \code{W} having length equal to the applicable sample size. The Kolmogorov--Smirnov test is made between \code{Htru} and \code{Hfit}, and number of p-values less than the \eqn{\beta = 0.05} (Type II error because alternative hypothesis is rigged as true) and simulation count are returned and written in file \code{Results.txt}. The sample sizes initially are small and traps of \code{NaN} (abandonment of a simulation run) are made. These traps are needed when the empirical distribution of \code{Htru} or \code{Hfit} degenerates.
 \preformatted{
   true.par <- 3.3; true.cop <- GHcop; fit.cop <- HRcop; search <- c(0,100)
   nsim <- 2000; first_time <- TRUE; f <- 0.90; beta <- 0.05
@@ -89,7 +89,7 @@ The true copula will be the \eqn{\mathbf{GH}(\Theta_1)} having parameter \eqn{\T
 
 The \code{Results} show a general increase in the counts of p-value \eqn{\le} 0.05 as sample size increases. There is variation of course and increasing \code{nsim} would smooth that considerably. The results show for \eqn{n \approx 1{,}000} that the detection of statistically significant differences for extremal \eqn{F(S_f) = 0.90} dependency between the \eqn{\mathbf{GH}(\Theta_1{=}3.3)} and \eqn{\mathbf{HR}(\Theta_2)} are detected at the error rate implied by the specified \eqn{\beta = 0.05}.
 
-This range in sample size can be compared to the Kullback-Leibler sample size (\eqn{n_{fg}}):
+This range in sample size can be compared to the Kullback--Leibler sample size (\eqn{n_{fg}}):
 \preformatted{
   UV      <- simCOP(n=10000, cop=true.cop, para=true.par, graphics=FALSE)
   fit.par <- mleCOP(UV,      cop= fit.cop, interval=search)$para
@@ -97,7 +97,7 @@ This range in sample size can be compared to the Kullback-Leibler sample size (\
   # The Kullback-Leibler (integer) sample size for detection of differences at
   # alpha = 0.05 is n_fg = 915 for one run, try again to see variation
 }
-where the Kullback-Leilber approach is to measure density departures across the whole \eqn{\mathcal{I}^2} domain as opposed to extremal dependency in the right tail as the spectral measure.
+where the Kullback--Leilber approach is to measure density departures across the whole \eqn{\mathcal{I}^2} domain as opposed to extremal dependency in the right tail as the spectral measure.
 
 Different runs of the above code will result in different \eqn{n_{fg}} in part because of simulation differences internal to \code{\link{kullCOP}} but also because the \eqn{\Theta_2} has its own slight variation in its fit to the large sample simulation (\eqn{n=10{,}000}) of the parent. However, it seems that \eqn{n_{fg} \approx 850} will be on the order of the \eqn{n} for which the KS test on the spectral measure determines statistical significance with similar error rate.
 
