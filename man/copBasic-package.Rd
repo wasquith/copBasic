@@ -36,31 +36,31 @@ Inverse copula diagonal \tab \eqn{\delta^{(-1)}(f)} \tab \code{\link{diagCOPatf}
 Joint probability \tab \eqn{{-}{-}} \tab \code{\link{jointCOP}} \tab copula theory\cr
 Bivariate L-moments \tab \eqn{\delta^{[\ldots]}_{k;\mathbf{C}}} \tab \code{\link{bilmoms}} \tab bivariate moments\cr
 Bivariate L-comoments \tab \eqn{\tau^{[\ldots]}_{k;\mathbf{C}}} \tab \code{\link{bilmoms}} \tab bivariate moments\cr
-Blomqvist's Beta \tab \eqn{\beta_\mathbf{C}} \tab \code{\link{blomCOP}} \tab bivariate association\cr
-Gini's Gamma \tab \eqn{\gamma_\mathbf{C}} \tab \code{\link{giniCOP}} \tab bivariate association\cr
-Hoeffding's Phi \tab \eqn{\Phi_\mathbf{C}} \tab \code{\link{hoefCOP}} \tab bivariate association\cr
-Joe's Nu-Skew \tab \eqn{\nu_\mathbf{C}} \tab \code{\link{joeskewCOP}} \tab bivariate moments\cr
-Joe's Nu-Skew-Star \tab \eqn{\nu^\star_\mathbf{C}} \tab \code{\link{joeskewCOP}} \tab bivariate moments\cr
+Blomqvist Beta \tab \eqn{\beta_\mathbf{C}} \tab \code{\link{blomCOP}} \tab bivariate association\cr
+Gini Gamma \tab \eqn{\gamma_\mathbf{C}} \tab \code{\link{giniCOP}} \tab bivariate association\cr
+Hoeffding Phi \tab \eqn{\Phi_\mathbf{C}} \tab \code{\link{hoefCOP}} \tab bivariate association\cr
+Joe Nu-Skew \tab \eqn{\nu_\mathbf{C}} \tab \code{\link{joeskewCOP}} \tab bivariate moments\cr
+Joe Nu-Skew-Star \tab \eqn{\nu^\star_\mathbf{C}} \tab \code{\link{joeskewCOP}} \tab bivariate moments\cr
 Lp distance \tab  \eqn{\Phi_\mathbf{C} \rightarrow L_p} \tab \code{\link{LpCOP}} \tab bivariate association\cr
-Kendall's Tau \tab \eqn{\tau_\mathbf{C}} \tab \code{\link{tauCOP}} \tab bivariate association\cr
-Kendall's Measure \tab \eqn{K_\mathbf{C}(z)} \tab \code{\link{kmeasCOP}} \tab copula theory\cr
-Kendall's Function \tab \eqn{F_K(z)} \tab \code{\link{kfuncCOP}} \tab copula theory\cr
-Inverse Kendall's Function \tab \eqn{F_K^{(-1)}(z)} \tab \code{\link{kfuncCOPinv}} \tab copula theory\cr
+Kendall Tau \tab \eqn{\tau_\mathbf{C}} \tab \code{\link{tauCOP}} \tab bivariate association\cr
+Kendall Measure \tab \eqn{K_\mathbf{C}(z)} \tab \code{\link{kmeasCOP}} \tab copula theory\cr
+Kendall Function \tab \eqn{F_K(z)} \tab \code{\link{kfuncCOP}} \tab copula theory\cr
+Inverse Kendall Function \tab \eqn{F_K^{(-1)}(z)} \tab \code{\link{kfuncCOPinv}} \tab copula theory\cr
 An L-moment of \eqn{F_K(z)} \tab \eqn{\lambda_r(F_K)} \tab\code{\link{kfuncCOPlmom}} \tab L-moment theory\cr
 L-moments of \eqn{F_K(z)} \tab \eqn{\lambda_r(F_K)} \tab \code{\link{kfuncCOPlmoms}} \tab L-moment theory\cr
 Semi-correlations \tab \eqn{\rho_N^{-}(a)} \tab \code{\link{semicorCOP}} \tab bivariate tail association\cr
 Semi-correlations \tab \eqn{\rho_N^{+}(a)} \tab \code{\link{semicorCOP}} \tab bivariate tail association\cr
-Spearman's Footrule \tab \eqn{\psi_\mathbf{C}} \tab \code{\link{footCOP}} \tab bivariate association\cr
-Spearman's Rho \tab \eqn{\rho_\mathbf{C}} \tab \code{\link{rhoCOP}} \tab bivariate association\cr
-Schweizer and Wolff's Sigma \tab \eqn{\sigma_\mathbf{C}} \tab \code{\link{wolfCOP}} \tab bivariate association\cr
+Spearman Footrule \tab \eqn{\psi_\mathbf{C}} \tab \code{\link{footCOP}} \tab bivariate association\cr
+Spearman Rho \tab \eqn{\rho_\mathbf{C}} \tab \code{\link{rhoCOP}} \tab bivariate association\cr
+Schweizer--Wolff Sigma \tab \eqn{\sigma_\mathbf{C}} \tab \code{\link{wolfCOP}} \tab bivariate association\cr
 Lower-bounds copula \tab \eqn{\mathbf{W}(u,v)} \tab \code{\link{W}} \tab copula\cr
 Independence copula \tab \eqn{\mathbf{\Pi}(u,v)} \tab \code{\link{P}} \tab copula\cr
 Upper-bounds copula \tab \eqn{\mathbf{M}(u,v)} \tab \code{\link{M}} \tab copula\cr
 \enc{Fréchet}{Frechet} Family copula \tab \eqn{\mathbf{FF}(u,v)} \tab \code{\link{FRECHETcop}} \tab copula\cr
 Clayton copula \tab \eqn{\mathbf{CL}(u,v)} \tab \code{\link{CLcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
-Gumbel-Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
-\enc{Hüsler}{Husler}-Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
+Gumbel--Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
+\enc{Hüsler}{Husler}--Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
 Plackett copula \tab \eqn{\mathbf{PL}(u,v)} \tab \code{\link{PLACKETTcop}} \tab copula\cr
 PSP copula \tab \eqn{\mathbf{PSP}(u,v)} \tab \code{\link{PSP}} \tab copula\cr
 Density \tab \eqn{c(u,v)} \tab \code{\link{densityCOP}} \tab copula density\cr
@@ -75,11 +75,11 @@ Parametric simulation \tab \eqn{{-}{-}} \tab \code{\link{simCOPmicro}} \tab copu
 Maximum likelihood \tab \eqn{\mathcal{L}(\Theta_d)} \tab \code{\link{mleCOP}} \tab copula fitting\cr
 }
 
-Several of the functions listed above are measures of \dQuote{bivariate association.} Two of the measures (\emph{Kendall's Tau}, \code{\link{tauCOP}}; \emph{Spearman's Rho}, \code{\link{rhoCOP}}) are familiar. \R provides native support for their sample estimation of course, but each function can be used to call \R's \code{cor()} function for parallelism to the other measures. The other measures (\emph{Blomqvist's Beta}, \emph{Gini's Gamma}, \emph{Hoeffding's Phi}, \emph{Schweizer and Wolff's Sigma}, \emph{Spearman's Footrule}) support sample estimation by specially formed calls to their respective functions: \code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{wolfCOP}}, and \code{\link{footCOP}}. The documentation for Gini's Gamma (\code{\link{giniCOP}}) shows extensive use of theoretical and sample compuations for all of these functions.
+Several of the functions listed above are measures of \dQuote{bivariate association.} Two of the measures (\emph{Kendall Tau}, \code{\link{tauCOP}}; \emph{Spearman Rho}, \code{\link{rhoCOP}}) are familiar. \R provides native support for their sample estimation of course, but each function can be used to call \R's \code{cor()} function for parallelism to the other measures. The other measures (\emph{Blomqvist Beta}, \emph{Gini Gamma}, \emph{Hoeffding Phi}, \emph{Schweizer--Wolff Sigma}, \emph{Spearman Footrule}) support sample estimation by specially formed calls to their respective functions: \code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{wolfCOP}}, and \code{\link{footCOP}}. The documentation for Gini Gamma (\code{\link{giniCOP}}) shows extensive use of theoretical and sample compuations for all of these functions.
 
 \emph{Bivariate skewness} measures are supported in \code{\link{joeskewCOP}} (\code{\link{nuskewCOP}} and \code{\link{nustarCOP}}) and \code{\link{uvlmoms}} (\code{\link{uvskew}}). Extensive discussion and example computations of bivariate skewness is provided in the \code{\link{joeskewCOP}} documentation.  Lastly, so-called \emph{bivariate L-moments} and \emph{bivariate L-comoments} of a copula are directly computable in \code{\link{bilmoms}}, and this function is the theoretical counterpart to the \emph{sample L-comoments} in the \pkg{lmomco} package.
 
-Bivariate random simulation by several functions is identified in the previous table. The \pkg{copBasic} package explicitly uses only \emph{conditional simulation} also known as the \emph{conditional distribution method} for random variate generation following the guidance of Nelsen (2006, pp. 40--41) (see also \code{\link{simCOPmicro}}, \code{\link{simCOP}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}). There are many other methods in the literature and available in \R, and a comparison of some methods is made in the \bold{Examples} section of the Gumbel-Hougaard copula (\code{\link{GHcop}}).
+Bivariate random simulation by several functions is identified in the previous table. The \pkg{copBasic} package explicitly uses only \emph{conditional simulation} also known as the \emph{conditional distribution method} for random variate generation following the guidance of Nelsen (2006, pp. 40--41) (see also \code{\link{simCOPmicro}}, \code{\link{simCOP}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}). There are many other methods in the literature and available in \R, and a comparison of some methods is made in the \bold{Examples} section of the Gumbel--Hougaard copula (\code{\link{GHcop}}).
 
 
 Several functions in \pkg{copBasic} make the distinction between \eqn{V} with respect to (\emph{wrt}) \eqn{U} and \eqn{U} \emph{wrt} \eqn{V}, and a guide for the nomenclature involving \emph{wrt} distinctions is listed in the following table:
@@ -124,8 +124,8 @@ Pos'ly quadrant dependency \tab PQD \tab \code{\link{isCOP.PQD}} \tab bivariate 
 Permutation symmetry \tab \eqn{\mathrm{permsym}} \tab \code{\link{isCOP.permsym}} \tab copula symmetry\cr
 Radial symmetry \tab \eqn{\mathrm{radsym}} \tab \code{\link{isCOP.radsym}} \tab copula symmetry\cr
 Skewness (Joe, 2014) \tab \eqn{\eta(p; \psi)} \tab \code{\link{uvskew}} \tab bivariate skewness\cr
-Kullback-Leibler divergence \tab \eqn{\mathrm{KL}(f|g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
-K-L sample size \tab \eqn{n_{f\!g}} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
+Kullback--Leibler divergence \tab \eqn{\mathrm{KL}(f|g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
+KL sample size \tab \eqn{n_{f\!g}} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
 General goodness-of-fit \tab \eqn{T_n} \tab \code{\link{statTn}} \tab bivariate inference\cr
 Vuong's Procedure \tab \eqn{{-}{-}} \tab \code{\link{vuongCOP}} \tab bivariate inference\cr
 Spectral measure \tab \eqn{H(w)} \tab \code{\link{spectralmeas}} \tab extremal dependency inference\cr
@@ -190,7 +190,7 @@ Or in words, the hazard sources \bold{collaborate} or \bold{cooperate} to cause 
 \deqn{T_{q;\,\mathrm{dual}} \equiv \frac{1}{\mathrm{complement\ of\ dual\ protection}}\mbox{.}}
 
 
-A numerical demonstration is informative. Salvadori \emph{et al.} (2007, p. 151) show for a \emph{Gumbel-Hougaard copula} (\code{\link{GHcop}}) having \eqn{\Theta =} 3.055 and \eqn{T =} 1,000 years (\eqn{q = 0.999}) that \eqn{T_{q;\,\mathrm{coop}} = 797.1} years and that \eqn{T_{q;\,\mathrm{dual}}} = 1,341.4 years, which means that average return periods between failures are
+A numerical demonstration is informative. Salvadori \emph{et al.} (2007, p. 151) show for a \emph{Gumbel--Hougaard copula} (\code{\link{GHcop}}) having \eqn{\Theta =} 3.055 and \eqn{T =} 1,000 years (\eqn{q = 0.999}) that \eqn{T_{q;\,\mathrm{coop}} = 797.1} years and that \eqn{T_{q;\,\mathrm{dual}}} = 1,341.4 years, which means that average return periods between failures are
 \deqn{T_{q;\,\mathrm{coop}} \le T \le T_{q;\,\mathrm{dual}}\mbox{\ and thus}}
 \deqn{797.1 \le T \le 1314.4\mbox{\ years.}}
 With the following code, these values are readily computed and verified using the \code{prob2T()} function from the \pkg{lmomco} package along with \pkg{copBasic} functions \code{\link{COP}} (generic functional interface to a copula) and \code{\link{duCOP}} (\emph{dual of a copula}):
@@ -199,7 +199,7 @@ With the following code, these values are readily computed and verified using th
   lmomco::prob2T(  COP(q,q, cop=GHcop, para=3.055)) #  797.110
   lmomco::prob2T(duCOP(q,q, cop=GHcop, para=3.055)) # 1341.438
 }
-An early source (in 2005) by some of those authors cited on p. 151 of Salvadori \emph{et al.} (2007; their citation \dQuote{[67]}) shows \eqn{T_{q;\,\mathrm{dual}} = 798} years---a rounding error seems to have been committed. Finally just for reference, a Gumbel-Hougaard copula having \eqn{\Theta = 3.055} corresponds to an analytical \emph{Kendall's Tau} (see \code{\link{GHcop}}) of \eqn{\tau \approx 0.673}, which can be verified through numerical integration available from \code{\link{tauCOP}} as:
+An early source (in 2005) by some of those authors cited on p. 151 of Salvadori \emph{et al.} (2007; their citation \dQuote{[67]}) shows \eqn{T_{q;\,\mathrm{dual}} = 798} years---a rounding error seems to have been committed. Finally just for reference, a Gumbel--Hougaard copula having \eqn{\Theta = 3.055} corresponds to an analytical \emph{Kendall's Tau} (see \code{\link{GHcop}}) of \eqn{\tau \approx 0.673}, which can be verified through numerical integration available from \code{\link{tauCOP}} as:
 \preformatted{
   tauCOP(cop=GHcop, para=3.055, brute = TRUE) # 0.6726542
 }
