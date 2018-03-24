@@ -3,7 +3,7 @@ function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...) {
 
     if(as.sample) {
       if(is.null(para)) {
-         warning("Sample Schweizer and Wolff's Sigma desired but para is NULL, ",
+         warning("Sample Schweizer-Wolff Sigma desired but para is NULL, ",
                  "returning NULL")
          return(NULL)
       }
@@ -12,7 +12,7 @@ function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...) {
                 "returning NULL")
         return(NULL)
       }
-      if(as.sample == -1) message("Sample Schweizer and Wolff's Sigma",
+      if(as.sample == -1) message("Sample Schweizer-Wolff Sigma",
                                   "---CPU intensive!")
       # http://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf
       #                                               (August 11, 2015)
