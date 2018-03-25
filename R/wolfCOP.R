@@ -16,10 +16,10 @@ function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...) {
                                   "---CPU intensive!")
       # http://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf
       #                                               (August 11, 2015)
-      n <- length(para[,1]); nn <- n^2
+      n <- length(para[,1]); nn <- n^2; ns <- 1:n
       R <- rank(para[,1]); S <- rank(para[,2])
-      samSIG <- sum(sapply(1:n, function(i) {
-             sum(sapply(1:n, function(j) {
+      samSIG <- sum(sapply(ns, function(i) {
+             sum(sapply(ns, function(j) {
                    abs((sum(as.numeric(R <= i & S <= j))/n) - (i*j/nn))
              } ))
            } ))
