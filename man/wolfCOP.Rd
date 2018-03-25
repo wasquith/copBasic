@@ -51,17 +51,17 @@ Second, show that this copula is globally PQD (\code{\link{isCOP.PQD}}), but the
 }
 This composite copula intersects through the \code{\link{P}} copula. Hence by the logic of Nelsen (2006), then Schweizer--Wolff Sigma should be larger than Spearman Rho (\code{\link{rhoCOP}}) as shown below
 \preformatted{
-  wolfCOP(cop=composite2COP, para=para) # 0.08373378
-   rhoCOP(cop=composite2COP, para=para) # 0.02845131
-  hoefCOP(cop=composite2COP, para=para) # 0.08563823
+  wolfCOP(cop=composite2COP, para=para) # 0.08373378 (theoretical)
+   rhoCOP(cop=composite2COP, para=para) # 0.02845131 (theoretical)
+  hoefCOP(cop=composite2COP, para=para) # 0.08563823 (theoretical)
 }
 In fact, the output above also shows Schweizer--Wolff Sigma to be larger than Kendall Tau (\code{\link{tauCOP}}), Gini Gamma (\code{\link{giniCOP}}), and Blomqvist Beta (\code{\link{blomCOP}}) thus Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version is triggered by
 \preformatted{
-  wolfCOP(para=D, as.sample=TRUE) # 0.09278467
+  wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (sample)
 }
 }
 \references{
-\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pál}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators: Accessed on August 11, 2015 at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}. 
+\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pál}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators: Accessed on August 11, 2015 at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
