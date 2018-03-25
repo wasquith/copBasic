@@ -135,7 +135,7 @@ Inference using L-coskew and L-cokurtosis seems possible. The following code lis
   #    Tau4[21] 390  0.05129 0.01606 -0.06833 0.13798    0.07804 0.17470      -
   # Tau4[12:21] 390  0.05049 0.01329 -0.02045 0.12001    0.05994 0.35069      -
 
-  # This execution will result in nonrejection of Plackett copula.
+  # This execution will result in rejection of Plackett copula.
   PLlmr <- lcomCOPpv(n, UVlmr, cop=PLACKETTcop, para=paraPL) # REJECT PLACKETT
   #  LcomType     n     Mean  Lscale    Lskew   Lkurt sample.est p.value signif
   #    Tau3[12] 390 -0.00267 0.02133  0.01556 0.09581   -0.11188 0.00129     **
