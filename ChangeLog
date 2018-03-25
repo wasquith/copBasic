@@ -39,7 +39,6 @@ Version 1.5.0---August 31, 2011
       as a base figure and vector edited in inst/doc/CopulaRelationsFigure.pdf
 
 
-
 Version 1.5.1---November 14, 2011
 1.  Added data/PlackettPlackettABKGtest.RData and
       man/PlackettPlackettABKGtest.Rd.
@@ -351,6 +350,16 @@ Version 2.0.7--03/08/2018
 Version 2.0.8--
 1.  Minor Rd updates throughout.
 2.  Revision of warning() in wolfCOP().
+3.  Removed last of the repeated sequence computation inside nested sapply()s
+       with in EMPIRcop(), hoefCOP(), joeskewCOP(), and wolfCOP(). A test wtih
+       n=3000 for an as.sample=TRUE computation for wolfCOP() yielded about a
+       5-percent decrease in execution time. It is possible that some R idiom
+       exists for substantially more speed increase in situations of
+       "sapply(..., sapply(...))". However, investigations has not found one and
+       use of the "outer()" function does not appear applicable in testing because
+       of the lack of symmetry in the matrices involved.
+4.  Removed repeated sequence computation (though not nested) in kfuncCOP()
+       and vuongCOP(). This should be categorized as a "code cleaning" exercise.
 
 
 POTENTIAL TODOs:
