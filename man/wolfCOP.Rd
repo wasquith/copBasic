@@ -61,7 +61,7 @@ In fact, the output above also shows Schweizer--Wolff Sigma to be larger than Ke
 }
 }
 \references{
-\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pál}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators: Accessed on August 11, 2015 at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
+\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pal}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators: Accessed on August 11, 2015 at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
