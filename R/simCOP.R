@@ -20,6 +20,9 @@ function(n=100, cop=NULL, para=NULL, na.rm=TRUE, keept=FALSE,
   }
   u <- runif(n); t <- runif(n)
   v <- sapply(1:n, function(i) { derCOPinv(cop=cop, u[i], t[i], para=para, ...) })
+  dots <- list(...)
+  if("delu"   %in% names(dots)) dots <- dots[ - which(names(dots) == "delu"  )]
+  if("derdir" %in% names(dots)) dots <- dots[ - which(names(dots) == "derdir")]
 
   # Because z is a data.frame, it must be assigned within the ifelse()
   ifelse(keept, z <- data.frame(U=u, V=v, T=t), z <- data.frame(U=u, V=v))
@@ -53,7 +56,8 @@ function(n=100, cop=NULL, para=NULL, na.rm=TRUE, keept=FALSE,
              xlab="U, NONEXCEEDANCE PROBABILITY", ylab="V, NONEXCEEDANCE PROBABILITY")
      }
   }
-  if(points & ! is.null(dev.list())) points(z$U, z$V, ...)
+  dots$x <- z$U; dots$y <- z$V
+  if(points & ! is.null(dev.list())) do.call("points", dots)
 
   return(z)
 }
