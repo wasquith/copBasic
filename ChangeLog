@@ -355,11 +355,28 @@ Version 2.0.8--
        n=3000 for an as.sample=TRUE computation for wolfCOP() yielded about a
        5-percent decrease in execution time. It is possible that some R idiom
        exists for substantially more speed increase in situations of
-       "sapply(..., sapply(...))". However, investigations has not found one and
+       "sapply(..., sapply(...))". However, investigations have not found one and
        use of the "outer()" function does not appear applicable in testing because
        of the lack of symmetry in the matrices involved.
 4.  Removed repeated sequence computation (though not nested) in kfuncCOP()
        and vuongCOP(). This should be categorized as a "code cleaning" exercise.
+5.  Fixed error in vuongCOP.Rd about nonrejection of the Plackett with the wording
+       should be "rejection." Error was a result of poor cut and paste when first
+       written. It was the reverse Gumbel–Hougaard that was not rejected.
+6.  Fixed error in some accidentally swapped results in Examples of joeskewCOP.Rd.
+7.  BUG FIX: CLcop() was throwing an error when trying to estimate Kendall Tau and
+       the copula parameter from the observed data. The cor(, method="kendall")
+       function was being called and the estimate retrieved by .$estimate as in
+       cor.test()$estimate.
+8.  Enhancement: Added some parsing of the ... to simCOP on which the delu and
+       derdir arguments are identified, used as needed, and then stripped before
+       the calls to plot() or points() to avoid "not a graphical parameter"
+       warnings. This has been an issue for nearly 10 years but finally WHA 
+       sat down and figured out how to deal with it.
+9.  Enhancement: Added a sign test on the objective function in derCOPinv and
+       derCOPinv2. This will cut down on repeated warnings during simulations
+       when the calls to uniroot breakdown.
+
 
 
 POTENTIAL TODOs:
