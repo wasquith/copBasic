@@ -1,4 +1,4 @@
-"derCOPinvA" <-
+"derCOPinv" <-
 function(cop=NULL, u, t,
          delu=.Machine$double.eps^0.50, para=NULL, ...) {
 
