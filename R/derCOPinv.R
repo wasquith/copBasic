@@ -8,7 +8,7 @@ function(cop=NULL, u, t,
     f.lower <- func(0,u,t,cop,delu=delu,para=para, ...)
     f.upper <- func(1,u,t,cop,delu=delu,para=para, ...)
     if(sign(f.lower) == sign(f.upper)) {
-      message("not opposite signs for f.lower and f.upper: u=",u, " and t=",t)
+      #message("not opposite signs for f.lower and f.upper: u=",u, " and t=",t)
       return(NA)
     }
 
