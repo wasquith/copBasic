@@ -1,5 +1,5 @@
 "derCOPinv2" <-
-function(cop=NULL, v, t,
+function(cop=NULL, v, t, trace=FALSE,
          delv=.Machine$double.eps^0.50, para=NULL, ...) {
 
     func <- function(x,v,LHS,cop,delv=delv,para=para, ...) {
@@ -8,7 +8,7 @@ function(cop=NULL, v, t,
     f.lower <- func(0,v,t,cop,delv=delv,para=para, ...)
     f.upper <- func(1,v,t,cop,delv=delv,para=para, ...)
     if(sign(f.lower) == sign(f.upper)) {
-      #message("not opposite signs for f.lower and f.upper: v=",v, " and t=",t)
+      if(trace) message("not opposite signs for f.lower and f.upper: v=",v, " and t=",t)
       return(NA)
     }
 
