@@ -377,6 +377,7 @@ Version 2.0.8--
        derCOPinv2. This will cut down on repeated warnings during simulations
        when the calls to uniroot breakdown.
 
+10. Added JOcopB5().
 
 
 POTENTIAL TODOs:
