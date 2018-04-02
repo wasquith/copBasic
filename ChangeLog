@@ -376,8 +376,9 @@ Version 2.0.8--
 9.  Enhancement: Added a sign test on the objective function in derCOPinv and
        derCOPinv2. This will cut down on repeated warnings during simulations
        when the calls to uniroot breakdown.
-
 10. Added JOcopB5().
+11. BUG FIX: rCOP() was not forwarding the sample size on down to simCOPmicro().
+12. Added contour.lwd argument to densityCOPplot().
 
 
 POTENTIAL TODOs:
