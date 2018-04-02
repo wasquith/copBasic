@@ -1,4 +1,4 @@
-"rCOP" <- function(n=n, cop=NULL, para=NULL, na.rm=TRUE, ...) {
+"rCOP" <- function(n, cop=NULL, para=NULL, na.rm=TRUE, ...) {
    u <- runif(n)
    data.frame(U=u, V=simCOPmicro(u, cop=cop, para=para, ...))
 }
