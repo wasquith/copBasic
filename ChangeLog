@@ -347,7 +347,7 @@ Version 2.0.7--03/08/2018
 2.  Expanded description in Examples in kullCOP.Rd.
 
 
-Version 2.0.8--
+Version 2.1.1--
 1.  Minor Rd updates throughout.
 2.  Revision of warning() in wolfCOP().
 3.  Removed last of the repeated sequence computation inside nested sapply()s
@@ -378,7 +378,14 @@ Version 2.0.8--
        when the calls to uniroot breakdown.
 10. Added JOcopB5().
 11. BUG FIX: rCOP() was not forwarding the sample size on down to simCOPmicro().
-12. Added contour.lwd argument to densityCOPplot().
+12. Added the contour.lwd argument to densityCOPplot().
+13. BUG FIX: composite1COP() composite2COP() were not passing ... to COP().
+       This has not actually been a problem because most of the practical 
+       applications of copula herein are not often called with other arguments.
+       However, composite3COP() was passing ... down to composite2COP().
+14. Added FGMcop() for the Farlie-Gumbel-Morgenstern copula, which is actually
+       a recent (2012) generalization of this copula.
+15. Added AMHcop() for the Ali-Mikhail-Haq copula.
 
 
 POTENTIAL TODOs:
@@ -399,3 +406,6 @@ POTENTIAL TODOs:
 (5) Convergence evaluators for the Monte Carlo integration in bilmoms() and
        kullCOP() to enhance computation times.
 
+PAcop()
+
+Joe H. (2017) Parametric copula families for statistical models. In: Úbeda Flores M., de Amo Artero E., Durante F., Fernández Sánchez J. (eds) Copulas and Dependence Models with Applications. Springer, Cham https://doi.org/10.1007/978-3-319-64221-5_8
