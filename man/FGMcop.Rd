@@ -59,7 +59,7 @@ print(ML$para) # [1] 0.1596361 3.1321228 2.0000000
 densityCOPplot(cop=FGMcop, para=   para, contour.col=2)
 densityCOPplot(cop=FGMcop, para=ML$para, ploton=FALSE) # }
 }
-\keyword{Farlie-Gumbel-Morgenstern copula}
+\keyword{Farlie--Gumbel--Morgenstern copula}
 \keyword{copula (formulas)}
 \keyword{copula}
 \concept{Farlie-Gumbel-Morgenstern copula}

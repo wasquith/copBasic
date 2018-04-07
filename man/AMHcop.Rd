@@ -53,7 +53,7 @@ mtext("Reversed definition")
 AMHcop(UVn[,1], UVn[,2])$tau # Should be about -0.1663313 because
 AMHcop(UVr[,1], UVr[,2])$tau # tauCOP(AMHcop, para=-0.9) is theoretically. }
 }
-\keyword{Ali-Mikhail-Haq copula}
+\keyword{Ali--Mikhail--Haq copula}
 \keyword{copula (formulas)}
 \keyword{copula}
 \concept{Ali-Mikhail-Haq copula}
