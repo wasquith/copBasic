@@ -156,3 +156,4 @@ lines(qFF, GLh, col=4) #  blue line is the Galambos copula
 \keyword{spectral measure}
 \concept{polar}
 \keyword{API to the copula package}
+\keyword{package copula (comparison to)}
