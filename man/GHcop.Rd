@@ -281,3 +281,4 @@ message("Kendall's Tau: ", K[1], tx, K[2], tx, K[3], tx, K[4], tx, K[5], tx, K[6
 \concept{Gumbel--Hougaard extreme value copula}
 \keyword{literature errors and inconsistencies}
 \keyword{API to the copula package}
+\keyword{package copula (comparison to)}
