@@ -154,3 +154,4 @@ mleCOP(UV, cop=CLcop, interval=c(0,1E2))$para    # 3.081699 }
 \concept{Kullback--Leibler}
 \concept{Kullback-Leibler}
 \keyword{API to the copula package}
+\keyword{package copula (comparison to)}
