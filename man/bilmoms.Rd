@@ -161,3 +161,5 @@ samLcom <- lmomco::lcomoms2(UVsim, nmom=5)
 \concept{copula L-cokurtosis}
 \keyword{Nelsen (2006) Examples and Exercises}
 \keyword{Sobol sequence (Monte Carlo integration)}
+\keyword{L-comoments}
+\concept{Lcomoments}
