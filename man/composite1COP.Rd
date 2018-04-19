@@ -1,3 +1,4 @@
+\encoding{utf8}
 \name{composite1COP}
 \alias{composite1COP}
 \title{ Composition of a Single Symmetric Copula with Two Compositing Parameters }
