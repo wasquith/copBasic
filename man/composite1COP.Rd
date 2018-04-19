@@ -6,6 +6,8 @@ The \emph{composition of a single copula} (Salvadori \emph{et al.}, 2006, p. 266
 
 \deqn{\mathbf{C}_{\alpha,\beta}(u,v) = u^\alpha v^\beta \cdot \mathbf{C}(u^{1-\alpha},v^{1-\beta})\mbox{.}}
 
+This function provides the means for \emph{permutation asymmetry} from a \emph{permutation symmetric} copula as also described by Joe (2017, p. 124) but in a more general way by providing for two and not just one parameter. Joe's description is supported herein if one of the \eqn{\alpha} or \eqn{\beta} are held at zero. Very loosely, the \eqn{\alpha > 0} kicks probability density down towards the lower right corner, whereas \eqn{\beta > 0} kicks density up towards the upper left corner.
+
 The \code{\link{composite2COP}} function is based on a slighty more general result (see \code{\link{composite2COP}} for further details of copula composition).
 }
 \usage{
@@ -31,6 +33,8 @@ The following descriptions list in detail the structure and content of the \code
 For the \code{para} argument of this function, the same nomenclature as used for \code{\link{composite2COP}} is used with obviously \code{cop2} and \code{para2} dropped for \code{composite1COP}. The \code{cop1} and \code{para1} names remain enumerated for \code{composite1COP} so that the \code{para} argument of the more general \code{\link{composite2COP}} function could be used directly in \code{\link{composite1COP}}. Albeit, the second copula and its parameters would not be used. A more complex (extended) composition in \code{\link{composite3COP}} extends this basic parameter structure.
 }
 \references{
+Joe, H., 2017, Parametric copula families for statistical models (chap. 8) \emph{in} Copulas and dependence models with applications---Contributions in honor of Roger B. Nelsen, \emph{eds.} Flores, U.M., Amo Artero, E., Durante, F., \enc{Sánchez}{Sanchez}, J.F.: Springer, Cham, Switzerland, ISBN 978--3--319--64220--9.
+
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{ W.H. Asquith}
