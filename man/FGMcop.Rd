@@ -16,7 +16,7 @@ FGMcop(u, v, para=c(NA, 1,1), ...)
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
-  \item{para}{A vector of parameters---the \eqn{\Theta}, \eqn{\alpha}, and \eqn{n} of the copula where the default argument shows the need to include the \eqn{\Theta}. However, if a fourth parameter is present, it is treated as a logical to reverse the copula (\eqn{u + v - 1 + \mathbf{FGM}(1-u,1-v; \Theta, \alpha, n)}). Also if a single parameter is given, then the \eqn{\alpha = n = 1} are automatically set to yield the single-parameter  Farlie--Gumbel--Morgenstern copula;}
+  \item{para}{A vector of parameters---the \eqn{\Theta}, \eqn{\alpha}, and \eqn{n} of the copula where the default argument shows the need to include the \eqn{\Theta}. However, if a fourth parameter is present, it is treated as a logical to reverse the copula (\eqn{u + v - 1 + \mathbf{FGM}(1-u,1-v; \Theta, \alpha, n)}). Also if a single parameter is given, then the \eqn{\alpha = n = 1} are automatically set to produce the single-parameter  Farlie--Gumbel--Morgenstern copula;}
   \item{...}{Additional arguments to pass.}
 }
 \value{

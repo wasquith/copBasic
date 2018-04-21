@@ -4,11 +4,8 @@
       return(NULL)
     }
     
-    rev <- FALSE
     if(length(para) == 1) {
       para <- c(para, 1,1)
-    } else if(length(para) == 4) {
-      rev <- para[4]; para <- para[-4]
     }
     para <- as.numeric(para)
     if(length(para) != 3) {
@@ -45,10 +42,5 @@
        v <- rep(v, length(u))
     }
 
-    if(rev) {
-      cop <- u + v - 1 + (1-u)*(1-v)*(1+d*(1-(1-u)^a)*(1-(1-v)^a))^n
-    } else {
-      cop <-             u*v*(1+d*(1-u^a)*(1-v^a))^n
-    }
-    return(cop)
+    return(u*v*(1+d*(1-u^a)*(1-v^a))^n)
 }
