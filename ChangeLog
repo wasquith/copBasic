@@ -386,6 +386,8 @@ Version 2.1.1--
 14. Added FGMcop() for the Farlie-Gumbel-Morgenstern copula, which is actually
        a recent (2012) generalization of this copula.
 15. Added AMHcop() for the Ali-Mikhail-Haq copula.
+16. Added alternative reflection arguments "1,2,3,4" to COP().
+17. Added alias PAcop() for PARETOcop() to be parallel to the PLACKETTcop().
 
 
 POTENTIAL TODOs:
@@ -406,6 +408,5 @@ POTENTIAL TODOs:
 (5) Convergence evaluators for the Monte Carlo integration in bilmoms() and
        kullCOP() to enhance computation times.
 
-PAcop()
+(6) rhobevCOP() study for a copula yielding 0.
 
-Joe H. (2017) Parametric copula families for statistical models. In: Úbeda Flores M., de Amo Artero E., Durante F., Fernández Sánchez J. (eds) Copulas and Dependence Models with Applications. Springer, Cham https://doi.org/10.1007/978-3-319-64221-5_8
