@@ -1,6 +1,7 @@
 \encoding{utf8}
 \name{PARETOcop}
 \alias{PARETOcop}
+\alias{PAcop}
 \title{ The Pareto Copula }
 \description{
 The \emph{Pareto copula} (Nelsen, 2006, pp. 33) is
@@ -9,6 +10,7 @@ where \eqn{\Theta \in [0, \infty)}. As \eqn{\Theta \rightarrow 0^{+}}, the copul
 }
 \usage{
 PARETOcop(u, v, para=NULL, ...)
+PAcop(u, v, para=NULL, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
