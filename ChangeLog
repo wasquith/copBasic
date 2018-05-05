@@ -347,7 +347,7 @@ Version 2.0.7--03/08/2018
 2.  Expanded description in Examples in kullCOP.Rd.
 
 
-Version 2.1.1--
+Version 2.1.0--2018-05-07
 1.  Minor Rd updates throughout.
 2.  Revision of warning() in wolfCOP().
 3.  Removed last of the repeated sequence computation inside nested sapply()s
@@ -366,7 +366,7 @@ Version 2.1.1--
 6.  Fixed error in some accidentally swapped results in Examples of joeskewCOP.Rd.
 7.  BUG FIX: CLcop() was throwing an error when trying to estimate Kendall Tau and
        the copula parameter from the observed data. The cor(, method="kendall")
-       function was being called and the estimate retrieved by .$estimate as in
+       function was being called and the estimate retrieved by $estimate as in
        cor.test()$estimate.
 8.  Enhancement: Added some parsing of the ... to simCOP on which the delu and
        derdir arguments are identified, used as needed, and then stripped before
