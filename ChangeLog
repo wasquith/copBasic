@@ -390,6 +390,11 @@ Version 2.1.0--2018-05-07
 17. Added alias PAcop() for PARETOcop() to be parallel to the PLACKETTcop().
 
 
+Version 2.1.1--
+1. Enhancement: Changed from sapply to u*v on return. This dates for a long
+        time back when the vectorization in R was not idiomatic for the author.
+
+
 POTENTIAL TODOs:
 
 (1) stabtaildepf.Rd --- Need to audit stabtaildepf.Rd and complete documentation.
