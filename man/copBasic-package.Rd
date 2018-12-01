@@ -82,9 +82,14 @@ Parametric copulatic surface \tab \eqn{{-}{-}} \tab \code{\link{gridCOP}} \tab c
 Parametric simulation \tab \eqn{{-}{-}} \tab \code{\link{simCOP}} or   \code{\link{rCOP}}\tab copula simulation\cr
 Parametric simulation \tab \eqn{{-}{-}} \tab \code{\link{simCOPmicro}} \tab copula simulation\cr
 Maximum likelihood \tab \eqn{\mathcal{L}(\Theta_d)} \tab \code{\link{mleCOP}} \tab copula fitting\cr
+AIC \tab \eqn{\mathrm{AIC}_\mathbf{C}} \tab \code{\link{aicCOP}} \tab goodness of fit\cr
+BIC \tab \eqn{\mathrm{BIC}_\mathbf{C}} \tab \code{\link{bicCOP}} \tab goodness of fit\cr
+Root mean square error \tab \eqn{\mathrm{RMSE}_\mathbf{C}} \tab \code{\link{rmseCOP}} \tab goodness of fit\cr
 }
 
 Several of the functions listed above are measures of \dQuote{bivariate association.} Two of the measures (\emph{Kendall Tau}, \code{\link{tauCOP}}; \emph{Spearman Rho}, \code{\link{rhoCOP}}) are widely known. \R provides native support for their sample estimation of course, but each function can be used to call the \code{cor()} function in \R for parallelism to the other measures of this package. The other measures (\emph{Blomqvist Beta}, \emph{Gini Gamma}, \emph{Hoeffding Phi}, \emph{Schweizer--Wolff Sigma}, \emph{Spearman Footrule}) support sample estimation by specially formed calls to their respective functions: \code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{wolfCOP}}, and \code{\link{footCOP}}. The documentation for Gini Gamma (\code{\link{giniCOP}}) shows extensive use of theoretical and sample compuations for all of these functions.
+
+Although not precisely a copula properties (such as \dQuote{correlation}) per se as the above coefficients, three goodness of fit metrics of a copula compared to the empirical copula are \code{\link{aicCOP}}, \code{\link{bicCOP}}, and \code{\link{rmseCOP}} and are useful in making decisions on whether a copula is more favorable than another to a given dataset. These three are simple and easy to understand measures.
 
 \emph{Bivariate skewness} measures are supported in \code{\link{joeskewCOP}} (\code{\link{nuskewCOP}} and \code{\link{nustarCOP}}) and \code{\link{uvlmoms}} (\code{\link{uvskew}}). Extensive discussion and example computations of bivariate skewness are provided in the \code{\link{joeskewCOP}} documentation.  Lastly, so-called \emph{bivariate L-moments} and \emph{bivariate L-comoments} of a copula are directly computable in \code{\link{bilmoms}}, and this function is the theoretical counterpart to the \emph{sample L-comoments} in the \pkg{lmomco} package.
 
