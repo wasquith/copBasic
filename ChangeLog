@@ -396,6 +396,7 @@ Version 2.1.1--2018-12-01
 2. Added aicCOP(), bicCOP(), and rmseCOP(): a triad of similar goodness of fits.
 3. Minor warning() editing in mleCOP.Rd when alerting user to use interval 
        search for one-parameter copulas.
+4. Standardized all *.Rd files to utf8 encoding declaration whether needed or no.
 
 
 POTENTIAL TODOs:
