@@ -1,14 +1,14 @@
 \encoding{utf8}
 \name{bicCOP}
 \alias{bicCOP}
-\title{ The Bayesian Information Criterion between a Coupla and an Empirical Copula }
+\title{ The Bayesian Information Criterion between a Fitted Coupla and an Empirical Copula }
 \description{
-Compute the \emph{Bayesian information criterion} \eqn{\mathrm{BIC}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}_\mathbf{C}} as
+Compute the \emph{Bayesian information criterion} (BIC) \eqn{\mathrm{BIC}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}_\mathbf{C}} as
 
-\deqn{\mathrm{MSE}_\mathbf{C} = \frac{1}{n}\sum_{i=1}^n (P_{e_i} - P_i)^2\mbox{ and}}
+\deqn{\mathrm{MSE}_\mathbf{C} = \frac{1}{n}\sum_{i=1}^n (\mathbf{C}_n(u_i,v_i) - \mathbf{C}_{\Theta_n}(u_i, v_i))^2\mbox{ and}}
 \deqn{\mathrm{BIC}_\mathbf{C} = m\log(n) + n\log(\mathrm{MSE}_\mathbf{C})\mbox{,}}
 
-where \eqn{P_{e_i}} is the empirical joint probability for the \eqn{i}th observation, \eqn{P_i} is the joint probability from a fitted copula (itself having \eqn{m}) parameters. The empirical joint probability comes from \code{\link{EMPIRcop}}. The \eqn{\mathrm{BIC}_\mathbf{C}} is in effect saying that the best copula will have its joint probabilities plotting on a 1:1 line with the empirical joint probabilities, which is an \eqn{\mathrm{BIC}_\mathbf{C} = -\infty}. From the \eqn{\mathrm{MSE}_\mathbf{C}} shown above, the root mean square error \code{\link{rmseCOP}} and Akaike information criterion \code{\link{aicCOP}} can be computed.  These goodnesses of fit can assist in deciding one copula favorability over another.
+where \eqn{\mathbf{C}_n(u_i,v_i)} is the \emph{empirical copula} (empirical joint probability) for the \eqn{i}th observation, \eqn{\mathbf{C}_{\Theta_m}(u_i, v_i)} is the fitted copula having \eqn{m} parameters in \eqn{\Theta}. The \eqn{\mathbf{C}_n(u_i,v_i)} comes from \code{\link{EMPIRcop}}. The \eqn{\mathrm{BIC}_\mathbf{C}} is in effect saying that the best copula will have its joint probabilities plotting on a 1:1 line with the empirical joint probabilities, which is an \eqn{\mathrm{BIC}_\mathbf{C} = -\infty}. From the \eqn{\mathrm{MSE}_\mathbf{C}} shown above, the root mean square error \code{\link{rmseCOP}} and Akaike information criterion \code{\link{aicCOP}} can be computed. These goodness-of-fits can assist in deciding one copula favorability over another, and another goodness-of-fit using the absolute differences between \eqn{\mathbf{C}_n(u,v)} and \eqn{\mathbf{C}_{\Theta_m}(u, v)} is found under \code{\link{statTn}}.
 }
 \usage{
 bicCOP(u,v, cop=NULL, para=NULL, ...)
@@ -45,5 +45,7 @@ bics <- c(bicCOP(U,V, cop=GLcop, para=pGL),
 print(bics) # We will see that the first BIC is the smallest as the
 # Galambos has the nearest overall behavior than the P and PSP copulas.
 }
-\keyword{copula (goodness of fit)}
-
+\keyword{copula (goodness-of-fit)}
+\keyword{copula (inference)}
+\keyword{inference}
+\keyword{goodness-of-fit}
