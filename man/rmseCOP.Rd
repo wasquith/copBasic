@@ -3,7 +3,7 @@
 \alias{rmseCOP}
 \title{ The Root Mean Square Error between a Copula and an Empirical Copula }
 \description{
-Compute the \emph{root mean square error} \eqn{\mathrm{RMSE}_\mathbf{C}} (Chen and Shenglian, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}} as
+Compute the \emph{root mean square error} \eqn{\mathrm{RMSE}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}} as
 
 \deqn{\mathrm{MSE}_\mathbf{C} = \frac{1}{n}\sum_{i=1}^n (P_{e_i} - P_i)^2\mbox{ and}}
 \deqn{\mathrm{RMSE}_\mathbf{C} = \sqrt{\mathrm{MSE}_\mathbf{C}}\mbox{,}}

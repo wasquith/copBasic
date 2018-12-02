@@ -3,7 +3,7 @@
 \alias{aicCOP}
 \title{ The Akaike Information Criterion between a Coupla and an Empirical Copula }
 \description{
-Compute the \emph{Akaike information criterion} \eqn{\mathrm{AIC}_\mathbf{C}} (Chen and Shenglian, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}_\mathbf{C}} as
+Compute the \emph{Akaike information criterion} \eqn{\mathrm{AIC}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}_\mathbf{C}} as
 
 \deqn{\mathrm{MSE}_\mathbf{C} = \frac{1}{n}\sum_{i=1}^n (P_{e_i} - P_i)^2\mbox{ and}}
 \deqn{\mathrm{AIC}_\mathbf{C} = 2m + n\log(\mathrm{MSE}_\mathbf{C})\mbox{,}}
