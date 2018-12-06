@@ -403,7 +403,12 @@ Version 2.1.2--
 1. Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
        of the copula. Trivial to compute the number from standard copulas,
        the problem is how to handle the compositing types. 
-
+2. Added warning of missing alpha or beta parameters in composite1COP and
+       composite2COP. Small speed it, but debugging when these are not given 
+       (forgotten) becomes complicated.
+3. Added warning of missing kappa or gamma parameters in composite3COP.
+       Small speed it, but debugging when these are not given 
+       (forgotten) becomes complicated.
 
 
 POTENTIAL TODOs:
