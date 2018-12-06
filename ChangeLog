@@ -399,6 +399,13 @@ Version 2.1.1--2018-12-01
 4. Standardized all *.Rd files to utf8 encoding declaration whether needed or no.
 
 
+Version 2.1.2--
+1. Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
+       of the copula. Trivial to compute the number from standard copulas,
+       the problem is how to handle the compositing types. 
+
+
+
 POTENTIAL TODOs:
 
 Vectorization problem in convexCOP.R needs to be fixed.
