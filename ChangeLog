@@ -405,10 +405,10 @@ Version 2.1.2--
        the problem is how to handle the compositing types. 
 2. Added warning of missing alpha or beta parameters in composite1COP and
        composite2COP. Small speed it, but debugging when these are not given 
-       (forgotten) becomes complicated.
+       (forgotten) becomes complicated. (See #3 and #4)
 3. Added warning of missing kappa or gamma parameters in composite3COP.
-       Small speed it, but debugging when these are not given 
-       (forgotten) becomes complicated.
+       (See #2 and #4)
+4. Added warning of missing alpha in convex2COP() (See #2 and #3)
 
 
 POTENTIAL TODOs:
