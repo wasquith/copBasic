@@ -409,6 +409,12 @@ Version 2.1.2--
 3. Added warning of missing kappa or gamma parameters in composite3COP.
        (See #2 and #4)
 4. Added warning of missing alpha in convex2COP() (See #2 and #3)
+5. Enhancement: Added additional indexing for GHcop, GLcop, and HRcop as EV cops.
+6. Added tEVcop() with port of implementation spawned from the copula package
+       with the Pickands dependence function involved. Examples provided.
+       tEVcop() is deemed useful because of interest in semi-exhaustive
+       EV-copula study with the easy addition of a 2-parameter copula without
+       triggering convex or compositing.
 
 
 POTENTIAL TODOs:
