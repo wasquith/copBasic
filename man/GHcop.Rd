@@ -172,7 +172,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 Zhang, L., and Singh, V.P., 2007, Gumbel--Hougaard copula for trivariate rainfall frequency analysis: Journal Hydrologic Engineering, v. 12, Special issue---Copulas in Hydrology, pp. 409--419.
 }
 \author{ W.H. Asquith}
-\seealso{\code{\link{M}}, \code{\link{GLcop}}, \code{\link{HRcop}}, \code{\link{rhobevCOP}}
+\seealso{\code{\link{M}}, \code{\link{GLcop}}, \code{\link{HRcop}}, \code{\link{tEVcop}}, \code{\link{rhobevCOP}}
 }
 \examples{
 Theta <- 2.2 # Lets see if the numerical and analytical tail deps are the same.

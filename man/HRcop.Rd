@@ -25,7 +25,7 @@ HRcop(u, v, para=NULL, ...)
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
 \author{ W.H. Asquith}
-\seealso{\code{\link{P}}, \code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{rhobevCOP}}
+\seealso{\code{\link{P}}, \code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{tEVcop}}
 }
 \examples{
 # Parameter Theta = pi recovery through Blomqvist's Beta (Joe, 2014, p. 176)
