@@ -27,7 +27,7 @@ tEVcop(u, v, para=NULL, ...)
   Value(s) for the copula are returned.
 }
 \note{
-Note that Joe (2014) shows \eqn{y = \log(v)} (note absence of the minus sign). This is not correct.
+Note that Joe (2014) shows \eqn{x = \log(u)} (note absence of the minus sign). This is not correct.
 }
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
