@@ -35,3 +35,5 @@ log(2)/(log(log(2)/log(1+blomCOP(cop=GLcop, para=pi))))
 \keyword{copula}
 \concept{Galambos extreme value copula}
 \keyword{Joe (2014) Examples and Exercises}
+\keyword{copula (extreme value)}
+\keyword{extreme value copula}

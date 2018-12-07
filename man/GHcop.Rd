@@ -200,7 +200,7 @@ message("# SE(sRho[-] - sRho[+])=", SE.RhoMP, " Joe's SE=0.10")
 \dontrun{
 file <- "Lcomom_study_of_GHcopPLACKETTcop.txt"
 x <- data.frame(tau=NA, trho=NA, srho=NA, PLtheta=NA, PLT2=NA, PLT3=NA, PLT4=NA,
-                                          GHtheta=NA, GHT2=NA, GHT3=NA, GHT4=NA ) 
+                                          GHtheta=NA, GHT2=NA, GHT3=NA, GHT4=NA )
 write.table(x, file=file, row.names=FALSE, quote=FALSE)
 n <- 250 # Make a large number for very long CPU run but seems stable
 for(tau in seq(0,0.98, by=0.005)) {
@@ -282,3 +282,5 @@ message("Kendall's Tau: ", K[1], tx, K[2], tx, K[3], tx, K[4], tx, K[5], tx, K[6
 \keyword{literature errors and inconsistencies}
 \keyword{API to the copula package}
 \keyword{package copula (comparison to)}
+\keyword{copula (extreme value)}
+\keyword{extreme value copula}
