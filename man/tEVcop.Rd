@@ -12,7 +12,7 @@ where \eqn{x = \log(u)}, \eqn{y = \log(v)}, and letting \eqn{\eta = \sqrt{(\nu+1
 \deqn{
 B(w; \rho, \nu) = wT_{\nu+1}\bigl(\eta[(w/[1-w])^{1/\nu}-\rho]\bigr) + (1-w)T_{\nu+1}\bigl(\eta[([1-w]/w)^{1/\nu}-\rho]\bigr)\mbox{,}
 }
-where \eqn{T_{\nu+1}} is the cumulative distribution function of the \emph{univariate t-distribution} with \eqn{\nu-1} degrees of freedom. As \eqn{\nu \rightarrow \infty}, the copula weakly converges to the \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}) because the t-distribution converges to the normal (see \bold{Examples} for a study of this copula).
+where \eqn{T_{\nu+1}} is the cumulative distribution function of the \emph{univariate t-distribution} with \eqn{\nu-1} degrees of freedom. As \eqn{\nu \rightarrow \infty}, the copula weakly converges to the \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}) because the t-distribution converges to the normal (see \bold{Examples} for a study of this copula). This copula is implemented in \pkg{copBasic} to have a two-parameter option in working with extreme-value copula.
 }
 \usage{
 tEVcop(u, v, para=NULL, ...)
