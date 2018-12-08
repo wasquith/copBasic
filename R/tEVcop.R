@@ -30,7 +30,7 @@
      b <- (w/(1-w))^(1/nu) # note inversion in second term!
      return(w*pt(a*(b-rho), nu+1) + (1-w)*pt(a*(1/b-rho), nu+1))
    }
-   x <- -log(u); y <- -log(v) # not minus on -log(v), Joe (2014, p.189) does not
+   x <- -log(u); y <- -log(v) # note minus on -log(v), Joe (2014, p.189) does not
    z <- exp(-(x+y)*my.BTev(x/(x+y), para[1], para[2]))
    z[! is.finite(z)] <- 0
    return(z)

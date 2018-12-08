@@ -8,7 +8,7 @@ The \emph{t-EV copula} (Joe, 2014, p. 189) is a limiting form of the \emph{t-cop
 \mathbf{C}_{\rho,\nu}(u,v) = \mathbf{tEV}(u,v; \rho, \nu) =
 \mathrm{exp}\bigl(-(x+y)B(x/(x+y); \rho, \nu)\bigr)\mbox{,}
 }
-where \eqn{x = \log(u)}, \eqn{y = \log(v)}, and letting \eqn{\eta = \sqrt{(\nu+1)/(1-\rho^2)}} define
+where \eqn{x = -\log(u)}, \eqn{y = -\log(v)}, and letting \eqn{\eta = \sqrt{(\nu+1)/(1-\rho^2)}} define
 \deqn{
 B(w; \rho, \nu) = wT_{\nu+1}\bigl(\eta[(w/[1-w])^{1/\nu}-\rho]\bigr) + (1-w)T_{\nu+1}\bigl(\eta[([1-w]/w)^{1/\nu}-\rho]\bigr)\mbox{,}
 }
@@ -37,10 +37,10 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
 \examples{
 \dontrun{
-  tau <- 1/3 # Example from copula::evCopula.Rd
-  tev.cop <- tevCopula(iTau(tevCopula(), tau))
-  copula::pCopula(c(0.1,.5), copula=tev.cop)         # 0.07811367
-  tEVcop(0.1, 0.5, para=slot(tev.cop, "parameters")) # 0.07811367}
+tau <- 1/3 # Example from copula::evCopula.Rd
+tev.cop <- tevCopula(iTau(tevCopula(), tau))
+copula::pCopula(c(0.1,.5), copula=tev.cop)         # 0.07811367
+tEVcop(0.1, 0.5, para=slot(tev.cop, "parameters")) # 0.07811367}
 
 \dontrun{
 nsim <- 2000; pargh <- c(5, 0.5, 0.5)
