@@ -89,6 +89,6 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \seealso{\code{\link{diagCOPatf}}, \code{\link{duCOP}}, \code{\link{jointCOP}}, \code{\link{joint.curvesCOP2}}, \code{\link{level.curvesCOP}}
 }
 \examples{
-# See Note Section
+# See Note section
 }
 \keyword{joint probability}
