@@ -3,9 +3,8 @@ function(u, v, cop=NULL, para=NULL,
                reflect=c("cop", "surv", "acute", "grave",
                            "1",    "2",     "3",     "4"), ...) {
    reflect <- match.arg(reflect)
-   if(is.list(para)) {
-      reflect   <- para$reflect
-      if(is.null(reflect)) reflect <- "cop"
+   if(is.list(para) && ! is.null(para$cop)) {
+      if(! is.null(para$reflect)) reflect <- para$reflect
       cop  <- para$cop
       para <- para$para
    }
