@@ -415,20 +415,24 @@ Version 2.1.2--
        tEVcop() is deemed useful because of interest in semi-exhaustive
        EV-copula study with the easy addition of a 2-parameter copula without
        triggering convex or compositing.
+7. Feature fix: COP.R had a weakness when parameters as a list are passed in
+       its handling of "cop" versus "cop1", "cop2" etc.
+8. BUG FIX: Vectorization in convexCOP.R was not fully working for some
+       operations on composited copulas.
+9. BUX FIX: isCOP.permsym() and isCOP.radsym() both had dispatching problems
+       when composited copulas were involved in "cop" being "matched by 
+       multiple arguments" error in R. Had this always been a problem or had
+       R itself become more restricted. The fix was to insert a COP() call
+       as opposed cop() call (the argument named cop).
 
 
 POTENTIAL TODOs:
-
-Vectorization problem in convexCOP.R needs to be fixed.
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
   Make such conversions through out or go back to W.H. Asquith?
 
 EMPIRcopdf() can be replaced by EMPIRcop() as the later is fully 
   vectorized itself and makes presumably a lesser impact on memory (faster)?
-
-aic/bicCOP() need m parameter length. These needs generalization to
-  composited and convex copulas. Currently, only checking length(para).
 
 stabtaildepf.Rd --- Need to audit stabtaildepf.Rd and complete documentation.
 
