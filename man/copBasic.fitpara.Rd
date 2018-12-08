@@ -88,8 +88,8 @@ The visual comparison is qualitative. The tabular comparison of the sample stati
   print(ls.str(fit.para)) #      2.48   2.25e-08  0.355  # one solution
 
                                                # Tail Dependency Parameters
-  taildepCOP(cop=composite1COP, para=pop.para) # lower = 0 : upper = 0.5838
-  taildepCOP(cop=composite1COP, para=fit.para) # lower = 0 : upper = 0.5302
+  taildepCOP(cop=composite1COP, para=pop.para) # lower=0 : upper=0.5838
+  taildepCOP(cop=composite1COP, para=fit.para) # lower=0 : upper=0.5302(est.)
 }
 
 The demonstration ends with the comparison of the two asymmetrical density contours.
