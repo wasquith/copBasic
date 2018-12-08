@@ -57,7 +57,7 @@ This composite copula intersects through the \code{\link{P}} copula. Hence by th
 }
 In fact, the output above also shows Schweizer--Wolff Sigma to be larger than Kendall Tau (\code{\link{tauCOP}}), Gini Gamma (\code{\link{giniCOP}}), and Blomqvist Beta (\code{\link{blomCOP}}) thus Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version is triggered by
 \preformatted{
-  wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (sample)
+  wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (an example sample)
 }
 }
 \references{
@@ -80,6 +80,12 @@ wolfCOP(cop=N4212cop, para=7.53) # 0.9884666 (theoretical)
 wolfCOP(para=UV, as.sample=TRUE) # 0.9884174 (sample)}
 
 \dontrun{
+# Redo D from Note section above
+para <- list(cop1=PLACKETTcop, cop2=PLACKETTcop, para1=0.145, para2=21.9,
+             alpha=0.81,       beta=0.22)
+D <- simCOP(n=300, cop=composite2COP, para=para,
+            cex=0.5, col=rgb(0,0,0,0.2), pch=16)
+
 the.grid <- EMPIRgrid(para=D)
 the.persp <- persp(the.grid$empcop, theta=-25, phi=20, shade=TRUE,
                    xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")
