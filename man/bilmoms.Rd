@@ -17,7 +17,7 @@ Compute the \emph{bivariate L-moments (ratios)} (\eqn{\delta^{[\ldots]}_{k;\math
 \mathbf{C}(u,v)\,\mathrm{d}u\mathrm{d}v - \frac{1}{2}\mbox{,}}
 where the bivariate L-moments are related to the L-comoment ratios by
 \deqn{6\delta^{[12]}_k = \tau^{[12]}_{k+1}\mbox{\quad and \quad}6\delta^{[21]}_k = \tau^{[21]}_{k+1}\mbox{,}}
-where in other words, say, \dQuote{the third bivariate L-moment \eqn{\delta^{[12]}_3} is one sixth the L-cokurtosis \eqn{\tau^{[12]}_4}.} The first four bivariate L-moments yield the first five L-comoments. The terms and nomenclature are not easy and also the English grammar adjective \dQuote{ratios} is not always consistent in the literature. The \eqn{\delta^{[\ldots]}_{k;\mathbf{C}}} are \bold{ratios}, and the returned \code{bilcomoms} element by this function holds matrices for the marginal means, marginal L-scales and L-coscales, and then the \bold{ratio} L-comoments.
+where in otherwords, \dQuote{the third bivariate L-moment \eqn{\delta^{[12]}_3} is one sixth the L-cokurtosis \eqn{\tau^{[12]}_4}.} The first four bivariate L-moments yield the first five L-comoments. The terms and nomenclature are not easy and also the English grammar adjective \dQuote{ratios} is not always consistent in the literature. The \eqn{\delta^{[\ldots]}_{k;\mathbf{C}}} are \bold{ratios}, and the returned \code{bilcomoms} element by this function holds matrices for the marginal means, marginal L-scales and L-coscales, and then the \bold{ratio} L-comoments.
 
 Similarly, the \eqn{\delta^{[21]}_k} are computed by switching \eqn{u \rightarrow v} in the polynomials within the above integrals multiplied to the copula in the system of equations with \eqn{u}. In general, \eqn{\delta^{[12]}_k \not= \delta^{[21]}_k} for \eqn{k > 1} unless in the case of \emph{permutation symmetric} (\code{\link{isCOP.permsym}}) copulas. By theory, \eqn{\delta^{[12]}_1 = \delta^{[21]}_1 = \rho_\mathbf{C}/6} where \eqn{\rho_\mathbf{C}} is \emph{Spearman's Rho} \code{\link{rhoCOP}}.
 
@@ -72,7 +72,7 @@ where the \code{error.rho} is repeated trials appears firmly \eqn{<}\code{1e-5},
 \deqn{\epsilon^{[12]}_\rho = |\delta^{[12]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)|\mbox{,}}
 \deqn{\epsilon^{[21]}_\rho = |\delta^{[21]}_{1;\mathbf{C}} - (\rho_\mathbf{C}/6)|\mbox{, and}}
 \deqn{\epsilon_\rho = \frac{\epsilon^{[12]}_\rho  + \epsilon^{[21]}_\rho}{2}\mbox{,}}
-where the \code{error.rho} \eqn{=} \eqn{\epsilon_\rho}, and values near zero are obviously favorable because this indicates that the Monte Carlo integration sample size \eqn{n} argument is sufficiently large to effectively canvas the \eqn{\mathcal{I}^2} domain. For the situation here, the theoretical \eqn{\rho_\mathbf{C} = 0}, but for \code{n} \eqn{= n = 100}, the \code{error.rho} \eqn{\approx} 0.006 (\emph{e.g.} \code{bilmoms(n=100,} \code{cop=UsersCop)$error.rho}) through a 20 unit replication, which is a hint that 100 samples are not large enough and that should be obvious.
+where the \code{error.rho} \eqn{=} \eqn{\epsilon_\rho}, and values near zero are obviously favorable because this indicates that the Monte Carlo integration sample size \eqn{n} argument is sufficiently large to effectively canvas the \eqn{\mathcal{I}^2} domain. For the situation here, the theoretical \eqn{\rho_\mathbf{C} = 0}, but for \code{n} \eqn{= n = 100}, the \code{error.rho} \eqn{\approx} 0.006 (\emph{e.g.} \code{bilmoms(n=100,} \code{cop=UsersCop)$error.rho}) through a 20-unit replication, which is a hint that 100 samples are not large enough and that should be obvious.
 
 The reasoning behind using the \code{error.rho} between conventional numerical integration and the Monte Carlo integration (\code{error.rho}) is that \eqn{\rho_\mathbf{C}} is symmetrical. This choice of \dQuote{convergence} assessment reduces somewhat the sample size needed for Monte Carlo integration into single number representing error.
 
@@ -84,7 +84,7 @@ The reasoning behind using the \code{error.rho} between conventional numerical i
   [1,] 0.5000048        NA
   [2,]        NA 0.5000008
 }
-where the diagonal should be filled with 1/2 if the \eqn{n} is suitably large because 1/2 is the mean of the marginal uniform random variables. By definition the secondary diagonal has \code{NA}s. The values shown above are extremely close supporting the idea that default \eqn{n} is large enough. The means matrix however is otherwise uninformative.
+where the diagonal should be filled with 1/2 if the \eqn{n} is suitably large because 1/2 is the mean of the marginal uniform random variables. By definition the secondary diagonal has \code{NA}s. The values shown above are extremely close supporting the idea that default \eqn{n} is large enough. The matrix of means is otherwise uninformative.
 
 The second L-comoment matrix (L-scales and L-coscales) is
 \preformatted{
@@ -100,7 +100,7 @@ The second L-comoment ratio matrix (coefficient of L-variations and L-correlatio
   [1,]  1.000000e+00  2.821651e-05
   [2,]  2.821651e-05  1.000000e+00
 }
-where the diagonal by definition has unities (correlation is unity for a variable on itself) but the secondary diagonal for the L-correlations has near zeros because the copula is uncorrelated, and the secondary diagonal is computed from the \eqn{\delta^{[\ldots]}_1}. These L-correlations are \emph{Spearman's Rho} computed external to \code{\link{rhoCOP}}.
+where the diagonal by definition has unities (correlation is unity for a variable on itself) but the secondary diagonal for the L-correlations has near zeros because the copula is uncorrelated, and the secondary diagonal is computed from the \eqn{\delta^{[\ldots]}_1}. These L-correlations are \emph{Spearman's Rho} computed external to the algorithms within \code{\link{rhoCOP}}.
 
 The third L-comoment ratio matrix (L-skews and L-coskews) is
 \preformatted{
