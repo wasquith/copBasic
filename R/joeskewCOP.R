@@ -40,7 +40,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
                         (j - i)*sum(as.numeric(R <= i & S <= j))/(n+1)
                      } ))
                   } ))/(nn*(n))
-         return(6*samNU)
+         return(96*samNU)
       } else if(type == "nustar") {
          if(as.sample == -1) message("Sample Nu-Skew-Star",
                                      "---CPU intensive!")
@@ -70,7 +70,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
                        (v-u)*COP(u,v,cop=cop,para=para, ...)
                     }))
                  }))
-          return(6*skew*delta^2)
+          return(96*skew*delta^2)
       } else if(type == "nustar") {
          skew <- sum(sapply(us, function(u) {
                     sum(sapply(vs, function(v) {
@@ -90,7 +90,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
                sapply(u,function(u) { integrate(function(v) {
                           (v-u)*COP(u,v,cop=cop, para=para,...)
                }, 0, 1)$value })}, 0, 1) )
-      ifelse(is.null(myint), return(NA), return(6*myint$value))
+      ifelse(is.null(myint), return(NA), return(96*myint$value))
    } else if(type == "nustar") {
       try(myint <- integrate(function(u) {
                sapply(u,function(u) { integrate(function(v) {

@@ -402,7 +402,8 @@ Version 2.1.1--2018-12-01
 Version 2.1.2--
 1. Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
        of the copula. Trivial to compute the number from standard copulas,
-       the problem is how to handle the compositing types. 
+       the problem is how to handle and count on the fly the number of parameters
+       for the various the compositing types. 
 2. Added warning of missing alpha or beta parameters in composite1COP and
        composite2COP. Small speed it, but debugging when these are not given 
        (forgotten) becomes complicated. (See #3 and #4)
@@ -410,12 +411,12 @@ Version 2.1.2--
        (See #2 and #4)
 4. Added warning of missing alpha in convex2COP() (See #2 and #3)
 5. Enhancement: Added additional indexing for GHcop, GLcop, and HRcop as EV cops.
-6. Added tEVcop() with port of implementation using the Pickands dependence
-       function involved. Examples provided. The tEVcop() is deemed useful because
+6. Added tEVcop() with implementation based on the Pickands dependence
+       function. Examples are provided. The tEVcop() is deemed useful because
        of interest in semi-exhaustive EV-copula study with the easy addition of a
        2-parameter copula without triggering convex or compositing. However, some 
-       literature indicates that form itself with 2 parameters is not really more
-       expressive than the GHcop and similar.
+       literature indicates that the form itself with two parameters is not really
+       more expressive than the GHcop and similar.
 7. Feature fix: COP.R had a weakness when parameters as a list are passed in
        its handling of "cop" versus "cop1", "cop2" etc.
 8. BUG FIX: Vectorization in convexCOP.R was not fully working for some
@@ -428,7 +429,14 @@ Version 2.1.2--
 10. Added the gEVcop().
 11. Added rotation to cophalf (Nelsen's triangular copula) within the examples
        of asCOP.Rd and bilmoms.Rd by including a para argument. This is useful
-       for further testing.
+       for further testing and as related to exploring nuskew() and nustar().
+12. Overhauled joeskewCOP() after more extensive testing including nuskew() and
+       nustar() for parameter estimation. There are now changes in the numerical
+       outputs including the basic scale of each statistic. (See joeskewCOP.Rd)
+       The biggest problems seem to have been in the numerical version of the
+       sample nustar, which prompted the overhaul. *** No users have reported
+       any problems with the older scheme, but no users are actually known to be
+       using nuskew() and nustar(). ***
 
 
 POTENTIAL TODOs:

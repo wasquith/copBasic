@@ -3,25 +3,26 @@
 \alias{joeskewCOP}
 \alias{nuskewCOP}
 \alias{nustarCOP}
-\title{ The Joe's Nu-Skew and Nu-Skew-Star of a Copula }
+\title{ Joe's Nu-Skew and copBasic Nu-Star of a Copula }
 \description{
-Compute the measure of \emph{permutation asymmetry} named for the \pkg{copBasic} package as \emph{Joe's Nu-Skew} \eqn{\nu_\mathbf{C}} of a copula according to Joe (2014, p. 66) by
+Compute the measure of \emph{permutation asymmetry}, which can be thought of as \emph{bivariate skewness}, named for the \pkg{copBasic} package as \emph{Joe's Nu-Skew} \eqn{\nu_\mathbf{C}} of a copula according to Joe (2014, p. 66) by
 \deqn{\nu_\mathbf{C} = 3\mathrm{E}[UV^2 - U^2V] = 6\int\!\!\int_{\mathcal{I}^2} (v-u)\mathbf{C}(u,v)\, \mathrm{d}u\mathrm{d}v\mbox{.}}
-This definition is the \code{type="nu"} for the function. Permutation asymmetry can be thought of as \emph{bivariate skewness}.
+This definition is effectively the \code{type="nu"} for the function for which the multiplier \eqn{6} has been converted to \eqn{96} as explained in the \bold{Note}.
 
-Numerical results indicate \eqn{\nu_\mathbf{W} \approx 0} (\code{\link{W}}), \eqn{\nu^\star_\mathbf{\Pi} = 0} (\code{\link{P}}), \eqn{\nu_\mathbf{M} \approx 0} (\code{\link{M}}), \eqn{\nu^\star_\mathbf{PL} \approx 0} for all \eqn{\Theta} (\code{\link{PLACKETTcop}}), and the \eqn{\nu^\star_\mathbf{GH} = 0} (\code{\link{GHcop}}); copulas with mirror symmetry across the 1:1 line have \eqn{\nu_\mathbf{C} = 0}. Asymmetric copulas do exist; consider an asymmetric Gumbel--Hougaard \eqn{\mathbf{GH}} with \eqn{\Theta_p = (5,0.8,p)}
+Numerical results indicate \eqn{\nu_\mathbf{W} \approx 0} (\code{\link{W}}), \eqn{\nu_\mathbf{\Pi} = 0} (\code{\link{P}}), \eqn{\nu_\mathbf{M} \approx 0} (\code{\link{M}}), \eqn{\nu_\mathbf{PL} \approx 0} for all \eqn{\Theta} (\code{\link{PLACKETTcop}}), and the \eqn{\nu^\star_\mathbf{GH} = 0} (\code{\link{GHcop}}); copulas with mirror symmetry across the 1:1 line have \eqn{\nu_\mathbf{C} = 0}.
+
+Asymmetric copulas do exist. For example, consider an asymmetric Gumbel--Hougaard \eqn{\mathbf{GH}} copula with \eqn{\Theta_p = (5,0.8,p)}:
 \preformatted{
-  optimize(function(p) { joeskewCOP(cop=GHcop, para=c(5,0.8, p), type="nu") },
+  optimize(function(p) { nuskewCOP(cop=GHcop, para=c(5,0.8, p)) },
            c(0,0.99) )$minimum
-  UV <- simCOP(n=1000, cop=GHcop, c(5,0.8, 0.2836485)) # inspect the graphics
+  UV <- simCOP(n=10000, cop=GHcop, c(5,0.8, 0.2836485)) # inspect the graphics
+  48*mean(UV$U*$V^2 - UV$U^2*UV$V) # -0.2847953 (not the 3rd parameter)
 }
-then minimization yields \eqn{\nu_{\mathbf{GH}(5, 0.8, 0.2836485)} = -0.002912608}.
+The minimization yields \eqn{\nu_{\mathbf{GH}(5, 0.8, 0.2836485)} = -0.2796104}, which is close the expectation computed where \eqn{48 = 96/2}.
 
-Another defintion supported here is for \code{type="nustar"} and is computed by
-\deqn{\nu^\star_\mathbf{C} = \int\!\!\int_{\mathcal{I}^2} (v+u)\mathbf{C}(u,v)\, \mathrm{d}u\mathrm{d}v - \frac{1}{3}\mbox{,}}
-which has been for the \pkg{copBasic} package, \eqn{\nu^\star_\mathbf{C}} is named as \emph{Nu-Skew-Star}.
-
-Numerical results indicate \eqn{\nu^\star_\mathbf{W} = -1/12} (\code{\link{W}}), \eqn{\nu^\star_\mathbf{\Pi} = 0} (\code{\link{P}}), and \eqn{\nu^\star_\mathbf{M} = +1/12} (\code{\link{M}}).
+A complementary definition is supported, triggered by \code{type="nustar"}, and is computed by
+\deqn{\nu^\star_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} (v+u)\mathbf{C}(u,v)\, \mathrm{d}u\mathrm{d}v - 4\mbox{,}}
+which has been for the \pkg{copBasic} package, \eqn{\nu^\star_\mathbf{C}} is named as \emph{Nu-Star}, which the \eqn{12} and the \eqn{-4} have been chosen so that numerical results indicate \eqn{\nu^\star_\mathbf{W} = -1} (\code{\link{W}}), \eqn{\nu^\star_\mathbf{\Pi} = 0} (\code{\link{P}}), and \eqn{\nu^\star_\mathbf{M} = +1} (\code{\link{M}}).
 
 Lastly, the \code{\link{uvlmoms}} function provides for a quantile-based measure of bivariate skewness based on the difference \eqn{U - V} that also is discussed by Joe (2014, p. 66).
 }
@@ -47,25 +48,25 @@ nustarCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
 \details{
 The implementation of \code{joeskewCOP} for \pkg{copBasic} provides the second definition of asymmetry, but why?  Consider the results that follow:
 \preformatted{
-  joeskewCOP(cop=GHcop, para=c(5, 0.8,    0.2836))
-     # -0.002912608
-  joeskewCOP(cop=GHcop, para=c(5, 0.2836,  0.8  ))
-     # +0.002912607
-  joeskewCOP(cop=GHcop, para=c(5, 0.8,    0.2836), type="nustar")
-     #  0.02975673
-  joeskewCOP(cop=GHcop, para=c(5, 0.2836, 0.8   ), type="nustar")
-     #  0.02975670
-  tauCOP(    cop=GHcop, para=c(5, 0.2836, 0.8   ))
-     #  0.2443013
+  joeskewCOP(cop=GHcop, para=c(5, 0.8,    0.2836485))
+     # -0.2796104
+  joeskewCOP(cop=GHcop, para=c(5, 0.2836485,    0.8))
+     # +0.2796103
+  joeskewCOP(cop=GHcop, para=c(5, 0.8,    0.2836485), type="nustar")
+     #  0.3571276
+  joeskewCOP(cop=GHcop, para=c(5, 0.2836485,    0.8), type="nustar")
+     #  0.3571279
+  tauCOP(    cop=GHcop, para=c(5, 0.2836485,    0.8))
+     #  0.2443377
 }
 The demonstration shows---at least for the symmetry (switchability) of the 2nd and 3rd parameters (\eqn{\pi_2} and \eqn{\pi_3}) of the asymmetric \eqn{\mathbf{GH}} copula---that the first definition \eqn{\nu} is magnitude symmetric but carries a sign change. The demonstration show magnitude and sign stablity for \eqn{\nu^\star}, and ends with \emph{Kendall's Tau} (\code{\link{tauCOP}}). Collectively, Kendall's Tau (or the other \emph{symmetric measures of association}, \emph{e.g.} \code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{wolfCOP}}) when combined with \eqn{\nu} and \eqn{\nu^\star} might provide a framework for parameter optimization of the asymmetric \eqn{\mathbf{GH}} copula (see below).
 
-The asymmetric \eqn{\mathbf{GH}_{(5, 0.2836, 0.8)}} is not radial (\code{\link{isCOP.radsym}}) or permutation (\code{\link{isCOP.permsym}}), but if \eqn{\pi_2 = \pi_3} then the resulting \eqn{\mathbf{GH}} copula is not radially symmetric but is permutation symmetric:
+The asymmetric \eqn{\mathbf{GH}_{(5, 0.2836485, 0.8)}} is not radial (\code{\link{isCOP.radsym}}) or permutation (\code{\link{isCOP.permsym}}), but if \eqn{\pi_2 = \pi_3} then the resulting \eqn{\mathbf{GH}} copula is not radially symmetric but is permutation symmetric:
 \preformatted{
-  isCOP.radsym( cop=GHcop, para=c(5, 0.2836, 0.8)) # FALSE
-  isCOP.permsym(cop=GHcop, para=c(5, 0.2836, 0.8)) # FALSE
-  isCOP.radsym( cop=GHcop, para=c(5, 0.8,    0.8)) # FALSE
-  isCOP.permsym(cop=GHcop, para=c(5, 0.8,    0.8)) # TRUE
+  isCOP.radsym( cop=GHcop, para=c(5, 0.2836485, 0.8)) # FALSE
+  isCOP.permsym(cop=GHcop, para=c(5, 0.2836485, 0.8)) # FALSE
+  isCOP.radsym( cop=GHcop, para=c(5, 0.8,       0.8)) # FALSE
+  isCOP.permsym(cop=GHcop, para=c(5, 0.8,       0.8)) # TRUE
 }
 
 The use of \eqn{\nu_\mathbf{C}} and \eqn{\nu^\star_\mathbf{C}} with a \emph{measure of association} is just suggested above for parameter optimization. Suppose we have \eqn{\mathbf{GH}_{(5,0.5,0.7)}} with \emph{Spearman's Rho} \eqn{\rho = 0.4888}, \eqn{\nu = 0.001475}, and \eqn{\nu^\star = 0.04223}, and the asymmetric \eqn{\mathbf{GH}} coupla is to be fit. Parameter estimation for the asymmetric \eqn{\mathbf{GH}} is accomplished by
@@ -107,7 +108,35 @@ The use of \eqn{\nu_\mathbf{C}} and \eqn{\nu^\star_\mathbf{C}} with a \emph{meas
   message("Child  para: ",  paste(child,       collapse=", "))
 }
 
-The initial parameter estimate has the value \eqn{\Theta = 1}, which is \emph{independence} for the one parameter \eqn{\mathbf{GH}}. The two other parameters are set as \eqn{\pi_2 = \pi_3 = 1/2} to be in the mid-point of their domain. The transformations using the \code{log()} \eqn{\leftrightarrow} \code{exp()} and \code{qnorm()} \eqn{\leftrightarrow} \code{pnorm()} functions in \R are used to keep the optimization in the viable parameter domain. The results produce a fitted copula of \eqn{\mathbf{GH}_{(2.739, 0.5429, 0.7993)}}. This fit does not align fully with the parent, but the three statistics are matched during the fitting. So there are ambiguities with fully identifiability of the parameters using this technique.
+The initial parameter estimate has the value \eqn{\Theta = 1}, which is \emph{independence} for the one parameter \eqn{\mathbf{GH}}. The two other parameters are set as \eqn{\pi_2 = \pi_3 = 1/2} to be in the mid-point of their domain. The transformations using the \code{log()} \eqn{\leftrightarrow} \code{exp()} and \code{qnorm()} \eqn{\leftrightarrow} \code{pnorm()} functions in \R are used to keep the optimization in the viable parameter domain. The results produce a fitted copula of \eqn{\mathbf{GH}_{(4.907, 0.5006, 0.7014)}}. This fit aligns well with the parent, and the three statistics are essentially matched during the fitting.
+
+The \eqn{\nu^\star_\mathbf{C}} can be similar to \code{\link{rhoCOP}}, but differences do exist. In the presence of radial symmetry, (\eqn{\nu_\mathbf{C} == 0}), the \eqn{\nu^\star_\mathbf{C}} is nearly equal to \emph{Spearman Rho} for some copulas. Let us test further:
+\preformatted{
+  p <- 10^seq(0,2,by=.01)
+  s <- sapply(p, function(t) nustarCOP(cop=GHcop, para=c(t)))
+  r <- sapply(p, function(t)    rhoCOP(cop=GHcop, para=c(t)))
+  plot(p,s, log="x", type="l", col=3, lwd=3)
+  lines(p,r)
+}
+Now let us add some asymmetry
+\preformatted{
+  p <- 10^seq(0,2,by=.01)
+  s <- sapply(p, function(t) nustarCOP(cop=GHcop, para=c(t, 0.25, 0.75)))
+  r <- sapply(p, function(t)    rhoCOP(cop=GHcop, para=c(t, 0.25, 0.75)))
+  plot(p,s, log="x", type="l", col=3, lwd=3)
+  lines(p,r)
+}
+Now let us choose a different copula
+\preformatted{
+  p <- 10^seq(0,2,by=.01)
+  s <- sapply(p, function(t) nustarCOP(cop=CLcop, para=c(t)))
+  r <- sapply(p, function(t)    rhoCOP(cop=CLcop, para=c(t)))
+  plot(p,s, log="x", type="l", col=3, lwd=3)
+  lines(p,r)
+}
+}
+\note{
+The \eqn{\nu_\mathbf{C}} definition is given with a multiplier of \eqn{6} on the integrals in order to agree with Joe (2014) relation that is also shown. However, in mutual parameter estimation experiments using a simple sum-of-square errors as shown in the \bold{Details}, it is preferred to have \eqn{\nu_\mathbf{C}} measured on a larger scale. Where does the \eqn{96} then come from? It is a heuristic made so that the upright and rotated \code{cophalf} (see \bold{Examples} under \code{\link{asCOP}} and \code{\link{bilmoms}} for this copula) acquires \eqn{\nu_\mathbf{C}} values of +1 and -1, respectively. As a result to make back comparisons to Joe results, the ratios of 96 are made in this documentation.
 }
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
@@ -118,19 +147,20 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}}
 }
 \examples{
-nuskewCOP(cop=GHcop,para=c(1.43,1/2,1))*6 # 0.005886 (Joe, 2014, p. 184; 0.0059)
+nuskewCOP(cop=GHcop,para=c(1.43,1/2,1))*(6/96) # 0.005886 (Joe, 2014, p. 184; 0.0059)
 
 \dontrun{
-joeskewCOP(            cop=GHcop, para=c(8, .7, .5)) # -0.00158697
-joeskewCOP(            cop=GHcop, para=c(8, .5, .7)) # +0.00158695
+joeskewCOP(            cop=GHcop, para=c(8, .7, .5)) # -0.1523491
+joeskewCOP(            cop=GHcop, para=c(8, .5, .7)) # +0.1523472
 # UV <- simCOP(n=1000, cop=GHcop, para=c(8, .7, .5)) # see the switch in
 # UV <- simCOP(n=1000, cop=GHcop, para=c(8, .5, .7)) # curvature}
 
 \dontrun{
 para=c(19,0.3,0.8); set.seed(341)
-nuskew <- joeskewCOP( cop=GHcop, para=para) # 0.00318515
+nuskew <-  nuskewCOP( cop=GHcop, para=para) # 0.3057744
 UV <- simCOP(n=10000, cop=GHcop, para=para) #   a large simulation
-mean((UV$U - UV$V)^3)/6                     # 0.003257707
+mean((UV$U - UV$V)^3)/(6/96)                # 0.3127398
+
 # Two other definitions of skewness follow and are not numerically the same.
 uvskew(u=UV$U, v=UV$V, umv=TRUE)  # 0.3738987  (see documentation uvskew)
 uvskew(u=UV$U, v=UV$V, umv=FALSE) # 0.3592739  ( or documentation uvlmoms)
@@ -149,16 +179,16 @@ lmomco::lcomoms2(UV)$T3 # L-coskew of the simulated values [1,2] and [2,1]
 #
 # Now let us check the sample estimator for sample of size n=300, and the
 # t-test will (should) result in acceptance of the NULL hypothesis.
-S <- replicate(60, joeskewCOP(para=simCOP(n=300, cop=GHcop, para=para,
-                                          graphics=FALSE), as.sample=TRUE))
+S <- replicate(60, nuskewCOP(para=simCOP(n=300, cop=GHcop, para=para,
+                                         graphics=FALSE), as.sample=TRUE))
 t.test(S, mu=nuskew)
 #t = 0.004633, df = 59, p-value = 0.9963
-#alternative hypothesis: true mean is not equal to 0.00318515
+#alternative hypothesis: true mean is not equal to 0.3057744
 #95 percent confidence interval:
-# 0.002973210 0.003398073
+# 0.2854282 0.3262150
 #sample estimates:
-#  mean of x
-#0.003185642  }
+#mean of x
+#0.3058216 }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
