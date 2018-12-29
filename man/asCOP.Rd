@@ -38,7 +38,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
    } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u <= 1  ) { return(u+v-1)
    } else { stop("should not be here in logic") }
 }
-"UsersCop" <- function(u,v, ...) { asCOP(u,v, f=coptriangle, ...) }
+"UsersCop" <- function(u,v, ...) { asCOP(u,v, f=trianglecop, ...) }
 n=20000; UV <- simCOP(n=n, cop=UsersCop)
 # The a-d elements of the problem now follow:
 # (a) Pr[V = 1 - |2*U -1|] = 1 and Cov(U,V) = 0; so that two random variables
