@@ -32,7 +32,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 "trianglecop" <- function(u,v, para=NULL, ...) {
    # If para is set, then the triangle is rotated 90d clockwise.
    if(! is.null(para) && para == 1) { t <- u; u <- v; v <- t }
-   if(length(u) > 1 | length(v) > 1)   stop("only scalars for this function")
+   if(length(u) > 1 | length(v) > 1) stop("only scalars for this function")
    v2<-v/2; if(0   <= u    &  u   <= v2 & v2 <= 1/2) { return(u    )
    } else   if(0   <= v2   & v2   <  u  &  u < 1-v2) { return(v2   )
    } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u <= 1  ) { return(u+v-1)
