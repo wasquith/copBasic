@@ -24,11 +24,12 @@ Similarly, the \eqn{\delta^{[21]}_k} are computed by switching \eqn{u \rightarro
 The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}. These seven equations potentially could be used for parameter estimation of a copula with as many as seven parameters.
 }
 \usage{
-bilmoms(cop=NULL, para=NULL, n=1E5, sobol=TRUE, ...)
+bilmoms(cop=NULL, para=NULL, only.bilmoms=FALSE, n=1E5, sobol=TRUE, ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
+  \item{only.bilmoms}{A logical to trigger return of the \eqn{\delta_k} and skip L-comoment computation;}
   \item{n}{The Monte Carlo integration size. The default seems to be at least an order of magnitude greater than needed for many applied problems;}
   \item{sobol}{A logical trigging \emph{Sobol sequences} for the Monte Carlo integration instead of the bivariate uniform distribution (independence). The Sobol sequences are dependent on the \code{sobol()} function of the \pkg{randtoolbox} package, and the Sobol sequences canvas the \eqn{\mathcal{I}^2} domain for smaller \eqn{n} values than required if statistical independence is used for the Monte Carlo integration; and}
   \item{...}{Additional arguments to pass to the \code{\link{densityCOP}} function.}
@@ -38,7 +39,7 @@ bilmoms(cop=NULL, para=NULL, n=1E5, sobol=TRUE, ...)
   \item{bilmomUV}{The bivariate L-moments \eqn{\delta^{[12]}_k} of \eqn{U} with respect to \eqn{V} for \eqn{k \in [1,2,3,4]};}
   \item{bilmomVU}{The bivariate L-moments \eqn{\delta^{[21]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [1,2,3,4]};}
   \item{error.rho}{An \dQuote{error} term in units of \eqn{\delta^{[12 \& 21]}_1} used to judge whether the sample size for the Monte Carlo integration is sufficient based on a comparison to \emph{Spearman's Rho} from direct numerical integration (not Monte Carlo based) using \code{\link{rhoCOP}} of the copula. Values for \code{error.rho} \eqn{< 1E{-}5} seem to be sufficient to judge whether \code{n} is large enough;}
-  \item{bilcomoms}{Another \R \code{list} holding the L-comoments (see \bold{Note}) computed by simple remapping of the \eqn{\delta^{[\ldots]}_k} and parallel in structure to the \code{lcomoms2()} function of the \pkg{lmomco} package; and}
+  \item{bilcomoms}{If not \code{only.bilmoms}, another \R \code{list} holding the L-comoments (see \bold{Note}) computed by simple remapping of the \eqn{\delta^{[\ldots]}_k} and parallel in structure to the \code{lcomoms2()} function of the \pkg{lmomco} package; and}
   \item{source}{An attribute identifying the computational source of the bivariate L-moments and bivariate L-comoments: \dQuote{bilmoms.}}
 }
 \note{
@@ -46,7 +47,7 @@ The mapping of the bivariate L-moments to their L-comoment matrix counterparts i
 
 Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 64--65) for demonstration, simulate from it a sample of size \eqn{m = 20{,}000} and compute some sample L-comoments using the following CPU intensive code. The function \code{\link{asCOP}} completes the vectorization needed for non-Monte Carlo integration for \code{\link{rhoCOP}}.
 \preformatted{
-  "cophalf" <- function(u,v, ...) {
+  "trianglecop" <- function(u,v, ...) {
      # If para is set, then the triangle is rotated 90d clockwise.
      if(! is.null(para) && para == 1) { t <- u; u <- v; v <- t }
      if(length(u) > 1 | length(v) > 1) stop("only scalars for this function")
@@ -55,7 +56,7 @@ Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 
      } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u  <= 1   ) { return(u+v-1)
      } else { stop("should not be here in logic") }
   }
-  "UsersCop" <- function(u,v, ...) { asCOP(u,v, f=cophalf, ...) }
+  "UsersCop" <- function(u,v, ...) { asCOP(u,v, f=trianglecop, ...) }
   m=20000; SampleUV <- simCOP(n=m, cop=UsersCop, graphics=FALSE)
   samLC <- lmomco::lcomoms2(SampleUV, nmom=5)
 }
