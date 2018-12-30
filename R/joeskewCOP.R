@@ -9,11 +9,9 @@ function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...) {
               brute=brute, delta=delta, as.sample=as.sample, ...)
 }
 "joeskewCOP" <-
-function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
+function(cop=NULL, para=NULL, type=c("nu", "nustar", "nuskew"), as.sample=FALSE,
                               brute=FALSE, delta=0.002,...) {
-
    type = match.arg(type)
-
    if(as.sample) {
       if(is.null(para)) {
          warning("Sample Nu-Skew desired but para is NULL, ",
@@ -32,14 +30,14 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
       #npm <- ifelse(corsgn == -1, +1,   +0)
       spm <- ifelse(corsgn == -1, +2.4, +1.1)
       samNU <- NA
-      if(type == "nu") {
+      if(type == "nu" | type == "nuskew") {
          if(as.sample == -1) message("Sample Nu-Skew after Joe (2014)",
                                      "---CPU intensive!")
          samNU <- sum(sapply(ns, function(i) {
                      sum(sapply(ns, function(j) {
                         (j - i)*sum(as.numeric(R <= i & S <= j))/(n+1)
                      } ))
-                  } ))/(nn*(n))
+                  } ))/(nn*(n)) # Note division by (n) but not in the similar place below
          return(96*samNU)
       } else if(type == "nustar") {
          if(as.sample == -1) message("Sample Nu-Skew-Star",
@@ -48,7 +46,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
                   sum(sapply(ns, function(j) {
                      (j + i)*sum(as.numeric(R <= i & S <= j))/(n+spm)
                   } ))
-               } ))/(nn*(n+1))
+               } ))/(nn*(n+1)) # Note division by (n+1) but not in the similar place above
          return(12*samNU - 4)
       } else {
          stop("Never should be here in logic")
@@ -64,7 +62,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
    if(brute) {
       us <- vs <- seq(.Machine$double.eps, 1-.Machine$double.eps, delta)
       skew <- NA
-      if(type == "nu") {
+      if(type == "nu" | type == "nuskew") {
          skew <- sum(sapply(us, function(u) {
                     sum(sapply(vs, function(v) {
                        (v-u)*COP(u,v,cop=cop,para=para, ...)
@@ -85,7 +83,7 @@ function(cop=NULL, para=NULL, type=c("nu", "nustar"), as.sample=FALSE,
    }
 
    myint <- NULL
-   if(type == "nu") {
+   if(type == "nu" | type == "nuskew") {
       try(myint <- integrate(function(u) {
                sapply(u,function(u) { integrate(function(v) {
                           (v-u)*COP(u,v,cop=cop, para=para,...)
