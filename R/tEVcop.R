@@ -1,4 +1,5 @@
-"tEVcop" <- function(u, v, para=NULL, ...) { # Implementation Joe (2014, p. 189)
+"tEVcop" <- function(u, v, para=NULL, ...) {
+   # Implementation Joe (2014, p. 189)
    if(is.null(para)) {
       warning("no parameters, NULL")
    }
@@ -36,7 +37,7 @@
    return(z)
 }
 
-
+# Experimental version shown below based on copula package.
 #"tEVcop2" <- function(u, v, para=NULL, ...) {
 #   if(is.null(para)) {
 #      warning("no parameters, NULL")
