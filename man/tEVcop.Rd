@@ -12,7 +12,9 @@ where \eqn{x = -\log(u)}, \eqn{y = -\log(v)}, and letting \eqn{\eta = \sqrt{(\nu
 \deqn{
 B(w; \rho, \nu) = wT_{\nu+1}\bigl(\eta[(w/[1-w])^{1/\nu}-\rho]\bigr) + (1-w)T_{\nu+1}\bigl(\eta[([1-w]/w)^{1/\nu}-\rho]\bigr)\mbox{,}
 }
-where \eqn{T_{\nu+1}} is the cumulative distribution function of the \emph{univariate t-distribution} with \eqn{\nu-1} degrees of freedom. As \eqn{\nu \rightarrow \infty}, the copula weakly converges to the \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}) because the t-distribution converges to the normal (see \bold{Examples} for a study of this copula). This copula is implemented in \pkg{copBasic} to have a two-parameter option in working with extreme-value copula.
+where \eqn{T_{\nu+1}} is the cumulative distribution function of the \emph{univariate t-distribution} with \eqn{\nu-1} degrees of freedom. As \eqn{\nu \rightarrow \infty}, the copula weakly converges to the \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}) because the t-distribution converges to the normal (see \bold{Examples} for a study of this copula).
+
+The \eqn{\mathbf{tEV}(u,v; \rho, \nu)} copula is a two-parameter option when working with extreme-value copula. There is a caveat though. Demarta and McNeil (2004) conclude that \dQuote{the parameter of the Gumbel [\code{\link{GHcop}}] or Galambos [\code{\link{GLcop}}] A-functions [the Pickend dependence function and B-function by association] can always be chosen so that the curve is extremely close to that of the t-EV A-function for any values of \eqn{\nu} and \eqn{rho}. The implication is that in all situations where the t-EV copula might be deemed an appropriate model we can work instead with the simpler Gumbel or Galambos copulas.}
 }
 \usage{
 tEVcop(u, v, para=NULL, ...)
@@ -31,6 +33,8 @@ Note that Joe (2014) shows \eqn{x = \log(u)} (note absence of the minus sign). T
 }
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
+
+Demarta, S., and McNeil, A.J., 2004, The t copula and related copulas: International Statistical Review, v. 33, no. 1, pp. 111--129, \url{https://doi.org/10.1111/j.1751-5823.2005.tb00254.x}
 }
 \author{ W.H. Asquith}
 \seealso{ \code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{HRcop}}
