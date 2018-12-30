@@ -21,7 +21,7 @@ where in otherwords, \dQuote{the third bivariate L-moment \eqn{\delta^{[12]}_3} 
 
 Similarly, the \eqn{\delta^{[21]}_k} are computed by switching \eqn{u \rightarrow v} in the polynomials within the above integrals multiplied to the copula in the system of equations with \eqn{u}. In general, \eqn{\delta^{[12]}_k \not= \delta^{[21]}_k} for \eqn{k > 1} unless in the case of \emph{permutation symmetric} (\code{\link{isCOP.permsym}}) copulas. By theory, \eqn{\delta^{[12]}_1 = \delta^{[21]}_1 = \rho_\mathbf{C}/6} where \eqn{\rho_\mathbf{C}} is \emph{Spearman's Rho} \code{\link{rhoCOP}}.
 
-The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}. These seven equations potentially could be used for parameter estimation of a copula with as many as seven parameters.
+The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}.
 }
 \usage{
 bilmoms(cop=NULL, para=NULL, only.bilmoms=FALSE, n=1E5, sobol=TRUE, ...)
