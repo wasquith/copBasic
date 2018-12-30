@@ -92,4 +92,22 @@
 #print(tEVcop( 0,0.15, para=para))
 #print(tEVcop2(0,0.15, para=para))
 
+#afunc <- function(par, rho=NA, nustar=NA) {
+#   par[1] <- pnorm(par[1])
+#   par[2] <- exp(par[2])
+#   my.rho <- rhoCOP(   tEVcop, par)
+#   my.nus <- nustarCOP(tEVcop, par)
+#   r <- (rho-my.rho)^2
+#   s <- (nustar-my.nus)^2
+#   return((r+s))
+#}
 
+#UV <- simCOP(1000, cop=GLcop, para=3)
+#rho <- cor(UV$U, UV$V, method="spearman")
+#nus <- nuskewCOP(para=UV, as.sample=TRUE)
+#nut <- nustarCOP(para=UV, as.sample=TRUE)
+
+#para <- optim(par=c(.5, log(5)), fn=afunc, rho=rho, nustar=nut)$par
+#para[1] <- pnorm(para[1]); para[2] <- exp(para[2])
+#densityCOPplot(cop=GLcop, para=3)
+#densityCOPplot(cop=tEVcop, para=para, ploton=FALSE, contour.col=2)
