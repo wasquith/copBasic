@@ -7,7 +7,7 @@ Compute the \emph{lower semi-correlations}
 \deqn{\rho^{N-}_\mathbf{C}(u,v; a) = \rho_N^{-}(a) \mbox{ and}}
 compute the \emph{upper semi-correlations}
 \deqn{\rho^{N+}_\mathbf{C}(u,v; a) = \rho_N^{+}(a)}
-of a copula \eqn{\mathbf{C}(u,v)} (Joe, 2014, p. 73). The semi-correlations are defined as
+of a copula \eqn{\mathbf{C}(u,v)} (Joe, 2014, p. 73) using numerical simulation. The semi-correlations are defined as
 \deqn{\rho_N^{-}(a) = \mathrm{cor}[Z_1, Z_2|Z_1 > a, Z_2 > a]\mbox{,}}
 \deqn{\rho_N^{+}(a) = \mathrm{cor}[Z_1, Z_2|Z_1 < a, Z_2 < a]\mbox{,\ and}}
 \deqn{\rho_N(a > -\infty) = \mathrm{cor}[Z_1, Z_2]\mbox{,}}
