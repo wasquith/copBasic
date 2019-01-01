@@ -82,7 +82,7 @@ function(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, ...) {
      names(deltasX2wrtX1) <- c("nothing",
                                "Lcomom:T2[21]", "Lcomom:T3[21]",
                                "Lcomom:T4[21]", "Lcomom:T5[21]")
-     zz$lcomomUV <- 6*deltasX1wrtX2; zz$lcomomVU <- 6*deltasX2wrtX1
+     zz$lcomUV <- 6*deltasX1wrtX2; zz$lcomVU <- 6*deltasX2wrtX1
    }
    return(zz)
 }

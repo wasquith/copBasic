@@ -37,8 +37,8 @@ lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, ...)
   An \R \code{list} of the L-comoments or bivariate L-moments is returned depending on \code{as.bilmoms} setting.
   \item{bilmomUV}{The bivariate L-moments \eqn{\delta^{[12]}_k} of \eqn{U} with respect to \eqn{V} for \eqn{k \in [1,2,3,4]} if \code{orders} is \code{2:5} and there is no \code{NA} index as for the L-comoments;}
   \item{bilmomVU}{The bivariate L-moments \eqn{\delta^{[21]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [1,2,3,4]} if \code{orders} is \code{2:5} and there is no \code{NA} index as for the L-comoments;}
-  \item{lcomomUV}{The L-comoments \eqn{\tau^{[12]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [2,3,4,5]} if \code{orders} is \code{2:5} and index 1 is \code{NA}; and}
-  \item{lcomomVU}{The L-comoments \eqn{\tau^{[21]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [2,3,4,5]} if \code{orders} is \code{2:5} and index 1 is \code{NA}.}
+  \item{lcomUV}{The L-comoments \eqn{\tau^{[12]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [2,3,4,5]} if \code{orders} is \code{2:5} and index 1 is \code{NA}; and}
+  \item{lcomVU}{The L-comoments \eqn{\tau^{[21]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [2,3,4,5]} if \code{orders} is \code{2:5} and index 1 is \code{NA}.}
 }
 \note{
 The documention here is highly parallel to \code{\link{bilmoms}} for which that function was developed some years before \code{lmomCOP} {January 2019}. Also \code{\link{bilmoms}} is based on gridded or Monte Carlo numerical integration is deprecated and is to be considered deprecated. Finally, related background and various algorithm testing is documented in \code{\link{bilmoms}}.
@@ -58,15 +58,15 @@ Serfling, R., and Xiao, P., 2007, A contribution to multivariate L-moments---L-c
 \examples{
 \dontrun{
 para <- list(alpha=0.5, beta=0.93, para1=4.5, cop1=GLcop, cop2=PSP)
-copBasic:::lcomCOP(cop=composite2COP, para=para)$lcomomUV[3]
-# Lcomom:T3[12]=  +0.156 
-copBasic:::lcomCOP(cop=composite2COP, para=para)$lcomomVU[3]
-# Lcomom:T3[21]=  -0.0668 
-bilmoms(cop=composite2COP, n=10000, para=para, sobol=FALSE)
-# Tau3[12]=0.156, Tau3[21]=-0.0668}
+copBasic:::lcomCOP(cop=composite2COP, para=para)$lcomUV[3]
+# Lcomom:T3[12]=  +0.156
+copBasic:::lcomCOP(cop=composite2COP, para=para)$lcomVU[3]
+# Lcomom:T3[21]=  -0.0668
+bilmoms(cop=composite2COP, n=10000, para=para, sobol=TRUE)$bilcomoms$T3
+# Tau3[12]=+0.1566, Tau3[21]=-0.0655
 # The numerical default Monte Carlo integration of bilmoms()
 # matches the numerical integration of lcomCOP albeit with a
-# substantially slower and less elegant means in bilmoms().
+# substantially slower and less elegant means in bilmoms().}
 }
 \keyword{bivariate asymmetry (measures)}
 \keyword{bivariate skewness}
