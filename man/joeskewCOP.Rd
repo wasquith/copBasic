@@ -27,8 +27,8 @@ which has been for the \pkg{copBasic} package, \eqn{\nu^\star_\mathbf{C}} is nam
 Lastly, the \code{\link{uvlmoms}} function provides for a quantile-based measure of bivariate skewness based on the difference \eqn{U - V} that also is discussed by Joe (2014, p. 66).
 }
 \usage{
-joeskewCOP(cop=NULL, para=NULL, type=c("nu", "nustar", "nuskew"), as.sample=FALSE,
-                                                brute=FALSE, delta=0.002, ...)
+joeskewCOP(cop=NULL, para=NULL, type=c("nu", "nustar", "nuskew"),
+                               as.sample=FALSE, brute=FALSE, delta=0.002, ...)
 
 nuskewCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
 nustarCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -186,6 +186,26 @@ t.test(S, mu=nuskew)
 #sample estimates:
 #mean of x
 #0.3058216 }
+
+\dontrun{
+# Let us run a large ensemble of copula properties that use the whole copula
+# (not tail properties). We composite a Plackett with a Gumbel-Hougaard for
+# which the over all association (correlation) sign is negative, but amongst
+# these statistics with nuskew and nustar at the bottom, there are various
+# quantities that can be extracted. These could be used for fitting.
+para <- list(cop1=PLcop, cop2=GHcop, alpha=0.6, beta=0.9,
+             para1=.005, para2=c(8.3,0.25,0.7))
+UV <- simCOP(1000, cop=composite2COP, para=para)
+  blomCOP(composite2COP, para)            # -0.4078657
+  footCOP(composite2COP, para)            # -0.2854227
+  hoefCOP(composite2COP, para)            # +0.5713775
+  lcomCOP(composite2COP, para)$lcomUV[3]  # +0.1816084
+  lcomCOP(composite2COP, para)$lcomVU[3]  # +0.1279844
+   rhoCOP(composite2COP, para)            # -0.5688417
+   tauCOP(composite2COP, para)            # -0.4514693
+  wolfCOP(composite2COP, para)            # +0.5691933
+nustarCOP(composite2COP, para)            # -0.5172434
+nuskewCOP(composite2COP, para)            # +0.0714987 }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
