@@ -5,9 +5,9 @@
 \description{
 Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
 
-\deqn{\sigma_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} |\mathbf{C}(u,v) - uv|\,\mathrm{d}u\mathrm{d}v\mbox{.}}
+\deqn{\sigma_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} |\mathbf{C}(u,v) - uv|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 
-It is obvious that this measure of association is similar to the following form of \emph{Spearman's Rho} of a copula:
+which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association, without the positive sign restriction, is similar to the following form of \emph{Spearman's Rho} of a copula:
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} [\mathbf{C}(u,v) - uv]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
