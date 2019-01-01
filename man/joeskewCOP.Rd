@@ -193,15 +193,17 @@ t.test(S, mu=nuskew)
 # which the over all association (correlation) sign is negative, but amongst
 # these statistics with nuskew and nustar at the bottom, there are various
 # quantities that can be extracted. These could be used for fitting.
+set.seed(873)
 para <- list(cop1=PLcop, cop2=GHcop, alpha=0.6, beta=0.9,
              para1=.005, para2=c(8.3,0.25,0.7))
-UV <- simCOP(1000, cop=composite2COP, para=para)
+UV <- simCOP(1000, cop=composite2COP, para=para) # just to show
   blomCOP(composite2COP, para)            # -0.4078657
   footCOP(composite2COP, para)            # -0.2854227
   hoefCOP(composite2COP, para)            # +0.5713775
   lcomCOP(composite2COP, para)$lcomUV[3]  # +0.1816084
   lcomCOP(composite2COP, para)$lcomVU[3]  # +0.1279844
    rhoCOP(composite2COP, para)            # -0.5688417
+rhobevCOP(composite2COP, para)            # -0.2005210
    tauCOP(composite2COP, para)            # -0.4514693
   wolfCOP(composite2COP, para)            # +0.5691933
 nustarCOP(composite2COP, para)            # -0.5172434
