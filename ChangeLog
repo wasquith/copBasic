@@ -445,9 +445,15 @@ Version 2.1.2--
        integration was not originally implemented for bilmoms(). (Sorry.)
        Testing indicates that lcomCOP() works well and is much much faster.
        The function lcomCOPpv() will need revisition for a future release.
+15. Added "1", "2", "3", "4" argument options for reflect in simCOPmicro() and
+       simCOPv() to be parallel with COP().
+16. Made an editorial sweep throughout the documentation.
 
 
 POTENTIAL TODOs:
+
+samcor --> as.sample change in semicorCOP().
+lcomCOPpv <--> vuongCOP  
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
   Make such conversions through out or go back to W.H. Asquith?
