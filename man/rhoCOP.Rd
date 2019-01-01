@@ -65,11 +65,11 @@ rho_sample <- mean(rhos); print(rho_sample) # 0.472661}
 
 \dontrun{
 para <- list(cop1=PLACKETTcop,  cop2=PLACKETTcop,
-             para1=0.00395,    para2=4.67, alpha=0.9392, beta=0.5699)
+             para1=0.00395,    para2=4.67,     alpha=0.9392, beta=0.5699)
 rhoCOP(cop=composite2COP, para=para) # -0.5924796
 
 para <- list(cop1=PLACKETTcop,  cop2=PLACKETTcop,
-             para1=0.14147,    para2=20.96, alpha=0.0411, beta=0.6873)
+             para1=0.14147,    para2=20.96,    alpha=0.0411, beta=0.6873)
 rhoCOP(cop=composite2COP, para=para) # 0.2818874
 
 para <- list(cop1=PLACKETTcop,  cop2=PLACKETTcop,
