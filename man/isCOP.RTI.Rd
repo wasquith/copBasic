@@ -9,9 +9,9 @@ for almost all \eqn{u \in [0,1]}. Similarly, a copula \eqn{\mathbf{C}(u,v)} is r
 \deqn{\frac{\delta \mathbf{C}(u,v)}{\delta v} \le \frac{u - \mathbf{C}(u,v)}{1 - v}}
 for almost all \eqn{v \in [0,1]} where the later definition is controlled by the \code{wrtV=TRUE} argument.
 
-The RTI concept is associated with the concept of \emph{tail monotonicity} (Nelsen, 2006, p. 191). Specifically, but reference to Nelsen (2006) definitions and geometric interpretations is recommended, \eqn{\mathrm{RTI}(V{\mid}U)} (or \eqn{\mathrm{RTI}(V{\mid}U)}) means that the probability \eqn{P[Y > y|X > x]} (or \eqn{P[X > x|Y > y]}) is a nondecreasing function of \eqn{x} (or \eqn{y}) for all \eqn{y} (or \eqn{x}).
+The RTI concept is associated with the concept of \emph{tail monotonicity} (Nelsen, 2006, p. 191). Specifically, but reference to Nelsen (2006) definitions and geometric interpretations is recommended, RTI\eqn{(V{\mid}U)} (or RTI\eqn{(V{\mid}U)}) means that the probability \eqn{P[Y > y|X > x]} (or \eqn{P[X > x|Y > y]}) is a nondecreasing function of \eqn{x} (or \eqn{y}) for all \eqn{y} (or \eqn{x}).
 
-A positive RTI of either \eqn{\mathrm{RTI}(V{\mid}U)} or \eqn{\mathrm{RTI}(U{\mid}V)} implies positively quadrant dependency (PQD, \code{\link{isCOP.PQD}}) but the condition of PQD does not imply RTI. Finally, the accuracy of the numerical assessment of the returned logical by \code{isCOP.RTI} is dependent on the the smallness of the \code{delta} argument passed into the function.
+A positive RTI of either RTI\eqn{(V{\mid}U)} or RTI\eqn{(U{\mid}V)} implies positively quadrant dependency (PQD, \code{\link{isCOP.PQD}}) but the condition of PQD does not imply RTI. Finally, the accuracy of the numerical assessment of the returned logical by \code{isCOP.RTI} is dependent on the the smallness of the \code{delta} argument passed into the function.
 }
 \usage{
 isCOP.RTI(cop=NULL, para=NULL, wrtV=FALSE, delta=0.005, ...)
