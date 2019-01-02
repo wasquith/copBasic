@@ -9,7 +9,7 @@ Description: Extensive functions for bivariate copula (bicopula) computations an
  numerical bicopula density. Level sets, horizontal and vertical sections are supported. Numerical 
  derivatives and inverses of a bicopula are provided through which simulation is implemented. 
  Bicopula composition, convex combination, and products also are provided. Support 
- extends to the Kendall Function as well as the Lmoments thereof. Kendalls Tau,
+ extends to the Kendall Function as well as the Lmoments thereof. Kendall Tau,
  Spearman Rho and Footrule, Gini Gamma, Blomqvist Beta, Hoeffding Phi, Schweizer-
  Wolff Sigma, tail dependency, tail order, skewness, and bivariate Lmoments are implemented, and 
  positive/negative quadrant dependency, left (right) increasing (decreasing) are available. 
