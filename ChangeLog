@@ -336,18 +336,18 @@ Version 2.0.5--February 24, 2017
        example of Kendall function L-moments.
 
 
-Version 2.0.6--11/08/2017
+Version 2.0.6--November 11, 2017
 1.  Added convexCOP() as a N-bivariate copula generalization of convex2COP().
 2.  Documentation adjustment to GHcop.Rd.
 3.  Added CLcop() for user R. Adat related to his own coding efforts.
 
 
-Version 2.0.7--03/08/2018
+Version 2.0.7--March 8, 2018
 1.  Clarified some documentation in bilmoms.Rd.
 2.  Expanded description in Examples in kullCOP.Rd.
 
 
-Version 2.1.0--2018-05-07
+Version 2.1.0--May 7, 2018
 1.  Minor Rd updates throughout.
 2.  Revision of warning() in wolfCOP().
 3.  Removed last of the repeated sequence computation inside nested sapply()s
@@ -390,7 +390,7 @@ Version 2.1.0--2018-05-07
 17. Added alias PAcop() for PARETOcop() to be parallel to the PLACKETTcop().
 
 
-Version 2.1.1--2018-12-01
+Version 2.1.1--December 1, 2018
 1. Enhancement: Changed from sapply to u*v on return. This dates for a long
        time back when the vectorization in R was not idiomatic for the author.
 2. Added aicCOP(), bicCOP(), and rmseCOP(): a triad of similar goodness of fits.
@@ -399,7 +399,7 @@ Version 2.1.1--2018-12-01
 4. Standardized all *.Rd files to utf8 encoding declaration whether needed or no.
 
 
-Version 2.1.2--
+Version 2.1.2--January 10, 2019
 1. Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
        of the copula. Trivial to compute the number from standard copulas,
        the problem is how to handle and count on the fly the number of parameters
@@ -413,10 +413,10 @@ Version 2.1.2--
 5. Enhancement: Added additional indexing for GHcop, GLcop, and HRcop as EV cops.
 6. Added tEVcop() with implementation based on the Pickands dependence
        function. Examples are provided. The tEVcop() is deemed useful because
-       of interest in semi-exhaustive EV-copula study with the easy addition of a
-       2-parameter copula without triggering convex or compositing. However, some 
-       literature indicates that the form itself with two parameters is not really
-       more expressive than the GHcop and similar.
+       of interest in semi-exhaustive EV-copula study with the easy addition of
+       a 2-parameter copula without triggering convex or compositing. However,
+       some literature indicates that the form itself with two parameters is 
+       not really more expressive than the GHcop, GLcop, and HRcop.
 7. Feature fix: COP.R had a weakness when parameters as a list are passed in
        its handling of "cop" versus "cop1", "cop2" etc.
 8. BUG FIX: Vectorization in convexCOP.R was not fully working for some
@@ -452,13 +452,20 @@ Version 2.1.2--
        which was discovered during inspection of code as the Examples were
        audited. However, the default truncation=0, would not show the problem.
        Signs were not properly being used if truncation > 0 and matching logic
-       of Joe (2014, p. 73). Also argument 'samcor' renamed as 'as.sample' to be
-       consistent with other functions of the package.
+       of Joe (2014, p. 73). Also argument 'samcor' renamed as 'as.sample' to
+       be consistent with other functions of the package.
+
+
+
+
+
+
 
 
 POTENTIAL TODOs:
 
-lcomCOPpv <--> vuongCOP  
+lcomCOPpv() <--> vuongCOP() work as now lcomCOP() is available.
+lcomCOPpv() might need some reworking too.
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
   Make such conversions through out or go back to W.H. Asquith?
