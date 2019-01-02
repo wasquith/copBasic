@@ -448,11 +448,16 @@ Version 2.1.2--
 15. Added "1", "2", "3", "4" argument options for reflect in simCOPmicro() and
        simCOPv() to be parallel with COP().
 16. Made an editorial sweep throughout the documentation.
+17. BUG FIX: semicorCOP() seems to have not had the truncation properly coded,
+       which was discovered during inspection of code as the Examples were
+       audited. However, the default truncation=0, would not show the problem.
+       Signs were not properly being used if truncation > 0 and matching logic
+       of Joe (2014, p. 73). Also argument 'samcor' renamed as 'as.sample' to be
+       consistent with other functions of the package.
 
 
 POTENTIAL TODOs:
 
-samcor --> as.sample change in semicorCOP().
 lcomCOPpv <--> vuongCOP  
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
