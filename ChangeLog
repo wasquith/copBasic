@@ -426,7 +426,7 @@ Version 2.1.2--January 10, 2019
        multiple arguments" error in R. Had this always been a problem or had
        R itself become more restricted? The fix was to insert a COP() call
        as opposed cop() call (the argument named cop).
-10. Added the gEVcop().
+10. Added the Gaussian extreme-value copula as gEVcop().
 11. Added rotation to cophalf (Nelsen's triangular copula) within the examples
        of asCOP.Rd and bilmoms.Rd by including a para argument. This is useful
        for further testing and as related to exploring nuskew() and nustar().
@@ -435,8 +435,8 @@ Version 2.1.2--January 10, 2019
        outputs including the basic scale of each statistic. (See joeskewCOP.Rd)
        The biggest problems seem to have been in the numerical version of the
        sample nustar, which prompted the overhaul. *** No users have reported
-       any problems with the older scheme, but no users are actually known to be
-       using nuskew() and nustar(). ***
+       any problems with the older scheme, but it needs to be stated that no
+       users are actually known to be using nuskew() and nustar(). ***
 13. Added only.bilmoms argument to bilmoms() to skip L-comoment computation, 
        in order to speed execution.
 14. Added lcomCOP() based on integrate(integrate()) nest for computation of the
@@ -454,6 +454,7 @@ Version 2.1.2--January 10, 2019
        Signs were not properly being used if truncation > 0 and matching logic
        of Joe (2014, p. 73). Also argument 'samcor' renamed as 'as.sample' to
        be consistent with other functions of the package.
+18. Added the Raftery copula as RFcop.
 
 
 
