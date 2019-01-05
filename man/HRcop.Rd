@@ -36,6 +36,8 @@ qnorm(1 - log(1+blomCOP(cop=HRcop, para=pi))/(2*log(2)))^(-1)
 \keyword{copula}
 \concept{\enc{Hüsler}{Husler}--Reiss extreme value copula}
 \concept{\enc{Hüsler}{Husler}-Reiss extreme value copula}
+\concept{Husler--Reiss extreme value copula}
+\concept{Husler-Reiss extreme value copula}
 \keyword{Joe (2014) Examples and Exercises}
 \keyword{copula (extreme value)}
 \keyword{extreme value copula}
