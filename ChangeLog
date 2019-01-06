@@ -455,9 +455,9 @@ Version 2.1.2--January 10, 2019
        of Joe (2014, p. 73). Also argument 'samcor' renamed as 'as.sample' to
        be consistent with other functions of the package.
 18. Added the Raftery copula as RFcop.
-
-
-
+19. GLcop() extended to a two-parameter version as a lower-extreme value
+       GL_LEV and related extension to another two-parameter version as the 
+       "gamma-power mixture" of the Galambos.
 
 
 
