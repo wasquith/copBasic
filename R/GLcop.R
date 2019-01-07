@@ -23,9 +23,24 @@
     suppressWarnings(cop <- u * v * exp( ( (-log(u))^para[1] +
                                            (-log(v))^para[1] )^(1/para[1]) ))
     cop[is.nan(cop)] <- 0
-    return(cop)
+    if(-para[1] > 50) { # Note switch back to original sign convention
+      wnt <- u > 0.99 & v > 0.99
+      if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
+    } else if(-para[1] > 35) { # Note switch back to original sign convention
+      wnt <- u > 0.995 & v > 0.995
+      if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
+    } else if(-para[1] > 25) {
+      wnt <- u > 0.999 & v > 0.999
+      if(any(wnt)) {
+        cop[wnt] <- M(u[wnt],v[wnt]) }
+    } else if(-para[1] > 15) {
+      wnt <- u > 0.9998 & v > 0.9998
+      if(any(wnt)) {
+        cop[wnt] <- M(u[wnt],v[wnt]) }
+    }
+    return(cop) ################ END GALAMBOS
   } else if(length(para) == 2) { # Joe (2014, p. 198) COP_LEV
-    if(para[1] <= 0) {
+    if(para[1] < 0) {
       warning("theta must be 0 < theta < infinity")
       return(NA)
     }
@@ -33,6 +48,7 @@
       warning("delta must be 0 <= delta < infinity")
       return(NA)
     }
+    if(para[1] < .Machine$double.eps^0.5) return(P(u,v))
     # Min-Stable Bivariate Exponential Family, a two-parameter Galambos
     if(para[2] > exp(4.75049-0.89850*log(para[1])-0.03948*log(para[1])^2)) {
        return(M(u,v))
@@ -43,9 +59,9 @@
     cop <- exp(-Afunc(-log(u), -log(v), para[1],para[2])) # Joe (2014, p. 198)
     cop[is.nan(cop)] <- 0 # Does this need to be more sophisticated
     # in the case for the Gamma Power Mixture of Galambos?????
-    return(cop)
+    return(cop) ################ END COP_LEV
   } else if(length(para) == 3) { # Joe (2014, p. 197)
-    if(para[1] <= 0) {
+    if(para[1] < 0) {
       warning("theta must be 0 < theta < infinity")
       return(NA)
     }
@@ -54,15 +70,15 @@
       return(NA)
     }
     # Note para[3] is not used, just a triggering mechanism.
-    # Testing indicates that these tests are not needed.
-    #if(para[1] <= .Machine$double.eps^0.25) { # test needed though?
-    #   # Galambos copula of para[2] results for small para[1]
-    #   return(GLcop2(u,v, para=para[2]))
-    #}
-    #if(para[2] <= .Machine$double.eps^0.25) { # test needed though?
-    #   # MTCJ copula of para[1] for small para[2]
-    #   return((u^-para[1] + v^-para[1] -1)^(-1/para[1]))
-    #}
+    # Testing indicates that these tests might not be needed.
+    if(para[1] <= .Machine$double.eps^0.25) { # test needed though?
+       # Galambos copula of para[2] results for small para[1]
+       return(GLcop(u,v, para=para[2]))
+    }
+    if(para[2] <= .Machine$double.eps^0.25) { # test needed though?
+       # MTCJ copula of para[1] for small para[2]
+       return((u^-para[1] + v^-para[1] -1)^(-1/para[1]))
+    }
     # This next test is very complicated. A nested theta=1:100, delta=1:100
     # was done and rhoCOP run on the combinations as the parameters get
     # large, failures occur in that rhoCOP starts trending down from 0.999..
@@ -75,6 +91,11 @@
     if(para[2] > exp(4.88376-0.69985*log(para[1])-0.05946*log(para[1])^2)) {
        return(M(u,v))
     }
+    # To do, a small para[1] and large para[2] can still leak through and
+    # the numerical errors occur deep in the upper right corner. M() should be
+    # triggered, but how?
+
+    # Continuing ....
     para[1] <- -para[1]; para[2] <- -para[2]
     uo <- u; vo <- v
     u <- u^para[1]; v <- v^para[1]
@@ -89,10 +110,38 @@
       # This is.nan treatment differs from that for the Galambos in the
       # length(para[1]) [the regular 1-parameter Galambos]
     }
-    return(cop)
+    # The various "large" para[2] checks below were developed after
+    # the log-log regression shown above. Still have some numerical
+    # issues right up near the upper-left corner. These tests then
+    # copied to the Galambos too during testing. n=10,000 sample sizes
+    # These are partly protecting from degeneracy at the boundary as
+    # mentioned by Joe (2014, p. 198).
+    if(-para[2] > 50) { # Note switch back to original sign convention
+      wnt <- uo > 0.99 & vo > 0.99
+      if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
+    } else if(-para[2] > 35) { # Note switch back to original sign convention
+      wnt <- uo > 0.995 & vo > 0.995
+      if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
+    } else if(-para[2] > 25) { # Note switch back to original sign convention
+      wnt <- uo > 0.999 & vo > 0.999;
+      if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
+    } else if(-para[1] > 15) {
+      wnt <- u > 0.9998 & v > 0.9998
+      if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
+    }
+    return(cop) ################ END GAMMA POWER MIXTURE
   } else {
     stop("only one, two, or two with third trigger parameters in GLcop supported")
   }
+}
+
+
+JOcopBB4 <- function(u,v, para=NULL, ...) {
+  if(length(para) !=2) {
+    warning("JOcopBB4 through GLcop requires two parameters")
+    return(NULL)
+  }
+  GLcop(u,v, para=para, ...)
 }
 
 ############### LOWER EXTREME VALUE LIMIT OF THE GALAMBOS ########
@@ -100,7 +149,7 @@
 #for(i in 1:100) {
 # for(j in 1:100) {
 #   message(i, " ", j)
-#   h[i,j] <- rhoCOP(cop=GLcop2, para=c(i,j))
+#   h[i,j] <- rhoCOP(cop=GLcop, para=c(i,j))
 # }
 #}
 #contour(h, levels=c(0.999))
@@ -139,7 +188,7 @@
 #contour(h, levels=c(0.999))
 #diag(h) # looking for 0.999
 #(1:100)[diag(h) == max(diag(h), na.rm=TRUE)]
-#UV <- simCOP(1000, cop=GLcop2, para=c(13,13))
+#UV <- simCOP(1000, cop=GLcop, para=c(13,13))
 #contour(h, levels=c(0.999))
 #k <- 0
 #I <- J <- NA
