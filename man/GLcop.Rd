@@ -37,6 +37,45 @@ JOcopBB4(u, v, para=NULL, ...) # inserts third parameter automatically
 \value{
   Value(s) for the copula are returned.
 }
+\note{
+Joe (2014, p. 198) shows \eqn{\mathbf{GLEV}(u,v; \Theta, \delta)} as a two-parameter Galambos, but its use within the text seemingly is not otherwise known. However, testing of the implementation here seems to show that this copula is really not broader in form than \eqn{\mathbf{GL}(u,v; \alpha)}. The \eqn{\alpha} can always(?) be chosen to mimic the \eqn{\{\Theta, \delta\}}. We can test this assertion from a semi-independent direction. First, define an alternative style of one-parameter Galambos:
+\preformatted{
+  GL1cop <- function(u,v, para=NULL, ...) {
+     GL1pA <- function(x,y,t) { # Pickends dependence func form 1p Galambos
+        x + y - (x^-t + y^-t)^(-1/t)
+     }
+     if(length(u) == 1) { u <- rep(u, length(v)) } else
+     if(length(v) == 1) { v <- rep(v, length(u)) }
+     exp(-GL1pA(-log(u), -log(v), para[1]))
+  }
+}
+Second, redefine the two-parameter Galambos:
+\preformatted{
+  GL2cop <- function(u,v, para=NULL, ...) {
+     GL2pA <- function(x,y,t,d) { # Pickends dependence func form 2p Galambos
+        x + y - (x^-t + y^-t - (x^(t*d) + y^(t*d))^(-1/d))^(-1/t)
+     }
+     if(length(u) == 1) { u <- rep(u, length(v)) } else
+     if(length(v) == 1) { v <- rep(v, length(u)) }
+     exp(-GL2pA(-log(u), -log(v), para[1], para[2]))
+  }
+}
+Next, we can combine the Pickend's dependence functions into an objective function. This objective function will permit the computation of the \eqn{\alpha} given a pair \eqn{\{\Theta, \delta\}}.
+\preformatted{
+  objfunc <- function(a,t=NA,d=NA, x=0.7, y=0.7) {
+     lhs <- (x^-t + y^-t - (x^(t*d) + y^(t*d))^(-1/d))^(-1/t)
+     rhs <- (x^-a + y^-a)^(-1/a); return(rhs - lhs) # to be uniroot'ed
+  }
+}
+We can now make a demonstration:
+\preformatted{
+  t <- 0.6; d <- 4; lohi <- c(0,100)
+  set.seed(3); UV <- simCOP(3000, cop=GL2cop, para=c(t,d), pch=16,col=3,cex=0.5)
+  a <- uniroot(objfunc, interval=lohi, t=t, d=d)$root
+  set.seed(3); UV <- simCOP(3000, cop=GL1cop, para=a, lwd=0.5, ploton=FALSE)
+}
+The graphic so produced shows almost perfect overlap in the simulated values. To date, the author has not really found that the two parameters can be chosen such that the one-parameter version can not attain. Extensive numerical experiments using simulated parameter combinations through the use of various copula metrics (tail dependencies, L-comoments, etc) have not found material differences. \bold{Has the author missed something?}
+}
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
@@ -51,6 +90,11 @@ log(2)/(log(log(2)/log(1+blomCOP(cop=GLcop, para=pi))))
 t <- 2; Btheo <- blomCOP(GLPMcop, para=c(t,3))
 Bform <- (2^(t+1) - 1 - taildepCOP(GLPMcop, para=c(t,3))$lambdaU*(2^t -1))^(-1/t)
 print(c(Btheo, 4*Bform-1)) # [1] 0.8611903 0.8611900
+
+\dontrun{
+# See the Note, but check Blomqvist Beta:
+blomCOP(cop=GLcop, para=c(6.043619))  # 0.8552863 (2p version)
+blomCOP(cop=GLcop, para=c(5.6,0.3))   # 0.8552863 (1p version)}
 }
 \keyword{Galambos copula}
 \keyword{Galambos copula (lower extreme value form)}

@@ -457,7 +457,9 @@ Version 2.1.2--January 10, 2019
 18. Added the Raftery copula as RFcop.
 19. GLcop() extended to a two-parameter version as a lower-extreme value
        GL_LEV and related extension to another two-parameter version as the 
-       "gamma-power mixture" of the Galambos.
+       "gamma-power mixture" of the Galambos. The two-parameter version does not
+       seem materially broader than the one-parameter Galambos (see Note).
+       The gamma-power mixture is though a different copula.  
 
 
 
@@ -467,6 +469,10 @@ POTENTIAL TODOs:
 
 lcomCOPpv() <--> vuongCOP() work as now lcomCOP() is available.
 lcomCOPpv() might need some reworking too.
+
+If two-parameter Galambos (Joe, 2014, p. 198) is not materially broader than
+the one-parameter, does this hold for a two-parameter Gumbel hinted by
+Joe (2014, p. 199)? Further investigation is needed.
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
   Make such conversions through out or go back to W.H. Asquith?
