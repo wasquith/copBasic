@@ -18,25 +18,27 @@
       return(NA)
     }
     if(para[1] < .Machine$double.eps) return(P(u,v))
-    if(para[1] > 100) return(M(u,v)) # 100 determined by rhoCOP experiments
+    #x <- seq(80,110,by=.1)
+    #y <- sapply(x, function(t) rhoCOP(cop=GLcop, para=t))
+    #plot(x,y); lines(c(94,94),c(0,1))
+    if(para[1] > 94) return(M(u,v)) # 94 determined by rhoCOP experiments
     para[1] <- -para[1]
     suppressWarnings(cop <- u * v * exp( ( (-log(u))^para[1] +
                                            (-log(v))^para[1] )^(1/para[1]) ))
-    cop[is.nan(cop)] <- 0
-    if(-para[1] > 50) { # Note switch back to original sign convention
+    #cop[is.nan(cop)] <- 0
+    para[1] <- -para[1]  # Note switch back to original sign convention
+    if(para[1] > 50) { #rint(c(u,v,cop))
       wnt <- u > 0.99 & v > 0.99
       if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
-    } else if(-para[1] > 35) { # Note switch back to original sign convention
+    } else if(para[1] > 35) {
       wnt <- u > 0.995 & v > 0.995
       if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
-    } else if(-para[1] > 25) {
+    } else if(para[1] > 25) {
       wnt <- u > 0.999 & v > 0.999
-      if(any(wnt)) {
-        cop[wnt] <- M(u[wnt],v[wnt]) }
-    } else if(-para[1] > 15) {
+      if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
+    } else if(para[1] > 15) {
       wnt <- u > 0.9998 & v > 0.9998
-      if(any(wnt)) {
-        cop[wnt] <- M(u[wnt],v[wnt]) }
+      if(any(wnt)) cop[wnt] <- M(u[wnt],v[wnt])
     }
     return(cop) ################ END GALAMBOS
   } else if(length(para) == 2) { # Joe (2014, p. 198) COP_LEV
@@ -116,16 +118,17 @@
     # copied to the Galambos too during testing. n=10,000 sample sizes
     # These are partly protecting from degeneracy at the boundary as
     # mentioned by Joe (2014, p. 198).
-    if(-para[2] > 50) { # Note switch back to original sign convention
+    para[2] <- -para[2] # Note switch back to original sign convention
+    if(para[2] > 50) {
       wnt <- uo > 0.99 & vo > 0.99
       if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
-    } else if(-para[2] > 35) { # Note switch back to original sign convention
+    } else if(para[2] > 35) {
       wnt <- uo > 0.995 & vo > 0.995
       if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
-    } else if(-para[2] > 25) { # Note switch back to original sign convention
+    } else if(para[2] > 25) {
       wnt <- uo > 0.999 & vo > 0.999;
       if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
-    } else if(-para[1] > 15) {
+    } else if(para[1] > 15) {
       wnt <- u > 0.9998 & v > 0.9998
       if(any(wnt)) cop[wnt] <- M(uo[wnt],vo[wnt])
     }
@@ -135,10 +138,27 @@
   }
 }
 
+"JOcopBB4" <- function(u,v, para=NULL, ...) {
+  if(length(para) != 2) {
+    warning("GLPMcop/JOcopBB4 through GLcop requires two parameters, ",
+            "third trigger is automatic")
+    return(NULL)
+  }
+  GLcop(u,v, para=c(para,1), ...)
+}
 
-JOcopBB4 <- function(u,v, para=NULL, ...) {
-  if(length(para) !=2) {
-    warning("JOcopBB4 through GLcop requires two parameters")
+"GLPMcop" <- function(u,v, para=NULL, ...) {
+  if(length(para) != 2) {
+    warning("GLPMcop/JOcopBB4 through GLcop requires two parameters, ",
+            "third trigger is automatic")
+    return(NULL)
+  }
+  GLcop(u,v, para=c(para,1), ...)
+}
+
+"GLEVcop" <- function(u,v, para=NULL, ...) {
+  if(length(para) != 2) {
+    warning("Lower extreme value limit through GLcop requires two parameters")
     return(NULL)
   }
   GLcop(u,v, para=para, ...)
