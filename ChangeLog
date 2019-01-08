@@ -399,7 +399,7 @@ Version 2.1.1--December 1, 2018
 4. Standardized all *.Rd files to utf8 encoding declaration whether needed or no.
 
 
-Version 2.1.2--January 10, 2019
+Version 2.1.2--January 8, 2019
 1. Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
        of the copula. Trivial to compute the number from standard copulas,
        the problem is how to handle and count on the fly the number of parameters
