@@ -462,7 +462,14 @@ Version 2.1.2--January 8, 2019
        The gamma-power mixture is though a different copula.  
 
 
-
+Version 2.1.3--
+1. Added documention in lcomCOP() stating that Chine and Benatia (2017) describe
+       trimmed L-comoments as the multivariate extensions of the univariate
+       trimmed L-moments. Unknown as to whether an extension jump should as yet
+       be made.
+2. Added iterated Farlie-Gumbel-Morgenstern copula as FGMrcop(), which is any more
+       useful than the existing generalization, but Chine and Benatia (2017) concern
+       themselves with the iterated FGM.
 
 
 POTENTIAL TODOs:
@@ -473,6 +480,11 @@ lcomCOPpv() might need some reworking too.
 If two-parameter Galambos (Joe, 2014, p. 198) is not materially broader than
 the one-parameter, does this hold for a two-parameter Gumbel hinted by
 Joe (2014, p. 199)? Further investigation is needed.
+
+Note: Joe's 2-p GHcop does appear different from Brahimi et. al (2015) version
+of a 2-p GHcop. Should support for both be made? Are both the same? (Quick testing suggests that perhaps they are note, but mathematical checking has not been made [01/09/2019]).
+
+Add the trimmed L-comoments? 
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
   Make such conversions through out or go back to W.H. Asquith?
