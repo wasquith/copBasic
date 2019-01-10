@@ -22,6 +22,8 @@ where in otherwords, \dQuote{the third bivariate L-moment \eqn{\delta^{[12]}_3} 
 Similarly, the \eqn{\delta^{[21]}_k} are computed by switching \eqn{u \rightarrow v} in the polynomials within the above integrals multiplied to the copula in the system of equations with \eqn{u}. In general, \eqn{\delta^{[12]}_k \not= \delta^{[21]}_k} for \eqn{k > 1} unless in the case of \emph{permutation symmetric} (\code{\link{isCOP.permsym}}) copulas. By theory, \eqn{\delta^{[12]}_1 = \delta^{[21]}_1 = \rho_\mathbf{C}/6} where \eqn{\rho_\mathbf{C}} is \emph{Spearman's Rho} \code{\link{rhoCOP}}.
 
 The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \emph{et al.} (2015) but this and the other forms are verified in the \bold{Examples} and discussion in \bold{Note}. The four \eqn{k \in [1,2,3,4]} for \eqn{U} \emph{wrt} \eqn{V} and \eqn{V} \emph{wrt} \eqn{U} comprise a full spectrum of system of seven (not eight) equations. One equation is lost because \eqn{\delta^{[12]}_1 = \delta^{[21]}_1}.
+
+Chine and Benatia (2017) describe \emph{trimmed L-comoments} as the multivariate extensions of the univariate \emph{trimmed L-moments} (Elamir and Seheult, 2003) that are implemented in \pkg{lmomco}. These are not yet implemented in \pkg{copBasic}.
 }
 \usage{
 lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, ...)
@@ -47,6 +49,10 @@ The documention here is highly parallel to \code{\link{bilmoms}} for which that 
 Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the R environment for statistical computing: Createspace Independent Publishing Platform, ISBN 978--146350841--8.
 
 Brahimi, B., Chebana, F., and Necir, A., 2015, Copula representation of bivariate L-moments---A new estimation method for multiparameter two-dimensional copula models: Statistics, v. 49, no. 3, pp. 497--521.
+
+Chine, Amel, and Benatia, Fatah, 2017, Bivariate copulas parameters estimation using the trimmed L-moments methods: Afrika Statistika, v. 12, no. 1, pp. 1185--1197, DOI: \url{https//dx.doi.org/10.16929/as/2017.1185.99}.
+
+Elamir, E.A.H, and Seheult, A.H., 2003, Trimmed L-moments: Computational Statistics and Data Analysis, v. 43, p. 299--314.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
