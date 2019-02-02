@@ -31,7 +31,7 @@ First, a function \code{NORMcop()} is defined to form the interconnect between t
     return(copula::pCopula(matrix(c(u,v), ncol=2), para))
   }
 }
-The parameter \eqn{\Theta \in [-1, 1]} (\emph{Pearson's R}) and \eqn{\rho_\mathbf{C}(\Theta)} (\emph{Spearman's Rho}, \code{\link{rhoCOP}}) and \eqn{\tau_\mathbf{C}(\Theta)} (\emph{Kendall's Tau}, \code{\link{tauCOP}}) are according to Salvadori \emph{et al.} (2007, p. 255) the values
+The parameter \eqn{\Theta \in [-1, 1]} (\emph{Pearson R}) and \eqn{\rho_\mathbf{C}(\Theta)} (\emph{Spearman Rho}, \code{\link{rhoCOP}}) and \eqn{\tau_\mathbf{C}(\Theta)} (\emph{Kendall Tau}, \code{\link{tauCOP}}) are according to Salvadori \emph{et al.} (2007, p. 255) the values
 \deqn{\rho_\mathbf{C}(\Theta) = \frac{2}{\pi}\,\mathrm{arcsin}(\Theta)}
 and
 \deqn{\tau_\mathbf{C}(\Theta) = \frac{6}{\pi}\,\mathrm{arcsin}(\Theta/2)\mbox{.}}
@@ -84,7 +84,7 @@ Finally, the demonstration ends with plotting of the median regression for the G
   lines(qnorm(MEDreg2$Uupr), qnorm(UorV),        col=6, lty=2)
 }
 
-A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \emph{Blomqvist's Beta} (\code{\link{blomCOP}}) is equal to \emph{Kendall's Tau} (\code{\link{tauCOP}}), which can be checked by
+A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \emph{Blomqvist Beta} (\code{\link{blomCOP}}) is equal to \emph{Kendall Tau} (\code{\link{tauCOP}}), which can be checked by
 \preformatted{
   blomCOP(cop=NORMcop, para=norm.cop) # 0.4936334
   tauCOP( cop=NORMcop, para=norm.cop) # 0.493633

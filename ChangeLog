@@ -470,6 +470,7 @@ Version 2.1.3--
 2. Added iterated Farlie-Gumbel-Morgenstern copula as FGMrcop(), which is any more
        useful than the existing generalization, but Chine and Benatia (2017) concern
        themselves with the iterated FGM.
+3. Documentation audit again with tiny changes to many Rds.
 
 
 POTENTIAL TODOs:
