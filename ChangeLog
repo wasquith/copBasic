@@ -494,6 +494,10 @@ EMPIRcopdf() can be replaced by EMPIRcop() as the later is fully
   vectorized itself and makes presumably a lesser impact on memory (faster)?
 
 stabtaildepf.Rd --- Need to audit stabtaildepf.Rd and complete documentation.
+Beirlant, J., Escobar-Bach, M., Goegebeur, Y., Guillou, A.: Bias-corrected estimation of stable tail dependence function. J. Multivar. Anal. 143, 453–466 (2016)
+https://doi.org/10.1016/j.jmva.2015.10.006
+Kiriliouk, A., Segers, J. & Tafakori, L. Extremes (2018) 21: 581. https://doi.org/10.1007/s10687-018-0315-y
+
 
 EMPIRcop.Rd --- Need to audit level.curves in the Examples.
 
