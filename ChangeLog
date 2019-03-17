@@ -465,12 +465,12 @@ Version 2.1.2--January 8, 2019
 Version 2.1.3--
 1. Added documention in lcomCOP() stating that Chine and Benatia (2017) describe
        trimmed L-comoments as the multivariate extensions of the univariate
-       trimmed L-moments. Unknown as to whether an extension jump should as yet
-       be made.
+       trimmed L-moments. Unknown as to whether an extension jump should as made.
 2. Added iterated Farlie-Gumbel-Morgenstern copula as FGMrcop(), which is any more
        useful than the existing generalization, but Chine and Benatia (2017) concern
        themselves with the iterated FGM.
 3. Documentation audit again with tiny changes to many Rds.
+4. Added glueCOP() as another means of constructing other copulas.
 
 
 POTENTIAL TODOs:
