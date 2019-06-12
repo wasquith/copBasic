@@ -483,12 +483,12 @@ the one-parameter, does this hold for a two-parameter Gumbel hinted by
 Joe (2014, p. 199)? Further investigation is needed.
 
 Note: Joe's 2-p GHcop does appear different from Brahimi et. al (2015) version
-of a 2-p GHcop. Should support for both be made? Are both the same? (Quick testing suggests that perhaps they are note, but mathematical checking has not been made [01/09/2019]).
+of a 2-p GHcop. Should support for both be made? Are both the same? (Quick testing suggests that perhaps they are not, but mathematical checking has not been made [01/09/2019]).
 
 Add the trimmed L-comoments? 
 
 \author{William Asquith \email{william.asquith@ttu.edu} }
-  Make such conversions through out or go back to W.H. Asquith?
+  Make such conversions throughout or go back to W.H. Asquith?
 
 EMPIRcopdf() can be replaced by EMPIRcop() as the later is fully 
   vectorized itself and makes presumably a lesser impact on memory (faster)?

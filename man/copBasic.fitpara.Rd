@@ -43,14 +43,14 @@ A custom objective function \code{objfunc} to serve as the \code{statf} for the 
 \preformatted{
   "objfunc" <- function(para, stat=NA, as.sample=FALSE, getstat=FALSE, ...) {
       if(as.sample) {
-         return(c(giniCOP(  para=para, as.sample=TRUE),
+         return(c(  giniCOP(para=para, as.sample=TRUE),
                   nuskewCOP(para=para, as.sample=TRUE),
                   nustarCOP(para=para, as.sample=TRUE)))
       }
       para[1]   <- ifelse(para[1] < 0, return(Inf), para[1]) # edge check
       para[2:3] <-  pnorm(para[2:3]) # detransform
       para <- list(cop1=HRcop, para1=para[1], alpha=para[2], beta=para[3])
-      hp <- c(giniCOP(  composite1COP, para),
+      hp <- c(  giniCOP(composite1COP, para),
               nuskewCOP(composite1COP, para),
               nustarCOP(composite1COP, para))
       if(getstat) return(hp) # short circuit to get the statistics out
@@ -79,8 +79,8 @@ The optimization is completed. It can be informative to see what the simulation 
 
 The visual comparison is qualitative. The tabular comparison of the sample statistics to those of the fitted model shows that perhaps an acceptable local minima has been attained in terms of \dQuote{fit} but the subsequent comparison of the parameters of the population used to generate the sample and those of the fitted model seemingly depart substantially in the \eqn{\alpha \rightarrow 0} parameter of the copula composition. The tail dependency parameters are similar, but further goodness-of-fit check is not made.
 \preformatted{
-                       #    GiniGamma       NuSkew       NuStar
-  print(target.stats)  #   0.5219027    -0.1940361    0.6108319 
+                       #   GiniGamma        NuSkew       NuStar
+  print(target.stats)  #   0.5219027    -0.1940361    0.6108319
   print(fit.stats)     #   0.5182858    -0.1938848    0.6159566
 
                           # Parameter  Alpha       Beta
