@@ -471,6 +471,8 @@ Version 2.1.3--
        themselves with the iterated FGM.
 3. Documentation audit again with tiny changes to many Rds.
 4. Added glueCOP() as another means of constructing other copulas.
+5. BUG FIX: EMPIRqua.regress() and EMPIRqua.regress2() with lowess=TRUE could return
+       probabilities outside of [0,1]. Truncation to zero and unity is now made.
 
 
 POTENTIAL TODOs:
