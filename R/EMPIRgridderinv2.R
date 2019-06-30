@@ -28,12 +28,12 @@ function(empgrid=NULL, kumaraswamy=FALSE, ...) {
     x <- the.deriv[,i]
 
     # invert the CDF by linear approximation
-    # we want the QDF with F (horizontal axis values on same spacing)
+    # we want the QDF with FF (horizontal axis values on same spacing)
     # we know that the x are given in ordered seqeuence to so avoid
     # the warning
     # In regularize.values(x, y, ties, missing(ties)) :
     # collapsing to unique 'x' values
-    inv <- approx(x, y=FF, xout=FF, rule=2)$y
+    inv <- approx(x, y=FF, xout=FF, rule=2, ties="ordered")$y
 
     if(kumaraswamy) {
        beta0 <- sum(inv*delF) # first PWM (mean)
