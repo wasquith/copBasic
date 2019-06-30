@@ -14,7 +14,11 @@ function(f=0.5, v=seq(0.01,0.99, by=0.01), empinv=NULL,
    U.available <- empinv[ix.needed,]
    UVdf <- data.frame(U=U.available, V=V.available)
    UVdf <- UVdf[complete.cases(UVdf),]
-   U <- approx(V.available, y=U.available, xout=v, rule=2)$y
+   # we know that the x are given in ordered seqeuence to so avoid
+   # the warning
+   # In regularize.values(x, y, ties, missing(ties)) :
+   # collapsing to unique 'x' values
+   U <- approx(V.available, y=U.available, xout=v, rule=2, ties="ordered")$y
    z <- data.frame(U=U,V=v)
    if(lowess) {
       lws <- lowess(z$V, y=z$U, f=f.lowess)
