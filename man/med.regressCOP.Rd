@@ -102,21 +102,21 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 \examples{
 \dontrun{
 # INDEPENDENCE YIELDS STRAIGHT LINES, RED IS THE MEDIAN REGRESSION
-F <- seq(0.1, 0.9, by=0.1)
+FF <- seq(0.1, 0.9, by=0.1)
 plot(c(0,1),c(0,1), type="n", lwd=3,
      xlab="U, NONEXCEEDANCE PROBABILITY", ylab="V, NONEXCEEDANCE PROBABILITY")
 # Draw the regression of V on U and then U on V (wrtV=TRUE)
-qua.regressCOP.draw(f=F, cop=P, para=NA, ploton=FALSE)
-qua.regressCOP.draw(f=F, cop=P, para=NA, ploton=FALSE, wrtV=TRUE, lty=2)#}
+qua.regressCOP.draw(f=FF, cop=P, para=NA, ploton=FALSE)
+qua.regressCOP.draw(f=FF, cop=P, para=NA, ploton=FALSE, wrtV=TRUE, lty=2)#}
 
 \dontrun{
 # NEGATIVE PLACKETT THETA YIELDS CURVES DOWN TO RIGHT, RED IS THE MEDIAN REGRESSION
-theta <- 0.5; F <- seq(0.1, 0.9, by=0.1)
+theta <- 0.5; FF <- seq(0.1, 0.9, by=0.1)
 plot(c(0,1),c(0,1), type="n", lwd=3,
      xlab="U, NONEXCEEDANCE PROBABILITY", ylab="V, NONEXCEEDANCE PROBABILITY")
 # Draw the regression of V on U and then U on V (wrtV=TRUE)
-qua.regressCOP.draw(f=F, cop=PLACKETTcop, ploton=FALSE, para=theta)
-qua.regressCOP.draw(f=F, cop=PLACKETTcop, ploton=FALSE, para=theta, wrtV=TRUE, lty=2)#}
+qua.regressCOP.draw(f=FF, cop=PLACKETTcop, ploton=FALSE, para=theta)
+qua.regressCOP.draw(f=FF, cop=PLACKETTcop, ploton=FALSE, para=theta, wrtV=TRUE, lty=2)#}
 }
 \keyword{median regression}
 \keyword{quantile regression}
