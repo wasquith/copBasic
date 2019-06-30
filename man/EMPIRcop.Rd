@@ -121,7 +121,8 @@ hoefCOP(cop=EMPIRcop,   para=uv, ctype="bernstein")             # 0.4563724}
 # level curves for berstein weights are quite smooth.
 
 \dontrun{
-# TODO: Now let us construct as many as three sets of level curves
+# Now let us construct as many as three sets of level curves to the sample
+# resided in the uv sample from above using the PSP copula.
 level.curvesCOP(cop=PSP); # TRUE, parametric, fast, BLACK CURVES
 
 # Empirical copulas can consume lots of CPU.
