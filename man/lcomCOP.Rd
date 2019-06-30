@@ -32,7 +32,7 @@ lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, ...)
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
   \item{as.bilmoms}{A logical to trigger return of the \eqn{\delta_k} and the return vectors will be named differently;}
-  \item{orders}{The orders of the L-comoments to return, which is internally adjusted if \code{as.bilmoms} is set. There is no first order L-comoment and the first index on returned values is set to \code{NA} to remain index consistent with the \pkg{lmomco} package. An order greater than 5 is not supported; and}
+  \item{orders}{The orders of the L-comoments to return, which is internally adjusted if the argument \code{as.bilmoms} is set. There is no first order L-comoment and the first index on returned values is set to \code{NA} to remain index consistent with the \pkg{lmomco} package. An order greater than 5 is not supported; and}
   \item{...}{Additional arguments to pass to the \code{\link{densityCOP}} function.}
 }
 \value{

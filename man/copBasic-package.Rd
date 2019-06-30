@@ -42,7 +42,7 @@ A few comments on notation herein are needed. A bold math typeface is used to re
 
 The random variables \eqn{X} and \eqn{Y} respectively denote the horizontal and vertical directions in \eqn{\mathcal{R}^2}. Their probabilistic counterparts are uniformly distributed random variables on \eqn{[0,1]}, are respectively denoted as \eqn{U} and \eqn{V}, and necessarily also are the respective directions in \eqn{\mathcal{I}^2} (\eqn{U} denotes the horizontal, \eqn{V} denotes the vertical). Often realizations of these random variables are respectively \eqn{x} and \eqn{y} for \eqn{X} and \eqn{Y} and \eqn{u} and \eqn{v} for \eqn{U} and \eqn{V}.
 
-There is an obvious difference between nonexceedance probability \eqn{F} and its complement---exceedance probability defined as \eqn{1-F}. Both \eqn{u} and \eqn{v} herein are in nonexceedance probability. Arguments to many functions herein are \code{u} \eqn{= u} and \code{v} \eqn{= v} and are almost \emph{exclusively nonexceedance} but there are instances for which the probability arguments are \code{u} \eqn{= 1 - u = u'} and \code{v} \eqn{= 1 - v = v'}.\cr
+There is an obvious difference between nonexceedance probability \eqn{F} and its complement, which is exceedance probability defined as \eqn{1-F}. Both \eqn{u} and \eqn{v} herein are in nonexceedance probability. Arguments to many functions herein are \code{u} \eqn{= u} and \code{v} \eqn{= v} and are almost \emph{exclusively nonexceedance} but there are instances for which the probability arguments are \code{u} \eqn{= 1 - u = u'} and \code{v} \eqn{= 1 - v = v'}.\cr
 
 \bold{Helpful Navigation of the copBasic Package}
 
