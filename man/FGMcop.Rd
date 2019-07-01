@@ -31,7 +31,7 @@ FGMicop(u, v, para=NULL,       ...)
 \references{
 Bekrizade, Hakim, Parham, G.A., Zadkarmi, M.R., 2012, The new generalization of Farlie--Gumbel--Morgenstern copulas: Applied Mathematical Sciences, v. 6, no. 71, pp. 3527--3533.
 
-Chine, Amel, and Benatia, Fatah, 2017, Bivariate copulas parameters estimation using the trimmed L-moments methods: Afrika Statistika, v. 12, no. 1, pp. 1185--1197, DOI: \url{https//dx.doi.org/10.16929/as/2017.1185.99}.
+Chine, Amel, and Benatia, Fatah, 2017, Bivariate copulas parameters estimation using the trimmed L-moments methods: Afrika Statistika, v. 12, no. 1, pp. 1185--1197.
 }
 \author{ W.H. Asquith}
 \seealso{\code{\link{P}}, \code{\link{mleCOP}}
