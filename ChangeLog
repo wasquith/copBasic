@@ -491,6 +491,11 @@ Version 2.1.3--July 1, 2019
 9. COP.Rd, diagCOPatf.Rd, and med.regressCOP.Rd examples edited to avoid using F with
        change to FF as a variable for nonexceedance probability (see no. 6).
 
+Version 2.1.4--July 2, 2019
+1. Fixups in FGMcop.Rd (bad URL), HRcop.Rd (no encoding switch in the concept/keyword),
+       lcomCOP.Rd (bad URL), rhobevCOP.Rd (no commas in indexing or concepts) for 
+       release to CRAN.
+
 
 POTENTIAL TODOs:
 
