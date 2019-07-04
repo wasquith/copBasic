@@ -8,14 +8,15 @@ The \emph{Raftery copula} (Nelsen, 2006, p. 172) is
 where \eqn{\Theta \in (0,1)}. The copula, as \eqn{\Theta \rightarrow 0^{+}} limits, to the \emph{independence coupla} (\eqn{\mathbf{P}(u,v)}; \code{\link{P}}), and as \eqn{\Theta \rightarrow 1^{-}}, limits to the \emph{comonotonicity copula} (\eqn{\mathbf{M}(u,v)};  \code{\link{M}}). The parameter \eqn{\Theta} is readily computed from \emph{Spearman's Rho} (\code{\link{rhoCOP}}) by \eqn{\rho_\mathbf{C} = \Theta(4-3\Theta)/(2-\Theta)^2} or from \emph{Kendall's Tau} (\code{\link{tauCOP}}) by \eqn{\tau_\mathbf{C} = 2\Theta/(3-\Theta)}.
 }
 \usage{
-RFcop(u, v, para=NULL, rho=NULL, tau=NULL, ...)
+RFcop(u, v, para=NULL, rho=NULL, tau=NULL, fit=c("rho", "tau"), ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
   \item{para}{A vector (single element) of parameters---the \eqn{\Theta} parameter of the copula;}
-  \item{rho}{Optional Spearmans's Rho;}
-  \item{tau}{Optional Kendall's Tau; and}
+  \item{rho}{Optional Spearmans's Rho from which the parameter will be estimated and presence of \code{rho} trumps \code{tau};}
+  \item{tau}{Optional Kendall's Tau from which the parameter will be estimated;}
+  \item{fit}{If \code{para}, \code{rho}, and \code{tau} are all \code{NULL}, the the \code{u} and \code{v} represent the sample. The measure of association by the \code{fit} declaration will be computed and the parameter estimated subsequently. The \code{fit} has not other utility than to trigger which measure of association is computed internally by the \code{cor} function in \R; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
@@ -39,9 +40,10 @@ taildepCOP(cop=RFcop, para=0.5)$lambdaL # 0.66667
 # Simulate for a Spearman Rho of 0.7, then extract estimated Theta that
 # internally is based on Kendall Tau of U and V, then convert estimate
 # to equivalent Rho.
+set.seed(1)
 UV <- simCOP(1000, cop=RFcop, RFcop(rho=0.7)$para)
-Theta <- RFcop(UV$U, UV$V)$para      # 0.605093
-Rho <- Theta*(4-3*Theta)/(2-Theta)^2 # 0.679403 (nearly 0.7)#}
+Theta <- RFcop(UV$U, UV$V, fit="tau")$para # 0.607544
+Rho   <- Theta*(4-3*Theta)/(2-Theta)^2     # 0.682255 (nearly 0.7)#}
 }
 \keyword{Raftery copula}
 \keyword{copula (formulas)}
