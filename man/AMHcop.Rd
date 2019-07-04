@@ -89,5 +89,4 @@ tauCOP(cop=AMHcop, para=-0.9)            # -0.1663313 }
 \keyword{copula}
 \concept{Ali-Mikhail-Haq copula}
 \keyword{package copula (comparison to)}
-\keyword{Spence function}
 
