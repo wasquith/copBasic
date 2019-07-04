@@ -504,8 +504,12 @@ Version 2.1.5--
        positive association and reflecting it three different times to form alternative
        association structures, including negative association, that its formula can not
        natively attain.
+3. Audit of AMHcop.Rd found documentation problems in the formula for Spearman's Rho.
+       Modified it and AMHcop() to show and respectively use the infinite series of
+       Machler (2014). Added the support for rho argument along with a fit argument
+       like RFcop() (see 2.1.5:1). Examples in AMHcop.Rd changed.
 
- 
+
 POTENTIAL TODOs:
 
 Continued inspection of the approx() use and whether ties="ordered" can be used
