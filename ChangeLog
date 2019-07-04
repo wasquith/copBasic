@@ -508,6 +508,11 @@ Version 2.1.5--
        Modified it and AMHcop() to show and respectively use the infinite series of
        Machler (2014). Added the support for rho argument along with a fit argument
        like RFcop() (see 2.1.5:1). Examples in AMHcop.Rd changed.
+4. Audit pass of much of the documentation.
+5. Changed a few Examples to dontruns because of the maturity of the package. The
+       --timings of the R CMD check were consulted. Should be a savings of less than
+       one second overall, but trying to help the CRAN.
+6. gEVcop.Rd got a minor fix in the Examples.
 
 
 POTENTIAL TODOs:
