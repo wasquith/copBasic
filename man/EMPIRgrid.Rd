@@ -12,7 +12,7 @@ EMPIRgrid(para=NULL, deluv=0.05, verbose=FALSE, ...)
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see example);}
   \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v}  axes for copula estimation from \code{\link{EMPIRcop}};}
   \item{verbose}{A logical controlling whether the progress during grid building is to be shown; and}
-  \item{...}{Additional arguments to pass.}
+  \item{...}{Additional arguments to pass to \code{\link{EMPIRcop}}.}
 }
 \value{
   An \R \code{list} of the gridded values of \eqn{u}, \eqn{v}, and \eqn{\mathbf{C}_{n}(u,v)} values of the bivariate empirical copula is returned. (Well only \eqn{\mathbf{C}_{n}(u,v)} is in the form of a grid as an \R \code{matrix}.) The \code{deluv} used to generated the grid is also returned.

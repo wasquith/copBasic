@@ -513,7 +513,7 @@ Version 2.1.5--
        --timings of the R CMD check were consulted. Should be a savings of less than
        one second overall, but trying to help the CRAN.
 6. gEVcop.Rd received a minor fix in the Examples.
-
+7. Advancement: EMPIRgrid() was not passing ... to EMPIRcop(). 
 
 POTENTIAL TODOs:
 
