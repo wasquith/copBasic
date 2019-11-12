@@ -514,6 +514,14 @@ Version 2.1.5--
        one second overall, but trying to help the CRAN.
 6. gEVcop.Rd received a minor fix in the Examples.
 7. Advancement: EMPIRgrid() was not passing ... to EMPIRcop(). 
+8. Extended EMPIRgridderinv() and EMPIRgridderinv2() to accept a precomputed gridded
+       derivative in the dergrid argument. 
+9. Extended EMPIRgridder() and EMPIRgridder2() to throw a warning about NaN along
+       a row or column
+         warning("found nonfinite values on row|column=",i," in grid derivative")
+       The author has encountered one data set that produces NaN on two rows and
+       trying to understand how and why this is happening.
+
 
 POTENTIAL TODOs:
 
