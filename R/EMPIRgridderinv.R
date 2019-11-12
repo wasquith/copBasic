@@ -1,5 +1,5 @@
 "EMPIRgridderinv" <-
-function(empgrid=NULL, kumaraswamy=FALSE, ...) {
+function(empgrid=NULL, kumaraswamy=FALSE, dergrid=NULL, ...) {
 
   if(is.null(empgrid)) {
     warning("The gridded empirical copula (say from EMPIRgrid) is NULL")
@@ -10,7 +10,11 @@ function(empgrid=NULL, kumaraswamy=FALSE, ...) {
     return(NULL)
   }
 
-  the.deriv <- EMPIRgridder(empgrid=empgrid,...)
+  if(! is.null(dergrid)) {
+    the.deriv <- EMPIRgridder(empgrid=empgrid,...)
+  } else {
+    the.deriv <- dergrid
+  }
 
   FF <- empgrid$v
   n <- length(FF)
@@ -26,6 +30,11 @@ function(empgrid=NULL, kumaraswamy=FALSE, ...) {
   Alphas[1] <- NA; Betas[1] <- NA
   for(i in 2:n) {
     x <- the.deriv[i,]
+
+    if(length(x[! is.finite(x)]) > 0) {
+      warning("found nonfinite values on row=",i," in grid inversion")
+      next
+    }
 
     # invert the CDF by linear approximation
     # we want the QDF with FF (horizontal axis values on same spacing)
