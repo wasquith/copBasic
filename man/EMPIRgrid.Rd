@@ -3,14 +3,14 @@
 \alias{EMPIRgrid}
 \title{ Grid of the Bivariate Empirical Copula }
 \description{
-Generate a gridded representation of the \emph{bivariate empirical copula} (see \code{\link{EMPIRcop}}, Salvadori \emph{et al.}, 2007, p. 140).  This function has the primary intention of supporting 3-D renderings or 2-D images of the \emph{copulatic surface}, but many empirical copula functions in \pkg{copBasic} rely on the grid of the empirical copula---unlike the functions support parametric copulas.
+Generate a gridded representation of the \emph{bivariate empirical copula} (see \code{\link{EMPIRcop}}, Salvadori \emph{et al.}, 2007, p. 140).  This function has the primary intention of supporting 3-D renderings or 2-D images of the \emph{copulatic surface}, but many empirical copula functions in \pkg{copBasic} rely on the grid of the empirical copula---unlike the functions that support parametric copulas.
 }
 \usage{
 EMPIRgrid(para=NULL, deluv=0.05, verbose=FALSE, ...)
 }
 \arguments{
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see example);}
-  \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v}  axes for copula estimation from \code{\link{EMPIRcop}};}
+  \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v} axes for copula estimation from \code{\link{EMPIRcop}};}
   \item{verbose}{A logical controlling whether the progress during grid building is to be shown; and}
   \item{...}{Additional arguments to pass to \code{\link{EMPIRcop}}.}
 }
