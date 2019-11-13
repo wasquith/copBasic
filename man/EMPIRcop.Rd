@@ -41,15 +41,17 @@ The Bernstein extension, albeit conceptually pure in its shuffling by binomial c
                            \mathbf{C}_n\biggl(\frac{i-i}{n}, \frac{j-1}{n}\biggr)\mbox{.}}
 }
 \usage{
-EMPIRcop(u, v, para=NULL, ctype=c("weibull", "hazen", "1/n", "bernstein"),
-                          bernprogress=FALSE, ...)
+EMPIRcop(u, v, para=NULL,
+               ctype=c("weibull", "hazen", "1/n", "bernstein", "checkerboard"),
+                          bernprogress=FALSE, checkerboard.offset=0, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see \bold{Examples}). Alternatively, \code{para} can be a \code{list} holding a \code{para} as would be done if it were a vector, but arguments \code{bernstein} and \code{bernprogress} can be optionally included---this feature is provided so that the Bernstein refinement can be controlled within the context of other functions calling \code{EMPIRcop} such as by \code{\link{level.curvesCOP}};}
-  \item{ctype}{An alternative means for trigging the definition of \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}_n}, or \eqn{\mathbf{C}^\mathcal{B}_n};}
-  \item{bernprogress}{The Bernstein copula extension is CPU intensive(!), so a splash counter is pushed to the console via the \code{message()} function in \R so as to not discourage the user; and}
+  \item{ctype}{An alternative means for trigging the definition of \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}_n}, \eqn{\mathbf{C}^\mathcal{B}_n}, or the checker-board empirical copula (a type of smooth);}
+  \item{bernprogress}{The Bernstein copula extension is CPU intensive(!), so a splash counter is pushed to the console via the \code{message()} function in \R so as to not discourage the user;}
+  \item{checkerboard.offset}{A scaling of the ratio \code{sum(....)/(n+offset)} for the checker-board empirical copula; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
