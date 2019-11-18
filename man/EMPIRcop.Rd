@@ -34,7 +34,16 @@ where the individual \emph{Bernstein weights} \eqn{\eta(i,j)} for the \eqn{k}th 
 
 \deqn{\eta(i,j; u,v) = {n \choose i} u^i (1-u)^{n-i} \times {n \choose j} u^j (1-u)^{n-j}\mbox{.}}
 
-The Bernstein extension, albeit conceptually pure in its shuffling by binomial coefficients and left- and right-tail weightings, is quite CPU intensive as inspection of the equations above indicates a nest of four \code{for()} loops in \R. (The native \R code of \pkg{copBasic} uses the \code{sapply()} function in \R liberally for substantial but not a blazing fast speed increase.) The Bernstein extension results in a smoother surface of the empirical copula and can be triggered by \code{ctype="bernstein"}. Finally, the \emph{empirical copula frequency} can be defined (Nelson, 2006, p. 219) as
+The Bernstein extension, albeit conceptually pure in its shuffling by binomial coefficients and left- and right-tail weightings, is quite CPU intensive as inspection of the equations above indicates a nest of four \code{for()} loops in \R. (The native \R code of \pkg{copBasic} uses the \code{sapply()} function in \R liberally for substantial but not a blazing fast speed increase.) The Bernstein extension results in a smoother surface of the empirical copula and can be triggered by \code{ctype="bernstein"}.
+
+\emph{Checkerboard Empirical Copula}---A simple smoothing to the empirical copula is the checkerboard empirical copula (Segers et al., 2017) that has been adapted from the \pkg{copula} package. It is numerically intensive like the Bernstein and possibly of limited usefulness for large sample sizes. The checkerboard extension can be triggered by \code{ctype="checkerboard"} and is formulated as
+
+\deqn{\mathbf{C}^\sharp_{n}(U) = \frac{1}{n+o} \sum_{i=1}^n\prod_{i=1}^d \mathrm{min}[\mathrm{max}[n U_j - R^{(n)}_{i,j} + 1,0],1]\mathrm{,}}
+
+where \eqn{U} is a \eqn{d=2} column matrix of \eqn{u} and \eqn{v}, \eqn{R} is a rank function, and \eqn{o} is an offset term on \eqn{[0,1]}.
+
+
+The \emph{empirical copula frequency} can be defined (Nelson, 2006, p. 219) as
 \deqn{\mathbf{c}_n(u, v) = \mathbf{C}_n\biggl(\frac{i}{n}, \frac{j}{n}\biggr) -
                            \mathbf{C}_n\biggl(\frac{i-1}{n}, \frac{j}{n}\biggr) -
                            \mathbf{C}_n\biggl(\frac{i}{n}, \frac{j-1}{n}\biggr) +
@@ -49,9 +58,9 @@ EMPIRcop(u, v, para=NULL,
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see \bold{Examples}). Alternatively, \code{para} can be a \code{list} holding a \code{para} as would be done if it were a vector, but arguments \code{bernstein} and \code{bernprogress} can be optionally included---this feature is provided so that the Bernstein refinement can be controlled within the context of other functions calling \code{EMPIRcop} such as by \code{\link{level.curvesCOP}};}
-  \item{ctype}{An alternative means for trigging the definition of \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}_n}, \eqn{\mathbf{C}^\mathcal{B}_n}, or the checker-board empirical copula (a type of smooth);}
+  \item{ctype}{An alternative means for trigging the definition of \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}_n}, \eqn{\mathbf{C}^\mathcal{B}_n}, or the checkerboard empirical copula (a type of smooth);}
   \item{bernprogress}{The Bernstein copula extension is CPU intensive(!), so a splash counter is pushed to the console via the \code{message()} function in \R so as to not discourage the user;}
-  \item{checkerboard.offset}{A scaling of the ratio \code{sum(....)/(n+offset)} for the checker-board empirical copula; and}
+  \item{checkerboard.offset}{A scaling of the ratio \code{sum(....)/(n+offset)} for the checkerboard empirical copula; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
@@ -68,6 +77,8 @@ It is important to distinquish between a sample estimator and the estimation of 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
+
+Segers, J., Sibuya, M., and Tsukahara, H., 2017, The empirical beta copula: Journal of Multivariate Analysis, v. 155, pp. 35--51.
 }
 \author{ W.H. Asquith }
 \seealso{ \code{\link{diagCOP}}, \code{\link{level.curvesCOP}}, \code{\link{simCOP}}  }
