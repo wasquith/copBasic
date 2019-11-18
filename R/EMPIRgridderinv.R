@@ -51,7 +51,13 @@ function(empgrid=NULL, kumaraswamy=FALSE, dergrid=NULL, ...) {
       lmr <- lmomco::vec2lmom(c(beta0, 2*beta1 - beta0)) # L-moments
       par.of.kur <- lmomco::parkur(lmr)
       X <- lmomco::quakur(FF, par.of.kur) # Kumuraswamy distribution
-
+      if(is.null(X)) {
+        warning("failed Kumaraswamy fit at i=",i,", using approx inv")
+        the.inverse[i,] <- inv
+        Alphas[i] <- NA
+        Betas[i]  <- NA
+        next
+      }
       the.inverse[i,] <- X
       Alphas[i] <- par.of.kur$para[1]
       Betas[i]  <- par.of.kur$para[2]

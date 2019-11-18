@@ -523,6 +523,9 @@ Version 2.1.5--
        trying to understand how and why this is happening.
 10. Extended the EMPIRcop() with a checker-board empirical copula, which is a type
        of light smooth and adapted from the copula package.
+11. Added a trap in EMPIRgridderinv() and EMPIRgridderinv2() if Kumaraswamy is set
+       and the Kumaraswamy fit fails, the original approx() to the inversion is
+       set for the failure and a warning() triggered as to which index was involved.
 
 
 POTENTIAL TODOs:
