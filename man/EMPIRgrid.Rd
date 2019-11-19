@@ -10,7 +10,7 @@ EMPIRgrid(para=NULL, deluv=0.05, verbose=FALSE, ...)
 }
 \arguments{
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see example);}
-  \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v} axes for copula estimation from \code{\link{EMPIRcop}};}
+  \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v} axes (grid edges) for empirical copula estimation by the \code{\link{EMPIRcop}} function;}
   \item{verbose}{A logical controlling whether the progress during grid building is to be shown; and}
   \item{...}{Additional arguments to pass to \code{\link{EMPIRcop}}.}
 }
