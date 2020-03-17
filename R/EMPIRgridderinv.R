@@ -10,7 +10,7 @@ function(empgrid=NULL, kumaraswamy=FALSE, dergrid=NULL, ...) {
     return(NULL)
   }
 
-  if(! is.null(dergrid)) {
+  if(is.null(dergrid)) {
     the.deriv <- EMPIRgridder(empgrid=empgrid,...)
   } else {
     the.deriv <- dergrid
