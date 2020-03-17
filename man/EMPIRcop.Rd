@@ -84,8 +84,10 @@ Segers, J., Sibuya, M., and Tsukahara, H., 2017, The empirical beta copula: Jour
 \seealso{ \code{\link{diagCOP}}, \code{\link{level.curvesCOP}}, \code{\link{simCOP}}  }
 \examples{
 \dontrun{
-EMPIRcop(0.321,0.78, para=simCOP(n=90, cop=N4212cop, para=2.32, graphics=FALSE))
-N4212cop(0.321,0.78, para=2.32)#}
+set.seed(62)
+EMPIRcop(0.321,0.78, para=simCOP(n=90, cop=N4212cop,
+                                 para=2.32, graphics=FALSE)) # [1] 0.3222222
+N4212cop(0.321,0.78, para=2.32)                              # [1] 0.3201281}
 
 \dontrun{
 set.seed(62) # See note below about another seed to try.
@@ -120,12 +122,13 @@ PSP(0.4,0.6)              # 0.3157895 (compare to listed values below)
 
 # For set.seed(62) --- not all measures of association can be used for all
 # empirical copulas because of 'divergent' integral errors, but this is an example
-# for Hoeffding's Phi.
+# for Hoeffding's Phi. These computations are CPU intensive, esp Bernstein.
 hoefCOP(as.sample=TRUE, para=uv) #  (sample estimator is fast)  # 0.4987755
 hoefCOP(cop=EMPIRcop,   para=uv, ctype="hazen")                 # 0.5035348
 hoefCOP(cop=EMPIRcop,   para=uv, ctype="weibull")               # 0.4977145
 hoefCOP(cop=EMPIRcop,   para=uv, ctype="1/n")                   # 0.4003646
-hoefCOP(cop=EMPIRcop,   para=uv, ctype="bernstein")             # 0.4563724}
+hoefCOP(cop=EMPIRcop,   para=uv, ctype="bernstein")             # 0.4563724
+hoefCOP(cop=EMPIRcop,   para=uv, ctype="checkerboard")          # 0.4952427}
 
 # All other example suites shown below are dependent on the pseudo-data in the
 # variable uv. It is suggested to not run with a sample size much larger than the
@@ -152,8 +155,11 @@ level.curvesCOP(cop=EMPIRcop, para=bpara, delu=0.03, col=3, ploton=FALSE)
 
 \dontrun{
 # Experimental from R Graphics by Murrell (2005, p.112)
-"trans3d" <-
-function(x,y,z, pmat) tmat <- cbind(x,y,z,1) \%*\% pmat; return(tmat[,1:2] / tmat[,4])
+"trans3d" <-                         # blackslashes seem needed for the package
+function(x,y,z, pmat) {              # for user manual building but bad syntax
+  tmat <- cbind(x,y,z,1) \%*\% pmat  # because remember the percent sign is a
+  return(tmat[,1:2] / tmat[,4])      # a comment character in LaTeX.
+}
 
 the.grid <- EMPIRgrid(para=uv)
 the.diag <- diagCOP(cop=EMPIRcop, para=uv, ploton=FALSE, lines=FALSE)
@@ -165,7 +171,8 @@ lines(the.trace, lwd=2, col=2) # The diagonal of the copula
 
 # The following could have been used as an alternative to call persp()
 the.persp <- persp(x=the.grid$u, y=the.grid$v, z=the.grid$empcop, theta=-25, phi=20,
-                   xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")#}
+                   xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")
+lines(the.trace, lwd=2, col=2) # The diagonal of the copula #}
 }
 \keyword{empirical copula}
 \keyword{copula (empirical)}

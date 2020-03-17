@@ -38,8 +38,10 @@ uv <- data.frame(U=fakeU, V=fakeV) # our U-statistics
 
 # The follow function is used to make 3-D --> 2-D transformation
 # From R Graphics by Murrell (2005, p.112)
-"trans3d" <- function(x,y,z, pmat) {
-   tmat <- cbind(x,y,z,1) \%*\% pmat; return(tmat[,1:2] / tmat[,4])
+"trans3d" <-                         # blackslashes seem needed for the package
+function(x,y,z, pmat) {              # for user manual building but bad syntax
+  tmat <- cbind(x,y,z,1) \%*\% pmat  # because remember the percent sign is a
+  return(tmat[,1:2] / tmat[,4])      # a comment character in LaTeX.
 }
 
 the.grid <- EMPIRgrid(para=uv)
