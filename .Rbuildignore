@@ -1,0 +1,13 @@
+.git
+.gitignore
+.Rhistory
+srcall.R
+CONTRIBUTING.md
+DISCLAIMER.md
+ISSUES.md
+LICENSE.md
+README.md
+SUMMARY.txt
+TODO.md
+code.json
+inst/www/avatar.jpg
