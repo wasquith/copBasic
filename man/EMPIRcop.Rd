@@ -161,7 +161,7 @@ function(x,y,z, pmat) {              # for user manual building but bad syntax
   return(tmat[,1:2] / tmat[,4])      # a comment character in LaTeX.
 }
 
-the.grid <- EMPIRgrid(para=uv)
+the.grid <- EMPIRgrid(para=uv, ctype="checkerboard")
 the.diag <- diagCOP(cop=EMPIRcop, para=uv, ploton=FALSE, lines=FALSE)
 
 the.persp <- persp(the.grid$empcop, theta=-25, phi=20,

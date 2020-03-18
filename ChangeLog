@@ -498,7 +498,7 @@ Version 2.1.4--July 2, 2019
        release to CRAN.
 
 
-Version 2.1.5--
+Version 2.1.5--03/22/2020
 1. Extended RFcop() with a fit argument to toggle between Spearman Rho or Kendall Tau.
 2. Extended COP.Rd with a example of taking a copula, such as the RFcop, that only has
        positive association and reflecting it three different times to form alternative
