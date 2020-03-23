@@ -526,7 +526,7 @@ Version 2.1.5--03/22/2020
 11. Added a trap in EMPIRgridderinv() and EMPIRgridderinv2() if Kumaraswamy is set
        and the Kumaraswamy fit fails, the original approx() to the inversion is
        set for the failure and a warning() triggered as to which index was involved.
-12. Bug fix in an example within EMPIRsim.Rd and minor cleanup therein.
+12. BUG FIX: An example within EMPIRsim.Rd need fixing and other minor cleanup.
 13. Minor spelling checks during Rd auditing for margin protrusion on Rd2pdf.
 
 
