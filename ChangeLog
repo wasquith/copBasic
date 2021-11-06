@@ -538,6 +538,10 @@ Version 2.1.6--08/30/2021
        update is likely not that critical but does bring consistency.
 
 
+Version 2.1.7--
+1.  Minor edits to lcomCOP.Rd.
+
+
 POTENTIAL TODOs:
 
 Continued inspection of the approx() use and whether ties="ordered" can be used
@@ -564,9 +568,6 @@ Note: Joe's 2-p GHcop does appear different from Brahimi et. al (2015) version
 of a 2-p GHcop. Should support for both be made? Are both the same? (Quick testing suggests that perhaps they are not, but mathematical checking has not been made [01/09/2019]).
 
 Add the trimmed L-comoments? 
-
-\author{William Asquith \email{william.asquith@ttu.edu} }
-  Make such conversions throughout or go back to W.H. Asquith?
 
 EMPIRcopdf() can be replaced by EMPIRcop() as the later is fully 
   vectorized itself and makes presumably a lesser impact on memory (faster)?
