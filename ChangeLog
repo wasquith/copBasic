@@ -539,7 +539,13 @@ Version 2.1.6--08/30/2021
 
 
 Version 2.1.7--
-1.  Minor edits to lcomCOP.Rd.
+1.  Minor edits to lcomCOP.Rd and expanded the Examples demonstrating parameter
+       estimation for a composite1COP of the Plackett copula.
+2.  Added cross-reference link to lcomCOP to lcomCOPpv.Rd.
+3.  Spelling corrections to copBasic-package.Rd.
+4.  Minor typesetting edits to jointCOP.Rd.
+5.  Minor corrections to bilmoms.Rd.
+
 
 
 POTENTIAL TODOs:
