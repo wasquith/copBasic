@@ -44,7 +44,7 @@ para <- list(cop1=PLACKETTcop, para1=.2, cop2=GLcop, para2=1.2, glue=0.6)
 densityCOPplot(cop=glueCOP, para=para) # }
 
 \dontrun{
-# Concerning Nelsen (2006, exer. 3.3, pp. NN)
+# Concerning Nelsen (2006, exam. 3.3, pp. 59-61)
 # Concerning Erdely (2017, exam. 5.1, p. 71)
 # Concerning Erdely (2017, exam. 5.2, p. 75)
 # Nelsen's example is a triangle with vertex at [G, 1].
