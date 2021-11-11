@@ -560,6 +560,9 @@ Version 2.1.7--
        Overhauled the semicorCOP.Rd and added a four corner example of reflection
        and rotation of the Raftery copula, which ties into the similar example
        of the Raftery in COP.Rd Examples section.
+11. Added Zhang and Singh (2019) citation to derCOPinv.Rd as part of replicating
+       their example 3.23 for the Clayton copula.
+
 
 
 POTENTIAL TODOs:
