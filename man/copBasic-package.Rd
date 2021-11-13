@@ -155,8 +155,8 @@ L-comoments (samp. distr.) \tab \eqn{{-}{-}} \tab \code{\link{lcomCOPpv}} \tab e
 The \bold{Table of Probabilities} that follows lists important relations between various joint probability concepts, the copula, nonexceedance probabilities \eqn{u} and \eqn{v}, and exceedance probabilities \eqn{u'} and \eqn{v'}. A compact summary of these probability relations has obvious usefulness. The notation \eqn{[\ldots, \ldots]} is to read as \eqn{[\ldots \mathrm{\ and\ } \ldots]}, and the \eqn{[\ldots | \ldots]} is to be read as \eqn{[\ldots \mathrm{\ given\ } \ldots]}.
 \tabular{rcl}{
 \bold{Probability} \tab \bold{and} \tab \bold{Symbol Convention}\cr
-\eqn{\mathrm{Pr}[\,U \le u, V \le v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}(u,v)}\cr
-\eqn{\mathrm{Pr}[\,U > u, V > v\,]}         \tab \eqn{=} \tab \eqn{\hat\mathbf{C}(u',v')}\cr
+\eqn{\mathrm{Pr}[\,U \le u, V \le v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}(u,v)} --- The copula, \code{\link{COP}}\cr
+\eqn{\mathrm{Pr}[\,U > u, V > v\,]}         \tab \eqn{=} \tab \eqn{\hat\mathbf{C}(u',v')} --- The survival copula, \code{\link{surCOP}}\cr
 \eqn{\mathrm{Pr}[\,U \le u, V > v\,]}       \tab \eqn{=} \tab \eqn{u - \mathbf{C}(u,v')}\cr
 \eqn{\mathrm{Pr}[\,U > u, V \le v\,]}       \tab \eqn{=} \tab \eqn{v - \mathbf{C}(u',v)}\cr
 \eqn{\mathrm{Pr}[\,U \le u \mid V \le v\,]} \tab \eqn{=} \tab \eqn{\mathbf{C}(u,v)/v}\cr
@@ -165,10 +165,10 @@ The \bold{Table of Probabilities} that follows lists important relations between
 \eqn{\mathrm{Pr}[\,V \le v \mid U > u\,]}   \tab \eqn{=} \tab \eqn{\bigl(v - \mathbf{C}(u,v)\bigr)/(1 - u)}\cr
 \eqn{\mathrm{Pr}[\,U > u \mid V > v\,]}   \tab \eqn{=} \tab \eqn{\hat\mathbf{C}(u',v')/u' = \overline\mathbf{C}(u,v)/(1-u)}\cr
 \eqn{\mathrm{Pr}[\,V > v \mid U > u\,]}   \tab \eqn{=} \tab \eqn{\hat\mathbf{C}(u',v')/v' = \overline\mathbf{C}(u,v)/(1-v)}\cr
-\eqn{\mathrm{Pr}[\,V \le v \mid U = u\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta u}\cr
-\eqn{\mathrm{Pr}[\,U \le u \mid V = v\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta v}\cr
-\eqn{\mathrm{Pr}[\,U > u \mathrm{\ or\ } V > v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}^\star(u',v') = 1 - \mathbf{C}(u',v')}\cr
-\eqn{\mathrm{Pr}[\,U \le u \mathrm{\ or\ } V \le v\,]} \tab \eqn{=} \tab \eqn{\tilde\mathbf{C}(u,v) = u + v - \mathbf{C}(u,v)}\cr
+\eqn{\mathrm{Pr}[\,V \le v \mid U = u\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta u} --- Partial derivative, \code{\link{derCOP}}\cr
+\eqn{\mathrm{Pr}[\,U \le u \mid V = v\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta v} --- Partial derivative, \code{\link{derCOP2}}\cr
+\eqn{\mathrm{Pr}[\,U > u \mathrm{\ or\ } V > v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}^\star(u',v') = 1 - \mathbf{C}(u',v')} --- The co-copula, \code{\link{coCOP}}\cr
+\eqn{\mathrm{Pr}[\,U \le u \mathrm{\ or\ } V \le v\,]} \tab \eqn{=} \tab \eqn{\tilde\mathbf{C}(u,v) = u + v - \mathbf{C}(u,v)} --- The dual of a copula, \code{\link{duCOP}}\cr
 }
 The function \code{\link{jointCOP}} has considerable demonstration in its \bold{Note} section of the \bold{joint and} and \bold{joint or} relations shown through simulation and counting scenarios. Also there is a demonstration in the \bold{Note} section of function \code{\link{duCOP}} on application of the concepts of \bold{joint and} conditions, \bold{joint or} conditions, and importantly joint \bold{mutually exclusive or} conditions.
 
@@ -179,14 +179,15 @@ One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQu
 1 \tab \eqn{\alpha, \beta} \tab \code{\link{composite1COP}} \tab copula combination\cr
 2 \tab \eqn{\alpha, \beta} \tab \code{\link{composite2COP}} \tab copula combination\cr
 2 \tab \eqn{\alpha, \beta, \kappa, \gamma} \tab \code{\link{composite3COP}} \tab copula combination\cr
-2 \tab \eqn{\alpha} \tab \code{\link{convex2COP}} \tab copula combination\cr
-\eqn{N} \tab \eqn{\omega_{i \in N}} \tab \code{\link{convexCOP}} \tab copula combination\cr
+2 \tab \eqn{\alpha, (1-\alpha)} \tab \code{\link{convex2COP}} \tab weighted copula combination\cr
+\eqn{N} \tab \eqn{\omega_{i \in N}} \tab \code{\link{convexCOP}} \tab weighted copula combination\cr
+2 \tab \eqn{\gamma} \tab \code{\link{glueCOP}} \tab gluing of coupla\cr
 2 \tab \eqn{\bigl(\mathbf{C}_1 \ast \mathbf{C}_2 \bigr)} \tab \code{\link{prod2COP}} \tab copula multiplication\cr
 }
 
 \bold{Useful Copula Relations by Visualization}
 
-There are a myriad of relations amongst variables computable through copulas, and these were listed in the \bold{Table of Probabilities} earlier in this \pkg{copBasic} documentation. There is a script located in the \code{inst/doc} directory of the \pkg{copBasic} sources titled \code{CopulaRelations_BaseFigure_inR.txt}. This script demonstrates, using the \code{\link{PSP}} copula, relations between the copula (\code{\link{COP}}), survival copula (\code{\link{surCOP}}), joint survival function of a copula (\code{\link{surfuncCOP}}), co-copula (\code{\link{coCOP}}), and dual of a copula function (\code{\link{duCOP}}). The script performs simulation and manual counts observations meeting various criteria in order to compute their \emph{empirical probabilities}. The script produces a base figure, which after extending in editing software, is suitable for educational description and is provided herein.
+There are a myriad of relations amongst variables computable through copulas, and these were listed in the \bold{Table of Probabilities} earlier in this documentation. There is a script located in the \code{inst/doc} directory of the \pkg{copBasic} sources titled \code{CopulaRelations_BaseFigure_inR.txt}. This script demonstrates, using the \code{\link{PSP}} copula, relations between the copula (\code{\link{COP}}), survival copula (\code{\link{surCOP}}), joint survival function of a copula (\code{\link{surfuncCOP}}), co-copula (\code{\link{coCOP}}), and dual of a copula function (\code{\link{duCOP}}). The script performs simulation and manual counts observations meeting various criteria in order to compute their \emph{empirical probabilities}. The script produces a base figure, which after extending in editing software, is suitable for educational description and is provided herein.
 
 \bold{A Review of \dQuote{Return Periods} using Copulas}
 
