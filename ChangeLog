@@ -538,11 +538,11 @@ Version 2.1.6--08/30/2021
        update is likely not that critical but does bring consistency.
 
 
-Version 2.1.7--
+Version 2.1.7--11/14/2021
 1.  Minor edits to lcomCOP.Rd and expanded the Examples demonstrating parameter
        estimation for a composite1COP of the Plackett copula.
 2.  Added cross-reference link to lcomCOP to lcomCOPpv.Rd.
-3.  Spelling corrections to copBasic-package.Rd.
+3.  Spelling corrections to copBasic-package.Rd and minor augmentations to tables.
 4.  Minor typesetting edits to jointCOP.Rd.
 5.  Minor corrections to bilmoms.Rd.
 6.  Errors in Examples of glueCOP.Rd relative to implementation corrected.
