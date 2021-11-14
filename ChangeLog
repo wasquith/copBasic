@@ -562,6 +562,8 @@ Version 2.1.7--11/14/2021
        of the Raftery in COP.Rd Examples section.
 11. Added Zhang and Singh (2019) citation to derCOPinv.Rd as part of replicating
        their example 3.23 for the Clayton copula.
+12. Minor edits to prod2COP.Rd, stabtaildepf.Rd, taildepCOP.Rd, and tailordCOP.Rd.
+13. Added cross-links to PLcop in PLACKETTpar and PLpar in PLACKETTcop.
 
 
 
