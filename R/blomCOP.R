@@ -1,6 +1,6 @@
 "blomCOP" <-
 function(cop=NULL, para=NULL, as.sample=FALSE,
-         ctype=c("na", "joe", "blom", "weibull", "hazen",
+         ctype=c("na", "joe", "weibull", "hazen",
                        "1/n", "bernstein", "checkerboard"), ...) {
    ctype <- match.arg(ctype)
    if(ctype != "na") { # this is a hack to keep original blomCOP implementation
