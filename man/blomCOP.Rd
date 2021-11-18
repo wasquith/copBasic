@@ -80,7 +80,6 @@ lmomco::parnor(lmomco::lmoms(sqrt(n)*(H-B))) # mu = 0.042; sigma = 0.973
 nn <- 200; set.seed(1)
 UV <- simCOP(n=nn+1, cop=PSP, graphics=FALSE)
 for(n in nn:(nn+1)) {
-  print(n);
   if(as.logical(n \%\% 2)) { # in source \ percent \ percent for latex
     message("Blomquist Betas for an odd  sample size n=", n)
     uv <- UV
@@ -94,7 +93,21 @@ for(n in nn:(nn+1)) {
   message(c(" 1/n:     ", round(blomCOP2(para=uv, ctype="1/n"),          d=4)))
   message(c(" Bernstn: ", round(blomCOP2(para=uv, ctype="bernstein"),    d=4)))
   message(c(" ChckBrd: ", round(blomCOP2(para=uv, ctype="checkerboard"), d=4)))
-} #}
+}
+# Blomquist Betas for an even sample size n=200
+#  Joe2014: 0.32
+#  Weibull: 0.32
+#  Hazen:   0.32
+#  1/n:     0.32
+#  Bernstn: 0.3237
+#  ChckBrd: 0.32
+# Blomquist Betas for an odd  sample size n=201
+#  Joe2014: 0.3234
+#  Weibull: 0.3333
+#  Hazen:   0.3333
+#  1/n:     0.2935
+#  Bernstn: 0.3277
+#  ChckBrd: 0.3134 #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}

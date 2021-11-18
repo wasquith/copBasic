@@ -46,8 +46,8 @@ function(cop=NULL, para=NULL, as.sample=FALSE, ...) {
     }
     samBLOM <- matrix(EMPIRcop(t, t[3], para=para, ...),
                       EMPIRcop(t, t[2], para=para, ...),
-                      EMPIRcop(t, t[1], para=para, ...),
-    return("not yet implemented")
+                      EMPIRcop(t, t[1], para=para, ...), ncol=3)
+    return(samBLOM)
   } else {
     if(is.null(cop)) {
       warning("must have copula argument specified, returning NULL")
