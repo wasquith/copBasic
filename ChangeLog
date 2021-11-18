@@ -566,6 +566,14 @@ Version 2.1.7--11/14/2021
 13. Added cross-links to PLcop in PLACKETTpar and PLpar in PLACKETTcop.
 
 
+Version 2.1.8--
+1.  Added blomatrixCOP() function and made comparisons as part of that development
+       to Joe's sample estimator for blomCOP() to the various empirical copula forms
+       that have been added (see 2.1.8:2).
+2.  Added to blomCOP.Rd comparison of Joe's sample estimator to the various
+       empirical copula supported by the package. Extended blomCOP() to support the
+       empirical copula and did some mathematical edits to the equations shown.
+
 
 POTENTIAL TODOs:
 
