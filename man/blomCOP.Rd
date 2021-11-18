@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{blomCOP}
 \alias{blomCOP}
-\title{ The Blomqvist Beta of a Copula }
+\title{The Blomqvist Beta of a Copula}
 \description{
 Compute the \emph{Blomqvist Beta} \eqn{\beta_\mathbf{C}} of a copula (Nelsen, 2006, p. 182), which is defined at the middle or center of \eqn{\mathcal{I}^2} as
 
@@ -12,31 +12,38 @@ where the \eqn{u = v = 1/2} and thus shows that \eqn{\beta_\mathbf{C}} is based 
 \deqn{\frac{3}{16}(1 + \beta_\mathbf{C})^3  - 1 \le \rho_\mathbf{C} \le 1 - \frac{3}{16}(1 - \beta_\mathbf{C})^3\mbox{, and}}
 \deqn{\frac{3}{8}(1 + \beta_\mathbf{C})^2  - 1 \le \tau_\mathbf{C} \le 1 - \frac{3}{8}(1 - \beta_\mathbf{C})^2\mbox{.}}
 
-A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \emph{Blomqvist Beta} (\code{\link{blomCOP}}) is equal to \emph{Kendall Tau} (\code{\link{tauCOP}}): \eqn{\beta_\mathbf{C} = \tau_\mathbf{C}} (see \bold{Note} in \code{\link{med.regressCOP}} for a demonstration).
+A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \emph{Blomqvist Beta} is equal to \emph{Kendall Tau} (\code{\link{tauCOP}}): \eqn{\beta_\mathbf{C} = \tau_\mathbf{C}} (see \bold{Note} in \code{\link{med.regressCOP}} for a demonstration).
 }
 \usage{
-blomCOP(cop=NULL, para=NULL, as.sample=FALSE, ...)
+blomCOP(cop=NULL, para=NULL, as.sample=FALSE,
+                  ctype=c("na", "joe", "blom", "weibull", "hazen",
+                                "1/n", "bernstein", "checkerboard"), ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
-  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta_\mathbf{C}} (see \bold{Note}); and}
-  \item{...}{Additional arguments to pass to the copula.}
+  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta_\mathbf{C}} (see \bold{Note}). The argument is automatically set to true if \code{ctype != "na"} and then the \code{ctype} triggers either the Joe sample estimator or those through the \emph{empirical copula}. The combination \code{as.sample=TRUE} and \cr \code{ctype="na"} will trigger the Joe sample estimator as if \code{ctype="joe"};}
+  \item{ctype}{Argument of the same as \code{\link{EMPIRcop}} with the exception of the \code{"na"} support and also the \code{"joe"} specific to the documentation here. The other choices trigger and are given over to the empirical copula; and}
+  \item{...}{Additional arguments to pass to the copula or down to \code{\link{EMPIRcop}} if a sample version had been requested.}
 }
 \value{
-  The value for \eqn{\beta_\mathbf{C}} is returned.
+  The value for \eqn{\beta_\mathbf{C}} or sample \eqn{\hat\beta_n} is returned.
 }
 \note{
-The sample \eqn{\hat\beta} is most efficiently computed (Joe, 2014, p. 57) by
-\deqn{\hat\beta = (2/n) \sum_{i=1}^{n} \mathbf{1}([r_{i1} - (1 + n)/2][r_{i2} - (1 + n)/2] \ge 0) - 1\mbox{,}}
-where \eqn{r_{i1}, r_{i2}} are the ranks of the data for \eqn{i = 1, \ldots n}, and \eqn{\mathbf{1}(.)} is an \emph{indicator function} scoring 1 if condition is true otherwise zero.
+The sample \eqn{\hat\beta_n} is most efficiently computed (Joe, 2014, p. 57) by
+\deqn{\hat\beta_n = \frac{2}{n} \sum_{i=1}^{n} \mathbf{1}\biggl([r_{i1} - (1 + n)/2]\times
+                                                          [r_{i2} - (1 + n)/2] \ge 0\biggr) -
+                    1\mbox{,}}
+where \eqn{r_{i1}, r_{i2}} are the ranks of the data for \eqn{i = 1, \ldots n}, and \eqn{\mathbf{1}(.)} is an \emph{indicator function} scoring 1 if condition is true otherwise zero. However, the Joe sample estimator is not fully consistent (or vice versa) with the various versions of the empirical copula, \eqn{\mathbf{C}_n}, (\code{\link{EMPIRcop}}) (see the last example in \bold{Examples}). Also, the nature of even and odd sample sizes controls how the median is computed and the issue of samples lying on the median lines in \eqn{U} and \eqn{V} (Genest \emph{et al.}, 2013). The argument \code{ctype} supports triggers to the \eqn{\mathbf{C}_n} in lieu of the Joe sample estimator shown in this documentation.
 }
 \references{
+Genest, C., Carabar\enc{í}{i}n-Aguirre, A., and Harvey, F., 2013, Copula parameter estimation using Blomqvist's beta: Journal de la Soci\eqn{é}{e}t\enc{é}{e} Fran\enc{ç}{c}aise de Statistique, v. 154, no. 1, pp. 5--24.
+
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{footCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}},
          \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}
@@ -68,6 +75,26 @@ H <- sapply(1:100, function(i) { message(i,"-", appendLF=FALSE)
 	               blomCOP(para=rCOP(n=n, cop=PSP), as.sample=TRUE) })
 lmomco::parnor(lmomco::lmoms(sqrt(n)*(H-B))) # mu = 0.042; sigma = 0.973
 # Joe (2014) : sqrt(1-B^2) == standard deviation (sigma) : (1-(1/3)^2) approx 0.973 }
+
+\dontrun{
+nn <- 200; set.seed(1)
+UV <- simCOP(n=nn+1, cop=PSP, graphics=FALSE)
+for(n in nn:(nn+1)) {
+  print(n);
+  if(as.logical(n \%\% 2)) { # in source \ percent \ percent for latex
+    message("Blomquist Betas for an odd  sample size n=", n)
+    uv <- UV
+  } else {
+    message("Blomquist Betas for an even sample size n=", n)
+    uv <- UV[-(nn+1), ] # remove the last and 'odd' indexed value to make even
+  }
+  message(c(" Joe2014: ", round(blomCOP2(para=uv, ctype="joe"),          d=4)))
+  message(c(" Weibull: ", round(blomCOP2(para=uv, ctype="weibull"),      d=4)))
+  message(c(" Hazen:   ", round(blomCOP2(para=uv, ctype="hazen"),        d=4)))
+  message(c(" 1/n:     ", round(blomCOP2(para=uv, ctype="1/n"),          d=4)))
+  message(c(" Bernstn: ", round(blomCOP2(para=uv, ctype="bernstein"),    d=4)))
+  message(c(" ChckBrd: ", round(blomCOP2(para=uv, ctype="checkerboard"), d=4)))
+} #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}

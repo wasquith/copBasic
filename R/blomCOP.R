@@ -1,5 +1,11 @@
 "blomCOP" <-
-function(cop=NULL, para=NULL, as.sample=FALSE, ...) {
+function(cop=NULL, para=NULL, as.sample=FALSE,
+         ctype=c("na", "joe", "blom", "weibull", "hazen",
+                       "1/n", "bernstein", "checkerboard"), ...) {
+   ctype <- match.arg(ctype)
+   if(ctype != "na") { # this is a hack to keep original blomCOP implementation
+     as.sample <- TRUE # using the Joe 'most efficient' estimator.
+   }
    if(as.sample) {
       if(is.null(para)) {
          warning("Sample Blomqvist's Beta desired but para is NULL, returning NULL")
@@ -9,9 +15,14 @@ function(cop=NULL, para=NULL, as.sample=FALSE, ...) {
         warning("para argument must be data.frame having only two columns, returning NULL")
         return(NULL)
       }
-      u <- para[,1]; v <- para[,2]; n <- length(u); A <- (1+n)/2
-      samBLOM <- (2/n)*(sum(as.numeric((rank(u) - A)*(rank(v) - A) >= 0))) - 1
-      return(samBLOM)
+      if(ctype == "joe" | ctype == "na") {
+        n <- nrow(para); A <- (1+n)/2
+        return((2/ n)*(sum(as.numeric((rank(para[,1]) - A) *
+                                      (rank(para[,2]) - A) >= 0))) - 1)
+      } else {
+        A <- 1/4 # P(1/2, 1/2) = (1/2) * (1/2)
+        return(EMPIRcop(0.5, 0.5, para=para, ctype=ctype, ...)/A - 1)
+      }
    } else {
       if(is.null(cop)) {
          warning("must have copula argument specified, returning NULL")
