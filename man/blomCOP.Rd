@@ -16,7 +16,7 @@ A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \em
 }
 \usage{
 blomCOP(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "joe", "blom", "weibull", "hazen",
+                  ctype=c("na", "joe", "weibull", "hazen",
                                 "1/n", "bernstein", "checkerboard"), ...)
 }
 \arguments{
@@ -44,7 +44,8 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{footCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}},
+\seealso{\code{\link{blomatrixCOP}},
+         \code{\link{footCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}},
          \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}
 }
