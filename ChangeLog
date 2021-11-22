@@ -573,6 +573,7 @@ Version 2.1.8--
 2.  Added to blomCOP.Rd comparison of Joe's sample estimator to the various
        empirical copula supported by the package. Extended blomCOP() to support the
        empirical copula and did some mathematical edits to the equations shown.
+3.  Added Blomqvist (Schmid--Schmidt) betas of a copula in blomCCss().
 
 
 POTENTIAL TODOs:
