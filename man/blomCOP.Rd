@@ -118,3 +118,4 @@ for(n in nn:(nn+1)) {
 \keyword{Nelsen (2006) Examples and Exercises}
 \keyword{Gaussian copula}
 \keyword{Normal copula}
+\keyword{Blomqvist beta}
