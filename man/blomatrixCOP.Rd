@@ -55,7 +55,7 @@ points(td, rep(td[3], 3), cex=2, lwd=2, pch=3, col="red")
 points(td, rep(td[2], 3), cex=2, lwd=2, pch=3, col="red")
 points(td, rep(td[1], 3), cex=2, lwd=2, pch=3, col="red")
 
-blomatrixCOPdec(para=UVn, ctype="weibull")
+print(round(blomatrixCOPdec(para=UVn, ctype="weibull"), digits=8))
 #             U|V=0.10    U|V=0.50    U|V=0.90
 # U|V=0.90 -0.12888889 -0.58000000 -0.74000000
 # U|V=0.50  0.02444444  0.11200000  0.30800000
@@ -69,10 +69,7 @@ print(round(BMdn, digits=8))
 # U|V=0.90 -0.14709225 -0.55690283 -0.7299417
 # U|V=0.50  0.01671506  0.12027439  0.3344981
 # U|V=0.10  0.02064803  0.06681911  0.0835753 }
-
-\dontrun{
-
-# }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
+\keyword{Blomqvist beta}
