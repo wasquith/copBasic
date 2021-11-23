@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{taildepCOP}
 \alias{taildepCOP}
-\title{ The Lower- and Upper-Tail Dependency Parameters of a Copula }
+\title{The Lower- and Upper-Tail Dependency Parameters of a Copula}
 \description{
 Compute the \emph{lower-} and \emph{upper-tail dependency parameters} (if they exist), respectively, of a copula according to Nelsen (2006, pp. 214--215). Graphical confirmation of the computations is important, and therefore, the function can also generate a plot. The dependency parameters are expressions of conditional probability that \eqn{Y} is greater than the \eqn{100{\times}}th percentile of its distribution \eqn{G} given that \eqn{X} is greater than the \eqn{100{\times}t}-th percentile of its distribution \eqn{F} as \eqn{t} approaches unity. Specifics in terms of quantile functions \eqn{G^{(-1)}(t) = y(t)} and \eqn{F^{(-1)}(t) = x(t)} follow.
 
@@ -60,15 +60,40 @@ The returned tail dependency parameters are numerically of little importance and
   fakeU <- lmomco::pp(X[,1],sort=FALSE,a=0) # Weibull plotting position i/(n+1)
   fakeV <- lmomco::pp(X[,2],sort=FALSE,a=0) # Weibull plotting position i/(n+1)
   uv <- data.frame(U=fakeU, V=fakeV)  # parameter "object" for Empirical copula
-  TD <- taildepCOP(cop=EMPIRcop, para=uv, divisor=25, plot=TRUE,ylim=c(0,7/10))
+  plot(uv)
+  TD <- taildepCOP2(cop=EMPIRcop, para=uv, divisor=25,
+                   plot=TRUE, ylim=c(0, 7/10))
   U <- rank(X[,1])/(nrow(X)+1); V <- rank(X[,2])/(nrow(X)+1)# Charpentier(2012)
   Lemp <- function(z) sum((U<=z)   & (V<=z))   / sum(U<=z  )# Charpentier(2012)
   Remp <- function(z) sum((U>=1-z) & (V>=1-z)) / sum(U>=1-z)# Charpentier(2012)
   u <- seq(0.001, 0.5, by=.001)                             # Charpentier(2012)
   L <- Vectorize(Lemp)(u); R <- Vectorize(Remp)(rev(u))     # Charpentier(2012)
   lines(qnorm(c(u, u + 0.5 - u[1])), c(L,R)) # modified after Charpentier(2012)
+  legend("bottomright", c("Lower-tail dependency by taildepCOP()",
+                          "Upper-tail dependency by taildepCOP()",
+                          "Charpentier (2012)"), bty="n", cex=0.9,
+                          lwd=1, lty=1, col=c("red", "blue", "black"))
 }
-The figure that will be generated shows considerably similarity to that from the algorithms of Charpentier.
+The figure that will have been generated shows considerably similarity to that from the algorithms of Charpentier. Now, let us extend the discussion by using the Blomqvist (Schmid--Schmidt) Betas (\code{\link{blomCOPss}}) that have a formulation permitted lower- and upper-tail dependency parameters in a different manner than the definitions of this documentation for \code{taildepCOP}.
+\preformatted{
+  edge <- 30 * 1 / (1+nrow(X)) # as few as 30 samples into the tails
+  psl <- pnorm(seq(0, qnorm(  edge), by=-0.005))
+  psu <- pnorm(seq(0, qnorm(1-edge), by= 0.005))
+  lines(qnorm(psl),
+        sapply(psl, function(p) { blomCOPss(as.sample=TRUE, para=uv,
+                    ctype="checkerboard", uu=rep(p, 2), vv=c(1,1)) }),
+                    col="darkgreen", lty=1, lwd=2)
+  lines(qnorm(psu),
+        sapply(psu, function(p) { blomCOPss(as.sample=TRUE, para=uv,
+                    ctype="checkerboard", uu=c(0,0), vv=rep(p, 2)) }),
+                    col="darkgreen", lty=1, lwd=2)
+  points(0, blomCOP(as.sample=TRUE, para=uv), pch=16, col="magenta", cex=2)
+  legend("topleft", c("Tail dependency by Blomqvist (Schmid-Schmidt) Betas",
+                      "Blomqvist Beta C(1/2, 1/2)"),
+                    bty="n", cex=0.9, lwd=2, lty=c(1,NA), pch=c(NA,16),
+                    pt.cex=c(NA,2), col=c("darkgreen", "magenta")
+}
+The thick green lines show that the dependency parameters to the left and right are approached along a different trajectory using the definitions in \code{\link{blomCOPss}}. It seems at some stage in analysis that the practioner will need to decide how deep into the tail the sample will permit for a reliable estimate of the dependency parameters. For the data shown in the figure just generated, perhaps the \eqn{\hat\lambda_\mathbf{C}^L = 0.1} and the \eqn{\hat\lambda_\mathbf{C}^U = 0.3} and a parametric copula fitted in part to such values.
 }
 \references{
 Charpentier, A., 2012, Copulas and tail dependence, part 1: R-bloggers, dated Sept. 17, 2012, accessed on February 2, 2019 at \cr
@@ -87,7 +112,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 Schmidt, R., \enc{Stadtmüller}{Stadtmuller}, U., 2006, Nonparametric estimation of tail dependence: The Scandinavian Journal of Statistics, v. 33, pp. 307--335.
 }
 \author{ W.H. Asquith}
-\seealso{\code{\link{COP}}, \code{\link{tailconCOP}}, \code{\link{tailordCOP}}}
+\seealso{\code{\link{COP}}, \code{\link{tailconCOP}}, \code{\link{tailordCOP}}, \code{\link{blomCOPss}}}
 \examples{
 # Plot the tail dependencies by nonexceedance probability for a
 # for a positive association Plackett copula and see that both are zero.
