@@ -1,12 +1,9 @@
 "blomCOP" <-
 function(cop=NULL, para=NULL, as.sample=FALSE,
-         ctype=c("na", "joe", "weibull", "hazen",
-                       "1/n", "bernstein", "checkerboard"), ...) {
-   ctype <- match.arg(ctype)
-   if(ctype != "na") { # this is a hack to keep original blomCOP implementation
-     as.sample <- TRUE # using the Joe 'most efficient' estimator.
-   }
+                  ctype=c("joe", "weibull", "hazen", "1/n",
+                                 "bernstein", "checkerboard"), ...) {
    if(as.sample) {
+      ctype <- match.arg(ctype)
       if(is.null(para)) {
          warning("Sample Blomqvist's Beta desired but para is NULL, returning NULL")
          return(NULL)
@@ -15,7 +12,7 @@ function(cop=NULL, para=NULL, as.sample=FALSE,
         warning("para argument must be data.frame having only two columns, returning NULL")
         return(NULL)
       }
-      if(ctype == "joe" | ctype == "na") {
+      if(ctype == "joe") {
         n <- nrow(para); A <- (1+n)/2
         return((2/ n)*(sum(as.numeric((rank(para[,1]) - A) *
                                       (rank(para[,2]) - A) >= 0))) - 1)
