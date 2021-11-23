@@ -18,30 +18,33 @@ where the cutting points \eqn{\mathbf{u}} and \eqn{\mathbf{v}} are in a domain \
 
 Schmid and Schmidt (2007) list three important cases extending the \eqn{\mathbf{M}} and \eqn{\mathbf{P}} examples. First, \eqn{\beta^\diamond_\mathbf{C}(\mathbf{1/2}, \mathbf{1/2}) = \beta_\mathbf{C}(1/2, 1/2)}, which is \emph{Blomqvist Beta} (\code{\link{blomCOP}}) and measures overall dependence.
 
-Second, \eqn{\beta^\diamond_\mathbf{C}(\mathbf{u}, \mathbf{v})} with \eqn{\mathbf{u} < 1/2 < \mathbf{v}}, which measures dependence in the tail regions. (Note, the author things \dQuote{regions} in plural is need in the previous sentence; Schmid and Schmidt use the singular. This is potentially important as seemingly simultaneous tail dependency in the lower and upper perspectives would be provided. More discussion is provided in \bold{Examples}.)
+Second, \eqn{\beta^\diamond_\mathbf{C}(\mathbf{u}, \mathbf{v})} with \eqn{\mathbf{u} < 1/2 < \mathbf{v}}, which measures dependence in the tail regions. (Note, the author of \pkg{copBasic} thinks \dQuote{regions} in plural is need in the previous sentence; Schmid and Schmidt use the singular. This is potentially important as seemingly simultaneous tail dependency in the lower and upper perspectives would be provided. More discussion is provided in \bold{Examples}.)
 
-Third and presumably very important in practical applications, \eqn{\mathrm{lim}_{p\downarrow 0}\, \beta^\diamond_\mathbf{C}(\mathbf{p}, \mathbf{1}) = \lambda^L_{\beta^\diamond_\mathbf{C}}} for \eqn{\mathbf{u} = \mathbf{p} = (p,\cdots,p)} measures lower-tail dependence. This measure is equal to the \emph{lower-tail dependence parameter} \eqn{\lambda^L_\mathbf{C} = \lambda^L_{\beta^\diamond_\mathbf{C}}} without some of the computational nuances required as defined at \code{\link{taildepCOP}}.
-
-Schmid and Schmidt (2007) do not list how the \emph{upper-tail dependence parameter} \eqn{\lambda^U_\mathbf{C}} could be computed in terms of \eqn{\beta^\diamond}.
-
-\eqn{\lambda^U_{\beta^\diamond_\mathbf{C}}}
+Third and presumably very important in practical applications, \eqn{\mathrm{lim}_{p\downarrow 0}\, \beta^\diamond_\mathbf{C}(\mathbf{p}, \mathbf{1}) = \lambda^L_{\beta^\diamond_\mathbf{C}}} for \eqn{\mathbf{p} = \mathbf{u} = (p,\cdots,p)} measures lower-tail dependence. This measure is equal to the \emph{lower-tail dependence parameter} \eqn{\lambda^L_\mathbf{C} = \lambda^L_{\beta^\diamond_\mathbf{C}}} without some of the computational nuances required as  \eqn{\lambda^L_\mathbf{C}} is defined at \code{\link{taildepCOP}}. Schmid and Schmidt (2007) do not list how the \emph{upper-tail dependence parameter} \eqn{\lambda^U_\mathbf{C}} could be computed in terms of \eqn{\beta^\diamond_\mathbf{C}}. The expression for study of the upper-tail dependency is \eqn{\lambda^U_{\beta^\diamond_\mathbf{C}} = \beta^\diamond_\mathbf{C}(\mathbf{0}, \mathbf{p})} for \eqn{\mathbf{p} = \mathbf{v} = (p,\cdots,p)} as \eqn{p \rightarrow 0^+}, and \eqn{\lambda^U_\mathbf{C} = \lambda^U_{\beta^\diamond_\mathbf{C}}} without some of the computational nuances required as \eqn{\lambda^U_\mathbf{C}} is defined at \code{\link{taildepCOP}}. These tail dependencies are computed and compared in the \bold{Examples} and confirmation of this function being used to estimate both tail-dependency parameters is confirmed.
 }
 \usage{
-blomCOPss(cop=NULL, para=NULL, as.sample=FALSE,
-          uu=rep(0.5, 2), vv=rep(0.5, 2), trap.nan=TRUE, ...)
+blomCOPss(cop=NULL, para=NULL, uu=rep(0.5, 2), vv=rep(0.5, 2), trap.nan=TRUE,
+          as.sample=FALSE, ctype=c("weibull", "hazen", "1/n",
+                                   "bernstein", "checkerboard"), ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
-  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta^\diamond_\mathbf{C}}; and}
-\item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the  \eqn{\hat\beta^\diamond_\mathbf{C}}. The argument is automatically set to true if \code{ctype != "na"} and then the \code{ctype} triggers either the Weibull sample estimator through the \emph{empirical copula}. The combination \code{as.sample=TRUE} and \cr \code{ctype="na"} will trigger the Weibull sample estimator as if \code{ctype="weibull"};}
-  \item{uu}{;}
-  \item{vv}{;}
-  \item{trap.nan}{A logical ; and}
+  \item{uu}{The vector for \eqn{\mathbf{u}} and the defaults with \code{vv} as such for same operation as \code{\link{blomCOP}} (\eqn{\beta^\diamond_\mathbf{C}(\mathbf{1/2}, \mathbf{1/2})});}
+  \item{vv}{The vector for \eqn{\mathbf{v}} and the defaults with \code{uu} as such for same operation as \code{\link{blomCOP}} (\eqn{\beta^\diamond_\mathbf{C}(\mathbf{1/2}, \mathbf{1/2})});}
+  \item{trap.nan}{A logical to trigger 0 if \eqn{(0,0)} is NaN or if \eqn{(1,1)} is NaN;}
+  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the  \eqn{\hat\beta^\diamond_\mathbf{C}} at which point the \code{ctype} argument will be passed to \code{\link{EMPIRcop}};}
+    \item{ctype}{Argument of the same as \code{\link{EMPIRcop}} with the exception of the \code{"na"} support; and}
   \item{...}{Additional arguments to pass to the copula.}
 }
 \value{
   The \eqn{\beta^\diamond_\mathbf{C}} is returned.
+}
+\note{
+Sample estimation of the \eqn{\beta^\diamond_\mathbf{C}} is possible.
+
+Also, see the section \emph{DEMONSTRATION (Tail Dependence)} under the \bold{Note} in \code{\link{taildepCOP}} for a comparison of the \eqn{\hat\lambda^U_{\beta^\diamond_\mathbf{C}}} and \eqn{\hat\lambda^U_{\beta^\diamond_\mathbf{C}}}.
+
 }
 \references{
 Schmid, Friedrich, and Schmidt, Rafael, 2007, Nonparametric inference on multivariate versions of Blomqvist's beta and related measures of tail dependence: Metrika, v. 66, pp. 323--354, \doi{10.1007/s00184-006-0114-3}.
@@ -54,6 +57,7 @@ blomCOP(  cop=PSP) # [1] 0.3333333
 blomCOPss(cop=PSP) # [1] 0.3333333
 
 \dontrun{
+set.seed(1)
 para <- c(3, 6) # define parameters of two-parameter GHcop
 UV <- simCOP(1000, cop=GHcop, para=para) # simulate to show general structure
 
@@ -82,17 +86,26 @@ SchmidsU <- blomCOPss(cop=GHcop, para=para, uu=c(0,0), vv=vvUP)
 points(usr[2], SchmidsU, col="darkgreen", cex=2, pch=1, lwd=2)
 points(usr[2], SchmidsU, col="darkgreen", cex=2, pch=3, lwd=2)
 points(usr[2], SchmidsU, col="darkgreen", cex=2, pch=4, lwd=2)
+# SchmidsL lower tail dependency = 0.9607885
+# SchmidsU upper tail dependency = 0.7400791
+# The author has an expectation that the SchmidsL and SchmidsU values are
+# more reliable than those stemming from taildepCOP() because of the limiting
+# behavior (or its implementation therein) compared to direct computation by
+# blomCOPss().
 
-# now for sake of curiosity, let us see how the trajectory of the Blomqvist
+# Mow for sake of curiosity, let us see how the trajectory of the Blomqvist
 # (Schmid--Schmidt) Betas at arriving at the tail dependencies as p-->0|1.
+# It is very informative that the trajectories of blomCOPss() and taildepCOP()
+# as each hones towards the two dependency parameters are different and this
+# highlights the fact that the computational underpinnings are different.
 psl <- pnorm(seq(0, usr[1], by=-diff(range(c(0, usr[1])))/1000))
 lines(qnorm(psl), sapply(psl, function(p) {
               blomCOPss(cop=GHcop, para=para, uu=rep(p, 2), vv=c(1,1)) }),
-      col="darkgreen", lty=2)
+      col="darkgreen", lty=2, lwd=2)
 psu <- pnorm(seq(0, usr[2], by= diff(range(c(0, usr[2])))/1000))
 lines(qnorm(psu), sapply(psu, function(p) {
               blomCOPss(cop=GHcop, para=para, uu=c(0,0), vv=rep(p, 2)) }),
-      col="darkgreen", lty=2) # }
+      col="darkgreen", lty=2, lwd=2) # }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
