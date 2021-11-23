@@ -16,14 +16,14 @@ A curious aside (Joe, 2014, p. 164) about the \emph{Gaussian copula} is that \em
 }
 \usage{
 blomCOP(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "joe", "weibull", "hazen",
-                                "1/n", "bernstein", "checkerboard"), ...)
+                  ctype=c("joe", "weibull", "hazen", "1/n",
+                                 "bernstein", "checkerboard"), ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
-  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta_\mathbf{C}} (see \bold{Note}). The argument is automatically set to true if \code{ctype != "na"} and then the \code{ctype} triggers either the Joe sample estimator or those through the \emph{empirical copula}. The combination \code{as.sample=TRUE} and \cr \code{ctype="na"} will trigger the Joe sample estimator as if \code{ctype="joe"};}
-  \item{ctype}{Argument of the same as \code{\link{EMPIRcop}} with the exception of the \code{"na"} support and also the \code{"joe"} specific to the documentation here. The other choices trigger and are given over to the empirical copula; and}
+  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta_\mathbf{C}} (see \bold{Note});}
+  \item{ctype}{Argument of the same as \code{\link{EMPIRcop}} with the exception of the \code{"joe"} specific to the documentation here. The other choices trigger and are given over to the empirical copula; and}
   \item{...}{Additional arguments to pass to the copula or down to \code{\link{EMPIRcop}} if a sample version had been requested.}
 }
 \value{
@@ -44,7 +44,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{blomatrixCOP}},
+\seealso{\code{\link{blomatrixCOPdec}}, \code{\link{blomatrixCOPiqr}},
          \code{\link{footCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}},
          \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}

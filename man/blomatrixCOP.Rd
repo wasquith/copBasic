@@ -12,17 +12,16 @@ where the \eqn{u^\circ} and \eqn{v^\circ} are of two types of gridded locations 
 }
 \usage{
 blomatrixCOPdec(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "weibull", "hazen",
-                                "1/n", "bernstein", "checkerboard"), ...)
+                  ctype=c("weibull", "hazen", "1/n",
+                          "bernstein", "checkerboard"), ...)
 blomatrixCOPiqr(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "weibull", "hazen",
-                                "1/n", "bernstein", "checkerboard"), ...)
+                  ctype=c("weibull", "hazen", "1/n",
+                          "bernstein", "checkerboard"), ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
-  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the \eqn{\hat\beta^\circ_\mathbf{C}}-matrix; and}
-\item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the  \eqn{\hat\beta^\circ_\mathbf{C}}-matrix. The argument is automatically set to true if \code{ctype != "na"} and then the \code{ctype} triggers either the Weibull sample estimator through the \emph{empirical copula}. The combination \code{as.sample=TRUE} and \cr \code{ctype="na"} will trigger the Weibull sample estimator as if \code{ctype="weibull"};}
+  \item{as.sample}{A logical controlling whether an optional \R \code{data.frame} in \code{para} is used to compute the  \eqn{\hat\beta^\circ_\mathbf{C}}-matrix at which point the \code{ctype} argument will be passed to multiple calls of \code{\link{EMPIRcop}};}
   \item{ctype}{Argument of the same as \code{\link{EMPIRcop}} with the exception of the \code{"na"} support; and}
   \item{...}{Additional arguments to pass to the copula.}
 }

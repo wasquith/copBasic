@@ -1,13 +1,10 @@
 blomatrixCOPdec <-
 function(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "weibull", "hazen",
-                                "1/n", "bernstein", "checkerboard"), ...) {
-  ctype <- match.arg(ctype)
-  if(ctype != "na") { # a hack to keep similar to blomCOP
-    as.sample <- TRUE
-  }
+                  ctype=c("weibull", "hazen", "1/n",
+                          "bernstein", "checkerboard"), ...) {
   t <- c(0.10, 0.50, 0.90)
   if(as.sample) {
+    ctype <- match.arg(ctype)
     if(is.null(para)) {
       warning("Sample Blomqvist's Beta desired but para is NULL, returning NULL")
       return(NULL)
@@ -45,14 +42,11 @@ function(cop=NULL, para=NULL, as.sample=FALSE,
 
 blomatrixCOPiqr <-
 function(cop=NULL, para=NULL, as.sample=FALSE,
-                  ctype=c("na", "weibull", "hazen",
-                                "1/n", "bernstein", "checkerboard"), ...) {
-  ctype <- match.arg(ctype)
-  if(ctype != "na") { # a hack to keep similar to blomCOP
-    as.sample <- TRUE
-  }
+                  ctype=c("weibull", "hazen", "1/n",
+                          "bernstein", "checkerboard"), ...) {
   t <- c(0.25, 0.50, 0.75)
   if(as.sample) {
+    ctype <- match.arg(ctype)
     if(is.null(para)) {
       warning("Sample Blomqvist's Beta desired but para is NULL, returning NULL")
       return(NULL)
