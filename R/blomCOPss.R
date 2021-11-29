@@ -19,10 +19,14 @@ function(cop=NULL, para=NULL, uu=rep(0.5, 2), vv=rep(0.5, 2), trap.nan=TRUE,
          warning("must have copula argument specified, returning NULL")
          return(NULL)
       }
-      if(any(uu > vv)) { # SS pp.4 uu<=vv |given uu > 0 | vv < 1
-         warning("at least one in vector uu is greater than one in vv")
-         return(NULL)
-      }
+      # This condition seems clear in SS, but such a conditions keeps the
+      # computations out of two quadrants. Use of the two other quadrants means
+      # that this SS extension to blomCOP() can be used in the matrix products of
+      # blomatrixCOP(). So, let us keep this condition commented out:
+      #if(any(uu > vv)) { # SS pp.4 uu<=vv |given uu > 0 | vv < 1
+      #   warning("at least one in vector uu is greater than one in vv")
+      #   #return(NULL)
+      #}
 
       n  <- length(uu)
       gd <- cumprod(uu)[n] + cumprod(1-vv)[n]
