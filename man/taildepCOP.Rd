@@ -144,8 +144,8 @@ taildepCOP(cop=PSP, para=NULL, plot=TRUE) # LambL=0.5, LambU=0
 
 # How about some composited Plackett-Plackett copulas?
 # Each has upper- and lower-tail dependence parameters equal to zero.
-para <- list(cop1=PLACKETTcop,  cop2=PLACKETTcop,
-             para1=0.00395,  para2=4.67, alpha=0.9392, beta=0.5699)
+para <- list( cop1=PLACKETTcop,  cop2=PLACKETTcop, alpha=0.9392,
+             para1=0.00395,     para2=4.67,         beta=0.5699)
 taildepCOP(cop=composite2COP, para=para, plot=TRUE, verbose=TRUE) #}
 
 \dontrun{
