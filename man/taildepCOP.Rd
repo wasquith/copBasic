@@ -175,3 +175,8 @@ lines(qnorm(psu), sapply(psu, function(p) {
 \keyword{Nelsen (2006) Examples and Exercises}
 \keyword{tail dependence}
 \keyword{package copula (comparison to)}
+\keyword{copula (characteristics)}
+\keyword{copula (properties)}
+\keyword{copula (tail characteristics)}
+\keyword{copula (tail properties)}
+\keyword{tail dependence}
