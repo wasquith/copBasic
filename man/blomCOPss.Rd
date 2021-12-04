@@ -116,3 +116,6 @@ lines(qnorm(psu), sapply(psu, function(p) {
 \keyword{copula (properties)}
 \keyword{Blomqvist Beta}
 \keyword{Blomqvist (Schmid-Schmidt) Beta}
+\keyword{copula (tail characteristics)}
+\keyword{copula (tail properties)}
+\keyword{tail dependence}
