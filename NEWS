@@ -2,7 +2,7 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Version 2.1.8 (2022-08-31)
+Changes in version 2.1.8 (2022-08-31)
 -  Converted the Changelog to this NEWS with reformatting and removed ChangeLog.
 -  Added blomatrixCOP() function and made comparisons as part of that development
        to Joe's sample estimator for blomCOP() to the various empirical copula forms
@@ -25,7 +25,7 @@ Version 2.1.8 (2022-08-31)
        https://blog.r-project.org/2022/04/08/enhancements-to-html-documentation/
 
 
-Version 2.1.7 (2021-11-14)
+Changes in version 2.1.7 (2021-11-14)
 -   Minor edits to lcomCOP.Rd and expanded the Examples demonstrating parameter
        estimation for a composite1COP of the Plackett copula.
 -   Added cross-reference link to lcomCOP to lcomCOPpv.Rd.
@@ -53,7 +53,7 @@ Version 2.1.7 (2021-11-14)
 -  Added cross-links to PLcop in PLACKETTpar and PLpar in PLACKETTcop.
 
 
-Version 2.1.6 (2021-08-30)
+Changes in version 2.1.6 (2021-08-30)
 -   Minor Rd fixes as R 4.1.+ series emerges and check --as-cran reports new things.
        This mostly added up to the \doi{} call instead of \url{} when a DOI is used.
 -   Added a seed argument in simCOP, rCOP, and simCOPmicro to pass to set.seed().
@@ -61,7 +61,7 @@ Version 2.1.6 (2021-08-30)
        update is likely not that critical but does bring consistency.
 
 
-Version 2.1.5 (2020-03-22)
+Changes in version 2.1.5 (2020-03-22)
 -  Extended RFcop() with a fit argument to toggle between Spearman Rho or Kendall Tau.
 -  Extended COP.Rd with a example of taking a copula, such as the RFcop, that only has
        positive association and reflecting it three different times to form alternative
@@ -93,13 +93,13 @@ Version 2.1.5 (2020-03-22)
 -  Minor spelling checks during Rd auditing for margin protrusion on Rd2pdf.
 
 
-Version 2.1.4 (2019-07-02)
+Changes in version 2.1.4 (2019-07-02)
 -  Fixups in FGMcop.Rd (bad URL), HRcop.Rd (no encoding switch in the concept/keyword),
        lcomCOP.Rd (bad URL), rhobevCOP.Rd (no commas in indexing or concepts) for 
        release to CRAN.
 
 
-Version 2.1.3 (2019-07-01)
+Changes in version 2.1.3 (2019-07-01)
 -  Added documentation in lcomCOP() stating that Chine and Benatia (2017) describe
        trimmed L-comoments as the multivariate extensions of the univariate
        trimmed L-moments. Unknown as to whether an extension jump should be made.
@@ -129,7 +129,7 @@ Version 2.1.3 (2019-07-01)
        change to FF as a variable for nonexceedance probability (see no. 6).
 
 
-Version 2.1.2 (2019-01-08)
+Changes in version 2.1.2 (2019-01-08)
 -  Added m=NA argument to aicCOP() and bicCOP() to pass the number of parameters
        of the copula. Trivial to compute the number from standard copulas,
        the problem is how to handle and count on the fly the number of parameters
@@ -192,7 +192,7 @@ Version 2.1.2 (2019-01-08)
        The gamma-power mixture is though a different copula.
 
 
-Version 2.1.1 (2018-12-01)
+Changes in version 2.1.1 (2018-12-01)
 -  Enhancement: Changed from sapply to u*v on return. This dates for a long
        time back when the vectorization in R was not idiomatic for the author.
 -  Added aicCOP(), bicCOP(), and rmseCOP(): a triad of similar goodness of fits.
@@ -201,7 +201,7 @@ Version 2.1.1 (2018-12-01)
 -  Standardized all *.Rd files to utf8 encoding declaration whether needed or no.
 
 
-Version 2.1.0 (2018-05-07)
+Changes in version 2.1.0 (2018-05-07)
 -   Minor Rd updates throughout.
 -   Revision of warning() in wolfCOP().
 -   Removed last of the repeated sequence computation inside nested sapply()s
@@ -244,18 +244,18 @@ Version 2.1.0 (2018-05-07)
 -   Added alias PAcop() for PARETOcop() to be parallel to the PLACKETTcop().
 
 
-Version 2.0.7 (2018-03-08)
+Changes in version 2.0.7 (2018-03-08)
 -   Clarified some documentation in bilmoms.Rd.
 -   Expanded description in Examples in kullCOP.Rd.
 
 
-Version 2.0.6 (2017-11-11)
+Changes in version 2.0.6 (2017-11-11)
 -   Added convexCOP() as a N-bivariate copula generalization of convex2COP().
 -   Documentation adjustment to GHcop.Rd.
 -   Added CLcop() for user R. Adat related to his own coding efforts.
 
 
-Version 2.0.5 (2017-02-24)
+Changes in version 2.0.5 (2017-02-24)
 -   Typo correction to DESCRIPTION and line ending changes to help hyphenation.
 -   NAME CHANGE: StableTailDepFN() --> stabtaildepf()
 -   Added importFrom("graphics", "mtext") for stabtaildepf() needs in NAMESPACE.
@@ -270,11 +270,11 @@ Version 2.0.5 (2017-02-24)
        example of Kendall function L-moments.
 
 
-Version 2.0.4 (2016-06-03)
+Changes in version 2.0.4 (2016-06-03)
 -  Microchanges 2.0.3 to pass CRAN importation.
 
 
-Version 2.0.3 (2016-05-31)
+Changes in version 2.0.3 (2016-05-31)
 -   Another deep rereading of the documentation and editorial revisions.
 -   Extended the Gaussian copula example within med.regressCOP.Rd that deals with the
        interaction with the copula package. (Reminder, WHA does not want to just dump
@@ -318,7 +318,7 @@ Version 2.0.2 (2015-10-31)
       integration for population estimate of L-comoments via the new bilmoms().
 
 
-Version 2.0.1 (2015-08-31)
+Changes in version 2.0.1 (2015-08-31)
 -  Some major documentation expansion here and there as cascading impacts from
       the other changes listed below. Minor documentation formatting changes in
       a select few Rd files and many proofreading passes through all
@@ -395,11 +395,11 @@ Version 2.0.1 (2015-08-31)
       return list to enhance clarity and added t-dist. for confidence interval.
 
 
-Version 1.7.1 (2015-01-31)
+Changes in version 1.7.1 (2015-01-31)
 -  Minor changes to CITATION following CRAN email dated 01/09/2015.
 
 
-Version 1.7.0 (2015-01-03)
+Changes in version 1.7.0 (2015-01-03)
 -   Further refinement of documentation and continued work on highlighting
       and extending the connections to numerical results of various kinds
       reported in Nelsen (2006) as well as Joe (2014).
@@ -454,7 +454,7 @@ Version 1.7.0 (2015-01-03)
       the inference problem.
 
 
-Version 1.6.0 (2014-09-26)
+Changes in version 1.6.0 (2014-09-26)
 -   Added the Bernstein copula extension to EMPIRcop().
 -   Changes to derCOP() and derCOP2() of accommodate vectorization yet still
       retain the dynamic suspension of requested derivative direction should
@@ -485,7 +485,7 @@ Version 1.6.0 (2014-09-26)
       functions needed from the lmomco package.
 
 
-Version 1.5.4 (2013-05-10)
+Changes in version 1.5.4 (2013-05-10)
 -  Prof. Ripley remarked that the DESCRIPTION of copBasic was too long.
       This is a reasonably critique. The DESCRIPTION has been radically
       shortened. The original (with new edits and organization) is now located
@@ -497,12 +497,12 @@ Version 1.5.4 (2013-05-10)
       made.
 
 
-Version 1.5.3 (2014-04-20)
+Changes in version 1.5.3 (2014-04-20)
 -   Added the ReineckeWells.RData and ReineckeWell266.RData.
     ** This version failed --timings checks by CRAN, never released **
 
 
-Version 1.5.2 (2012-07-30)
+Changes in version 1.5.2 (2012-07-30)
 -   med.regressCOP() and med.regressCOP() had arguments changed to match
       the qua.regressCOP() and qua.regressCOP2() functions.
 -   med.regressCOP.Rd and med.regressCOP2.Rd changed in argument to match code.
@@ -512,7 +512,7 @@ Version 1.5.2 (2012-07-30)
       Thanks CRAN team for the automated spell checkers.
 
 
-Version 1.5.1 (2011-11-14)
+Changes in version 1.5.1 (2011-11-14)
 -   Added data/PlackettPlackettABKGtest.RData and
       man/PlackettPlackettABKGtest.Rd.
 -   Removed lcomoms2.cop2parameter.R/Rd.
@@ -549,7 +549,7 @@ Version 1.5.1 (2011-11-14)
 -  Enhancement to derCOP() and derCOP2() by changing derivative direction
       if near the 0 or 1 boundaries.
 
-Version 1.5.0 (2011-08-31)
+Changes in version 1.5.0 (2011-08-31)
 -   Enhancement on derCOPinv.R when a solution is unbounded in uniroot()
       to return NA as needed. This was discovered in massive simulation
       from simcompositeCOP()---massive means 500k simulation counts.
@@ -583,7 +583,7 @@ Version 1.5.0 (2011-08-31)
       illustrated in a script in inst/doc/CopulaRelations_BaseFigure_inR.txt
       as a base figure and vector edited in inst/doc/CopulaRelationsFigure.pdf
 
-Version 1.4 (2008-10-30)
+Changes in version 1.4 (2008-10-30)
 -  Initial release (class project)
 
 
