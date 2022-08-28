@@ -11,3 +11,5 @@ SUMMARY.txt
 TODO.md
 code.json
 inst/www/avatar.jpg
+rdchanges.R
+ChangeLog
