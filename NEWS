@@ -6,7 +6,7 @@ Changes in version 2.1.8 (2022-08-31)
 -  Converted the Changelog to this NEWS with reformatting and removed ChangeLog.
 -  Added blomatrixCOP() function and made comparisons as part of that development
        to Joe's sample estimator for blomCOP() to the various empirical copula forms
-       that have been added (see 2.1.8:2).
+       that have been added (see 2.1.8:3).
 -  Added to blomCOP.Rd comparison of Joe's sample estimator to the various
        empirical copula supported by the package. Extended blomCOP() to support the
        empirical copula and did some mathematical edits to the equations shown.
