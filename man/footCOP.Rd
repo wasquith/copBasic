@@ -33,7 +33,7 @@ where \eqn{R_i} and \eqn{S_i} are the respective ranks of \eqn{X} and \eqn{Y} an
 Genest \emph{et al.} (2010) present additional equations for estimation of the distribution \eqn{\hat\psi} variance for conditions of dependence based on copulas.
 }
 \references{
-Genest, C., \enc{Neslehová}{Neslehova}, J., and Ghorbal, N.B., 2010, Spearman's footrule and Gini's gamma---A review with complements: Journal of Nonparametric Statistics, v. 22, no. 8, pp. 937--954.
+Genest, C., \enc{Nešlehová}{Neslehova}, J., and Ghorbal, N.B., 2010, Spearman's footrule and Gini's gamma---A review with complements: Journal of Nonparametric Statistics, v. 22, no. 8, pp. 937--954.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
