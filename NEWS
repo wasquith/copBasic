@@ -2,6 +2,10 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
+Changes in version 2.1.9 (2022-08-30)
+-  Incorrect use of \overline in blomCOPss.Rd found during 2.1.8 CRAN submission.
+
+
 Changes in version 2.1.8 (2022-08-30)
 -  Converted the Changelog to this NEWS with reformatting and removed ChangeLog.
 -  Added blomatrixCOP() function and made comparisons as part of that development
