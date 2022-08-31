@@ -4,7 +4,7 @@
 \alias{GLEVcop}
 \alias{GLPMcop}
 \alias{JOcopBB4}
-\title{ The Galambos Extreme Value Copula (with Gamma Power Mixture [Joe/BB4] and Lower Extreme Value Limit) }
+\title{The Galambos Extreme Value Copula (with Gamma Power Mixture [Joe/BB4] and Lower Extreme Value Limit)}
 \description{
 The \emph{Galambos copula} (Joe, 2014, p. 174) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{GL}(u,v) = uv\,\mathrm{exp}\bigl[\bigl(x^{-\Theta} + y^{-\Theta}\bigr)^{-1/\Theta}\bigr]\mbox{,}}
@@ -67,7 +67,7 @@ Next, we can combine the Pickend dependence functions into an objective function
      rhs <- (x^-a + y^-a)^(-1/a); return(rhs - lhs) # to be uniroot'ed
   }
 }
-We can now make a demonstration:
+A demonstration can now be made:
 \preformatted{
   t <- 0.6; d <- 4; lohi <- c(0,100)
   set.seed(3); UV <- simCOP(3000, cop=GL2cop, para=c(t,d), pch=16,col=3,cex=0.5)
@@ -79,7 +79,7 @@ The graphic so produced shows almost perfect overlap in the simulated values. To
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}, \code{\link{GHcop}}, \code{\link{HRcop}}, \code{\link{tEVcop}}
 }
 \examples{
@@ -92,9 +92,9 @@ Bform <- (2^(t+1) - 1 - taildepCOP(GLPMcop, para=c(t,3))$lambdaU*(2^t -1))^(-1/t
 print(c(Btheo, 4*Bform-1)) # [1] 0.8611903 0.8611900
 
 \dontrun{
-# See the Note, but check Blomqvist Beta:
-blomCOP(cop=GLcop, para=c(6.043619))  # 0.8552863 (2p version)
-blomCOP(cop=GLcop, para=c(5.6,0.3))   # 0.8552863 (1p version)}
+  # See the Note, but check Blomqvist Beta:
+  blomCOP(cop=GLcop, para=c(6.043619))  # 0.8552863 (2p version)
+  blomCOP(cop=GLcop, para=c(5.6,0.3))   # 0.8552863 (1p version) }
 }
 \keyword{Galambos copula}
 \keyword{Galambos copula (lower extreme value form)}
