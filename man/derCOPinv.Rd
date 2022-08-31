@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{derCOPinv}
 \alias{derCOPinv}
-\title{ Numerical Derivative Inverse  of a Copula for V with respect to U }
+\title{Numerical Derivative Inverse  of a Copula for V with respect to U}
 \description{
 Compute the inverse of a numerical partial derivative for \eqn{V} with respect to \eqn{U} of a copula, which is a \emph{conditional quantile function} for nonexceedance probability \eqn{t}, or
 \deqn{t = c_u(v) = \mathbf{C}^{(-1)}_{2|1}(v|u) = \frac{\delta \mathbf{C}(u,v)}{\delta u}\mbox{,}}
@@ -107,7 +107,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Zhang, L., and Singh, V.P., 2019, Copulas and their applications in water resources engineering: Cambridge University Press, ISBN 978--1--108--47425--2.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{derCOP}}}
 \examples{
 u <- runif(1); t <- runif(1)
@@ -135,8 +135,7 @@ for(i in 1:500) {
 derCOPinv( cop=CLcop, 0.6036, 0.4028, para=0.5) # 0.4719 for C2|1
 derCOPinv2(cop=CLcop, 0.6036, 0.4028, para=0.5) # 0.4719 for C1|2
 # and C2|1 and C1|2 are equal because the copula has permutation symmetry
-isCOP.permsym(cop=CLcop, para=0.5) # TRUE
-# }
+isCOP.permsym(cop=CLcop, para=0.5) # TRUE}
 }
 \keyword{copula (utility)}
 \keyword{copula (derivative inverse)}
