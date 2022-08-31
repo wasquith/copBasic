@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{composite1COP}
 \alias{composite1COP}
-\title{ Composition of a Single Symmetric Copula with Two Compositing Parameters }
+\title{Composition of a Single Symmetric Copula with Two Compositing Parameters}
 \description{
 The \emph{composition of a single copula} (Salvadori \emph{et al.}, 2006, p. 266, prop. C.3) is created by the following result related to \dQuote{composition of copulas} in that reference. Suppose \eqn{\mathbf{C}(u,v)} is a \emph{symmetric copula} (see \code{\link{COP}}) with parameters \eqn{\Theta} and \eqn{\mathbf{C} \ne \mathbf{\Pi}} (for \eqn{\mathbf{\Pi}} see \code{\link{P}}), then a family of generally \emph{asymmetric copulas} \eqn{\mathbf{C}_{\alpha,\beta; \Theta}} with \bold{two} \emph{compositing parameters} \eqn{0 < \alpha,\beta < 1, \mbox{and\ } \alpha \ne \beta}, which also includes just the copula \eqn{\mathbf{C}(u,v)} as a limiting case for \eqn{\alpha = \beta = 0} and is given by
 
@@ -36,7 +36,7 @@ Joe, H., 2017, Parametric copula families for statistical models (chap. 8) \emph
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{composite2COP}}, \code{\link{composite3COP}},
 \code{\link{convexCOP}}, \code{\link{glueCOP}}}
 \examples{

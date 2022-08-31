@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{composite3COP}
 \alias{composite3COP}
-\title{ (Extended) Composition of Two Copulas with Four Compositing Parameters }
+\title{(Extended) Composition of Two Copulas with Four Compositing Parameters}
 \description{
 The \emph{(extended) composition of two copulas}  (Salvadori \emph{et al.}, 2006, p. 266, prop. C.4) provides for even more sophisticated structures of dependence between variables than two-copula composition in \code{\link{composite2COP}}. Let \eqn{\mathbf{A}} and \eqn{\mathbf{B}} be copulas with respective parameters \eqn{\Theta_\mathbf{A}} and \eqn{\Theta_\mathbf{B}}, then
 
@@ -45,7 +45,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{simCOP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{convexCOP}}, \code{\link{glueCOP}}, \code{\link{simcomposite3COP}}}
 \examples{
 \dontrun{

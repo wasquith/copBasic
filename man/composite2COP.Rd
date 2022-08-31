@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{composite2COP}
 \alias{composite2COP}
-\title{ Composition of Two Copulas with Two Compositing Parameters }
+\title{Composition of Two Copulas with Two Compositing Parameters}
 \description{
 The \emph{composition of two copulas} (Salvadori \emph{et al.}, 2007, p. 266, prop. C.3) provides for more sophisticated structures of dependence between variables than many single parameter copula can provide. Further, \emph{asymmetrical copulas} are readily obtained from \emph{symmetrical copulas}. Let \eqn{\mathbf{A}} and \eqn{\mathbf{B}} be copulas with respective parameters \eqn{\Theta_\mathbf{A}} and \eqn{\Theta_\mathbf{B}}, then
 
@@ -46,7 +46,7 @@ The \code{para} argument of this function also can be passed to \code{\link{comp
 \references{
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{composite1COP}}, \code{\link{composite3COP}},
 \code{\link{convexCOP}}, \code{\link{glueCOP}}}
 \examples{
