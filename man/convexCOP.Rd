@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{convexCOP}
 \alias{convexCOP}
-\title{ Convex Combination of an Arbitrary Number of Copulas }
+\title{Convex Combination of an Arbitrary Number of Copulas}
 \description{
 The \emph{convex composition of \eqn{N} number of copulas} (Salvadori \emph{et al.}, p. 132, 2007) provides for complexity extension between coupla families. Let \eqn{\mathbf{C}_{i}} be a copula with respective vector of parameters \eqn{\Theta_i}, then the convex combination of these copulas is
 
@@ -32,8 +32,8 @@ The following descriptions list in detail the structure and content of the \code
 \references{
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
-\seealso{ \code{\link{convex2COP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{composite3COP}}, \code{\link{glueCOP}} }
+\author{W.H. Asquith}
+\seealso{ \code{\link{convex2COP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{composite3COP}}, \code{\link{glueCOP}}}
 \examples{
 # The copulas and parameters are named by sequence number appended to cop and para.
 para1 <- list(cop1=GHcop, cop2=PLcop, para1=8, para2=.03, weights=c(.8,.2))
