@@ -2,7 +2,7 @@
 \name{kfuncCOP}
 \alias{kfuncCOP}
 \alias{kmeasCOP}
-\title{ The Kendall (Distribution) Function of a Copula }
+\title{The Kendall (Distribution) Function of a Copula}
 \description{
 To begin, there are at least three terms in the literature for what appear as the same function supported by the \code{kfuncCOP} function.  The Kendall Function also is known as Kendall Distribution Function (Nelsen, 2006, p. 163) and Kendall Measure (Salvadori \emph{et al.}, 2007, p. 148). Each of these is dealt with in sequel to set the manner of the rather lengthy documentation for this function.
 
@@ -208,8 +208,8 @@ Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena},
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in nature---An approach using copulas: Dordrecht, Netherlands, Springer, Water Science and Technology Library 56, 292 p.
 }
-\author{ W.H. Asquith}
-\seealso{ \code{\link{kfuncCOPinv}}, \code{\link{tauCOP}}, \code{\link{derCOP}}, \code{\link{derCOP2}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}} }
+\author{W.H. Asquith}
+\seealso{ \code{\link{kfuncCOPinv}}, \code{\link{tauCOP}}, \code{\link{derCOP}}, \code{\link{derCOP2}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}}
 \examples{
 \dontrun{
 # Salvadori et al. (2007, p. 148, fig. 3.5 [right])
