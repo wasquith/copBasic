@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{JOcopB5}
 \alias{JOcopB5}
-\title{ The Joe/B5 Copula (B5)}
+\title{The Joe/B5 Copula (B5)}
 \description{
 The \emph{Joe/B5 copula} (Joe, 2014, p. 170) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{B5}(u,v) = 1 - \bigl[(1-u)^\Theta + (1-v)^\Theta - (1-u)^\Theta (1-v)^\Theta\bigr)\mbox{,}}
@@ -29,7 +29,7 @@ and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}
 }
 \examples{

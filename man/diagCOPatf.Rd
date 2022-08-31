@@ -2,7 +2,7 @@
 \name{diagCOPatf}
 \alias{diagCOPatf}
 \alias{diagCOPinv}
-\title{ Numerical Rooting the Diagonal of a Copula }
+\title{Numerical Rooting the Diagonal of a Copula}
 \description{
 Compute a numerical root along the \emph{primary diagonal} (Nelsen, 2006, pp. 12 and 16) of copula \eqn{\mathbf{C}(u,v)} having joint probability \eqn{F}. The diagonals treat the nonexceedance probabilities \eqn{u} and \eqn{v} as equals (\eqn{u=v=t}). The primary diagonal is defined for a joint nonexceedance probability \eqn{t} as
 \deqn{F = \mathbf{C}(t,t) \rightarrow t = \delta_{\mathbf{C}}^{(-1)}(f)\mbox{,}}
@@ -29,7 +29,7 @@ diagCOPinv(f, cop=NULL, para=NULL, verbose=FALSE, interval=NULL,
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{diagCOP}}, \code{\link{jointCOP}}, \code{\link{joint.curvesCOP}}}
 \examples{
 diagCOPatf(0.67, cop=PSP) # 0.8023879

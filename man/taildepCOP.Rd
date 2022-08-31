@@ -133,7 +133,7 @@ copula::lambda(copula::gumbelCopula(3))
 # Numerical approximation (see copBasic::GHcop for analytical formula):
 as.data.frame(taildepCOP(GHcop, para=3))
 #  lambdaL lambdaU     source
-#1 0.00012 0.74008 taildepCOP }
+#1 0.00012 0.74008 taildepCOP}
 
 \dontrun{
 # Plot the tail dependencies by nonexceedance probability
@@ -166,7 +166,7 @@ lines(qnorm(lsu), sapply(lsu, function(p) {
                     col="darkgreen", lty=2, lwd=1)
 lines(qnorm(psu), sapply(psu, function(p) {
         blomCOPss(cop=composite2COP, para=para, uu=c(0,0), vv=rep(p, 2)) }),
-                    col="darkgreen", lty=2, lwd=1) # }
+                    col="darkgreen", lty=2, lwd=1) #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}

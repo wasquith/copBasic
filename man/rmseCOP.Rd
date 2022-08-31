@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{rmseCOP}
 \alias{rmseCOP}
-\title{ The Root Mean Square Error between a Fitted Copula and an Empirical Copula }
+\title{The Root Mean Square Error between a Fitted Copula and an Empirical Copula}
 \description{
 Compute the \emph{root mean square error} \eqn{\mathrm{RMSE}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}} as
 
@@ -26,7 +26,7 @@ rmseCOP(u,v, cop=NULL, para=NULL, ...)
 \references{
 Chen, Lu, and Guo, Shenglian, 2019, Copulas and its application in hydrology and water resources: Springer Nature, Singapore, ISBN 978--981--13--0574--0.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{EMPIRcop}}, \code{\link{aicCOP}}, \code{\link{bicCOP}}
 }
 \examples{

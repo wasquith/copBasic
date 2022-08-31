@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{isCOP.radsym}
 \alias{isCOP.radsym}
-\title{ Is a Copula Radially Symmetric }
+\title{Is a Copula Radially Symmetric}
 \description{
 Numerically set a logical whether a copula is \emph{radially symmetric} (Nelsen, 2006, p. 37) [\emph{reflection symmetric}, Joe (2014, p. 64)]. A copula \eqn{\mathbf{C}(u,v)} is radially symmetric if and only if for any \eqn{\{u,v\} \in [0,1]} either of the following hold
  \deqn{\mathbf{C}(u,v) = u + v - 1 + \mathbf{C}(1-u, 1-v)}
@@ -46,8 +46,8 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
-\seealso{ \code{\link{isCOP.permsym}} }
+\author{W.H. Asquith}
+\seealso{ \code{\link{isCOP.permsym}}}
 \examples{
 # Radially symmetry is computationally intensive and relies on a gridded [0,1]x[0,1]
 # space and laborious check on equality. Thus these examples are commented out for

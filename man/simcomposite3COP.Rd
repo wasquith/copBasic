@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{simcomposite3COP}
 \alias{simcomposite3COP}
-\title{  Compute the L-comoments of a Four-Value Composited Copula by Simulation }
+\title{Compute the L-comoments of a Four-Value Composited Copula by Simulation}
 \description{
 Simulate copula parameters and compute \emph{L-comoments} and provision for plotting features for a composited copula using four compositing parameters (see \code{\link{composite3COP}}). The compositing parameters are each independent and uniformly distributed:
 \deqn{\alpha \sim \mathrm{U}[0,1];\ \beta \sim \mathrm{U}[0,1];\ \kappa \sim \mathrm{U}[0,1];\ \gamma \sim \mathrm{U}[0,1]\mbox{.}}
@@ -39,7 +39,7 @@ The following descriptions list in detail the \code{parents} argument structure 
 }
 The \code{para} argument of this function are passed to the function contained in \code{compositor} and are therefore subject to further constraints in items should such constraints exist.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{lcomCOP}}, \code{\link{simcompositeCOP}}}
 \examples{
 \dontrun{

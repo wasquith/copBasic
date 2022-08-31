@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{gEVcop}
 \alias{gEVcop}
-\title{ The Gaussian-based (Extreme Value) Copula}
+\title{The Gaussian-based (Extreme Value) Copula}
 \description{
 The \emph{g-EV copula} (Joe, 2014, p. 105) is a limiting form of the \emph{Gaussian copula}:
 \deqn{
@@ -37,7 +37,7 @@ gEVcop(u, v, para=NULL, ...)
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{ \code{\link{tEVcop}}
 }
 \examples{

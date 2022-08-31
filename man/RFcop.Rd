@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{RFcop}
 \alias{RFcop}
-\title{ The Raftery Copula }
+\title{The Raftery Copula}
 \description{
 The \emph{Raftery copula} (Nelsen, 2006, p. 172) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{RF}(u,v) = \mathbf{M}(u,v) + \frac{1-\Theta}{1+\Theta}(uv)^{1/(1-\Theta)}\bigl[1-(\mathrm{max}\{u,v\})^{-(1+\Theta)/(1-\Theta)}\bigr]\mbox{,}}
@@ -29,7 +29,7 @@ and if \code{para=NULL} and \code{rho} and \code{tau=NULL}, then the values with
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}
 }
 \examples{

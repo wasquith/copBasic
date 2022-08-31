@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{derCOPinv2}
 \alias{derCOPinv2}
-\title{ Numerical Derivative Inverse of a Copula for U with respect to V }
+\title{Numerical Derivative Inverse of a Copula for U with respect to V}
 \description{
 Compute the inverse of a numerical partial derivative for \eqn{U} with respect to \eqn{V} of a copula, which is a \emph{conditional quantile function} for nonexceedance probability \eqn{t}, or
 \deqn{t = c_v(u) = \mathbf{C}^{(-1)}_{1|2}(u|v) =  \frac{\delta \mathbf{C}(u,v)}{\delta v}\mbox{,}}
@@ -26,8 +26,8 @@ derCOPinv2(cop=NULL, v, t, trace=FALSE,
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{derCOP2}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{derCOP2}}}
 \examples{
 u <- runif(1); t <- runif(1)
 derCOPinv2(u,t, cop=W)   # perfect negative dependence

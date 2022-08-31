@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{rhobevCOP}
 \alias{rhobevCOP}
-\title{ A Dependence Measure for a Bivariate Extreme Value Copula based on the Expectation of the Product of Negated Log-Transformed Random Variables U and V }
+\title{A Dependence Measure for a Bivariate Extreme Value Copula based on the Expectation of the Product of Negated Log-Transformed Random Variables U and V}
 \description{
 Compute a dependence measure based on the expectation of the product of transformed random variables \eqn{U} and \eqn{V}, which unnamed by Joe (2014, pp. 383--384) but symbolically is \eqn{\rho_E}, having a \emph{bivariate extreme value copula} \eqn{\mathbf{C}_{BEV}(u,v)} by
 \deqn{\rho_E = \mathrm{E}[(-\log U) \times (-\log V)] - 1 = \int_0^1 [B(w)]^{-2}\,\mathrm{d}w - 1\mbox{,}}
@@ -31,8 +31,8 @@ rhobevCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{rhoCOP}}, \code{\link{tauCOP}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{rhoCOP}}, \code{\link{tauCOP}}}
 \examples{
 Theta <- GHcop(tau=1/3)$para     # Gumbel-Hougaard copula with Kendall Tau = 1/3
 rhobevCOP(cop=GHcop, para=Theta) # 0.3689268 (RhoE after Joe [2014])

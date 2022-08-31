@@ -110,7 +110,7 @@ the.persp <- persp(RHO, theta=-25, phi=20, shade=TRUE, cex=0.5,
 mtext("Copula delta: Integrand of Spearman Rho", cex=0.5)
 the.persp <- persp(SIG, theta=-25, phi=20, shade=TRUE, cex=0.5,
                xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")
-mtext("abs(Copula delta): Integrand of Schweizer-Wolff Sigma", cex=0.5)# }
+mtext("abs(Copula delta): Integrand of Schweizer-Wolff Sigma", cex=0.5)#}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}

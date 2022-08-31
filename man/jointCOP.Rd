@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{jointCOP}
 \alias{jointCOP}
-\title{ Compute Equal Marginal Probabilities Given a Single Joint AND or OR Probability for a Copula  }
+\title{Compute Equal Marginal Probabilities Given a Single Joint AND or OR Probability for a Copula}
 \description{
 Given a single \emph{joint probability} denoted as \eqn{t} for a copula \eqn{\mathbf{C}(u,v)} numerically solve for bivariate marginal probabilities \eqn{U} and \eqn{V} such that they are also equal to each other (\eqn{u = v = w}). For the case of a \bold{joint and} probability, the primary diagonal of the copula (Nelsen, 2006, pp. 12 and 16) is solved for by a simple dispatch to the \code{\link{diagCOPatf}} function instead. Symbolically the solution is
 \deqn{\mathrm{Pr}[U \le v,\ V \le v] = t = \mathbf{C}(w,w)\mbox{.}}

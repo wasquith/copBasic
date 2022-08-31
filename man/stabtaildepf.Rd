@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{stabtaildepf}
 \alias{stabtaildepf}
-\title{ Estimation of the Stable Tail Dependence Function }
+\title{Estimation of the Stable Tail Dependence Function}
 \description{
 Kiriliouk \emph{et al.} (2016, pp. 364--366) describe a technique for estimation of a \emph{empirical stable tail dependence function} for a random sample. The function is defined as
 \deqn{\widehat{l}(x,y) = \frac{1}{k}\sum_{i=1}^n \mathbf{1}\bigl[ R_{i,x,n} > n + 1 - kx \mbox{\ or\ } R_{i,y,n} > n + 1 - ky \bigr]\mbox{,}}
@@ -60,14 +60,14 @@ The smooth line (red) of \code{lhatCF} is somewhat close to the limiting behavio
 \references{
 Kiriliouk, Anna, Segers, Johan, \enc{Warchoł}{Warchol}, \enc{Michał}{Michal}, 2016, Nonparameteric estimation of extremal dependence: \emph{in} Extreme Value Modeling and Risk Analysis, D.K. Dey and Jun Yan \emph{eds.}, Boca Raton, FL, CRC Press, ISBN 978--1--4987--0129--7.
 }
-\author{William Asquith \email{william.asquith@ttu.edu} }
+\author{William Asquith \email{william.asquith@ttu.edu}}
 \seealso{ \code{\link{psepolar}}, \code{\link{spectralmeas}}
 }
 \examples{
 \dontrun{
 UV <- simCOP(n=1200, cop=GLcop, para=2.1) # Galambos copula
 tmp1 <- stabtaildepf(UV) # the lines are curves (strong tail dependence)
-tmp2 <- stabtaildepf(UV, smooth=TRUE, ploton=FALSE, col=2) # }
+tmp2 <- stabtaildepf(UV, smooth=TRUE, ploton=FALSE, col=2) #}
 }
 \keyword{stable tail dependence function}
 \keyword{tail dependence}

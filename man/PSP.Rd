@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{PSP}
 \alias{PSP}
-\title{ The Ratio of the Product Copula to Summation minus Product Copula }
+\title{The Ratio of the Product Copula to Summation minus Product Copula}
 \description{
 Compute \emph{PSP copula} (Nelsen, 2006, p. 23) is named by the author (Asquith) for the \pkg{copBasic} package and is
 \deqn{\mathbf{PSP}(u,v) = \frac{\mathbf{\Pi}}{\mathbf{\Sigma} - \mathbf{\Pi}} = \frac{uv}{u + v - uv}\mbox{,}}
@@ -21,8 +21,8 @@ PSP(u, v, ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{P}}, \code{\link{N4212cop}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{P}}, \code{\link{N4212cop}}}
 \examples{
 PSP(0.4,0.6)
 PSP(0,0)

@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{P}
 \alias{P}
-\title{ The Product (Independence) Copula }
+\title{The Product (Independence) Copula}
 \description{
 Compute the \emph{product copula} (Nelsen, 2006, p. 12), which is defined as
 \deqn{\mathbf{\Pi}(u,v) = uv\mbox{.}}
@@ -21,7 +21,7 @@ P(u, v, ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{W}}}
 \examples{
 P(c(0.4,0,1),c(0,0.6,1))

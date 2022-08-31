@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{EMPIRsimv}
 \alias{EMPIRsimv}
-\title{ Simulate a Bivariate Empirical Copula For a Fixed Value of U  }
+\title{Simulate a Bivariate Empirical Copula For a Fixed Value of U}
 \description{
 \emph{EXPERIMENTAL}---Perform a simulation on a \emph{bivariate empirical copula} to extract the random variates \eqn{V} from a given and fixed value for \eqn{u=} constant. The purpose of this function is to return a simple vector of the \eqn{V} simulations. This behavior is similar to \code{\link{simCOPmicro}} but differs from the general 2-D simulation implemented in the other functions: \code{\link{EMPIRsim}} and \code{\link{simCOP}}---these two functions generate \R \code{data.frame}s of simulated random variates \eqn{U} and \eqn{V} and optional graphics as well.
 
@@ -22,8 +22,8 @@ EMPIRsimv(u, n=1, empgrid=NULL, kumaraswamy=FALSE, ...)
 \value{
   A vector of simulated \eqn{V} values is returned.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{EMPIRgrid}}, \code{\link{EMPIRsim}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{EMPIRgrid}}, \code{\link{EMPIRsim}}}
 \examples{
 \dontrun{
 nsim <- 3000

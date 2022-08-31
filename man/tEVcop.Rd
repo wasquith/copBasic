@@ -80,7 +80,7 @@ lamU <- 2*pt(-sqrt((para[2]+1)*(1-para[1])/(1+para[1])), para[2]+1)
 lamU.copBasic <- taildepCOP(cop=tEVcop,        para)$lambdaU
 lamU.copula   <- taildepCOP(cop=tEVcop.copula, para)$lambdaU
 print(c(lamU, lamU.copBasic, lamU.copula))
-#[1] 0.2925185 0.2925200 0.2925200 # So we see that they all match. }
+#[1] 0.2925185 0.2925200 0.2925200 # So we see that they all match.}
 
 \dontrun{
 # Convergence of tEVcop to HRcop as nu goes to infinity.

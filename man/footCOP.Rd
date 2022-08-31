@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{footCOP}
 \alias{footCOP}
-\title{ The Spearman Footrule of a Copula }
+\title{The Spearman Footrule of a Copula}
 \description{
 Compute the measure of association known as the \emph{Spearman Footrule} \eqn{\psi_\mathbf{C}} (Nelsen \emph{et al.}, 2001, p. 281), which is defined as
 
@@ -39,7 +39,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena}, J.A., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2001, Distribution functions of copulas---A class of bivariate probability integral transforms: Statistics and Probability Letters, v. 54, no. 3, pp. 277--282.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}},
          \code{\link{rhoCOP}}, \code{\link{tauCOP}},  \code{\link{wolfCOP}}
 }

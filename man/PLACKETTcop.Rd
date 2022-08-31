@@ -2,7 +2,7 @@
 \name{PLACKETTcop}
 \alias{PLACKETTcop}
 \alias{PLcop}
-\title{ The Plackett Copula }
+\title{The Plackett Copula}
 \description{
 The \emph{Plackett copula} (Nelsen, 2006, pp. 89--92) is
 \deqn{\mathbf{C}_\Theta(u,v) = \mathbf{PL}(u,v) = \frac{[1+(\Theta-1)(u+v)]-\sqrt{[1+(\Theta-1)(u+v)]^2 - 4uv\Theta(\Theta-1)}}{2(\Theta - 1)}\mbox{.}}
@@ -45,7 +45,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{PLACKETTpar}}, \code{\link{PLpar}}, \code{\link{PLACKETTsim}}, \code{\link{W}}, \code{\link{M}}, \code{\link{densityCOP}}
 }
 \examples{

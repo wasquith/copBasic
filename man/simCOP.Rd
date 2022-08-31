@@ -2,7 +2,7 @@
 \name{simCOP}
 \alias{simCOP}
 \alias{rCOP}
-\title{ Simulate a Copula by Numerical Derivative Method }
+\title{Simulate a Copula by Numerical Derivative Method}
 \description{
 Perform a simulation and visualization of a copula using numerical partial derivatives of the copula (Nelsen, 2006, p. 32). The method is more broadly known as \emph{conditional simulation method}. Because a focus of \pkg{copBasic} is on copula theory for pedagogic purposes, the coupling between simulation and subsequent visualization is emphasized by this function by it providing for both simulation and plotting operations by default.
 
@@ -25,7 +25,7 @@ rCOP(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, ...)
   \item{ploton}{A logical to toggle on the plot (see \bold{Examples} in \code{\link{vuongCOP}});}
   \item{points}{A logical to actually draw the simulations by the \code{points()} function in \R;}
   \item{snv}{A logical to convert the \eqn{\{u,v\}} to standard normal scores (variates) both for the optional graphics and the returned \R \code{data.frame}. Curiously, Joe (2014) advocates extensively for use of normal scores, which is in contrast to Nelsen (2006) who does not;}
-   \item{infsnv.rm}{A logical that will quietly strip out any occurrences of \eqn{u = \{0,1\}} or \eqn{v = \{0,1\}} from the simulations because these are infinity in magnitude when converted to standard normal variates is to occur. Thus, this logical only impacts logic flow when \code{snv} is \code{TRUE}. The \code{infsnv.rm} is mutually exclusive from \code{trapinfsnv}; }
+   \item{infsnv.rm}{A logical that will quietly strip out any occurrences of \eqn{u = \{0,1\}} or \eqn{v = \{0,1\}} from the simulations because these are infinity in magnitude when converted to standard normal variates is to occur. Thus, this logical only impacts logic flow when \code{snv} is \code{TRUE}. The \code{infsnv.rm} is mutually exclusive from \code{trapinfsnv};}
    \item{trapinfsnv}{If \code{TRUE} and presumably small, the numerical value of this argument (\eqn{\eta}) is used to replace \eqn{u = \{0,1\}} and \eqn{v = \{0,1\}} with \eqn{u(0) =  v(0) = \eta} or \eqn{u(1) = v(1) = 1 - \eta} as appropriate when conversion to standard normal variates is to occur. The setting of \code{trapinfsnv} only is used if \code{snv} is \code{TRUE} and \code{infsnv.rm} is \code{FALSE}; and}
   \item{...}{Additional arguments to pass to the \code{points()} function in \R.}
 }
@@ -40,7 +40,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{derCOPinv}}, \code{\link{simCOPmicro}}}
 \examples{
 simCOP(n=5, cop=PARETOcop, para=2.4)

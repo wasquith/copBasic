@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{level.curvesCOP}
 \alias{level.curvesCOP}
-\title{ Compute and Plot Level Curves of a Copula V with respect to U }
+\title{Compute and Plot Level Curves of a Copula V with respect to U}
 \description{
 Compute and plot \emph{level curves} or \emph{level sets} of a copula for \eqn{V} with respect to \eqn{U} (Nelsen, 2006, pp. 12--13). The level curves at levels \eqn{t \mapsto [0+\Delta t, 1-\Delta t, \Delta t]} are defined for \eqn{U \mapsto [0+\Delta u, 1-\Delta u, \Delta u]} by
 \deqn{t \mapsto \mathbf{C}(u=U, v)\mbox{,}}

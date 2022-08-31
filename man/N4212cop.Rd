@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{N4212cop}
 \alias{N4212cop}
-\title{ The Copula of Equation 4.2.12 of Nelsen's Book }
+\title{The Copula of Equation 4.2.12 of Nelsen's Book}
 \description{
 The \emph{N4212 copula} (Nelsen, 2006, p. 91; eq. 4.2.12) is named by the author (Asquith) for the \pkg{copBasic} package and is defined as
 \deqn{\mathbf{C}_{\mathrm{N4212}}(u,v; \Theta) = \biggl(1 + \bigl[(u^{-1} -1)^\Theta + (v^{-1} -1)^\Theta\bigr]^{1/\Theta}\biggr)^{-1}\mbox{.}}
@@ -26,7 +26,7 @@ N4212cop(u, v, para=NULL, infis=100, ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \examples{
 N4212cop(0.4,0.6, para=1) == PSP(0.4,0.6) # TRUE
 N4212cop(0.4,0.6, para=10) # 0.3999928

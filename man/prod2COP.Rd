@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{prod2COP}
 \alias{prod2COP}
-\title{ The Product of Two Copulas }
+\title{The Product of Two Copulas}
 \description{
 Perform copula multiplication (so-called \dQuote{\eqn{\ast}-product} or \emph{Markov Product}) is a continuous analog of matrix multiplication and yields another copula:
 \deqn{\bigl(\mathbf{C}_1 \ast \mathbf{C}_2 \bigr)(u,v) = \mathbf{C}_3(u,v) = \int_\mathcal{I} \frac{\delta \mathbf{C}_1(u, t)}{\delta v} \frac{\delta \mathbf{C}_2(t, v)}{\delta u}\,\mathrm{d}t\mbox{,}}
@@ -49,9 +49,9 @@ That the assertion is numerically true as readily verified using the \code{prod2
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{convex2COP}}, \code{\link{composite1COP}},
-                         \code{\link{composite2COP}}, \code{\link{composite3COP}} }
+                         \code{\link{composite2COP}}, \code{\link{composite3COP}}}
 \examples{
 \dontrun{
 # Product P * N4212 ---> P (by identity)

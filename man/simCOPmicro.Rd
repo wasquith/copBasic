@@ -2,7 +2,7 @@
 \name{simCOPmicro}
 \alias{simCOPmicro}
 \alias{simCOPv}
-\title{ Simulate V from U through a Copula by Numerical Derivative Method }
+\title{Simulate V from U through a Copula by Numerical Derivative Method}
 \description{
 Perform bivariate simulation of random but coupled variables \eqn{V} from \eqn{U} through a copula (Nelsen, 2006, p. 32) by inversion of the numerical derivatives of the copula (\code{\link{derCOPinv}}, \code{\link{derCOPinv2}}). The method is more broadly known as \emph{conditional simulation method}. An elaborate implementation is available in \code{\link{simCOP}}, which unlike \code{simCOPmicro}, has provisions (default) for graphical support. The \code{simCOPmicro} function is intended to be a minimalist version for copula simulation, and such a version is useful for pedagogic purposes including \emph{conditional distributions}, \emph{conditional quantile functions}, and \emph{copula reflection} (see \bold{Note} and \code{\link{COP}}). An extended educational discussion of simulation using the conditional method is available in the \bold{Note} section of \code{\link{derCOPinv}}.
 
@@ -87,7 +87,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{simCOP}}}
 \examples{
 simCOPmicro(runif(1), cop=W  ) # Frechet lower bound copula

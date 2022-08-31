@@ -2,7 +2,7 @@
 \name{PARETOcop}
 \alias{PARETOcop}
 \alias{PAcop}
-\title{ The Pareto Copula }
+\title{The Pareto Copula}
 \description{
 The \emph{Pareto copula} (Nelsen, 2006, pp. 33) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{PA}(u,v) = \bigl[(1-u)^{-\Theta}+(1-v)^{-\Theta}\bigr]^{-1/\Theta}\mbox{,}}
@@ -27,7 +27,7 @@ The Pareto copula is used in a demonstration of \emph{Kendall Function L-moment 
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}
 }
 \examples{

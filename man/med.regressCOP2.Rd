@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{med.regressCOP2}
 \alias{med.regressCOP2}
-\title{ Perform Median Regression using a Copula by Numerical Derivative Method for U with respect to V}
+\title{Perform Median Regression using a Copula by Numerical Derivative Method for U with respect to V}
 \description{
 Perform \emph{median regression} of a copula (Nelsen, 2006, pp. 217--218) by inversion of numerical derivatives of the copula (\code{\link{derCOPinv2}}). The documentation for \code{\link{qua.regressCOP2}} provides mathematical details.
 }
@@ -22,7 +22,7 @@ of the returned \code{data.frame} changes---please access the columns by the nam
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{med.regressCOP}}, \code{\link{qua.regressCOP2}}, \code{\link{qua.regressCOP.draw}}
 }
 \examples{

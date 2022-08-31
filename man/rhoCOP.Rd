@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{rhoCOP}
 \alias{rhoCOP}
-\title{ The Spearman Rho of a Copula }
+\title{The Spearman Rho of a Copula}
 \description{
 Compute the measure of association known as the \emph{Spearman Rho} \eqn{\rho_\mathbf{C}} of a copula according to Nelsen (2006, pp. 167--170, 189, 208) by
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \mathbf{C}(u,v)\, \mathrm{d}u\mathrm{d}v - 3\mbox{,}}
@@ -45,7 +45,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{tauCOP}},  \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}

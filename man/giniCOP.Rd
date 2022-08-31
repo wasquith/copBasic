@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{giniCOP}
 \alias{giniCOP}
-\title{ The Gini Gamma of a Copula }
+\title{The Gini Gamma of a Copula}
 \description{
 Compute the measure of association known as the \emph{Gini Gamma} \eqn{\gamma_\mathbf{C}} (Nelsen, 2006, pp. 180--182), which is defined as
 \deqn{\gamma_\mathbf{C} = \mathcal{Q}(\mathbf{C},\mathbf{M}) + \mathcal{Q}(\mathbf{C},\mathbf{W})\mbox{,}}
@@ -51,7 +51,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena}, J.A., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2001, Distribution functions of copulas---A class of bivariate probability integral transforms: Statistics and Probability Letters, v. 54, no. 3, pp. 277--282.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{hoefCOP}},
          \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}
