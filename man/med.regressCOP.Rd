@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{med.regressCOP}
 \alias{med.regressCOP}
-\title{ Perform Median Regression using a Copula by Numerical Derivative Method for V with respect to U}
+\title{Perform Median Regression using a Copula by Numerical Derivative Method for V with respect to U}
 \description{
 Perform \emph{median regression} (Nelsen, 2006, pp. 217--218) of a copula by inversion of numerical derivatives of the copula (\code{\link{derCOPinv}}). The documentation for \code{\link{qua.regressCOP}} provides mathematical details. The \code{\link{qua.regressCOP.draw}} supports so-called \emph{quantile regression} along various probability levels (see \bold{Examples}).
 }
@@ -96,7 +96,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{med.regressCOP2}}, \code{\link{qua.regressCOP}}, \code{\link{qua.regressCOP.draw}}
 }
 \examples{
