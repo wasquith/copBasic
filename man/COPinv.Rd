@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{COPinv}
 \alias{COPinv}
-\title{ The Inverse of a Copula for V with respect to U }
+\title{The Inverse of a Copula for V with respect to U}
 \description{
 Compute the \emph{inverse of a copula} for \eqn{V} with respect to \eqn{U} given \eqn{t} or
 \deqn{t = \mathbf{C}(u{=}U,v) \rightarrow \mathbf{C}^{(-1)}(u{=}U, t) = v\mbox{,}}
