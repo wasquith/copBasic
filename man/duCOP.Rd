@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{duCOP}
 \alias{duCOP}
-\title{ The Dual of a Copula Function }
+\title{The Dual of a Copula Function}
 \description{
 Compute the \emph{dual of a copula (function)} from a copula (Nelsen, 2006, pp. 33--34), which is defined as
 
@@ -99,8 +99,8 @@ The counts from the former listing are 7,670; 2,669; and 5,001, whereas the resp
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{COP}}, \code{\link{coCOP}}, \code{\link{surCOP}}, \code{\link{jointCOP}}, \code{\link{joint.curvesCOP}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{COP}}, \code{\link{coCOP}}, \code{\link{surCOP}}, \code{\link{jointCOP}}, \code{\link{joint.curvesCOP}}}
 \examples{
 u <- runif(1); t <- runif(1)
 duCOP(cop=W,u,t)    # joint or probability for perfect negative dependence
