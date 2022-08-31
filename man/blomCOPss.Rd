@@ -110,7 +110,7 @@ lines(qnorm(psl), sapply(psl, function(p) {
 psu <- pnorm(seq(0, usr[2], by= diff(range(c(0, usr[2])))/1000))
 lines(qnorm(psu), sapply(psu, function(p) {
               blomCOPss(cop=GHcop, para=para, uu=c(0,0), vv=rep(p, 2)) }),
-      col="darkgreen", lty=2, lwd=2) # }
+      col="darkgreen", lty=2, lwd=2) #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
