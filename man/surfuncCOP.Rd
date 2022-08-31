@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{surfuncCOP}
 \alias{surfuncCOP}
-\title{ The Joint Survival Function }
+\title{The Joint Survival Function}
 \description{
 Compute the \emph{joint survival function} for a copula (Nelsen, 2006, p. 33), which is defined as
 \deqn{\overline{\mathbf{C}}(u,v) = \mathrm{Pr}[U > u, V > v] = 1 - u - v + \mathbf{C}(u,v) = \hat{\mathbf{C}}(1-u, 1-v)\mbox{,}}
@@ -26,8 +26,8 @@ surfuncCOP(u, v, cop=NULL, para=NULL, ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{ \code{\link{surCOP}}  }
+\author{W.H. Asquith}
+\seealso{ \code{\link{surCOP}}}
 \examples{
 "MOcop.formula" <- function(u,v, para=para, ...) {
    alpha <- para[1]; beta <- para[2]; return(min(v*u^(1-alpha), u*v^(1-beta)))
