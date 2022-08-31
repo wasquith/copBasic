@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{EMPIRgrid}
 \alias{EMPIRgrid}
-\title{ Grid of the Bivariate Empirical Copula }
+\title{Grid of the Bivariate Empirical Copula}
 \description{
 Generate a gridded representation of the \emph{bivariate empirical copula} (see \code{\link{EMPIRcop}}, Salvadori \emph{et al.}, 2007, p. 140).  This function has the primary intention of supporting 3-D renderings or 2-D images of the \emph{copulatic surface}, but many empirical copula functions in \pkg{copBasic} rely on the grid of the empirical copula---unlike the functions that support parametric copulas.
 }
@@ -23,8 +23,8 @@ The extensive suite of examples is included here because the various ways that a
 \references{
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith }
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}} }
+\author{W.H. Asquith}
+\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}}
 \examples{
 \dontrun{
 # EXAMPLE 1:
@@ -164,7 +164,7 @@ pdf("conditional_distributions.pdf")
      lines(the.grid$v, empder[i,], lwd=4, col=5, lty=2) # empirical
      mtext(paste("Conditioned on U=",u," nonexceedance probability"))
   }
-dev.off()#}
+dev.off() #}
 }
 \keyword{empirical copula}
 \keyword{empirical copula (utility)}
