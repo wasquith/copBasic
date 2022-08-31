@@ -19,7 +19,7 @@ EMPIRcopdf(para=NULL, ...)
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}}
+\seealso{\code{\link{EMPIRcop}}}
 \examples{
 \dontrun{
 psp <- simCOP(n=39, cop=PSP, ploton=FALSE, points=FALSE) * 150

@@ -27,7 +27,7 @@ surfuncCOP(u, v, cop=NULL, para=NULL, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{surCOP}}}
+\seealso{\code{\link{surCOP}}}
 \examples{
 "MOcop.formula" <- function(u,v, para=para, ...) {
    alpha <- para[1]; beta <- para[2]; return(min(v*u^(1-alpha), u*v^(1-beta)))

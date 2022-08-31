@@ -78,7 +78,7 @@ The L-moments of Kendall Functions appear to be not yet fully researched. An int
 Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the R environment for statistical computing: Createspace Independent Publishing Platform, ISBN 978--146350841--8.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{kfuncCOP}}}
+\seealso{\code{\link{kfuncCOP}}}
 \examples{
 \dontrun{
 kfuncCOPlmom(1, cop=P) # 0.5 * 0.5 = 0.25 is expected joint prob. of independence

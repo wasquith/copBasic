@@ -34,7 +34,7 @@ Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the 
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{kfuncCOP}}}
+\seealso{\code{\link{kfuncCOP}}}
 \examples{
 \dontrun{
 Z <- c(0,0.25,0.50,0.75,1) # Joint probabilities of a N412cop

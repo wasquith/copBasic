@@ -209,7 +209,7 @@ Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena},
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in nature---An approach using copulas: Dordrecht, Netherlands, Springer, Water Science and Technology Library 56, 292 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{kfuncCOPinv}}, \code{\link{tauCOP}}, \code{\link{derCOP}}, \code{\link{derCOP2}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}}
+\seealso{\code{\link{kfuncCOPinv}}, \code{\link{tauCOP}}, \code{\link{derCOP}}, \code{\link{derCOP2}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}}
 \examples{
 \dontrun{
 # Salvadori et al. (2007, p. 148, fig. 3.5 [right])

@@ -38,7 +38,7 @@ gEVcop(u, v, para=NULL, ...)
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{tEVcop}}
+\seealso{\code{\link{tEVcop}}
 }
 \examples{
 \dontrun{

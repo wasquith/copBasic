@@ -16,7 +16,7 @@ EMPIRgridder2(empgrid=NULL, ...)
   The gridded values of the derivatives of the bivariate empirical copula.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder}}}
 \examples{
 # See examples under EMPIRgridder
 }

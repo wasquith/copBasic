@@ -18,7 +18,7 @@ EMPIRgridderinv2(empgrid=NULL, kumaraswamy=FALSE, dergrid=NULL, ...)
   The gridded values of the inverse of the derivative of \eqn{U} with respect to \eqn{V}.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}, \code{\link{EMPIRgridderinv}}, \code{\link{EMPIRgridderinv2}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}, \code{\link{EMPIRgridderinv}}, \code{\link{EMPIRgridderinv2}}}
 \examples{
 # See examples under EMPIRgridderinv
 }

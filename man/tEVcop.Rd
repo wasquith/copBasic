@@ -37,7 +37,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 Demarta, S., and McNeil, A.J., 2004, The t copula and related copulas: International Statistical Review, v. 33, no. 1, pp. 111--129, \doi{10.1111/j.1751-5823.2005.tb00254.x}
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{HRcop}}
+\seealso{\code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{HRcop}}
 }
 \examples{
 \dontrun{

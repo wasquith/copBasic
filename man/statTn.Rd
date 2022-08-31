@@ -84,7 +84,7 @@ The prior conclusion is supported by the p-value of the \eqn{\hat T_n} being abo
 Genest, C., Kojadinovic, I., \enc{Nešlehová}{Neslehova}, J., and Yan, J., 2011, A goodness-of-fit test for bivariate extreme-value copulas: Bernoulli, v. 17, no. 1, pp. 253--275.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{aicCOP}}, \code{\link{bicCOP}}, \code{\link{rmseCOP}}, \code{\link{vuongCOP}}, \code{\link{kullCOP}}
+\seealso{\code{\link{aicCOP}}, \code{\link{bicCOP}}, \code{\link{rmseCOP}}, \code{\link{vuongCOP}}, \code{\link{kullCOP}}
 }
 \examples{
 \dontrun{

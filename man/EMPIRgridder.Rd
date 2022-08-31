@@ -16,7 +16,7 @@ EMPIRgridder(empgrid=NULL, ...)
   The gridded values of the derivatives of the bivariate empirical copula.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}}
 \examples{
 \dontrun{
 para   <- list(alpha=0.15,  beta=0.65, cop1=PLACKETTcop, cop2=PLACKETTcop,

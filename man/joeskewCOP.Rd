@@ -139,8 +139,7 @@ The source code shows slightly different styles of division by the sample size a
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
 \author{W.H. Asquith}
-\seealso{
-\code{\link{uvskew}}, \code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
+\seealso{\code{\link{uvskew}}, \code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
 \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}}, \code{\link{wolfCOP}}
 }
 \examples{

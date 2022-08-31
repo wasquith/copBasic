@@ -15,7 +15,7 @@ EMPIRmed.regress(...)
   The gridded values of the median regression of \eqn{V} with respect to \eqn{U}.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRgridderinv}}, \code{\link{EMPIRqua.regress}}, \code{\link{EMPIRmed.regress2}}, \code{\link{EMPIRmed.regress2}}
+\seealso{\code{\link{EMPIRgridderinv}}, \code{\link{EMPIRqua.regress}}, \code{\link{EMPIRmed.regress2}}, \code{\link{EMPIRmed.regress2}}
 }
 \examples{
 # See examples under EMPIRqua.regress

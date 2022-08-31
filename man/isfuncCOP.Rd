@@ -26,7 +26,7 @@ isfuncCOP(cop=NULL, para=NULL, delta=0.002, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{S. Kloibhofer (idea and most code) and W.H. Asquith (documentation)}
-\seealso{ \code{\link{densityCOP}}
+\seealso{\code{\link{densityCOP}}
 }
 \examples{
 \dontrun{

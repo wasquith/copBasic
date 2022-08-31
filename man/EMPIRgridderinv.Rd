@@ -18,7 +18,7 @@ EMPIRgridderinv(empgrid=NULL, kumaraswamy=FALSE, dergrid=NULL, ...)
   The gridded values of the inverse of the derivative of \eqn{V} with respect \eqn{U}.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}, \code{\link{EMPIRgrid}}, \code{\link{EMPIRgridder2}}}
 \examples{
 \dontrun{
 uv <- simCOP(n=10000, cop=PSP, ploton=FALSE, points=FALSE)

@@ -24,7 +24,7 @@ The extensive suite of examples is included here because the various ways that a
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}}
 \examples{
 \dontrun{
 # EXAMPLE 1:

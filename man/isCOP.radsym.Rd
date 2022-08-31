@@ -47,7 +47,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{isCOP.permsym}}}
+\seealso{\code{\link{isCOP.permsym}}}
 \examples{
 # Radially symmetry is computationally intensive and relies on a gridded [0,1]x[0,1]
 # space and laborious check on equality. Thus these examples are commented out for

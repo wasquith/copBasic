@@ -21,7 +21,7 @@ EMPIRqua.regress(f=0.5, u=seq(0.01,0.99, by=0.01), empinv=NULL,
   The gridded values of the quantile regression of \eqn{V} with respect to \eqn{U}.
 }
 \author{W.H. Asquith}
-\seealso{ \code{\link{EMPIRgridderinv}}, \code{\link{EMPIRqua.regress2}}, \code{\link{EMPIRmed.regress}}, \code{\link{EMPIRmed.regress2}}
+\seealso{\code{\link{EMPIRgridderinv}}, \code{\link{EMPIRqua.regress2}}, \code{\link{EMPIRmed.regress}}, \code{\link{EMPIRmed.regress2}}
 }
 \examples{
 \dontrun{ # EXAMPLE 1
