@@ -243,7 +243,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in nature---An approach using copulas: Dordrecht, Netherlands, Springer, Water Science and Technology Library 56, 292 p.
 }
-\author{William Asquith \email{william.asquith@ttu.edu} }
+\author{William Asquith \email{william.asquith@ttu.edu}}
 \examples{
 \dontrun{
 # Nelsen (2006, p. 75, exer. 3.15b) provides for a nice test of copBasic features.
