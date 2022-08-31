@@ -2,7 +2,7 @@
 \name{tauCOP}
 \alias{tauCOP}
 \alias{concordCOP}
-\title{ The Kendall Tau and Concordance Function of a Copula }
+\title{The Kendall Tau and Concordance Function of a Copula}
 \description{
 Compute the measure of association known as the \emph{Kendall Tau} (\eqn{\tau_\mathbf{C}}) of a copula (\eqn{\tau_\mathbf{C}}) according to Nelsen (2006, sec. 5.1.1 and p. 161) by
 \deqn{\tau_\mathbf{C} = \mathcal{Q}(\mathbf{C}, \mathbf{C}) = 4\int\!\!\int_{\mathcal{I}^2}
@@ -66,7 +66,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena}, J.A., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2001, Distribution functions of copulas---A class of bivariate probability integral transforms: Statistics and Probability Letters, v. 54, no. 3, pp. 277--282.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{wolfCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}},

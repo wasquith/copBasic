@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{tailordCOP}
 \alias{tailordCOP}
-\title{ The Lower- and Upper-Tail Orders of a Copula }
+\title{The Lower- and Upper-Tail Orders of a Copula}
 \description{
 Compute the \emph{lower-} and \emph{upper-tail orders} (if they exist), respectively, of a copula \eqn{\mathbf{C}(u,v)} according to Joe (2014, pp. 67--70). The \emph{tail order} is a concept for the strength of dependence in the joint tails of a multivariate distribution. The opposing tails can be compared to assess tail order or \emph{reflection symmetry} (term by Joe (2014) for Nelsen's (2006, p. 36) term \emph{radial symmetry}). Joe (2014) provides extensively analytical details but sufficient for the \pkg{copBasic} package, the tail orders can be numerically explored.
 
@@ -49,7 +49,7 @@ Users are encouraged to plot the results and further verify whether the converge
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{tailconCOP}}, \code{\link{taildepCOP}}}
 \examples{
 \dontrun{

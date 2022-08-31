@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{tEVcop}
 \alias{tEVcop}
-\title{ The t-EV (Extreme Value) Copula}
+\title{The t-EV (Extreme Value) Copula}
 \description{
 The \emph{t-EV copula} (Joe, 2014, p. 189) is a limiting form of the \emph{t-copula} (multivariate t-distribution):
 \deqn{
@@ -36,7 +36,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Demarta, S., and McNeil, A.J., 2004, The t copula and related copulas: International Statistical Review, v. 33, no. 1, pp. 111--129, \doi{10.1111/j.1751-5823.2005.tb00254.x}
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{ \code{\link{GHcop}}, \code{\link{GLcop}}, \code{\link{HRcop}}
 }
 \examples{

@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{wolfCOP}
 \alias{wolfCOP}
-\title{ The Schweizer and Wolff Sigma of a Copula }
+\title{The Schweizer and Wolff Sigma of a Copula}
 \description{
 Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
 
@@ -65,7 +65,7 @@ In fact, the output above also shows Schweizer--Wolff Sigma to be larger than Bl
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}

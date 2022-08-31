@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{vuongCOP}
 \alias{vuongCOP}
-\title{ The Vuong Procedure for Parametric Copula Comparison }
+\title{The Vuong Procedure for Parametric Copula Comparison}
 \description{
 Perform the \emph{Vuong Procedure} following Joe (2014, pp. 257--258). Consider two copula densities \eqn{f_1 = c_1(u,v; \Theta_1)} and \eqn{f_2 = c_2(u,v; \Theta_2)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta_1} and \eqn{\Theta_2} that provide the \dQuote{closest} \emph{Kullback--Leibler divergence} from the true copula density \eqn{g(u,v)}.
 
@@ -158,7 +158,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{densityCOP}}, \code{\link{kullCOP}}, \code{\link{simCOP}}, \code{\link{statTn}}, \code{\link{mleCOP}}}
 \examples{
 # See extended code listings and discussion in the Note section

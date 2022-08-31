@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{tailconCOP}
 \alias{tailconCOP}
-\title{ The Tail Concentration Function of a Copula }
+\title{The Tail Concentration Function of a Copula}
 \description{
 Compute the \emph{tail concentration function} (\eqn{q_\mathbf{C}}) of a copula \eqn{\mathbf{C}(u,v)} (\code{\link{COP}}) or diagnonal (\code{\link{diagCOP}}) of a copula \eqn{\delta_\mathbf{C}(t) = \mathbf{C}(t,t)}  according to Durante and Semp (2015, p. 74):
 \deqn{q_\mathbf{C}(t) = \frac{\mathbf{C}(t,t)}{t} \cdot \mathbf{1}_{[0,0.5)}  + \frac{1 - 2t + \mathbf{C}(t,t)}{1-t} \cdot \mathbf{1}_{[0.5, 1]}\mbox{\quad or}}
@@ -25,7 +25,7 @@ tailconCOP(t, cop=NULL, para=NULL, ...)
 \references{
 Durante, F., and Sempi, C., 2015, Principles of copula theory: Boca Raton, CRC Press, 315 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{taildepCOP}}, \code{\link{tailordCOP}}}
 \examples{
 tailconCOP(0.5, cop=PSP) == (1+blomCOP(cop=PSP))/2 # TRUE

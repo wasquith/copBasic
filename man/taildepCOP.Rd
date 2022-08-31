@@ -111,7 +111,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 
 Schmidt, R., \enc{Stadtmüller}{Stadtmuller}, U., 2006, Nonparametric estimation of tail dependence: The Scandinavian Journal of Statistics, v. 33, pp. 307--335.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{tailconCOP}}, \code{\link{tailordCOP}}, \code{\link{blomCOPss}}}
 \examples{
 # Plot the tail dependencies by nonexceedance probability for a

@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{W}
 \alias{W}
-\title{ The \enc{Fréchet}{Frechet}--Hoeffding Lower Bound Copula }
+\title{The \enc{Fréchet}{Frechet}--Hoeffding Lower Bound Copula}
 \description{
 Compute the \emph{\enc{Fréchet}{Frechet}--Hoeffding lower bound copula} (Nelsen, 2006, p. 11), which is defined as
 \deqn{\mathbf{W}(u,v) = \mathrm{max}(u+v-1,0)\mbox{.}}
@@ -21,7 +21,7 @@ W(u, v, ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}}
 \examples{
 W(0.4,0.6)

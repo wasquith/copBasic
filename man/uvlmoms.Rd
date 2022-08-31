@@ -2,7 +2,7 @@
 \name{uvlmoms}
 \alias{uvlmoms}
 \alias{uvskew}
-\title{ Bivariate Skewness after Joe (2014) or the Univariate L-moments of Combined U and V }
+\title{Bivariate Skewness after Joe (2014) or the Univariate L-moments of Combined U and V}
 \description{
 Joe (2014, pp. 65--66) suggests two quantile-based measures of \emph{bivariate skewness} defined for uniform random variables \eqn{U} and \eqn{V} combined as either \eqn{\psi_{u+v-1} = u + v - 1} or \eqn{\psi_{u-v} = u - v} for which the \eqn{\mathrm{E}[u] = \mathrm{E}[v] = 0}. The bivariate skewness is the quantity \eqn{\eta}:
 
@@ -34,7 +34,7 @@ Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the 
 
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{COP}}
 }
 \examples{
