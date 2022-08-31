@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{surCOP}
 \alias{surCOP}
-\title{ The Survival Copula }
+\title{The Survival Copula}
 \description{
 Compute the \emph{survival copula} from a copula (Nelsen, 2006, pp. 32--34), which is defined as
 
@@ -32,8 +32,8 @@ The author (Asquith) finds the use of exceedance probabilities delicate in regar
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{COP}}, \code{\link{coCOP}}, \code{\link{duCOP}}, \code{\link{surfuncCOP}}, \code{\link{simCOPmicro}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{COP}}, \code{\link{coCOP}}, \code{\link{duCOP}}, \code{\link{surfuncCOP}}, \code{\link{simCOPmicro}}}
 \examples{
 u  <-  0.26; v  <- 0.55   # nonexceedance probabilities
 up <- 1 - u; vp <- 1 - v  #    exceedance probabilities
