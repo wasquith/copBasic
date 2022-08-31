@@ -104,7 +104,7 @@ Now if the aforementioned simulation run is repeated for \eqn{F(S_f) = 0.95} or 
 \references{
 Kiriliouk, Anna, Segers, Johan, \enc{Warchoł}{Warchol}, \enc{Michał}{Michal}, 2016, Nonparameteric estimation of extremal dependence: \emph{in} Extreme Value Modeling and Risk Analysis, D.K. Dey and Jun Yan \emph{eds.}, Boca Raton, FL, CRC Press, ISBN 978--1--4987--0129--7.
 }
-\author{William Asquith \email{william.asquith@ttu.edu} }
+\author{William Asquith \email{william.asquith@ttu.edu}}
 \seealso{ \code{\link{psepolar}}, \code{\link{stabtaildepf}}
 }
 \examples{
@@ -114,7 +114,7 @@ W <- seq(0,1,by=0.005)
 Hu <- spectralmeas(UV, w=W)
 Hs <- spectralmeas(UV, w=W, smooth=TRUE, nu=100)
 plot(W,Hu, type="l", ylab="Spectral Measure H", xlab="Angle")
-lines(W, Hs, col=2) # }
+lines(W, Hs, col=2) #}
 
 \dontrun{
 "GAUScop" <- function(u,v, para=NULL, ...) {
