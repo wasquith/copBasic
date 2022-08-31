@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{copBasic.fitpara}
 \alias{copBasic.fitpara.beta}
-\title{ A Single or Multi-Parameter Optimization Engine (Beta Version) }
+\title{A Single or Multi-Parameter Optimization Engine (Beta Version)}
 \description{
 An example of a general implementation of a parameter optimization scheme using core features of the \pkg{copBasic} package. Because of the general complexity of the objectives for this function, the interface shown here is considered an \dQuote{beta version} and nomenclature is subject to possibly sweeping changes in the future.
 }
@@ -56,7 +56,7 @@ A custom objective function \code{objfunc} to serve as the \code{statf} for the 
       if(getstat) return(hp) # short circuit to get the statistics out
       dv <- stat; dv[dv == 0] <- 1 # changing dv "adapts" the error to
       return(sqrt(sum(((stat-hp)/dv)^2))) # trap division by zero
-   }
+  }
 }
 
 The parameter estimation proceeds in the following code. The sample statistics (or \code{target.stats}) are computed and subsequently passed to the optimizaiton using the \code{popstat} argument. Note the use of the \code{qnorm()} function in \R to transform the initial guess \eqn{\alpha = \beta = 1/2} into a domain more easily handled by the optimizer (\code{optim()} function in \R). The transformed optimal parameters are computed, and then the values of the three statistics for the fit are computed. Lastly, a \pkg{copBasic} parameter object \code{fit.para} is created, which can be used for later comparisons.
@@ -99,7 +99,7 @@ The demonstration ends with the comparison of the two asymmetrical density conto
                                     ploton=FALSE)
 }
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \examples{
 # See the Note section
 }
