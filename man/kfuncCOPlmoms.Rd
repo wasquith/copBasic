@@ -2,7 +2,7 @@
 \name{kfuncCOPlmoms}
 \alias{kfuncCOPlmoms}
 \alias{kfuncCOPlmom}
-\title{ The L-moments of the Kendall Function of a Copula }
+\title{The L-moments of the Kendall Function of a Copula}
 \description{
 Compute the L-moments of the \emph{Kendall Function} (\eqn{F_K(z; \mathbf{C})}) of a copula \eqn{\mathbf{C}(u,v)} where the \eqn{z} is the joint probability of the \eqn{\mathbf{C}(u,v)}. The Kendall Function is the cumulative distribution function (CDF) of the joint probability \eqn{Z} of the coupla. The expected value of the \eqn{z(F_K)} (mean, first L-moment \eqn{\lambda_1}), because \eqn{Z} has nonzero probability for \eqn{0 \le Z \le \infty}, is
 
@@ -77,8 +77,8 @@ The L-moments of Kendall Functions appear to be not yet fully researched. An int
 \references{
 Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the R environment for statistical computing: Createspace Independent Publishing Platform, ISBN 978--146350841--8.
 }
-\author{ W.H. Asquith}
-\seealso{ \code{\link{kfuncCOP}} }
+\author{W.H. Asquith}
+\seealso{ \code{\link{kfuncCOP}}}
 \examples{
 \dontrun{
 kfuncCOPlmom(1, cop=P) # 0.5 * 0.5 = 0.25 is expected joint prob. of independence
