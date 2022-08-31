@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{bilmoms}
 \alias{bilmoms}
-\title{ Bivariate L-moments and L-comoments of a Copula }
+\title{Bivariate L-moments and L-comoments of a Copula}
 \description{
 \bold{Attention:} This function is deprecated in favor of \code{\link{lcomCOP}}, which uses only direct numerical \code{integrate()} on the integrals shown below. The \code{bilmoms} function is strictly based on Monte Carlo integration.
 
@@ -146,7 +146,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Serfling, R., and Xiao, P., 2007, A contribution to multivariate L-moments---L-comoment matrices: Journal of Multivariate Analysis, v. 98, pp. 1765--1781.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{lcomCOP}}, \code{\link{uvlmoms}}
 }
 \examples{
