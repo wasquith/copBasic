@@ -2,7 +2,7 @@
 \name{kullCOP}
 \alias{kullCOP}
 \alias{kullCOPint}
-\title{ Kullback--Leibler Divergence, Jeffrey Divergence, and Kullback--Leibler Sample Size }
+\title{Kullback--Leibler Divergence, Jeffrey Divergence, and Kullback--Leibler Sample Size}
 \description{
 Compute the \emph{Kullback--Leibler divergence}, \emph{Jeffrey divergence}, and \emph{Kullback--Leibler sample size} following Joe (2014, pp. 234--237). Consider two densities \eqn{f = c_1(u,v; \Theta_f)} and \eqn{g = c_2(u,v; \Theta_g)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta}, then the Kullback--Leibler divergence of \eqn{f} relative to \eqn{g} is
 \deqn{\mathrm{KL}(f|g) = \int\!\!\int_{\mathcal{I}^2} g\, \log(g/f)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
@@ -57,7 +57,7 @@ kullCOPint(cop1=NULL, cop2=NULL, para1=NULL, para2=NULL, alpha=0.05,
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{densityCOP}}, \code{\link{vuongCOP}}}
 \examples{
 # See another demonstration under the Note section of statTn().
