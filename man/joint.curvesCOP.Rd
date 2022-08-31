@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{joint.curvesCOP}
 \alias{joint.curvesCOP}
-\title{ Compute Coordinates of the Marginal Probabilities given joint AND or OR Probabilities }
+\title{Compute Coordinates of the Marginal Probabilities given joint AND or OR Probabilities}
 \description{
 Compute the coordinates of the bivariate marginal probabilities for variables \eqn{U} and \eqn{V} given selected probabilities levels \eqn{t} for a copula \eqn{\mathbf{C}(u,v)} for \eqn{v} with respect to \eqn{u}. For the case of a \bold{joint and} probability, symbolically the solution is
 \deqn{\mathrm{Pr}[U \le v,\ V \le v] = t = \mathbf{C}(u,v)\mbox{,}}
