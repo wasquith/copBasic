@@ -2,7 +2,7 @@
 \name{FGMcop}
 \alias{FGMcop}
 \alias{FGMicop}
-\title{ The Generalized Farlie--Gumbel--Morgenstern Copula}
+\title{The Generalized Farlie--Gumbel--Morgenstern Copula}
 \description{
 The \emph{generalized Farlie--Gumbel--Morgenstern copula} (Bekrizade \emph{et al.}, 2012) is
 \deqn{\mathbf{C}_{\Theta, \alpha, n}(u,v) = \mathbf{FGM}(u,v) = uv[1 + \Theta(1-u^\alpha)(1-v^\alpha)]^n\mbox{,}}
@@ -33,7 +33,7 @@ Bekrizade, Hakim, Parham, G.A., Zadkarmi, M.R., 2012, The new generalization of 
 
 Chine, Amel, and Benatia, Fatah, 2017, Bivariate copulas parameters estimation using the trimmed L-moments methods: Afrika Statistika, v. 12, no. 1, pp. 1185--1197.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{P}}, \code{\link{mleCOP}}
 }
 \examples{
@@ -72,7 +72,7 @@ print(ML$para) # [1] 0.1596361 3.1321228 2.0000000
 # So, we have recovered reasonable estimates of the three parameters
 # given through MLE estimation.
 densityCOPplot(cop=FGMcop, para=   para, contour.col=2)
-densityCOPplot(cop=FGMcop, para=ML$para, ploton=FALSE) # }
+densityCOPplot(cop=FGMcop, para=ML$para, ploton=FALSE) #}
 }
 \keyword{Farlie--Gumbel--Morgenstern copula}
 \keyword{copula (formulas)}
