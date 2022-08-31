@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{coCOP}
 \alias{coCOP}
-\title{ The Co-Copula Function }
+\title{The Co-Copula Function}
 \description{
 Compute the \emph{co-copula (function)} from a copula (Nelsen, 2006, pp. 33--34), which is defined as
 
@@ -35,8 +35,8 @@ The author (Asquith) finds the use of exceedance probabilities delicate in regar
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{COP}}, \code{\link{surCOP}}, \code{\link{duCOP}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{COP}}, \code{\link{surCOP}}, \code{\link{duCOP}}}
 \examples{
 u <- 1 - runif(1); v <- 1 - runif(1) # as exceedance, in order to reinforce the
 # change to exceedance instead of nonexceedance that otherwise dominates this package
