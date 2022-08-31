@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{FRECHETcop}
 \alias{FRECHETcop}
-\title{ The \enc{Fréchet}{Frechet} Family Copula }
+\title{The \enc{Fréchet}{Frechet} Family Copula}
 \description{
 The \emph{\enc{Fréchet}{Frechet} Family copula} (Durante, 2007, pp. 256--259) is
 \deqn{\mathbf{C}_{\alpha, \beta}(u,v) = \mathbf{FF}(u,v) = \alpha\mathbf{M}(u,v) + (1-\alpha-\beta)\mathbf{\Pi}(u,v)+\beta\mathbf{W}(u,v)\mbox{,}}
@@ -20,7 +20,7 @@ FRECHETcop(u,v, para=NULL, rho=NULL, tau=NULL, par2rhotau=FALSE, ...)
   \item{para}{A vector (two element) of parameters \eqn{\alpha} and \eqn{\beta};}
   \item{rho}{Spearman Rho from which to estimate the parameters;}
   \item{tau}{Kendall Tau from which to estimate the parameters;}
-  \item{par2rhotau}{A logical that if \code{TRUE} will return an \R \code{list} of the \eqn{\rho} and \eqn{\tau} for the parameters; and }
+  \item{par2rhotau}{A logical that if \code{TRUE} will return an \R \code{list} of the \eqn{\rho} and \eqn{\tau} for the parameters; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
@@ -56,7 +56,7 @@ for \eqn{0 \le \alpha \le 1}, and the parameter is equal to \eqn{\rho_\mathbf{C}
 \references{
 Durante, F., 2007, Families of copulas, Appendix C, \emph{in} Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}, \code{\link{W}}
 }
 \examples{
