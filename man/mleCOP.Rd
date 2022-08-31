@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{mleCOP}
 \alias{mleCOP}
-\title{ Maximum Pseudo-Log-Likelihood Estimation for Copula Parameter Estimation }
+\title{Maximum Pseudo-Log-Likelihood Estimation for Copula Parameter Estimation}
 \description{
 Perform maximum pseudo-log-likelihood estimation (pMLE) for copula parameters by maximizing the function:
 \deqn{\mathcal{L}(\Theta_p) = \sum_{i=1}^n \log\bigl[ c(F_x(x_i), F_y(y_i); \Theta_p)\bigr]\mbox{,}}
@@ -122,7 +122,7 @@ The summation yields 6 of 20 for which copula 1 has the better fit, but with \eq
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{densityCOP}}}
 \examples{
 \dontrun{
@@ -134,7 +134,7 @@ MLs <- sapply(Thetas, function(k)
               densityCOP(UV$U, UV$V, cop=PLACKETTcop, para=k, sumlogs=TRUE))
 plot(Thetas, MLs, log="x", type="l", # draw the pMLE solution process
      xlab="Plackett Theta", ylab="sum of log densities")
-lines(rep(ML$para, 2), c(ML$objective, par()$usr[3]), col=2) # }
+lines(rep(ML$para, 2), c(ML$objective, par()$usr[3]), col=2) #}
 
 \dontrun{
 set.seed(149); UV <- simCOP(1000, cop=CLcop, para=pi)
