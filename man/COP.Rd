@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{COP}
 \alias{COP}
-\title{ The Copula }
+\title{The Copula}
 \description{
 Compute the \emph{copula} or \emph{joint distribution function} through a copula as shown by Nelsen (2006, p. 18) is the joint probability
 
@@ -77,8 +77,8 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
-\seealso{\code{\link{coCOP}}, \code{\link{duCOP}}, \code{\link{surCOP}}, \code{\link{surfuncCOP}} }
+\author{W.H. Asquith}
+\seealso{\code{\link{coCOP}}, \code{\link{duCOP}}, \code{\link{surCOP}}, \code{\link{surfuncCOP}}}
 \examples{
 u <- runif(1); v <- runif(1)
 COP(cop=W,u,v); COP(cop=P,u,v); COP(cop=M,u,v); COP(cop=PSP,u,v)
