@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{AMHcop}
 \alias{AMHcop}
-\title{ The Ali--Mikhail--Haq Copula}
+\title{The Ali--Mikhail--Haq Copula}
 \description{
 The \emph{Ali--Mikhail--Haq copula} (Joe, 2014, p. 168) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{AMH}(u,v) = \frac{uv}{1 - \Theta(1-u)(1-v)}\mbox{,}}
@@ -56,7 +56,7 @@ The plot shows that the apparent differences are less than 1 part in 100 million
 
 Pranesh, Kumar, 2010, Probability distributions and estimation of Ali--Mikhail--Haq copula: Applied Mathematical Sciences, v. 4, no. 14, p. 657--666.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{P}}
 }
 \examples{
