@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{GHcop}
 \alias{GHcop}
-\title{ The Gumbel--Hougaard Extreme Value Copula }
+\title{The Gumbel--Hougaard Extreme Value Copula}
 \description{
 \emph{SYMMETRIC GUMBEL-HOUGAARD}---The \emph{Gumbel--Hougaard copula} (Nelsen, 2006, pp. 118 and 164) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{GH}(u,v) = \mathrm{exp}\{-[(-\log u)^\Theta+(-\log v)^\Theta]^{1/\Theta}\}\mbox{,}}
@@ -171,7 +171,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 
 Zhang, L., and Singh, V.P., 2007, Gumbel--Hougaard copula for trivariate rainfall frequency analysis: Journal Hydrologic Engineering, v. 12, Special issue---Copulas in Hydrology, pp. 409--419.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{GLcop}}, \code{\link{HRcop}}, \code{\link{tEVcop}}, \code{\link{rhobevCOP}}
 }
 \examples{
