@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{densityCOP}
 \alias{densityCOP}
-\title{ Density of a Copula }
+\title{Density of a Copula}
 \description{
 Numerically estimate the \emph{copula density} for a sequence of \eqn{u} and \eqn{v} probabilities for which each sequence has equal steps that are equal to \eqn{\Delta(uv)}. The density \eqn{c(u,v)} of a copula \eqn{\mathbf{C}(u,v)} is numerically estimated by
 \deqn{c(u,v) = [\mathbf{C}(u_2,v_2) - \mathbf{C}(u_2,v_1) - \mathbf{C}(u_1,v_2) + \mathbf{C}(u_1,v_1)]/[\Delta(uv)\times\Delta(uv)]\mbox{,}}
@@ -35,7 +35,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{simCOP}}, \code{\link{densityCOPplot}}, \code{\link{kullCOP}}}
 \examples{
 \dontrun{
@@ -59,7 +59,7 @@ densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.5) # 4.5
 densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.4) # 4.002069
 densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.3) # 3.999513
 # So we see that the small slicing does have an effect, the default of 0.25 is
-# intented for general application by being away enough from machine limits. }
+# intented for general application by being away enough from machine limits.}
 
 \dontrun{
 # Joe (2014, p. 170) shows the closed form copula density for "Bivariate Joe/B5" copula
