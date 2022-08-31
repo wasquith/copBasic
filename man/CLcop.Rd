@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{CLcop}
 \alias{CLcop}
-\title{ The Clayton Copula}
+\title{The Clayton Copula}
 \description{
 The \emph{Clayton copula} (Joe, 2014, p. 168) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{CL}(u,v) = \mathrm{max}\bigl[(u^{-\Theta}+v^{-\Theta}-1; 0)\bigr]^{-1/\Theta}\mbox{,}}
@@ -26,7 +26,7 @@ and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}, \code{\link{W}}
 }
 \examples{
