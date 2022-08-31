@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{bicCOP}
 \alias{bicCOP}
-\title{ The Bayesian Information Criterion between a Fitted Coupla and an Empirical Copula }
+\title{The Bayesian Information Criterion between a Fitted Coupla and an Empirical Copula}
 \description{
 Compute the \emph{Bayesian information criterion} (BIC) \eqn{\mathrm{BIC}_\mathbf{C}} (Chen and Guo, 2019, p. 29), which is computed using \emph{mean square error} \eqn{\mathrm{MSE}_\mathbf{C}} as
 
@@ -27,7 +27,7 @@ bicCOP(u,v, cop=NULL, para=NULL, m=NA, ...)
 \references{
 Chen, Lu, and Guo, Shenglian, 2019, Copulas and its application in hydrology and water resources: Springer Nature, Singapore, ISBN 978--981--13--0574--0.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{EMPIRcop}}, \code{\link{aicCOP}}, \code{\link{rmseCOP}}
 }
 \examples{
