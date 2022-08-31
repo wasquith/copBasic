@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{densityCOPplot}
 \alias{densityCOPplot}
-\title{ Contour Density Plot of a Copula }
+\title{Contour Density Plot of a Copula}
 \description{
 Generate a \emph{contour density plot} after the advocation of Joe (2014, pp. 9--15). Such graphics are plots of \emph{scaled copula densities} (\eqn{c^\star(u,v)}, bivariate herein) that are copula densities scaled to the standard normal distribution \eqn{\sim} N(0,1) margins. Joe (2014) repeatedly emphasizes such plots in contrast to the uniform distribution \eqn{\sim} U(0,1) margins. Nelsen (2006) does not discuss such scaling but seemingly Nelsen's objectives for his book were different.
 
@@ -41,7 +41,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
-\author{ W.H. Asquith}
+\author{W.H. Asquith}
 \seealso{\code{\link{simCOP}}, \code{\link{densityCOP}}}
 \examples{
 \dontrun{
@@ -69,7 +69,7 @@ H <- densityCOPplot(cop=PLACKETTcop, para=41.25, getmatrix="cden", n=1000)
 set.seed(12)
 UV <- simCOP(cop=PLACKETTcop, para=41.25, n=1000, col=8)
 U <- as.numeric(colnames(H)); V <- as.numeric(rownames(H))
-contour(x=U, y=V, z=t(H), lwd=1.5, cex=2, add=TRUE, col=2) # }
+contour(x=U, y=V, z=t(H), lwd=1.5, cex=2, add=TRUE, col=2) #}
 
 \dontrun{
 UV <- rCOP(400,  cop=PSP, pch=16, col=8, n=400)
@@ -95,7 +95,7 @@ densityCOPplot(cop=CLcop,     para=CL$para,
 densityCOPplot(cop=JOcopB5,   para=JO$para,
                contour.col=3, ploton=FALSE)
 densityCOPplot(cop=PLcop,     para=PL$para,
-               contour.col=4, ploton=FALSE) # }
+               contour.col=4, ploton=FALSE) #}
 }
 \keyword{visualization}
 \keyword{copula (density)}
