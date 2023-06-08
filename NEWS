@@ -2,8 +2,13 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.1.10 (2023-03-28)
--  Minor grammar fixes in copBasic-package.Rd
+Changes in version 2.1.10 (2023-06-07)
+-  Minor grammar fixes in copBasic-package.Rd.
+-  Minor grammar fixes in taildepCOP.Rd.
+-  Changes to COP.R with names(para) <- NULL on the returned copula value inheriting 
+       the names of the parameter and added a reflect <- as.character(reflect) to 
+       silently permit numerical values (as.integers) for match.arg() and expansion
+       of the Examples in COP.Rd.
 
 
 Changes in version 2.1.9 (2022-08-30)
