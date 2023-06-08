@@ -61,7 +61,7 @@ The returned tail dependency parameters are numerically of little importance and
   fakeV <- lmomco::pp(X[,2],sort=FALSE,a=0) # Weibull plotting position i/(n+1)
   uv <- data.frame(U=fakeU, V=fakeV)  # parameter "object" for Empirical copula
   plot(uv)
-  TD <- taildepCOP2(cop=EMPIRcop, para=uv, divisor=25,
+  TD <- taildepCOP(cop=EMPIRcop, para=uv, divisor=25,
                    plot=TRUE, ylim=c(0, 7/10))
   U <- rank(X[,1])/(nrow(X)+1); V <- rank(X[,2])/(nrow(X)+1)# Charpentier(2012)
   Lemp <- function(z) sum((U<=z)   & (V<=z))   / sum(U<=z  )# Charpentier(2012)
@@ -91,7 +91,7 @@ The figure that will have been generated shows considerably similarity to that f
   legend("topleft", c("Tail dependency by Blomqvist (Schmid-Schmidt) Betas",
                       "Blomqvist Beta C(1/2, 1/2)"),
                     bty="n", cex=0.9, lwd=2, lty=c(1,NA), pch=c(NA,16),
-                    pt.cex=c(NA,2), col=c("darkgreen", "magenta")
+                    pt.cex=c(NA,2), col=c("darkgreen", "magenta"))
 }
 The thick green lines show that the dependency parameters to the left and right are approached along a different trajectory using the definitions in \code{\link{blomCOPss}}. It seems at some stage in analysis that the practioner will need to decide how deep into the tail the sample will permit for a reliable estimate of the dependency parameters. \emph{Blomqvist Beta} (\eqn{\hat\beta_\mathbf{C}}) (\code{\link{blomCOP}} is shown as the magenta dot at the median and henceforth from do the trajectories of \eqn{\hat\lambda^L_{\beta^\diamond_\mathbf{C}}} and \eqn{\hat\lambda^U_{\beta^\diamond_\mathbf{C}}} extend as their \eqn{\mathrm{lim} p \rightarrow 0^+}. Ultimately, for the data shown in the figure, perhaps the \eqn{\hat\lambda_\mathbf{C}^L = 0.1} and the \eqn{\hat\lambda_\mathbf{C}^U = 0.3} and a parametric copula fitted in part to such values.
 }
@@ -140,7 +140,8 @@ as.data.frame(taildepCOP(GHcop, para=3))
 # for the PSP copula, which has lower but no upper-tail dependence.
 taildepCOP(cop=PSP, para=NULL, plot=TRUE) # LambL=0.5, LambU=0
 # which is readily confirmed by simCOP(1000, cop=PSP)
-# Nelsen (2006, p. 216) reports that this copula has LambL=1/2 and LambU=0.
+# Nelsen (2006, p. 216) reports that this copula has LambL=1/2 and LambU=0,
+# and we get the same results here.
 
 # How about some composited Plackett-Plackett copulas?
 # Each has upper- and lower-tail dependence parameters equal to zero.
@@ -180,3 +181,4 @@ lines(qnorm(psu), sapply(psu, function(p) {
 \keyword{copula (tail characteristics)}
 \keyword{copula (tail properties)}
 \keyword{tail dependence}
+\keyword{Blomqvist (Schmid-Schmidt) Beta}
