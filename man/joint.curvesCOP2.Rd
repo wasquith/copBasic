@@ -47,7 +47,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 JCvwrtu <- joint.curvesCOP( cop=PSP, prob=0.98)$"0.98"
 JCuwrtv <- joint.curvesCOP2(cop=PSP, prob=0.98)$"0.98"; lim <- c(2,5)
 plot(qnorm(JCvwrtu$U), qnorm(JCvwrtu$V), type="l", lwd=6, col=8, xlim=lim, ylim=lim,
-     xlab="STANDARD NORMAL VARIATE IN U", ylab="STANDARD NORMAL VARIATE IN V")
+     xlab="STANDARD NORMAL VARIATE OF U", ylab="STANDARD NORMAL VARIATE OF V")
 lines(qnorm(JCuwrtv$U), qnorm(JCuwrtv$V), col=2, lwd=2)
 mtext("98th Joint Percentile Level Curve for PSP Copula")#}
 }
