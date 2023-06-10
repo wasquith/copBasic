@@ -14,17 +14,19 @@ A grid (matrix) of \eqn{c(u,v)} or \eqn{c^\star(u,v)} is defined for sequence of
 For plotting and other uses of normal scores of data, Joe (2014, p. 245) advocates that one should use the plotting position formula \eqn{u_i = (i-1/2)/n} (\emph{Hazen plotting position}) for normal scores \eqn{z_i = \Phi^{-1}(u_i)} in preference to \eqn{i/(n+1)} (\emph{Weibull plotting position}) because \eqn{n^{-1}\sum_{i=1}^{n} z^2_i} is closer to unity. Other places of Joe's advocation for the Hazen plotting positions are available (Joe, 2014, pp. 9, 17, 245, 247--248).
 }
 \usage{
-densityCOPplot(cop=NULL, para=NULL, deluv=0.002, origins=TRUE,
+densityCOPplot(cop=NULL, para=NULL, deluv=0.002,
                getmatrix=c("none", "cdenzz", "cden"), n=0,
-               ploton=TRUE, contour.col=1, contour.lwd=1.5, ...)
+               ploton=TRUE, snv=TRUE, origins=TRUE,
+               contour.col=1, contour.lwd=1.5, ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
   \item{deluv}{The change in the sequences \eqn{\{u, v\} \mapsto \delta, \ldots, 1-\delta; \delta = \Delta(uv)} probabilities;}
-  \item{origins}{A logical to plot the origin lines;}
   \item{getmatrix}{A trigger on whether the density matrix is to be returned. The option \code{cdenzz} returns the density scaled by the two standard normal densities (\eqn{c^\star(u,v)}), whereas the option \code{cden} returns simply the copula density (\eqn{c(u,v)});}
   \item{ploton}{A logical to toggle on the plot;}
+  \item{snv}{A logical to toggle standard normal variates for the axes;}
+  \item{origins}{A logical to plot the origin lines, if and only if \code{snv} is true;}
   \item{contour.col}{The color of the contour lines, which corresponds to the \code{col} argument of the \code{contour} function in \R;}
   \item{contour.lwd}{The width of the contour lines, which corresponds to the \code{lwd} argument of the \code{contour} function in \R;}
   \item{n}{An optional sample size for which simulation of this many values from the copula will be made by \code{\link{simCOP}} and drawn; and}
@@ -49,7 +51,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 "rMTCJ" <- function(u,v,para, ...) {
    u + v - 1 + ((1-u)^(-para) + (1-v)^(-para) - 1)^(-1/para)
 } # Survival Copula ("reflected" in Joe's terms)
-densityCOPplot(cop=rMTCJ, para=1.0760, n=9000)
+densityCOPplot(cop=rMTCJ, para=1.0760, n=9000, snv=TRUE)
 # The density plot matches that shown by Joe (2014, p. 11, fig. 1.2, lower left plot)
 # for a Spearman Rho equaling 0.5. Let us compute then Rho:
 rhoCOP(cop=rMTCJ, para=1.076075) # 0.4999958
@@ -61,17 +63,18 @@ para <- list(alpha=0.15, beta=0.90, kappa=0.06, gamma=0.96,
              cop1=GHcop, cop2=PLACKETTcop, para1=5.5, para2=0.07)
 densityCOPplot(cop=composite2COP, para=para, n=9000)
 
-# Now let us hack back to a contour density plot with U(0,1) and not N(0,1) margins
+# Now, let us hack back to a contour density plot with U(0,1) and not N(0,1) margins
 # just so show that capability exists, but emphasis of densityCOPplot is clearly
-# on Joe's advocation so it does not have a trigger to use U(0,1) margins.
+# on Joe's advocation, so it does not have a default trigger to use U(0,1) margins.
 set.seed(12)
-H <- densityCOPplot(cop=PLACKETTcop, para=41.25, getmatrix="cden", n=1000)
+H <- densityCOPplot(cop=PLACKETTcop, para=41.25, getmatrix="cdenzz", n=1000, snv=FALSE)
 set.seed(12)
-UV <- simCOP(cop=PLACKETTcop, para=41.25, n=1000, col=8)
+UV <- simCOP(cop=PLACKETTcop, para=41.25, n=1000, col=8, snv=FALSE)
 U <- as.numeric(colnames(H)); V <- as.numeric(rownames(H))
 contour(x=U, y=V, z=t(H), lwd=1.5, cex=2, add=TRUE, col=2) #}
 
 \dontrun{
+set.seed(12)
 UV <- rCOP(400,  cop=PSP, pch=16, col=8, n=400)
 CL <- mleCOP(UV, cop=CLcop,   interval=c(1,20))
 JO <- mleCOP(UV, cop=JOcopB5, interval=c(.1,20))
@@ -80,8 +83,8 @@ PL <- mleCOP(UV, cop=PLcop,   interval=c(.1,20))
 AICs <- c(CL$AIC, JO$AIC, PL$AIC)
 names(AICs) <- c("Clayton", "Joe(B5)", "Plackett")
 print(round(AICs, digits=2))
-# Clayton    Joe(B5)   Plackett 
-#  -167.15   -36.91  -131.35
+#  Clayton    Joe(B5)   Plackett
+#  -156.77     -36.91    -118.38
 # So we conclude Clayton must be the best fit of the three.
 
 plot(qnorm(UV[,1]), qnorm(UV[,2]), pch=16, col=8,
@@ -89,13 +92,13 @@ plot(qnorm(UV[,1]), qnorm(UV[,2]), pch=16, col=8,
      xlab="Standard normal variate of V",
      ylab="Standard normal variate of U")
 densityCOPplot(cop=PSP, contour.col=grey(0.5), lty=2,
-               contour.lwd=3.5, ploton=FALSE)
+               contour.lwd=3.5, ploton=FALSE, snv=TRUE)
 densityCOPplot(cop=CLcop,     para=CL$para,
-               contour.col=2, ploton=FALSE)
+               contour.col=2,   ploton=FALSE, snv=TRUE)
 densityCOPplot(cop=JOcopB5,   para=JO$para,
-               contour.col=3, ploton=FALSE)
+               contour.col=3,   ploton=FALSE, snv=TRUE)
 densityCOPplot(cop=PLcop,     para=PL$para,
-               contour.col=4, ploton=FALSE) #}
+               contour.col=4,   ploton=FALSE, snv=TRUE) #}
 }
 \keyword{visualization}
 \keyword{copula (density)}
