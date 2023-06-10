@@ -8,7 +8,7 @@ Numerically set a logical whether a copula is \emph{radially symmetric} (Nelsen,
  or
  \deqn{u + v - 1 + \mathbf{C}(1-u, 1-v) - \mathbf{C}(u,v) \equiv 0\mbox{.}}
 
-Thus if the equality of the copula \eqn{\mathbf{C}(u,v) = \hat{\mathbf{C}}(u,v)}, then radial symmetry exists: \code{\link{COP}} \eqn{=} \code{\link{surCOP}} or \eqn{\mathbf{C}(u,v) = \hat{\mathbf{C}}(1-u,1-v)}. The computation is (can be) CPU intensive.
+Thus, if the equality of the copula \eqn{\mathbf{C}(u,v) = \hat{\mathbf{C}}(u,v)} (the \emph{survival copula}), then radial symmetry exists: \code{\link{COP}} \eqn{=} \code{\link{surCOP}} or \eqn{\mathbf{C}(u,v) = \hat{\mathbf{C}}(1-u,1-v)}. The computation is (can be) CPU intensive.
 }
 \usage{
 isCOP.radsym(cop=NULL, para=NULL, delta=0.005, tol=1e-4, ...)
@@ -39,7 +39,7 @@ Now, let us compute the L-comoments from the \pkg{lmomco} \R package for \eqn{n=
   lmomco::lcomoms2(UVa, nmom=4)$T3[2,1] # Only show L-coskew of V wrt U.
   lmomco::lcomoms2(UVb, nmom=4)$T3[2,1] # Only show L-coskew of V wrt U.
 }
-The L-coskew for the \eqn{\mathbf{PSP}} is about \eqn{-0.13} and that for the Plackett copula is about zero (\eqn{<0.003}). L-cokurtosis provides a similar result if \code{'T3'} is changed to \code{'T4'}. The \eqn{\mathbf{PSP}} L-cokurtosis is about 0.04, whereas the Plackett L-cokurtosis is about \eqn{<0.004}.
+The L-coskew for the \eqn{\mathbf{PSP}} is about \eqn{-0.13} and that for the \eqn{\mathbf{PL}} copula is about zero (\eqn{<0.003}). L-cokurtosis provides a similar result if \code{'T3'} is changed to \code{'T4'}. The \eqn{\mathbf{PSP}} L-cokurtosis is about 0.04, whereas the \eqn{\mathbf{PL}} L-cokurtosis is about \eqn{<0.004}.
 }
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.

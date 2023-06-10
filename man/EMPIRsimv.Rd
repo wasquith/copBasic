@@ -16,7 +16,7 @@ EMPIRsimv(u, n=1, empgrid=NULL, kumaraswamy=FALSE, ...)
   \item{u}{The fixed probability \eqn{u} on which to perform conditional simulation for a sample of size \eqn{n};}
   \item{n}{A sample size, default is 1;}
   \item{empgrid}{Gridded empirical copula from \code{\link{EMPIRgrid}};}
-  \item{kumaraswamy}{A logical to trigger Kumaraswamy distribution smoothing of the conditional quantile function that is passed to \code{\link{EMPIRgridderinv}}.  The Kumaraswamy distribution is a distribution having support \eqn{[0,1]} with an explicit quantile function and takes the place of a Beta distribution (see \pkg{lmomco} function \code{quakur} for more details); and}
+  \item{kumaraswamy}{A logical to trigger Kumaraswamy distribution smoothing of the conditional quantile function that is passed to \code{\link{EMPIRgridderinv}}. The Kumaraswamy distribution is a distribution having support \eqn{[0,1]} with an explicit quantile function and takes the place of a Beta distribution (see \pkg{lmomco} function \code{quakur()} for more details); and}
   \item{...}{Additional arguments to pass.}
 }
 \value{

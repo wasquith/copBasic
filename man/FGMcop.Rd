@@ -48,15 +48,15 @@ rhoCOP(FGMcop, para=c(-1/12, 2, 3))  # -0.1806641 }
 
 \dontrun{
 # Support of FGMrcop(): first for r=1 iterations and then for large r.
-sapply(c(-1,1), function(t) rhoCOP(cop=FGMrcop, para=rep(t,1)))
+sapply(c(-1, 1), function(t) rhoCOP(cop=FGMrcop, para=rep(t, 1)) )
 # [1] -0.3333333  0.3333333
-sapply(c(-1,1), function(t) rhoCOP(cop=FGMrcop, para=rep(t,50)))
+sapply(c(-1, 1), function(t) rhoCOP(cop=FGMrcop, para=rep(t,50)) )
 # [1] -0.4341385  0.4341385}
 
 \dontrun{
 # Maximum likelihood estimation near theta upper bounds for a=3 and n=2.
 set.seed(832)
-UV <- simCOP(300, cop=FGMcop, para=c(+.16,3,2))
+UV <- simCOP(300, cop=FGMcop, para=c(+0.16, 3, 2))
 # Define a transform function for parameter domain, though mleCOP does
 # provide some robustness anyway---not forcing n into the positive
 # domain via as.integer(exp(p[3])) seems to not always be needed.
@@ -64,9 +64,9 @@ FGMpfunc <- function(p) {
   d <- p[1]; a <- exp(p[2]); n <- as.integer(exp(p[3]))
   lwr <- -min(c(1,1/(n*a^2))); upr <- 1/(n*a)
   d <- ifelse(d <= lwr, lwr, ifelse(d >= upr, upr, d))
-  return(c(d,a,n))
+  return( c(d, a, n) )
 }
-para <- c(.16,3,2); init <- c(0,1,1)
+para <- c(0.16, 3, 2); init <- c(0, 1, 1)
 ML <- mleCOP(UV$U, UV$V, cop=FGMcop, init.para=init, parafn=FGMpfunc)
 print(ML$para) # [1] 0.1596361 3.1321228 2.0000000
 # So, we have recovered reasonable estimates of the three parameters
@@ -77,6 +77,7 @@ densityCOPplot(cop=FGMcop, para=ML$para, ploton=FALSE) #}
 \keyword{Farlie--Gumbel--Morgenstern copula}
 \keyword{copula (formulas)}
 \keyword{copula}
+\keyword{Bekrizade et al. (2012) Examples and Exercises}
 \concept{Farlie-Gumbel-Morgenstern copula}
 \concept{generalized Farlie-Gumbel-Morgenstern copula}
 \concept{iterated Farlie-Gumbel-Morgenstern copula}

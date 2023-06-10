@@ -36,7 +36,7 @@ where the individual \emph{Bernstein weights} \eqn{\eta(i,j)} for the \eqn{k}th 
 
 The Bernstein extension, albeit conceptually pure in its shuffling by binomial coefficients and left- and right-tail weightings, is quite CPU intensive as inspection of the equations above indicates a nest of four \code{for()} loops in \R. (The native \R code of \pkg{copBasic} uses the \code{sapply()} function in \R liberally for substantial but not a blazing fast speed increase.) The Bernstein extension results in a smoother surface of the empirical copula and can be triggered by \code{ctype="bernstein"}.
 
-\emph{Checkerboard Empirical Copula}---A simple smoothing to the empirical copula is the checkerboard empirical copula (Segers et al., 2017) that has been adapted from the \pkg{copula} package. It is numerically intensive like the Bernstein and possibly of limited usefulness for large sample sizes. The checkerboard extension can be triggered by \code{ctype="checkerboard"} and is formulated as
+\emph{Checkerboard Empirical Copula}---A simple smoothing to the empirical copula is the \emph{checkerboard empirical copula} (Segers et al., 2017) that has been adapted from the \pkg{copula} package. It is numerically intensive like the Bernstein and possibly of limited usefulness for large sample sizes. The checkerboard extension can be triggered by \code{ctype="checkerboard"} and is formulated as
 
 \deqn{\mathbf{C}^\sharp_{n}(U) = \frac{1}{n+o} \sum_{i=1}^n\prod_{i=1}^d \mathrm{min}[\mathrm{max}[n U_j - R^{(n)}_{i,j} + 1,0],1]\mathrm{,}}
 
@@ -58,7 +58,7 @@ EMPIRcop(u, v, para=NULL,
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
   \item{para}{A vector (single element) of parameters---the U-statistics of the data (see \bold{Examples}). Alternatively, \code{para} can be a \code{list} holding a \code{para} as would be done if it were a vector, but arguments \code{bernstein} and \code{bernprogress} can be optionally included---this feature is provided so that the Bernstein refinement can be controlled within the context of other functions calling \code{EMPIRcop} such as by \code{\link{level.curvesCOP}};}
-  \item{ctype}{An alternative means for trigging the definition of \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}_n}, \eqn{\mathbf{C}^\mathcal{B}_n}, or the checkerboard empirical copula (a type of smooth). This argument of the same name is also used by \code{\link{blomCOP}};}
+  \item{ctype}{An alternative means for trigging the definition of  \eqn{\mathbf{C}_n}, \eqn{\mathbf{C}^\mathcal{H}_n} (default), \eqn{\mathbf{C}^\mathcal{W}_n}, \eqn{\mathbf{C}^\mathcal{B}_n}, or \eqn{\mathbf{C}^\sharp_n}. This argument of the same name is also used by \code{\link{blomCOP}};}
   \item{bernprogress}{The Bernstein copula extension is CPU intensive(!), so a splash counter is pushed to the console via the \code{message()} function in \R so as to not discourage the user;}
   \item{checkerboard.offset}{A scaling of the ratio \code{sum(....)/(n+offset)} for the checkerboard empirical copula; and}
   \item{...}{Additional arguments to pass.}
@@ -157,7 +157,7 @@ level.curvesCOP(cop=EMPIRcop, para=bpara, delu=0.03, col=3, ploton=FALSE)
 # Experimental from R Graphics by Murrell (2005, p.112)
 "trans3d" <-                         # blackslashes seem needed for the package
 function(x,y,z, pmat) {              # for user manual building but bad syntax
-  tmat <- cbind(x,y,z,1) \%*\% pmat  # because remember the percent sign is a
+  tmat <- cbind(x,y,z,1) \%*\% pmat    # because remember the percent sign is a
   return(tmat[,1:2] / tmat[,4])      # a comment character in LaTeX.
 }
 

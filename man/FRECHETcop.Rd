@@ -5,7 +5,7 @@
 \description{
 The \emph{\enc{Fréchet}{Frechet} Family copula} (Durante, 2007, pp. 256--259) is
 \deqn{\mathbf{C}_{\alpha, \beta}(u,v) = \mathbf{FF}(u,v) = \alpha\mathbf{M}(u,v) + (1-\alpha-\beta)\mathbf{\Pi}(u,v)+\beta\mathbf{W}(u,v)\mbox{,}}
-where \eqn{\alpha, \beta \ge 0} and \eqn{\alpha + \beta \le 1}. The \enc{Fréchet}{Frechet} Family copulas are \emph{convex combinations} of the fundamental copulas \eqn{\mathbf{W}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding lower bound copula}; \code{\link{W}}), \eqn{\mathbf{\Pi}} (independence; \code{\link{P}}), and \eqn{\mathbf{M}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding upper bound copula}; \code{\link{M}}). The copula is \emph{comprehensive} because both \eqn{\mathbf{W}} and \eqn{\mathbf{M}} can be obtained. The parameters are readily estimated using the \emph{Spearman Rho} (\eqn{\rho_\mathbf{C}}; \code{\link{rhoCOP}}) and \emph{Kendall Tau} (\eqn{\tau_\mathbf{C}}; \code{\link{tauCOP}}) by
+where \eqn{\alpha, \beta \ge 0} and \eqn{\alpha + \beta \le 1}. The \enc{Fréchet}{Frechet} Family copulas are \emph{convex combinations} of the fundamental copulas \eqn{\mathbf{W}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding lower bound copula}; \code{\link{W}}), \eqn{\mathbf{\Pi}} (independence; \code{\link{P}}), and \eqn{\mathbf{M}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding upper bound copula}; \code{\link{M}}). The copula is \emph{comprehensive} because both \eqn{\mathbf{W}} and \eqn{\mathbf{M}} can be obtained. The parameters are readily estimated using \emph{Spearman Rho} (\eqn{\rho_\mathbf{C}}; \code{\link{rhoCOP}}) and \emph{Kendall Tau} (\eqn{\tau_\mathbf{C}}; \code{\link{tauCOP}}) by
 
 \deqn{\tau_\mathbf{C} = \frac{(\alpha - \beta)(\alpha + \beta + 2)}{3}\mbox{\ and\ } \rho_\mathbf{C} = \alpha - \beta\mbox{.}}
 
@@ -20,7 +20,7 @@ FRECHETcop(u,v, para=NULL, rho=NULL, tau=NULL, par2rhotau=FALSE, ...)
   \item{para}{A vector (two element) of parameters \eqn{\alpha} and \eqn{\beta};}
   \item{rho}{Spearman Rho from which to estimate the parameters;}
   \item{tau}{Kendall Tau from which to estimate the parameters;}
-  \item{par2rhotau}{A logical that if \code{TRUE} will return an \R \code{list} of the \eqn{\rho} and \eqn{\tau} for the parameters; and}
+  \item{par2rhotau}{A logical that if \code{TRUE} will return an \R \code{list} of the \eqn{\rho_\mathbf{C}} and \eqn{\tau_\mathbf{C}} for the parameters; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{

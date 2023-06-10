@@ -76,7 +76,7 @@ Next, we compute and plot the joint probability curves. The \code{tol}erance for
   abline(0,1, lty=2) # dash line is simply and equal value line
 }
 
-\emph{Black Curves}---The black curves represent the nonexceedance \bold{joint and} condition. The black curves are a form of \emph{level curve} (see \code{\link{level.curvesCOP}}), but it seems appropriate to not name them as such because Nelsen's examples and others usually have the level curves on a even step interval of probability such as 10-percent level curves. The complement of nonexceedance \bold{joint and} is the probability level that either or both random variables (say \dQuote{hazards}) \eqn{U} or \eqn{V} causes \dQuote{failure} at the respective return period.
+\emph{Black Curves}---The black curves represent the nonexceedance \bold{joint and} condition. The black curves are a form of \emph{level curve} (see \code{\link{level.curvesCOP}}), but it seems appropriate to not name them as such because Nelsen's examples and others usually have the level curves on an even step interval of probability such as 10-percent level curves. The complement of nonexceedance \bold{joint and} is the probability level that either or both random variables (say \dQuote{hazards}) \eqn{U} or \eqn{V} causes \dQuote{failure} at the respective return period.
 
 \emph{Red Curves}---The red curves represent the nonexceedance \bold{joint or} (inclusive) condition. The complement of nonexceedance \bold{joint or} (inclusive) is the probability level that both random variables (say \dQuote{hazards}) \eqn{U} or \eqn{V} must simultaneously (or dually) occur for \dQuote{failure} at the respective return period. Note that there is obviously asymmetry in the \bold{joint or} curves.
 

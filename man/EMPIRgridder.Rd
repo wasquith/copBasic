@@ -28,7 +28,7 @@ uv <- data.frame(U=fakeU, V=fakeV)
 
 "trans3d" <-                         # blackslashes seem needed for the package
 function(x,y,z, pmat) {              # for user manual building but bad syntax
-  tmat <- cbind(x,y,z,1) \%*\% pmat  # because remember the percent sign is a
+  tmat <- cbind(x,y,z,1) \%*\% pmat    # because remember the percent sign is a
   return(tmat[,1:2] / tmat[,4])      # a comment character in LaTeX.
 }
 

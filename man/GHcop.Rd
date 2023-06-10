@@ -11,7 +11,7 @@ The copula is readily extended into \eqn{d} dimensions by
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathrm{exp}\{-[(-\log u_1)^\Theta+\cdots+(-\log u_d)^\Theta]^{1/\Theta}\}\mbox{.}}
 However, such an implementation is not available in the \pkg{copBasic} package.
 
-Every Gumbel--Hougaard copula is a \emph{multivariate extreme value} (\eqn{MEV}) copula, and hence useful in analysis of extreme value distributions. The Gumbel--Hougaard copula is the \emph{only} Archimedean \eqn{MEV} (Salvadori \emph{et al.}, 2007, p. 192). The Gumbel--Hougaard copula has respective \emph{lower-} and \emph{upper-tail dependency} parameters of \eqn{\lambda^L = 0} and \eqn{\lambda^U = 2 - 2^{1/\Theta}}, respectively. Nelsen (2006, p. 96) shows that \eqn{\mathbf{C}^r_\theta(u^{1/r}, v^{1/r}) = \mathbf{C}_\theta(u,v)} so that every Gumbel--Hougaard copula is has a property known as \emph{max-stable}.  A \emph{dependence measure} uniquely defined for \eqn{BEV} copulas is shown under \code{\link{rhobevCOP}}.
+Every Gumbel--Hougaard copula is a \emph{multivariate extreme value} (\eqn{MEV}) copula, and hence useful in analysis of extreme value distributions. The Gumbel--Hougaard copula is the \emph{only} Archimedean \eqn{MEV} (Salvadori \emph{et al.}, 2007, p. 192). The Gumbel--Hougaard copula has respective \emph{lower-} and \emph{upper-tail dependency} parameters of \eqn{\lambda^L = 0} and \eqn{\lambda^U = 2 - 2^{1/\Theta}}, respectively. Nelsen (2006, p. 96) shows that \eqn{\mathbf{C}^r_\theta(u^{1/r}, v^{1/r}) = \mathbf{C}_\theta(u,v)} so that every Gumbel--Hougaard copula has a property known as \emph{max-stable}. A \emph{dependence measure} uniquely defined for \eqn{BEV} copulas is shown under \code{\link{rhobevCOP}}.
 
 A comparison through simulation between Gumbel--Hougaard implementations by the \R packages \pkg{acopula}, \pkg{copBasic}, \pkg{copula}, and \pkg{Gumbel} is shown in the \bold{Examples} section. At least three divergent techniques for random variate generation are used amongst those packages. The simulations also use \pkg{copBasic}-style random variate generation  (conditional simulation) using an analytical-numerical hybrid solution to conditional inverse described in the \pkg{Note} section.
 
@@ -22,7 +22,7 @@ A comparison through simulation between Gumbel--Hougaard implementations by the 
        \bigl(v^{-\beta_2} -1\bigr)^{\beta_1}
 \biggr)^{1/\beta_1} + 1
 \biggr]^{-1/\beta_2}\mbox{,}}
-where \eqn{\beta_1 \ge 1} and \eqn{\beta_2 > 0}. Both parameters controls the general level of association, whereas parameter \eqn{\beta_2} can be thought of as controling left-tail dependency (\code{\link{taildepCOP}}, \eqn{\lambda^{[U\mid L]}_{(\beta_1, \beta_2)}}; \emph{e.g.}
+where \eqn{\beta_1 \ge 1} and \eqn{\beta_2 > 0}. Both parameters controls the general level of association, whereas parameter \eqn{\beta_2} can be thought of as controlling left-tail dependency (\code{\link{taildepCOP}}, \eqn{\lambda^{[U\mid L]}_{(\beta_1, \beta_2)}}; \emph{e.g.}
 \eqn{\lambda^U_{(1.5; \beta_2)} = 0.413} for all \eqn{\beta_2} but
 \eqn{\lambda^L_{(1.5; 0.2)} = 0.811} and
 \eqn{\lambda^L_{(1.5; 2.2)} = 0.099}. Brahimi \emph{et al.} (2015) report a \emph{Spearman Rho} (\code{\link{rhoCOP}}) for a \eqn{\mathbf{GH}_{(1.5, 0.2)}(u,v)} is 0.5, which is readily confirmed in \pkg{copBasic} by the function call \code{rhoCOP(cop=GHcop, para=c(1.5,0.2))}. The two-parameter \eqn{\mathbf{GH}} is triggered if the length of the \code{para} argument is exactly 2.
@@ -175,19 +175,19 @@ Zhang, L., and Singh, V.P., 2007, Gumbel--Hougaard copula for trivariate rainfal
 \seealso{\code{\link{M}}, \code{\link{GLcop}}, \code{\link{HRcop}}, \code{\link{tEVcop}}, \code{\link{rhobevCOP}}
 }
 \examples{
-Theta <- 2.2 # Lets see if the numerical and analytical tail deps are the same.
-del.lamU <- abs(taildepCOP(cop=GHcop, para=Theta)$lambdaU - (2-2^(1/Theta)))
+Theta    <- 2.2 # Let us see if numerical and analytical tail deps are the same.
+del.lamU <- abs( taildepCOP(cop=GHcop, para=Theta)$lambdaU - (2-2^(1/Theta)) )
 as.logical(del.lamU < 1E-6) # TRUE
 \dontrun{
 # The simulations match Joe (2014, p. 72) for Gumbel-Hougaard
 n <- 600; nsim <- 1000; set.seed(946) # see for reproducibility
 SM <- sapply(1:nsim, function(i) { rs <- semicorCOP(cop=GHcop, para=1.35, n=n)
                                  c(rs$botleft.semicor, rs$topright.semicor) })
-RhoM     <- round(mean(SM[1,]),        digits=3)
-RhoP     <- round(mean(SM[2,]),        digits=3)
-SE.RhoM  <- round(sd(SM[1,]),          digits=3)
-SE.RhoP  <- round(sd(SM[2,]),          digits=3)
-SE.RhoMP <- round(sd(SM[2,] - SM[1,]), digits=3)
+RhoM     <- round(mean(SM[1,]),          digits=3)
+RhoP     <- round(mean(SM[2,]),          digits=3)
+SE.RhoM  <- round(  sd(SM[1,]),          digits=3)
+SE.RhoP  <- round(  sd(SM[2,]),          digits=3)
+SE.RhoMP <- round(  sd(SM[2,] - SM[1,]), digits=3)
 # Semi-correlations (sRho) and standard errors (SEs)
 message("# sRho[-]=", RhoM, " (SE[-]=", SE.RhoM, ") Joe's=0.132 (SE[-]=0.08)")
 message("# sRho[+]=", RhoP, " (SE[+]=", SE.RhoP, ") Joe's=0.415 (SE[+]=0.07)")
@@ -205,12 +205,12 @@ write.table(x, file=file, row.names=FALSE, quote=FALSE)
 n <- 250 # Make a large number for very long CPU run but seems stable
 for(tau in seq(0,0.98, by=0.005)) {
    thetag <- GHcop(u=NULL, v=NULL, tau=tau)$para
-   trho <- rhoCOP(cop=GHcop, para=thetag)
-   GH <- simCOP(n=n, cop=GHcop, para=thetag, points=FALSE, ploton=FALSE)
-   srho <- cor(GH$U, GH$V, method="spearman")
+   trho   <- rhoCOP(cop=GHcop, para=thetag)
+   GH     <- simCOP(n=n, cop=GHcop, para=thetag, points=FALSE, ploton=FALSE)
+   srho   <- cor(GH$U, GH$V, method="spearman")
    thetap <- PLACKETTpar(rho=trho)
-   PL <- simCOP(n=n, cop=PLACKETTcop, para=thetap, points=FALSE, ploton=FALSE)
-   GHl <- lmomco::lcomoms2(GH, nmom=4); PLl <- lmomco::lcomoms2(PL, nmom=4)
+   PL     <- simCOP(n=n, cop=PLACKETTcop, para=thetap, points=FALSE, ploton=FALSE)
+   GHl    <- lmomco::lcomoms2(GH, nmom=4); PLl <- lmomco::lcomoms2(PL, nmom=4)
    x <- data.frame(tau=tau, trho=trho, srho=srho,
                    GHtheta=thetag, PLtheta=thetap,
                    GHT2=mean(c(GHl$T2[1,2], GHl$T2[2,1])),

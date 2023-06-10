@@ -13,7 +13,7 @@ EMPIRcopdf(para=NULL, ...)
   \item{...}{Additional arguments to pass to \code{\link{EMPIRcop}}.}
 }
 \value{
-  An \R \code{data.frame} of \eqn{u}, \eqn{v}, and \eqn{\mathbf{C}_{n}(u,v)} values of the bivariate empirical copula is returned.
+  An \R \code{data.frame} of \eqn{u}, \eqn{v}, and \eqn{\mathbf{C}_{n}(u, v)} values of the bivariate empirical copula is returned.
 }
 \references{
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.

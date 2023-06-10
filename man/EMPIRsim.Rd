@@ -17,7 +17,7 @@ EMPIRsim(n=100, empgrid=NULL, kumaraswamy=FALSE, na.rm=TRUE, keept=FALSE,
 \arguments{
   \item{n}{A sample size, default is 100;}
   \item{empgrid}{Gridded empirical copula from \code{\link{EMPIRgrid}};}
-  \item{kumaraswamy}{A logical to trigger Kumaraswamy distribution smoothing of the conditional quantile function that is passed to \code{\link{EMPIRgridderinv}}.  The Kumaraswamy distribution is a distribution having support \eqn{[0,1]} with an explicit quantile function and takes the place of a Beta distribution (see \pkg{lmomco} function \code{quakur} for more details);}
+  \item{kumaraswamy}{A logical to trigger Kumaraswamy distribution smoothing of the conditional quantile function that is passed to \code{\link{EMPIRgridderinv}}. The Kumaraswamy distribution is a distribution having support \eqn{[0,1]} with an explicit quantile function and takes the place of a Beta distribution (see \pkg{lmomco} function \code{quakur()} for more details);}
     \item{na.rm}{A logical to toggle the removal of \code{NA} entries on the returned \code{data.frame};}
   \item{keept}{Keep the \eqn{t} uniform random variable for the simulation as the last column in the returned \code{data.frame};}
   \item{graphics}{A logical that will disable graphics by setting \code{ploton} and \code{points} to \code{FALSE} and overriding whatever their settings were;}

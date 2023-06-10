@@ -8,7 +8,7 @@
 \description{
 Compute the measure of association known as the \emph{Hoeffding Phi} \eqn{\Phi_\mathbf{C}} of a copula from \emph{independence} (\eqn{uv = \mathbf{\Pi}}; \code{\link{P}}) according to Cherunbini \emph{et al.} (2004, p. 164) by
 \deqn{\Phi_\mathbf{C} = 3 \sqrt{10\int\!\!\int_{\mathcal{I}^2} \bigl(\mathbf{C}(u,v) - uv\bigr)^2\,\mathrm{d}u\mathrm{d}v}\mbox{,}}
-and Nelsen (2006, p. 210) shows this as
+and Nelsen (2006, p. 210) shows this as (and absolute value notation by Nelsen helps in generalization)
 \deqn{\Phi_\mathbf{C} = \biggl(90\int\!\!\int_{\mathcal{I}^2} |\mathbf{C}(u,v) - uv|^2\,\mathrm{d}u\mathrm{d}v\biggr)^{1/2}\mbox{,}}
 for which \eqn{\Phi^2_\mathbf{C}} (the square of the quantity) is known as the \emph{dependence index}. \enc{Gaißer}{Gaisser} \emph{et al.} (2010, eq. 1) have \eqn{\Phi^2_\mathbf{C}} as the \emph{Hoeffding Phi-Square}, and their definition, when square-rooted, matches Nelsen's listing.
 
