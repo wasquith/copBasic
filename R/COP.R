@@ -9,14 +9,14 @@ function(u, v, cop=NULL, para=NULL,
       # avoid overwriting the desired copula because
       # is.null(para$cop) is fuzzy meaning is.null(para$c) passes too.
       if(! is.null(para$reflect)) reflect <- para$reflect
-      cop  <- para$cop
-      para <- para$para
+      if(! is.null(para$cop    )) cop     <- para$cop
+      if(! is.null(para$para   )) para    <- para$para
    }
 
    reflect <- as.character(reflect) # so that numeric integers would
    reflect <-    match.arg(reflect) #           silently be accepted
 
-   names(para) <- NULL # removes unsightly named labels often on the para in this package
+   if(! is.list(para)) names(para) <- NULL # removes unsightly named labels often on the para in this package
    return(switch(reflect,
                  cop   =             cop(u,     v, para=para, ...),
                  surv  = u + v - 1 + cop(1-u, 1-v, para=para, ...),
