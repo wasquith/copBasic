@@ -21,8 +21,8 @@ AMHcop(u, v, para=NULL, rho=NULL, tau=NULL, fit=c("rho", "tau"), ...)
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
   \item{para}{A vector (single element) of parameters---the \eqn{\Theta} parameter of the copula. However, if a second parameter is present, it is treated as a logical to reverse the copula (\eqn{u + v - 1 + \mathbf{AMH}(1-u,1-v; \Theta)});}
-  \item{rho}{Optional Spearmans's Rho from which the parameter will be estimated and presence of \code{rho} trumps \code{tau};}
-  \item{tau}{Optional Kendall's Tau from which the parameter will be estimated;}
+  \item{rho}{Optional Spearman Rho from which the parameter will be estimated and presence of \code{rho} trumps \code{tau};}
+  \item{tau}{Optional Kendall Tau from which the parameter will be estimated;}
   \item{fit}{If \code{para}, \code{rho}, and \code{tau} are all \code{NULL}, the the \code{u} and \code{v} represent the sample. The measure of association by the \code{fit} declaration will be computed and the parameter estimated subsequently. The \code{fit} has not other utility than to trigger which measure of association is computed internally by the \code{cor} function in \R; and}
   \item{...}{Additional arguments to pass.}
 }
@@ -70,7 +70,7 @@ sum(sapply(1:100,function(k) 3*t^k/choose(k+2,2)^2)) # Machler (2014)
 # 0.4070369 (see Note, very many tens of terms are needed) }
 
 \dontrun{
-layout(matrix(1:2,byrow=TRUE)) # Note Kendall Tau is same on reversal.
+layout(matrix(1:2, byrow=TRUE)) # Note Kendall Tau is same on reversal.
 s <- 2; set.seed(s); nsim <- 10000
 UVn <- simCOP(nsim, cop=AMHcop, para=c(0.9, "FALSE" ), col=4)
 mtext("Normal definition [default]") # '2nd' parameter could be skipped

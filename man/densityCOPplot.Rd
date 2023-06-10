@@ -3,15 +3,15 @@
 \alias{densityCOPplot}
 \title{Contour Density Plot of a Copula}
 \description{
-Generate a \emph{contour density plot} after the advocation of Joe (2014, pp. 9--15). Such graphics are plots of \emph{scaled copula densities} (\eqn{c^\star(u,v)}, bivariate herein) that are copula densities scaled to the standard normal distribution \eqn{\sim} N(0,1) margins. Joe (2014) repeatedly emphasizes such plots in contrast to the uniform distribution \eqn{\sim} U(0,1) margins. Nelsen (2006) does not discuss such scaling but seemingly Nelsen's objectives for his book were different.
+Generate a \emph{contour density plot} after the advocation of Joe (2014, pp. 9--15). Such graphics are plots of \emph{scaled copula densities} (\eqn{c^\star(u,v)}, bivariate herein) that are copula densities scaled to the standard normal distribution \eqn{\sim} N(0,1) margins. Joe (2014) repeatedly emphasizes such plots in contrast to the uniform distribution \eqn{\sim} U(0,1) margins. Nelsen (2006) does not discuss such scaling but seemingly Nelsen's objectives for his book were somewhat different.
 
 The density of copula \eqn{\mathbf{C}(u,v)} is numerically estimated by
-\deqn{c(u,v) = [\mathbf{C}(u_2,v_2) - \mathbf{C}(u_2,v_1) - \mathbf{C}(u_1,v_2) + \mathbf{C}(u_1,v_1)]/[\Delta(uv)\times\Delta(uv)]\mbox{,}}
+\deqn{c(u,v) = [\mathbf{C}(u_2,v_2) - \mathbf{C}(u_2,v_1) - \mathbf{C}(u_1,v_2) + \mathbf{C}(u_1,v_1)]\, /\, [\Delta(uv)\times\Delta(uv)]\mbox{,}}
 where \eqn{c(u,v) \ge 0} (see Nelsen, 2006, p. 10; \code{\link{densityCOP}}). Given a numerically estimated quantity \eqn{c^\star(u,v) = c(u,v)\times\phi(\Phi^{(-1)}(u))\times\phi(\Phi^{(-1)}(v))} for copula density \eqn{c(u,v)}, a grid of the \eqn{c^\star(u,v)} values can be contoured by the \code{contour()} function in \R.  The density function of the N(0,1) is \eqn{\phi(z)} for standard normal variate \eqn{z} and the quantile function of the N(0,1) is \eqn{\Phi^{(-1)}(t)} for nonexceedance probability \eqn{t}.
 
 A grid (matrix) of \eqn{c(u,v)} or \eqn{c^\star(u,v)} is defined for sequence of \eqn{u} and \eqn{v} probabilities for which each sequence has equal steps that are equal to \eqn{\Delta(uv)}. This function has as focus on plotting of the contour lines of \eqn{c^\star(u,v)} but the \R \code{matrix} of either \eqn{c(u,v)} or \eqn{c^\star(u,v)} can be requested on return. For either matrix, the \code{colnames()} and \code{rownames()} (the \R functions) are set equal to the sequence of \eqn{u} and \eqn{v}, respectively. Neither the column or row names are set to the standard normal variates for the matrix of \eqn{c^\star(u,v)}, the names remain in terms of nonexceedance probability.
 
-For plotting and other uses of normal scores of data, Joe (2014, p. 245) advocates that one should use the plotting position formula \eqn{u_i = (i-1/2)/n} (\emph{Hazen plotting position}) for normal scores \eqn{z_i = \Phi^{-1}(u_i)} in preference to \eqn{i/(n+1)} (\emph{Weibull plotting position}) because \eqn{n^{-1}\sum_{i=1}^{n} z^2_i} is closer to unity. Other places of Joe's advocation for the Hazen plotting positions are available (Joe, 2014, pp. 9, 17, 245, 247--248).
+For plotting and other uses of normal scores of data, Joe (2014, p. 245) advocates that one should use the plotting position formula \eqn{u_i = (i-1/2)/n} (\emph{Hazen plotting position}) for normal scores \eqn{z_i = \Phi^{-1}(u_i)} in preference to \eqn{i/(n+1)} (\emph{Weibull plotting position}) because \eqn{n^{-1}\sum_{i=1}^{n} z^2_i} is closer to unity. Other examples of Joe's advocation for the Hazen plotting positions are available (Joe, 2014, pp. 9, 17, 245, 247--248).
 }
 \usage{
 densityCOPplot(cop=NULL, para=NULL, deluv=0.002,
@@ -48,7 +48,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \examples{
 \dontrun{
 # Joe (2014, p. 5) names rMTCJ = reflected Mardia-Takahasi-Cook-Johnson copula
-"rMTCJ" <- function(u,v,para, ...) {
+"rMTCJ" <- function(u, v, para, ...) {
    u + v - 1 + ((1-u)^(-para) + (1-v)^(-para) - 1)^(-1/para)
 } # Survival Copula ("reflected" in Joe's terms)
 densityCOPplot(cop=rMTCJ, para=1.0760, n=9000, snv=TRUE)
@@ -70,15 +70,15 @@ set.seed(12)
 H <- densityCOPplot(cop=PLACKETTcop, para=41.25, getmatrix="cdenzz", n=1000, snv=FALSE)
 set.seed(12)
 UV <- simCOP(cop=PLACKETTcop, para=41.25, n=1000, col=8, snv=FALSE)
-U <- as.numeric(colnames(H)); V <- as.numeric(rownames(H))
+U  <- as.numeric(colnames(H)); V <- as.numeric(rownames(H))
 contour(x=U, y=V, z=t(H), lwd=1.5, cex=2, add=TRUE, col=2) #}
 
 \dontrun{
 set.seed(12)
 UV <- rCOP(400,  cop=PSP, pch=16, col=8, n=400)
-CL <- mleCOP(UV, cop=CLcop,   interval=c(1,20))
-JO <- mleCOP(UV, cop=JOcopB5, interval=c(.1,20))
-PL <- mleCOP(UV, cop=PLcop,   interval=c(.1,20))
+CL <- mleCOP(UV, cop=CLcop,   interval=c(1  , 20))
+JO <- mleCOP(UV, cop=JOcopB5, interval=c(0.1, 20))
+PL <- mleCOP(UV, cop=PLcop,   interval=c(0.1, 20))
 
 AICs <- c(CL$AIC, JO$AIC, PL$AIC)
 names(AICs) <- c("Clayton", "Joe(B5)", "Plackett")
@@ -87,10 +87,9 @@ print(round(AICs, digits=2))
 #  -156.77     -36.91    -118.38
 # So we conclude Clayton must be the best fit of the three.
 
-plot(qnorm(UV[,1]), qnorm(UV[,2]), pch=16, col=8,
-     xlim=c(-3,3), ylim=c(-3,3), cex=0.5,
-     xlab="Standard normal variate of V",
-     ylab="Standard normal variate of U")
+plot(qnorm(UV[,1]), qnorm(UV[,2]), pch=16, col=8, cex=0.5,
+        xlab="Standard normal variate of U", xlim=c(-3,3),
+        ylab="Standard normal variate of V", ylim=c(-3,3))
 densityCOPplot(cop=PSP, contour.col=grey(0.5), lty=2,
                contour.lwd=3.5, ploton=FALSE, snv=TRUE)
 densityCOPplot(cop=CLcop,     para=CL$para,

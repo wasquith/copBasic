@@ -26,7 +26,7 @@ The following descriptions list in detail the structure and content of the \code
 \describe{
   \item{\code{copi}}{--- The \eqn{i}th copula;}
   \item{\code{parai}}{--- Vector of parameters \eqn{\Theta_i}; and}
-  \item{\code{weights}}{--- Optional vector of weights whose sum will be rescaled to unity, default is \eqn{1/N} for each weight.}
+  \item{\code{weights}}{--- Optional vector of weights whose sum will be rescaled to unity; default is \eqn{1/N} for each weight.}
 }
 }
 \references{

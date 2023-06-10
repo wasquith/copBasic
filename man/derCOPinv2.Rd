@@ -39,12 +39,12 @@ derCOPinv2(u,t, cop=PSP) # a parameterless copula example
 plot(NA,NA, type="n", xlim=c(0,1), ylim=c(0,1), xlab="U", ylab="V")
 for(i in 1:500) {
    v <- runif(1); t <- runif(1)
-   points(derCOPinv2(cop=P,v,t),v, cex=0.5, pch=16) # black dots
+   points(derCOPinv2(cop=P, v, t),v, cex=0.5, pch=16) # black dots
 }
 # Simulate 500 of a Frechet Family copula and note crossing singularities.
 for(i in 1:500) {
    v <- runif(1); t <- runif(1)
-   u <- derCOPinv2(v,t, cop=FRECHETcop, para=list(alpha=0.7, beta=0.169))
+   u <- derCOPinv2(v, t, cop=FRECHETcop, para=list(alpha=0.7, beta=0.169))
    points(u,v, cex=2, pch=16, col=2) # red dots
 } #}
 }

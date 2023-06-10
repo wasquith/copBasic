@@ -70,7 +70,7 @@ The parameter estimation proceeds in the following code. The sample statistics (
                    alpha=pnorm(raw.fit.para[2]), beta=pnorm(raw.fit.para[3]))
 }
 
-The optimization is completed. It can be informative to see what the simulation of the fitted copula looks like. Note that this particular example suffers from identifiability problems between the parameters---meaning that local minima exist or that satisfactory solutions using different parameters than used to generate the random sample can occur. The same seed is used so that one-to-one comparison of points can visually be made with the \code{\link{simCOP}} function call.
+The optimization is completed. It is informative to see what the simulation of the fitted copula looks like. Note that this particular example suffers from identifiability problems between the parameters---meaning that local minima exist or that satisfactory solutions using different parameters than used to generate the random sample can occur. The same seed is used so that one-to-one comparison of points can visually be made with the \code{\link{simCOP}} function call.
 \preformatted{
   set.seed(1999) # This value will be used again (see below)
   sampleUV <- simCOP(n=n, cop=composite1COP, para=fit.para,

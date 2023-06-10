@@ -39,7 +39,7 @@ These three functions for the copula can be defined in \R by
       ((1 + para*K) - sqrt((1 + para*K)^2 - 4*t*K))/(2*para*K)
   }
 }
-The \eqn{\mathbf{C}^{(-1)}_{2|1}(v|u)} is critical for simulation by the conditional simulation method. Although \pkg{copBasic} exclusively for simulation uses inversion of the numerical derivative, the \eqn{\mathbf{FGM}} copula has three representations of supposedly the same analytical algorithm for simulation in the literature (Durante, 2007; Johnson, 1987; Nelsen, 2006). An educational opportunity for comparison is thus available.
+The \eqn{\mathbf{C}^{(-1)}_{2|1}(v|u)} is critical for simulation by the conditional simulation method. Although exclusively for simulation, \pkg{copBasic} uses inversion of the numerical derivative, the \eqn{\mathbf{FGM}} copula has three representations of supposedly the same analytical algorithm for simulation in the literature (Durante, 2007; Johnson, 1987; Nelsen, 2006). An opportunity for comparison is thus available.
 
 The three analytical algorithms for nonexceedance probability \eqn{t} given \eqn{u} by mathematics and code, following Durante (2007, p. 245), are
 \deqn{A = \Theta(1-2u) - 1\mbox{,}}
@@ -120,7 +120,7 @@ derCOPinv(u,t, cop=PSP) # a parameterless copula example
 plot(NA,NA, type="n", xlim=c(0,1), ylim=c(0,1), xlab="U", ylab="V")
 for(i in 1:500) {
    u <- runif(1); t <- runif(1)
-   points(u,derCOPinv(cop=P,u,t), cex=0.5, pch=16) # black dots
+   points(u, derCOPinv(cop=P, u, t), cex=0.5, pch=16) # black dots
 }
 # Now simulate 500 from the Nelsen 4.2.12 copula.
 for(i in 1:500) {

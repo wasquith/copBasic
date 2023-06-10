@@ -48,14 +48,14 @@ bilmoms(cop=NULL, para=NULL, only.bilmoms=FALSE, n=1E5, sobol=TRUE, scrambling=0
 \note{
 The mapping of the bivariate L-moments to their L-comoment matrix counterparts is simple but nuances should be discussed and the meaning of the \code{error.rho} needs further description.  The extra effort to form L-comoment matrices (Serfling and Xiao, 2007; Asquith, 2011) is made so that output matches the structure of the sample L-comoment matrices from the \code{lcomoms2()} function of the \pkg{lmomco} package.
 
-Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 64--65) for demonstration, simulate from it a sample of size \eqn{m = 20{,}000} and compute some sample L-comoments using the following CPU intensive code. The function \code{\link{asCOP}} completes the vectorization needed for non-Monte Carlo integration for \code{\link{rhoCOP}}.
+Concerning the triangular or tent-shaped copula of Nelsen (2006, exer. 3.7, pp. 64--65) for demonstration, simulate from the triangular copula a sample of size \eqn{m = 20{,}000} and compute some sample L-comoments using the following CPU intensive code. The function \code{\link{asCOP}} completes the vectorization needed for non-Monte Carlo integration for \code{\link{rhoCOP}}.
 \preformatted{
   "trianglecop" <- function(u,v, para=NULL, ...) {
     # If para is set, then the triangle is rotated 90d clockwise.
     if(! is.null(para) && para == 1) { t <- u; u <- v; v <- t }
     if(length(u) > 1 | length(v) > 1) stop("only scalars for this function")
-    v2<-v/2; if(0   <= u    &  u   <= v2 & v2 <= 1/2) { return(u    )
-    } else   if(0   <= v2   & v2   <  u  &  u < 1-v2) { return(v2   )
+    v2<-v/2; if(0   <= u    & u    <= v2 & v2 <= 1/2) { return(u    )
+    } else   if(0   <=   v2 &   v2 <  u  &  u < 1-v2) { return(v2   )
     } else   if(1/2 <= 1-v2 & 1-v2 <= u  &  u <= 1  ) { return(u+v-1)
     } else { stop("should not be here in logic") }
   }
@@ -89,7 +89,7 @@ The reasoning behind using the \code{error.rho} between conventional numerical i
   [1,] 0.4999939        NA
   [2,]        NA 0.5000032
 }
-where the diagonal should be filled with 1/2 if the \eqn{n} is suitably large because 1/2 is the mean of the marginal uniform random variables. By definition the secondary diagonal has \code{NA}s. The values shown above are extremely close supporting the idea that default \eqn{n} is large enough. The matrix of means is otherwise uninformative.
+where the diagonal should be filled with 1/2, if the \eqn{n} is suitably large, because 1/2 is the mean of the marginal uniform random variables. By definition the secondary diagonal has \code{NA}s. The values shown above are extremely close supporting the idea that default \eqn{n} is large enough. The matrix of means is otherwise uninformative.
 
 The second L-comoment matrix (L-scales and L-coscales) is
 \preformatted{
@@ -98,7 +98,7 @@ The second L-comoment matrix (L-scales and L-coscales) is
   [1,]  1.666677e-01 -3.466202e-06
   [2,] -3.466209e-06  1.666674e-01
 }
-where the diagonal should be filled with 1/6 if the \eqn{n} is suitably large because 1/6 is the univariate L-scale of the marginal uniform random variables. These values further support that default \eqn{n} is large enough. The diagonal is computed from the univariate L-moments of the margins of the Monte Carlo-generated edges and is otherwise uninformative. The secondary diagonal is a rescaling of the \eqn{\delta^{[\ldots]}_1} by the univariate L-moments of the margins to form L-coscales (nonratios). The copula is perfectly dependent but uncorrelated; so the secondary diagonal has near zeros.
+where the diagonal should be filled with 1/6, if the \eqn{n} is suitably large, because 1/6 is the univariate L-scale of the marginal uniform random variables. These values further support that default \eqn{n} is large enough. The diagonal is computed from the univariate L-moments of the margins of the Monte Carlo-generated edges and is otherwise uninformative. The secondary diagonal is a rescaling of the \eqn{\delta^{[\ldots]}_1} by the univariate L-moments of the margins to form L-coscales (nonratios). The copula is perfectly dependent but uncorrelated; so the secondary diagonal has near zeros.
 
 The second L-comoment ratio matrix (coefficient of L-variations and L-correlations) is
 \preformatted{

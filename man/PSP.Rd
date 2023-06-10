@@ -28,5 +28,6 @@ PSP(0.4,0.6)
 PSP(0,0)
 PSP(1,1)
 }
+\keyword{copula (formulas)}
 \keyword{copula}
 

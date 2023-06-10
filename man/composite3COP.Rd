@@ -14,7 +14,7 @@ defines a family of copulas \eqn{\mathbf{C}_{\alpha,\beta,\kappa,\gamma}} with \
 It is important to stress that copulas \eqn{\mathbf{A}_{\Theta_A}} and \eqn{\mathbf{B}_{\Theta_B}} can be of different families and each parameterized accordingly by the vectors of parameters \eqn{\Theta_A} and \eqn{\Theta_B}.
 }
 \usage{
-composite3COP(u,v,para,...)
+composite3COP(u, v, para, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in \eqn{X} direction;}
@@ -58,7 +58,7 @@ txts <- c("Alpha=",    round(para$alpha,    digits=4),
           "; Gamma=",  round(para$gamma,    digits=4),
           "; Theta1=", round(para$para1[1], digits=5),
           "; Theta2=", round(para$para2[1], digits=2))
-layout(matrix(1:2,byrow=TRUE))
+layout(matrix(1:2, byrow=TRUE))
 D <- simCOP(n=300, cop=composite3COP, para=para, cex=0.5, col=rgb(0,0,0,0.2), pch=16)
 mtext(paste(txts,collapse=""))
 

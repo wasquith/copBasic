@@ -59,7 +59,7 @@ EventAj <- lmomco::qlmomco(Fjoint, parA)
 EventBj <- lmomco::qlmomco(Fjoint, parB)
 AcB <- 10^(EventAj) + 10^(EventBj) # Joint probability 0.99 at the union
 
-# Now consider the association if the streams are INDEPENDENT:
+# Now consider the association if the rivers are INDEPENDENT:
 Fjoint  <- diagCOPatf(FF, cop=GHcop, para=GHcop(tau=0)$para)
 EventAj <- lmomco::qlmomco(Fjoint, parA)
 EventBj <- lmomco::qlmomco(Fjoint, parB)

@@ -55,9 +55,11 @@ The \R \code{list} that can be used to compute \eqn{\widehat{l}_{CF}(x,y)} is re
   })
   lines(k, lhatCF, col=2)
 }
-The smooth line (red) of \code{lhatCF} is somewhat close to the limiting behavior of \code{lhat}. It is problematic to determine computational consistency. Mathematical consistency with Kiriliouk \emph{et al.} (2016) appears to be achieved.  The \bold{Examples} section TODO.
+The smooth line (red) of \code{lhatCF} is somewhat close to the limiting behavior of \code{lhat}. It is problematic to determine computational consistency. Mathematical consistency with Kiriliouk \emph{et al.} (2016) appears to be achieved. The \bold{Examples} section TODO.
 }
 \references{
+Beirlant, J., Escobar-Bach, M., Goegebeur, Y., Guillou, A., 2016, Bias-corrected estimation of stable tail dependence function: Journal Multivariate Analysis, v. 143, pp. 453--466, \doi{10.1016/j.jmva.2015.10.006}.
+
 Kiriliouk, Anna, Segers, Johan, \enc{Warchoł}{Warchol}, \enc{Michał}{Michal}, 2016, Nonparameteric estimation of extremal dependence: \emph{in} Extreme Value Modeling and Risk Analysis, D.K. Dey and Jun Yan \emph{eds.}, Boca Raton, FL, CRC Press, ISBN 978--1--4987--0129--7.
 }
 \author{William Asquith \email{william.asquith@ttu.edu}}

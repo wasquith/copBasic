@@ -46,7 +46,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \author{W.H. Asquith}
 \seealso{\code{\link{derCOPinv}}, \code{\link{derCOP2}}}
 \examples{
-derCOP(cop=W,0.4,0.6); derCOP(cop=P,0.4,0.6); derCOP(cop=M,0.4,0.6)
+derCOP(cop=W, 0.4, 0.6); derCOP(cop=P, 0.4, 0.6); derCOP(cop=M, 0.4, 0.6)
 
 lft <- derCOP(cop=PSP,   0.4, 0.6, derdir="left"  )
 rgt <- derCOP(cop=PSP,   0.4, 0.6, derdir="right" )
