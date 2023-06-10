@@ -2,13 +2,31 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.1.10 (2023-06-07)
+Changes in version 2.1.10 (2023-06-10)
 -  Minor grammar fixes in copBasic-package.Rd.
 -  Minor grammar fixes in taildepCOP.Rd.
 -  Changes to COP.R with names(para) <- NULL on the returned copula value inheriting 
        the names of the parameter and added a reflect <- as.character(reflect) to 
        silently permit numerical values (as.integers) for match.arg() and expansion
-       of the Examples in COP.Rd.
+       of the Examples in COP.Rd. Some other adjustments in the handling of the para
+       when it is a list stemming from checks with composite2COP() in the bilmoms()
+       and kullCOP() functions.
+-  Changed bilmoms.R and kullCOP.R by adding a scrambling argument for the Sobol
+       sequences because randtoolbox::sobol() has disabled the scrambling for which
+       copBasic was using scrambling=3 (since version 2.0.2). The default for copBasic
+       is scrambling=0, which is the default for randtoolbox::sobol(). Testing of new
+       operations then required some updates to the Examples in both and then some
+       iterative improvement in COP() as it handles para being a parameter list.
+-  Grammar edits in bilmoms.Rd and kullCOP.Rd.
+-  Changed doc/CITATION to use bibentry() as now required by the CRAN.
+-  For axes labels involving standard normal scores or variates, a standardization on
+       the phrase "STANDARD NORMAL VARIATE OF [U|V]" has been made in
+       densityCOPplot.R, EMPIRsim.R, joint.curvesCOP2.Rd, and simCOP.R.
+-  For densityCOPplot.R, added snv=TRUE argument with adjustment in how origins=TRUE
+       triggers only the origins iff the axes are snv.
+-  Tidy up of copBasic/srcall.R for auto directory change using 
+       rstudioapi::getSourceEditorContext()$path. This function is not part of "built"
+       copBasic but only for the developer's use in testing.
 
 
 Changes in version 2.1.9 (2022-08-30)
@@ -180,7 +198,7 @@ Changes in version 2.1.2 (2019-01-08)
        sample nustar, which prompted the overhaul. *** No users have reported
        any problems with the older scheme, but it needs to be stated that no
        users are actually known to be using nuskew() and nustar(). ***
--  Added only.bilmoms argument to bilmoms() to skip L-comoment computation, 
+-  Added only bilmoms argument to bilmoms() to skip L-comoment computation, 
        in order to speed execution.
 -  Added lcomCOP() based on integrate(integrate()) nest for computation of the
        bivariate L-moments and then conversion to the L-comoments. This is much
