@@ -18,7 +18,7 @@ function(u, v=NULL, cop=NULL, parafn=function(k) return(k),
        para <- parafn(thetas)
        if(verbose) print(para)
        copdf <- densityCOP(u,v, cop=cop, para=para, sumlogs=TRUE,
-                           the.zero=the.zero, ...)
+                                the.zero=the.zero, ...)
        if(verbose) print(copdf)
        return(copdf)
     }

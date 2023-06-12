@@ -17,8 +17,8 @@ mleCOP(u, v=NULL, cop=NULL, parafn=function(k) return(k),
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction and if \code{NULL} then \code{u} is treated as a two column \R \code{data.frame};}
   \item{cop}{A copula function;}
   \item{parafn}{A function responsible for generating the parameters. This is often just a simple return of a parameter vector as \pkg{copBasic} uses this style of parameterization, but this function can take over parameter remapping to handle boundary conditions to benefit the search or provide an interface into other copula packages in \R (see \bold{Examples});}
-  \item{interval}{The search interval for root finding if the parameter dimension of the copula is \eqn{p = 1}. The interval is not used for \eqn{p \ge 2};}
-  \item{init.para}{The initial guesses for the parameters for the \eqn{p}-dimensional optimization for \eqn{p \ge 2}. The initial guess is used if the parameter dimension of the copula is \eqn{p = 1} and \code{interval} is \code{NULL} (see \bold{Examples});}
+  \item{interval}{The search interval for root finding, by \code{stats::optimise()}, if the parameter dimension of the copula is \eqn{p = 1}. The interval is not used for \eqn{p \ge 2};}
+  \item{init.para}{The initial guesses for the parameters for the \eqn{p}-dimensional optimization for \eqn{p \ge 2}. The initial guess is used, by \code{stats::optim()}, if the parameter dimension of the copula is \eqn{p = 1} and \code{interval} is \code{NULL} (see \bold{Examples});}
   \item{verbose}{A logical to trigger an minimal reporting scheme within the objective
 function. This is independent from the \code{control$trace} of function \code{optim()};}
   \item{control}{This argument is the argument of the same name for \code{optim()};}
@@ -26,8 +26,8 @@ function. This is independent from the \code{control$trace} of function \code{op
   \item{...}{Additional arguments to pass, see source code for the internally used functions that can pick these additional arguments up.}
 }
 \value{
-  The value(s) for the estimated parameters are returned within an \R \code{list} where the elements listed below are populated unique to this package. The other elements of the returned list are generated from either the \code{optimise()} or \code{optim()} functions of \R.
-  \item{para}{The parameter(s) in a canonical element after the one-dimensional root finding (\eqn{p = 1}) or multi-dimensional optimization (\eqn{p \ge 2}) solutions are passed through \code{parafn};}
+  The value(s) for the estimated parameters are returned within an \R \code{list} where the elements listed below are populated unique to this package. The other elements of the returned list are generated from either the \code{optimise()} (1D, \eqn{p = 1}) or \code{optim()} (pD, \eqn{p \ge 2}) functions of \R.
+  \item{para}{The parameter(s) in a canonical element after the one-dimensional root finding (\eqn{p = 1}) or multi-dimensional optimization (\eqn{p \ge 2}) solutions are passed through \code{parafn} so that these are in the parameter units of the copula and not necessarily those transformed for the optimization;}
   \item{packagetext}{A helpful message unique to the \pkg{copBasic} package;}
   \item{loglik}{The maximum of the log-likelihood matching the name for the same quantity by the function \code{fitCopula} in package \pkg{copula} though a separate implementation is used in \pkg{copBasic};}
   \item{AIC}{Akaike information criterion (AIC) (see also \code{\link{aicCOP}}): \eqn{\mathrm{AIC} = 2p - 2\mathcal{L}(\Theta_p)}; and}
@@ -36,7 +36,7 @@ function. This is independent from the \code{control$trace} of function \code{op
 \note{
 This section provides for a more thorough assessment of pMLE than shown in the \bold{Examples}.
 
-\emph{INTERFACE TO THE \pkg{COPULA} PACKAGE}---A not uncommon question to the author is how can \pkg{copBasic} support copulas from other packages?  A \pkg{copBasic} pMLE implementation to the \emph{Gaussian copula} from the \pkg{copula} package is thus useful.
+\emph{INTERFACE TO THE \pkg{COPULA} PACKAGE}---A not uncommon question to the author is how can \pkg{copBasic} support copulas from other packages?  A \pkg{copBasic} pMLE implementation to the \emph{Gaussian copula} from the \pkg{copula} package is thus useful for instruction.
 
 Two interface functions are required for the pMLE situation. First, interface the \pkg{copula} package in a generic form for the \pkg{copBasic} package:
 \preformatted{
@@ -75,7 +75,7 @@ and the result is \eqn{\Theta_{1,2} = (2.2755018, 0.1194788)}. Next, consider no
 }
 and the result is \eqn{\Theta = 5.3742229} and \eqn{\pi_{1,2} = (0.6141652, 0.9382638)}.
 
-\emph{ANOTHER MULTI-DIMENSIONAL EXAMPLE OF pMLE}---Finally, an experiment can be made fitting a 3-parameter \eqn{\mathbf{GH}(\Theta, \pi_1, \pi_2)} to a simulation from a 2-parameter \eqn{\mathbf{GH}(\Theta_1, \Theta_2)}, where the seed is just arbitrary and the \emph{Vuong Procedure} (\code{\link{vuongCOP}}) is used to compare fits and make inference. The parameter functions \code{GH2pfunc} and \code{GH3pfunc} are as before.
+\emph{ANOTHER MULTI-DIMENSIONAL EXAMPLE OF pMLE}---Finally, an experiment can be made fitting a 3-parameter \eqn{\mathbf{GH}(\Theta, \pi_1, \pi_2)} to a simulation from a 2-parameter \eqn{\mathbf{GH}(\beta_1, \beta_2)}, where the seed is just arbitrary and the \emph{Vuong Procedure} (\code{\link{vuongCOP}}) is used to compare fits and make inference. The parameter functions \code{GH2pfunc} and \code{GH3pfunc} are as before.
 \preformatted{
   set.seed(10); UV <- simCOP(n=500, cop=GHcop, para=c(1.7, 1.86))
   GH2pfunc <- function(p) { return(c(exp(p[1])+1,   exp(p[2])              )) }
@@ -83,7 +83,7 @@ and the result is \eqn{\Theta = 5.3742229} and \eqn{\pi_{1,2} = (0.6141652, 0.93
   para1 <- mleCOP(UV, cop=GHcop, init.para=c(1,1),     parafn=GH2pfunc)$para
   para2 <- mleCOP(UV, cop=GHcop, init.para=c(1,.5,.5), parafn=GH3pfunc)$para
   vuongCOP(UV, cop1=GHcop, para1=para1, cop2=GHcop, para2=para2)$message
-  #[1] "Copula 1 has better fit than Copula 2 at 100x(1-alpha) level"
+  #[1] "Copula 1 has better fit than Copula 2 at 100 x (1-alpha) level"
 }
 The results show the 2-p \eqn{\mathbf{GH}} is a better fit to the simulated data than the 3-p \eqn{\mathbf{GH}}, which seems a bit self evident?  Plot some same-seeded simulations just to confirm.
 \preformatted{
@@ -94,11 +94,11 @@ The results show the 2-p \eqn{\mathbf{GH}} is a better fit to the simulated data
 }
 Yes, differences in form are manifest in the produced graphic. Now, let us try another set of parameters and again an arbitrarily-chosen seed.
 \preformatted{
-  set.seed(10); UV <- simCOP(n=500, cop=GHcop, para=c(1.91, .16))
+  set.seed(10); UV <- simCOP(n=500, cop=GHcop, para=c(1.91, 0.16))
   para1 <- mleCOP(UV, cop=GHcop, init.para=c(1,1),     parafn=GH2pfunc)$para
   para2 <- mleCOP(UV, cop=GHcop, init.para=c(1,.5,.5), parafn=GH3pfunc)$para
   vuongCOP(UV, cop1=GHcop, para1=para1, cop2=GHcop, para2=para2)$message
-  #[1] "Copulas 1 and 2 are not significantly different at 100(1-alpha)"
+  #[1] "Copulas 1 and 2 are not significantly different at 100 x (1-alpha)"
 }
 The results show equivalence, let us now check a graphic.
 \preformatted{

@@ -8,7 +8,7 @@ Compute the L-moments of the \emph{Kendall Function} (\eqn{F_K(z; \mathbf{C})}) 
 
 \deqn{\mathrm{E}[Z] = \lambda_1 = \int_0^\infty [1 - F_K(t)]\,\mathrm{d}t = \int_0^1 [1 - F_K(t)] \,\mathrm{d}t\mbox{,}}
 
-where for circumstances here \eqn{0 \le Z \le 1}. The \eqn{\infty} is mentioned only because expectations of such CDFs are usually shown using \eqn{(0,\infty)} limits, whereas integration of quantile functions (CDF inverses) use limits \eqn{(0,1)}. Because the support of \eqn{Z} is \eqn{(0,1)}, like the probability \eqn{F_K}, showing just it (\eqn{\infty}) as the upper limit could be confusing---statements such as ``probabilities of probabilities'' are rhetorically complex so pursuit of word precision is made herein.
+where for circumstances here \eqn{0 \le Z \le 1}. The \eqn{\infty} is mentioned only because expectations of such CDFs are usually shown using \eqn{(0,\infty)} limits, whereas integration of quantile functions (CDF inverses) use limits \eqn{(0,1)}. Because the support of \eqn{Z} is \eqn{(0,1)}, like the probability \eqn{F_K}, showing just it (\eqn{\infty}) as the upper limit could be confusing---statements such as \dQuote{probabilities of probabilities} are rhetorically complex so pursuit of word precision is made herein.
 
 An expression for \eqn{\lambda_r} for \eqn{r \ge 2} in terms of the \eqn{F_K(z)} is
 \deqn{
@@ -52,7 +52,7 @@ kfuncCOPlmoms(cop=NULL, para=NULL, nmom=5, begin.mom=1, ...)
 \note{
 The L-moments of Kendall Functions appear to be not yet fully researched. An interesting research direction would be the trajectories of the L-moments or \emph{L-moment ratio diagrams} for the Kendall Function and the degree to which distinction between copulas becomes evident---such diagrams are in wide-spread use for distinquishing between univariate distributions. It is noted, however, that \emph{Kendall Function L-moment ratio diagrams} might be of less utility that in the univariate world because different copulas can have the same \eqn{F_K(z)}, such as all bivariate extreme value copulas.
 \preformatted{
-  Rhos <- seq(0,0.9,by=0.05)
+  Rhos <- seq(0, 0.9, by=0.05)
   L1 <- T2 <- T3 <- T4 <- Thetas <- vector(mode="numeric", length(Rhos))
   for(i in 1:length(Thetas)) {
      Thetas[i] <- uniroot(function(p)

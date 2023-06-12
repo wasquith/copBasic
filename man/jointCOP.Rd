@@ -44,7 +44,7 @@ To provide the protection for 500 exceedances in \eqn{n =} 50,000 trials and for
   diagCOPatf(0.99, 0.99, cop=GHcop, para=1.5)             # 0.9936887
   jointCOP(  0.99,       cop=GHcop, para=1.5, type="and") # 0.9936887
 }
-and these two probabilities, which in reality are actually based on same computation (\code{\link{diagCOPatf}}), and nearly are the same as \code{JP} \eqn{=} 0.99356 that was determined by searching on the simulated data.
+and these two probabilities, which in reality are actually based on same computation (\code{\link{diagCOPatf}}), and nearly are the same as \code{JP} \eqn{=} 0.99356 that was determined by the manual searching on the simulated data.
 
 A \bold{mutually inclusive and} condition can be arranged as follows, and it is implicit in the definition that both loss events occur at the same time:
 \preformatted{
@@ -77,7 +77,7 @@ How about inversion of \eqn{\tilde{\mathbf{C}}(u,v)} by \code{jointCOP} and chec
   jointCOP(0.99, cop=GHcop, para=1.5, type="or")[1]      # 0.9763951 ( theor. )
   length(UV$U[UV$U <= 0.9763951 | UV$V <= 0.9763951])/n  # 0.98982 ( simulated)
 }
-The second probability is a value quite near to 0.99. So if one wants mutual loss protection compute the inversion of the dual of a copula using \code{jointCOP(..., type="or")}. Let us say that 0.80 mutual loss protection is wanted
+The second probability is a value quite near to 0.99. So, if one wants mutual loss protection, compute the inversion of the dual of a copula using \code{jointCOP(..., type="or")}. Let us say that 0.80 mutual loss protection is wanted
 \preformatted{
   jointCOP(0.80, cop=GHcop, para=1.5, type="or")[1]      # 0.6561286
   n - length(UV$U[UV$U <= 0.6561286 | UV$V <= 0.6561286])# 10049 losses ( sim.)
@@ -149,7 +149,7 @@ Now the \eqn{U = V = 0.9873537} for the \dQuote{and} and \eqn{U = V = 0.9763951}
   duCOP(0.9873537, 0.9873537, cop=GHcop, para=Theta) # 0.9947075
   (1-0.9947075)*n  # which is about 1.32 events per 250 trials.
 }
-So the larger protection in terms of joint probabilities provided by \code{EitherEvent} at 0.98 instead of \code{MutualEvent} at 0.99 with respective protection at the 0.9873537 provides a \code{MutualEvent} protection of 0.9947075.
+So, the larger protection in terms of joint probabilities provided by \code{EitherEvent} at 0.98 instead of \code{MutualEvent} at 0.99 with respective protection at the 0.9873537 provides a \code{MutualEvent} protection of 0.9947075.
 \preformatted{
   set.seed(894234)
   EX3 <- sapply(1:nsim, function(i) {

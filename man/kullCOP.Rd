@@ -4,16 +4,16 @@
 \alias{kullCOPint}
 \title{Kullback--Leibler Divergence, Jeffrey Divergence, and Kullback--Leibler Sample Size}
 \description{
-Compute the \emph{Kullback--Leibler divergence}, \emph{Jeffrey divergence}, and \emph{Kullback--Leibler sample size} following Joe (2014, pp. 234--237). Consider two densities \eqn{f = c_1(u,v; \Theta_f)} and \eqn{g = c_2(u,v; \Theta_g)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta}, then the Kullback--Leibler divergence of \eqn{f} relative to \eqn{g} is
+Compute the \emph{Kullback--Leibler Divergence}, \emph{Jeffrey Divergence}, and \emph{Kullback--Leibler sample size} following Joe (2014, pp. 234--237). Consider two densities \eqn{f = c_1(u,v; \Theta_f)} and \eqn{g = c_2(u,v; \Theta_g)} for two different bivariate copulas \eqn{\mathbf{C}_1(\Theta_1)} and \eqn{\mathbf{C}_2(\Theta_2)} having respective parameters \eqn{\Theta}, then the Kullback--Leibler Divergence of \eqn{f} relative to \eqn{g} is
 \deqn{\mathrm{KL}(f|g) = \int\!\!\int_{\mathcal{I}^2} g\, \log(g/f)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
-and Kullback--Leibler divergence of \eqn{g} relative to \eqn{f} is
+and Kullback--Leibler Divergence of \eqn{g} relative to \eqn{f} is
 \deqn{\mathrm{KL}(g|f) = \int\!\!\int_{\mathcal{I}^2} f\, \log(f/g)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 where the limits of integration \eqn{\mathcal{I}^2} theoretically are closed on \eqn{[0,1]^2} but an open interval \eqn{(0,1)^2} might be needed for numerical integration. Note, in general \eqn{\mathrm{KL}(f|g) \ne \mathrm{KL}(g|f)}. The \eqn{\mathrm{KL}(f|g)} is the expected log-likelihood ratios of \eqn{g} to \eqn{f} when \eqn{g} is the true density (Joe, 2014, p. 234), whereas \eqn{\mathrm{KL}(g|f)} is the opposite.
 
-This asymmetry leads to Jeffrey divergence, which is defined as a symmetrized version of the two Kullback--Leibler divergences, and is
+This asymmetry leads to Jeffrey Divergence, which is defined as a symmetrized version of the two Kullback--Leibler Divergences, and is
 \deqn{J(f,g) = \mathrm{KL}(f|g) + \mathrm{KL}(g|f) = \int\!\!\int_{\mathcal{I}^2} (g-f)\, \log(g/f)\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
-The variances of the Kullback--Leibler divergences are defined as
+The variances of the Kullback--Leibler Divergences are defined as
 \deqn{\sigma^2_{\mathrm{KL}(f|g)} = \int\!\!\int_{\mathcal{I}^2} g\,[\log(g/f)]^2\,\mathrm{d}u\mathrm{d}v - [\mathrm{KL}(f|g)]^2\mbox{,}}
 and
 \deqn{\sigma^2_{\mathrm{KL}(g|f)} = \int\!\!\int_{\mathcal{I}^2} f\,[\log(f/g)]^2\,\mathrm{d}u\mathrm{d}v - [\mathrm{KL}(g|f)]^2\mbox{.}}
@@ -49,9 +49,9 @@ kullCOPint(cop1=NULL, cop2=NULL, para1=NULL, para2=NULL, alpha=0.05,
 \value{
   An \R \code{list} is returned having the following components:
   \item{MonteCarlo.sim.size}{\code{kullCOP} (Monte Carlo integration) only---The simulation size for numerical integration;}
-  \item{divergences}{A vector of the Kullback--Leibler divergences and their standard deviations: \eqn{\mathrm{KL}(f|g)}, \eqn{\sigma_{\mathrm{KL}(f|g)}}, \eqn{\mathrm{KL}(g|f)}, and \eqn{\sigma_{\mathrm{KL}(g|f)}}, respectively;}
+  \item{divergences}{A vector of the Kullback--Leibler Divergences and their standard deviations: \eqn{\mathrm{KL}(f|g)}, \eqn{\sigma_{\mathrm{KL}(f|g)}}, \eqn{\mathrm{KL}(g|f)}, and \eqn{\sigma_{\mathrm{KL}(g|f)}}, respectively;}
   \item{stdev.divergences}{\code{kullCOP} (Monte Carlo integration) only---The standard deviation of the divergences and the variances;}
-  \item{Jeffrey.divergence}{Jeffrey divergence \eqn{J(f,g)};}
+  \item{Jeffrey.divergence}{Jeffrey Divergence \eqn{J(f,g)};}
   \item{KL.sample.size}{Kullback--Leibler sample size \eqn{n_{f\!g}}; and}
   \item{integrations}{\code{kullCOPint} (numerical integration) only---An \R \code{list} of the outer call of the \code{integrate()} function for the respective numerical integrals shown in this documentation.}
 }
@@ -65,7 +65,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 \dontrun{
 # Joe (2014, p. 237, table 5.2)
 # Gumbel-Hougaard and Plackett copulas below each have a Kendall Tau of about 0.5, and
-# Joe (2014) lists in the table that Jeffrey divergence is about 0.110 and Kullback-Leibler
+# Joe (2014) lists in the table that Jeffrey Divergence is about 0.110 and Kullback-Leibler
 # sample size is 133. Joe (2014) does not list the copula parameters just says Tau = 0.5.
 # Joe (2014) likely did the numerical integrations using analytical solutions to probability
 # densities and not rectangular approximations as in copBasic::densityCOP().
@@ -96,7 +96,7 @@ S <- replicate(2 , kullCOP(cop1=GHcop, para1=2, cop2=PLACKETTcop,  sobol=TRUE,
 \dontrun{
 # Joe (2014, p. 237, table 5.3)
 # Gumbel-Hougaard and Plackett copulas below each have a Spearman Rho of about 0.5, and
-# Joe (2014) lists in the table that Jeffrey divergence is about 0.063 and Kullback-Leibler
+# Joe (2014) lists in the table that Jeffrey Divergence is about 0.063 and Kullback-Leibler
 # sample size is 210. Joe (2014) does not list the parameters and just says that Rho = 0.5.
 # Joe (2014) likely did the numerical integrations using analytical solutions to probability
 # densities and not rectangular approximations as in copBasic::densityCOP().
@@ -182,12 +182,12 @@ points(UVpa, col="darkgreen",  pch= 1, lwd=0.8) # circles
 \keyword{Joe (2014) Examples and Exercises}
 \keyword{Sobol sequence (Monte Carlo integration)}
 \keyword{Package randtoolbox}
-\concept{Kullback--Leibler divergence}
+\concept{Kullback--Leibler Divergence}
 \concept{Kullback--Leibler sample size}
-\concept{Kullback-Leibler divergence}
+\concept{Kullback-Leibler Divergence}
 \concept{Kullback-Leibler sample size}
-\concept{Jeffery divergence}
-\concept{Jeffery's divergence}
+\concept{Jeffery Divergence}
+\concept{Jeffery's Divergence}
 \concept{copula divergence}
 \concept{relative entropy}
 \concept{I-divergence}

@@ -49,9 +49,9 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \seealso{\code{\link{PLACKETTpar}}, \code{\link{PLpar}}, \code{\link{PLACKETTsim}}, \code{\link{W}}, \code{\link{M}}, \code{\link{densityCOP}}
 }
 \examples{
-PLACKETTcop(0.4,0.6,para=1)
-P(0.4,0.6) # independence copula, same two values because Theta == 1
-PLcop(0.4,0.6,para=10.25) # joint probability through positive association
+PLACKETTcop(0.4, 0.6, para=1)
+P(0.4, 0.6) # independence copula, same two values because Theta == 1
+PLcop(0.4, 0.6, para=10.25) # joint probability through positive association
 
 \dontrun{
 # Joe (2014, p. 164) shows the closed form copula density of the Plackett.
@@ -64,17 +64,17 @@ del <- 0.0001 # a 'small' differential value of probability
 u1 <- u; u2 <- u+del; v1 <- v; v2 <- v+del
 # Density following (Nelsen, 2006, p. 10)
 dCrect <- (PLcop(u2, v2, para=10.25) - PLcop(u2, v1, para=10.25) -
-           PLcop(u1, v2, para=10.25) + PLcop(u1, v1, para=10.25))/del^2
-dCanal <- dPLACKETTcop(u,  v,  para=10.25)
-dCfunc <- densityCOP(u, v, cop=PLcop, para=10.25, deluv = del)
+           PLcop(u1, v2, para=10.25) + PLcop(u1, v1, para=10.25)) / del^2
+dCanal <- dPLACKETTcop(u, v, para=10.25)
+dCfunc <-   densityCOP(u, v, para=10.25, cop=PLcop, deluv = del)
 R <- round(c(dCrect, dCanal, dCfunc), digits=6)
 message("Density: ", R[1], "(manual), ", R[2], "(analytical), ", R[3], "(function)");
 # Density: 0.255377(manual), 0.255373(analytical), 0.255377(function)
 
 # Comparison of partial derivatives
-dUr <- (PLcop(u2, v2, para=10.25) - PLcop(u1, v2, para=10.25))/del
-dVr <- (PLcop(u2, v2, para=10.25) - PLcop(u2, v1, para=10.25))/del
-dU  <-  derCOP(u, v, cop=PLcop, para=10.25)
+dUr <- (PLcop(u2, v2, para=10.25) - PLcop(u1, v2, para=10.25)) / del
+dVr <- (PLcop(u2, v2, para=10.25) - PLcop(u2, v1, para=10.25)) / del
+dU  <- derCOP( u, v, cop=PLcop, para=10.25)
 dV  <- derCOP2(u, v, cop=PLcop, para=10.25)
 R   <- round(c(dU, dV, dUr, dVr), digits=6)
 message("Partial derivatives dU=", R[1], " and dUr=", R[3], "\n",

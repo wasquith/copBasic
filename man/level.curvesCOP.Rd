@@ -25,7 +25,7 @@ level.curvesCOP(cop=NULL, para=NULL, ploton=TRUE, lines=TRUE,
   \item{...}{Additional arguments to pass to the \code{lines()} function in \R.}
 }
 \value{
-  Typically no values are returned because this function is used for its side effects. But the arguments can be such that the \eqn{\{u, v\}} for \eqn{\mathbf{C}(u,v) = t} are returned within an \R \code{list}.
+  Typically no values are returned because this function is used for its side effects, but the arguments can be such that the \eqn{\{u, v\}} for \eqn{\mathbf{C}(u,v) = t} are returned within an \R \code{list}.
 }
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
