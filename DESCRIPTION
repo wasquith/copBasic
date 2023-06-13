@@ -1,7 +1,7 @@
 Package: copBasic
 Title: General Bivariate Copula Theory and Many Utility Functions
 Version: 2.1.10
-Date: 2023-06-07
+Date: 2023-06-13
 Author: William Asquith
 Description: Extensive functions for bivariate copula (bicopula) computations and related operations 
  for bicopula theory. The lower, upper, product, and select other bicopula are implemented along 
@@ -13,7 +13,7 @@ Description: Extensive functions for bivariate copula (bicopula) computations an
  Spearman Rho and Footrule, Gini Gamma, Blomqvist Beta, Hoeffding Phi, Schweizer-
  Wolff Sigma, tail dependency, tail order, skewness, and bivariate Lmoments are implemented, and 
  positive/negative quadrant dependency, left (right) increasing (decreasing) are available. 
- Other features include Kullback-Leibler divergence, Vuong procedure, spectral measure, and 
+ Other features include Kullback-Leibler Divergence, Vuong Procedure, spectral measure, and 
  Lcomoments for inference, maximum likelihood, and AIC, BIC, and RMSE for goodness-of-fit. 
 Maintainer: William Asquith <william.asquith@ttu.edu>
 Repository: CRAN

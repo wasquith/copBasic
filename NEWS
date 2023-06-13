@@ -2,7 +2,7 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.1.10 (2023-06-10)
+Changes in version 2.1.10 (2023-06-13)
 -  Minor grammar fixes in copBasic-package.Rd.
 -  Minor grammar fixes in taildepCOP.Rd.
 -  Changes to COP.R with names(para) <- NULL on the returned copula value inheriting 
@@ -26,6 +26,8 @@ Changes in version 2.1.10 (2023-06-10)
 -  Tidy up of copBasic/srcall.R for auto directory change using 
        rstudioapi::getSourceEditorContext()$path. This function is not part of "built"
        copBasic but only for the developer's use in testing.
+-  Extensive grammar editing of all the .Rd files from proofreading the user manual
+       and searches and replacings of various terms to build more consistency. 
 
 
 Changes in version 2.1.9 (2022-08-30)
