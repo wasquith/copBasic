@@ -13,10 +13,11 @@ Changes in version 2.1.10 (2023-06-13)
        and kullCOP() functions.
 -  Changed bilmoms.R and kullCOP.R by adding a scrambling argument for the Sobol
        sequences because randtoolbox::sobol() has disabled the scrambling for which
-       copBasic was using scrambling=3 (since version 2.0.2). The default for copBasic
-       is scrambling=0, which is the default for randtoolbox::sobol(). Testing of new
-       operations then required some updates to the Examples in both and then some
-       iterative improvement in COP() as it handles para being a parameter list.
+       copBasic was using scrambling=3 (since version 2.0.2). The default for
+       copBasic is scrambling=0, which is the default for randtoolbox::sobol(). 
+       Testing of new operations then required some updates to the Examples in both 
+       and then some iterative improvement in COP() as it handles para being a 
+       parameter list.
 -  Changed doc/CITATION to use bibentry() as now required by the CRAN.
 -  For axes labels involving standard normal scores or variates, a standardization on
        the phrase "STANDARD NORMAL VARIATE OF [U|V]" has been made in
@@ -24,10 +25,12 @@ Changes in version 2.1.10 (2023-06-13)
 -  For densityCOPplot.R, added snv=TRUE argument with adjustment in how origins=TRUE
        triggers only the origins iff the axes are snv.
 -  Tidy up of copBasic/srcall.R for auto directory change using 
-       rstudioapi::getSourceEditorContext()$path. This function is not part of "built"
-       copBasic but only for the developer's use in testing.
+       rstudioapi::getSourceEditorContext()$path. This function is not part of
+       "built" copBasic but only for the developer's use in testing.
 -  Extensive grammar editing of all the .Rd files from proofreading the user manual
        and searches and replacings of various terms to build more consistency. 
+-  Variable renamed from T to TT in sectionCOP.R so to avoid visual conflict with how
+       syntax markup appears.
 
 
 Changes in version 2.1.9 (2022-08-30)
@@ -94,7 +97,7 @@ Changes in version 2.1.6 (2021-08-30)
 
 
 Changes in version 2.1.5 (2020-03-22)
--  Extended RFcop() with a fit argument to toggle between Spearman Rho or Kendall Tau.
+-  Extended RFcop() with fit argument to toggle between Spearman Rho or Kendall Tau.
 -  Extended COP.Rd with a example of taking a copula, such as the RFcop, that only
        has positive association and reflecting it three different times to form 
        alternative association structures, including negative association, that its
@@ -303,7 +306,7 @@ Changes in version 2.0.5 (2017-02-24)
 
 
 Changes in version 2.0.4 (2016-06-03)
--  Microchanges 2.0.3 to pass CRAN importation.
+-   Microchanges 2.0.3 to pass CRAN importation.
 
 
 Changes in version 2.0.3 (2016-05-31)
