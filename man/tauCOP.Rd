@@ -12,7 +12,7 @@ where \eqn{\mathcal{Q}(\mathbf{C}, \mathbf{C})} is a \emph{concordance function}
                          \frac{\delta\mathbf{C}(u,v)}{\delta u}
                          \frac{\delta\mathbf{C}(u,v)}{\delta v}\,
                          \mathrm{d}u\mathrm{d}v}
-is to be preferred. Such an expression hence relies on the partial numerical derivatives of the copula provided by \code{\link{derCOP}} and \code{\link{derCOP2}}. Nelsen's preferred expression is used by the \code{tauCOP} function.  Nelsen (2006, pp. 175--176) reports that the following relation between \eqn{\tau_\mathbf{C}} and \eqn{\rho_\mathbf{C}} (\code{\link{rhoCOP}}) exists
+is to be preferred. Such an expression hence relies on the partial numerical derivatives of the copula provided by \code{\link{derCOP}} and \code{\link{derCOP2}}. Nelsen's preferred expression is used by the \code{tauCOP} function. Nelsen (2006, pp. 175--176) reports that the relation between \eqn{\tau_\mathbf{C}} and \eqn{\rho_\mathbf{C}} (\code{\link{rhoCOP}}) is
 \eqn{-1 \le 3\tau - 2\rho \le 1} (see \code{\link{rhoCOP}} for more details).
 
 Nelsen (2006, pp. 160--161) lists some special identities involving \eqn{\mathcal{Q}(\mathbf{C}_1,\mathbf{C}_2)}:
@@ -48,7 +48,7 @@ concordCOP(cop=NULL,  para=NULL, cop2=NULL, para2=NULL, ...)
   The value for \eqn{\tau_\mathbf{C}} is returned.
 }
 \note{
-Although titled for computation of the Kendall Tau, the \code{tauCOP} function is the implementation of the \emph{concordance function} \eqn{\mathcal{Q}(\mathbf{C}_1, \mathbf{C}_2)} (see Nelsen (2006, pp. 158--159) when given two different copulas and respective parameters as arguments. The function \code{concordCOP} just dispatches to \code{tauCOP}. A useful relation is
+Although titled for computation of the Kendall Tau, the \code{tauCOP} function also is the implementation of the \emph{concordance function} \eqn{\mathcal{Q}(\mathbf{C}_1, \mathbf{C}_2)} (see Nelsen (2006, pp. 158--159) when given two different copulas and respective parameters as arguments. The function \code{concordCOP} just dispatches to \code{tauCOP}. A useful relation is
 \deqn{\int\!\!\int_{\mathcal{I}^2} \mathbf{C}_1(u,v)\,\mathrm{d}\mathbf{C}_2(u,v) =
       \frac{1}{2} - \int\!\!\int_{\mathcal{I}^2} \frac{\delta}{\delta u}\mathbf{C}_1(u,v)\,\frac{\delta}{\delta v}\mathbf{C}_2(u,v)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 where \eqn{\mathbf{C}_1(u,v)} is the first copula and \eqn{\mathbf{C}_2(u,v)} is the second copula.
@@ -64,7 +64,7 @@ Durante, F., and Sempi, C., 2015, Principles of copula theory: Boca Raton, CRC P
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
-Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena}, J.A., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2001, Distribution functions of copulas---A class of bivariate probability integral transforms: Statistics and Probability Letters, v. 54, no. 3, pp. 277--282.
+Nelsen, R.B., Quesada-Molina, J.J., \enc{Rodríguez-Lallena}{Rodriguez-Lallena}, J.A., and \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2001, Distribution functions of copulas---A class of bivariate probability integral transforms: Statistics and Probability Letters, v. 54, no. 3, pp. 277--282.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},

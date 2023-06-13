@@ -21,8 +21,8 @@ RFcop(u, v, para=NULL, rho=NULL, tau=NULL, fit=c("rho", "tau"), ...)
 }
 \value{
   Value(s) for the copula are returned. Otherwise if either \code{rho} or \code{tau} is given, then the \eqn{\Theta} is computed and a \code{list} having
-  \item{para}{The parameter \eqn{\Theta}, and}
-  \item{rho}{Spearman Rho if the \code{rho} is given.}
+  \item{para}{The parameter \eqn{\Theta};}
+  \item{rho}{Spearman Rho if the \code{rho} is given; and}
   \item{tau}{Kendall Tau if the \code{tau} is given but also if both \code{rho} and \code{tau} are \code{NULL} as mentioned next.}
 and if \code{para=NULL} and \code{rho} and \code{tau=NULL}, then the values within \code{u} and \code{v} are used to compute Kendall Tau and then compute the parameter, and these are returned in the aforementioned list.
 }

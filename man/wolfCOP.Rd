@@ -38,8 +38,8 @@ where \eqn{\hat{\mathbf{C}}_n} is the simplest empirical copula of
 
 An extended example is informative. First declare a composite of two different Plackett copulas (\code{\link{PLcop}}) and simulate a few hundred values:
 \preformatted{
-   para <- list(cop1=PLcop, cop2=PLcop, para1=0.145, para2=21.9,
-                alpha=0.81,       beta=0.22)
+   para <- list(cop1 =PLcop,  cop2=PLcop,
+                para1=0.145, para2=21.9,  alpha=0.81, beta=0.22)
    D <- simCOP(n=300, cop=composite2COP, para=para,
                cex=0.5, col=rgb(0,0,0,0.2), pch=16)
 }
@@ -77,21 +77,21 @@ wolfCOP(cop=PSP) # 0.4784176}
 \dontrun{
 n <- 1000; UV <- simCOP(n=n, cop=N4212cop, para=7.53, graphics=FALSE)
 wolfCOP(cop=N4212cop, para=7.53) # 0.9884666 (theoretical)
-wolfCOP(para=UV, as.sample=TRUE) # 0.9884174 (sample)}
+wolfCOP(para=UV, as.sample=TRUE) # 0.9884174 (sample) }
 
 \dontrun{
 # Redo D from Note section above
-para <- list(cop1=PLcop, cop2=PLcop, para1=0.145, para2=21.9,
-             alpha=0.81,       beta=0.22)
+para <- list(cop1 =PLcop,  cop2=PLcop,
+             para1=0.145, para2=21.9,  alpha=0.81, beta=0.22)
 D <- simCOP(n=300, cop=composite2COP, para=para,
-            cex=0.5, col=rgb(0,0,0,0.2), pch=16)
+            cex=0.5, col=rgb(0, 0, 0, 0.2), pch=16)
 
 the.grid <- EMPIRgrid(para=D)
 the.persp <- persp(the.grid$empcop, theta=-25, phi=20, shade=TRUE,
                    xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")
 empcop <- EMPIRcopdf(para=D) # data.frame of all points
 points(trans3d(empcop$u, empcop$v, empcop$empcop, the.persp),  cex=0.7,
-       col=rgb(0,1-sqrt(empcop$empcop),1,sqrt(empcop$empcop)), pch=16)
+       col=rgb(0, 1-sqrt(empcop$empcop), 1, sqrt(empcop$empcop)), pch=16)
 points(trans3d(empcop$u, empcop$v, empcop$empcop, the.persp),
        col=PQD$local.PQD+1, pch=1)
 
@@ -110,7 +110,7 @@ the.persp <- persp(RHO, theta=-25, phi=20, shade=TRUE, cex=0.5,
 mtext("Copula delta: Integrand of Spearman Rho", cex=0.5)
 the.persp <- persp(SIG, theta=-25, phi=20, shade=TRUE, cex=0.5,
                xlab="U VARIABLE", ylab="V VARIABLE", zlab="COPULA C(u,v)")
-mtext("abs(Copula delta): Integrand of Schweizer-Wolff Sigma", cex=0.5)#}
+mtext("abs(Copula delta): Integrand of Schweizer-Wolff Sigma", cex=0.5) #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}

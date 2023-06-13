@@ -9,7 +9,7 @@ where \eqn{v = G(y)} and \eqn{u = F(x)}. The general algorithm is
 \enumerate{
 \item Set \eqn{\delta \mathbf{C}(u,v)/\delta v = F},
 
-\item Solve the regression curve \eqn{u = \tilde{u}(v)} (accomplished by \code{\link{derCOPinv2}}), and
+\item Solve the regression curve \eqn{u = \tilde{u}(v)} (provided by \code{\link{derCOPinv2}}), and
 
 \item Replace \eqn{u} by \eqn{x(u)} and \eqn{v} by \eqn{y(v)}.
 }

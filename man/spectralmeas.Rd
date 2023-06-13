@@ -3,30 +3,30 @@
 \alias{spectralmeas}
 \title{Estimation of the Spectral Measure}
 \description{
-Kiriliouk \emph{et al.} (2016, pp. 360--364) describe estimation of the \emph{spectral measure} of bivariate data.  Standardize the bivariate data as \eqn{X^\star} and \eqn{Y^\star} as in \code{\link{psepolar}} and select a \dQuote{large} value for the \emph{pseudo-polar radius} \eqn{S_f} for nonexceedance probability \eqn{f}. Estimate the spectral measure \eqn{H(w)}, which is the limiting distribution of the \emph{pseudo-polar angle} component \eqn{W} given that the corresponding radial component \eqn{S} is large:
+Kiriliouk \emph{et al.} (2016, pp. 360--364) describe estimation of the \emph{spectral measure} of bivariate data. Standardize the bivariate data as \eqn{X^\star} and \eqn{Y^\star} as in \code{\link{psepolar}} and select a \dQuote{large} value for the \emph{pseudo-polar radius} \eqn{S_f} for nonexceedance probability \eqn{f}. Estimate the spectral measure \eqn{H(w)}, which is the limiting distribution of the \emph{pseudo-polar angle} component \eqn{W} given that the corresponding radial component \eqn{S} is large:
 \deqn{\mathrm{Pr}[W \in \cdot | S > S_f] \rightarrow H(w) \mbox{\ as\ } S_f \rightarrow \infty\mbox{.}}
-So \eqn{H(w)} is the cumulative distribution function of the spectral measure for angle \eqn{w \in (0,1)}. The \eqn{S_f} can be specified by a nonexceedance probability \eqn{F} for \eqn{S_f(F)}.
+So, \eqn{H(w)} is the \emph{cumulative distribution function} of the spectral measure for angle \eqn{w \in (0,1)}. The \eqn{S_f} can be specified by a nonexceedance probability \eqn{F} for \eqn{S_f(F)}.
 
 The estimation proceeds as follows:
 
-\bold{Step 1:} Convert the bivariate data \eqn{(X_i, Y_i)} into \eqn{(\widehat{S}_i, \widehat{W}_i)} by \code{\link{psepolar}} and set the threshold \eqn{S_f} according to \dQuote{\eqn{n/k}} (this part involving \eqn{k} does not make sense in Kiriliouk \emph{et al.} (2016)) where for present implementation in \pkg{copBasic} the \eqn{S_f} given the \eqn{f} by the user is based on the empirical distribution of the \eqn{\widehat{S}_i}. The empirical distribution is estimated by the Bernstein empirical distribution function from the \pkg{lmomco} package.
+\bold{Step 1:} Convert the bivariate data \eqn{(X_i, Y_i)} into \eqn{(\widehat{S}_i, \widehat{W}_i)} by \code{\link{psepolar}} and set the threshold \eqn{S_f} according to \dQuote{\eqn{n/k}} (this part involving \eqn{k} does not make sense in Kiriliouk \emph{et al.} (2016)) where for present implementation in \pkg{copBasic} the \eqn{S_f} given the \eqn{f} by the user is based on the empirical distribution of the \eqn{\widehat{S}_i}. The empirical distribution is estimated by the \emph{Bernstein empirical distribution} function from the \pkg{lmomco} package.
 
 \bold{Step 2:} Let \eqn{I_n} denote the set of indices that correspond to the observations when \eqn{\widehat{S}_i \ge S_f} and compute \eqn{N_n} as the cardinality of \eqn{N_n = |I_n|}, which simply means the length of the vector \eqn{I_n}.
 
 \bold{Step 3:} Use the \emph{maximum Euclidean likelihood estimator}, which is the third of three methods mentioned by Kiriliouk \emph{et al.} (2016):
 \deqn{\widehat{H}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \mathbf{1}[\widehat{W}_i \le w ]\mbox{,}}
-where \eqn{\mathbf{1}[\cdot]} is an \emph{indicator function} that is only triggered if \code{smooth=FALSE}, and following the notation of Kiriliouk \emph{et al.} (2016), the \dQuote{3} represents maximum Euclidean likelihood estimation. The \eqn{\hat{p}_{3,i}} are are the weights
+where \eqn{\mathbf{1}[\cdot]} is an \emph{indicator function} that is only triggered if \code{smooth=FALSE}, and following the notation of Kiriliouk \emph{et al.} (2016), the \dQuote{3} represents maximum \emph{Euclidean likelihood} estimation. The \eqn{\hat{p}_{3,i}} are are the weights
 \deqn{\hat{p}_{3,i} = \frac{1}{N_n}\bigl[ 1 - (\overline{W} - 1/2)S^{-2}_W(\widehat{W}_i - \overline{W}) \bigr]\mbox{,}}
 where \eqn{\overline{W}} is the \emph{sample mean} and \eqn{S^2_W} is the \emph{sample variance} of \eqn{\widehat{W}_i}
 \deqn{\overline{W} = \frac{1}{N_n} \sum_{i \in I_n} \widehat{W}_i\mbox{\quad and\quad } S^2_W = \frac{1}{N_n - 1} \sum_{i \in I_n} (\widehat{W}_i - \overline{W})^2\mbox{,}}
 where Kiriliouk \emph{et al.} (2016, p. 363) do not show the \eqn{N_n - 1} in the denominator for the variance but \pkg{copBasic} uses it because those authors state that the \emph{sample variance} is used.
 
 \bold{Step 4:} A smoothed version of \eqn{\hat{H}_3(w)} is optionally available by
-\deqn{\tilde{H}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \mathcal{B}(w; \widehat{W}_i\nu, (1-\widehat{W}_i)\nu)\mbox{,}}
-where \eqn{\mathcal{B}(x; p, q)} is the cumulative distribution function of the Beta distribution for \eqn{p, q > 0} and where \eqn{\nu > 0} is a smoothing parameter that  can be optimized by cross validation.
+\deqn{\tilde{H}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \mathcal{B}(w;\, \widehat{W}_i\nu,\, (1-\widehat{W}_i)\nu)\mbox{,}}
+where \eqn{\mathcal{B}(x; p, q)} is the cumulative distribution function of the \emph{Beta distribution} for \eqn{p, q > 0} and where \eqn{\nu > 0} is a smoothing parameter that can be optimized by cross validation.
 
-\bold{Step 5:} The spectral density lastly can be computed optionally as
-\deqn{\tilde{h}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \beta(w; \widehat{W}_i\nu, (1-\widehat{W}_i)\nu)}
+\bold{Step 5:} The \emph{spectral density} lastly can be computed optionally as
+\deqn{\tilde{h}_3(w) = \sum_{i \in I_n} \hat{p}_{3,i} \times \beta(w;\, \widehat{W}_i\nu,\, (1-\widehat{W}_i)\nu)}
 where \eqn{\beta(x; p, q)} is the probability density function (pdf) of the Beta distribution. Readers are alerted to the absence of the \eqn{\mathbf{1}[\cdot]} indicator function in the definitions of \eqn{\tilde{H}_3(w)} and \eqn{\tilde{h}_3(w)}. This is correct and matches Kiriliouk \emph{et al.} (2016, eqs. 17.21 and 17.22) though this author was confused for a day or so by the indicator function in what is purported to be the core definition of \eqn{\hat{H}_l(w)} where \eqn{l = 3} in Kiriliouk \emph{et al.} (2016, eq. 17.21 and 17.17).
 }
 \usage{
@@ -48,7 +48,7 @@ spectralmeas(u, v=NULL, w=NULL, f=0.90, snv=FALSE,
   An \R \code{vector} of \eqn{H_3(w)}, \eqn{\tilde{H}_3(w)}, or \eqn{\tilde{h}_3(w)} is returned.
 }
 \note{
-The purpose of this section is to describe an extremely CPU intensive study of goodness-of-fit between a \emph{Gumbel--Hougaard copula} (\code{\link{GHcop}}, \eqn{\mathbf{GH}(u,v; \Theta_1)}) parent and a fitted \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}, \eqn{\mathbf{HR}(u,v; \Theta_2)}). Both of these copulas are extreme values and are somewhat similar to each other, so sample sizes necessary for detection of differences should be large. A two-sided Kolmogorov--Smirnov tests (KS test, \code{ks.test()}) will be used to measure significance in the differences between the estimated spectral measure distributions at \eqn{f=0.90} (the 90th percentile, \eqn{F(S_f)}) into the right tail.
+The purpose of this section is to describe a CPU-intensive study of goodness-of-fit between a \emph{Gumbel--Hougaard copula} (\code{\link{GHcop}}, \eqn{\mathbf{GH}(u,v; \Theta_1)}) parent and a fitted \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}, \eqn{\mathbf{HR}(u,v; \Theta_2)}). Both of these copulas are extreme values and are somewhat similar to each other, so sample sizes necessary for detection of differences should be large. A two-sided Kolmogorov--Smirnov tests (KS test, \code{ks.test()}) is used to measure significance in the differences between the estimated spectral measure distributions at \eqn{f=0.90} (the 90th percentile, \eqn{F(S_f)}) into the right tail.
 
 The true copula will be the \eqn{\mathbf{GH}(\Theta_1)} having parameter \eqn{\Theta_1 = 3.3}. The number of simulations per sample size \code{n} \eqn{\in} \code{seq(50,1000, by=25)} is \code{nsim = 500}. For each sample size, a sample from the true parent is drawn, and a \eqn{\mathbf{HR}(\Theta_2)} fit by maximum likelihood (\code{\link{mleCOP}}). The two spectral measure distributions (\eqn{\widehat{H}_{\mathbf{GH}}(w)}, \code{Htru} and \eqn{\widehat{H}_{\mathbf{HR}}(w)}, \code{Hfit}) are estimated for a uniform variate of the angle \code{W} having length equal to the applicable sample size. The Kolmogorov--Smirnov (KS) test is made between \code{Htru} and \code{Hfit}, and number of p-values less than the \eqn{\beta = 0.05} (Type II error because alternative hypothesis is rigged as true) and simulation count are returned and written in file \code{Results.txt}. The sample sizes initially are small and traps of \code{NaN} (abandonment of a simulation run) are made. These traps are needed when the empirical distribution of \code{Htru} or \code{Hfit} degenerates.
 \preformatted{

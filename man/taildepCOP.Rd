@@ -109,7 +109,7 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 
-Schmidt, R., \enc{Stadtmüller}{Stadtmuller}, U., 2006, Nonparametric estimation of tail dependence: The Scandinavian Journal of Statistics, v. 33, pp. 307--335.
+Schmidt, R., and \enc{Stadtmüller}{Stadtmuller}, U., 2006, Nonparametric estimation of tail dependence: The Scandinavian Journal of Statistics, v. 33, pp. 307--335.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{COP}}, \code{\link{tailconCOP}}, \code{\link{tailordCOP}}, \code{\link{blomCOPss}}}

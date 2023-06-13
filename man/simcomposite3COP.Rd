@@ -45,20 +45,20 @@ The \code{para} argument of this function are passed to the function contained i
 \dontrun{
 # EXAMPLE 1: Make a single simulation result.
 mainpara <- list(cop1=PLACKETTcop, cop2=PLACKETTcop,
-                 para1gen=function() { return(c(10^runif(1,min=-5,max=0))) },
-                 para2gen=function() { return(c(10^runif(1,min= 0,max=5))) })
+                 para1gen=function() { return(c(10^runif(1, min=-5, max=0))) },
+                 para2gen=function() { return(c(10^runif(1, min= 0, max=5))) })
 v <- simcompositeCOP(nsim=1, parent=mainpara, showresults=TRUE)
 print(v)
 
 # EXAMPLE 2: Make 1000 "results" and plot two columns.
 mainpara <- list(cop1=PLACKETTcop, cop2=N4212cop,
-                 para1gen=function() { return(c(10^runif(1,min=-5,max=5))) },
-                 para2gen=function() { return(c(10^runif(1,min= 0,max=2))) })
+                 para1gen=function() { return(c(10^runif(1, min=-5, max=5))) },
+                 para2gen=function() { return(c(10^runif(1, min= 0, max=2))) })
 v <- simcomposite3COP(nsim=100, parent=mainpara); labs <- colnames(v)
-plot(v[,5],v[,7], # open circles are 1 with respect to 2
+plot(v[,5], v[,7],           # open circles are 1 with respect to 2
      xlab=paste(c(labs[5], "and", labs[6]), collapse=" "),
      ylab=paste(c(labs[6], "and", labs[8]), collapse=" "))
-points(v[,6],v[,8], pch=16) # black dots are 2 with respect to 1}
+points(v[,6], v[,8], pch=16) # black dots are 2 with respect to 1}
 }
 \keyword{copula composition}
 \keyword{copula (simulation)}

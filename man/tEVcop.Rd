@@ -6,7 +6,7 @@
 The \emph{t-EV copula} (Joe, 2014, p. 189) is a limiting form of the \emph{t-copula} (multivariate t-distribution):
 \deqn{
 \mathbf{C}_{\rho,\nu}(u,v) = \mathbf{tEV}(u,v; \rho, \nu) =
-\mathrm{exp}\bigl(-(x+y)B(x/(x+y); \rho, \nu)\bigr)\mbox{,}
+\mathrm{exp}\bigl(-(x+y) \times B(x/(x+y); \rho, \nu)\bigr)\mbox{,}
 }
 where \eqn{x = -\log(u)}, \eqn{y = -\log(v)}, and letting \eqn{\eta = \sqrt{(\nu+1)/(1-\rho^2)}} define
 \deqn{
@@ -14,7 +14,7 @@ B(w; \rho, \nu) = wT_{\nu+1}\bigl(\eta[(w/[1-w])^{1/\nu}-\rho]\bigr) + (1-w)T_{\
 }
 where \eqn{T_{\nu+1}} is the cumulative distribution function of the \emph{univariate t-distribution} with \eqn{\nu-1} degrees of freedom. As \eqn{\nu \rightarrow \infty}, the copula weakly converges to the \emph{\enc{Hüsler}{Husler}--Reiss copula} (\code{\link{HRcop}}) because the t-distribution converges to the normal (see \bold{Examples} for a study of this copula).
 
-The \eqn{\mathbf{tEV}(u,v; \rho, \nu)} copula is a two-parameter option when working with extreme-value copula. There is a caveat though. Demarta and McNeil (2004) conclude that \dQuote{the parameter of the Gumbel [\code{\link{GHcop}}] or Galambos [\code{\link{GLcop}}] A-functions [the Pickend dependence function and B-function by association] can always be chosen so that the curve is extremely close to that of the t-EV A-function for any values of \eqn{\nu} and \eqn{\rho}. The implication is that in all situations where the t-EV copula might be deemed an appropriate model we can work instead with the simpler Gumbel or Galambos copulas.}
+The \eqn{\mathbf{tEV}(u,v; \rho, \nu)} copula is a two-parameter option when working with extreme-value copula. There is a caveat though. Demarta and McNeil (2004) conclude that \dQuote{the parameter of the Gumbel [\code{\link{GHcop}}] or Galambos [\code{\link{GLcop}}] A-functions [the \emph{Pickend dependence function} and B-function by association] can always be chosen so that the curve is extremely close to that of the t-EV A-function for any values of \eqn{\nu} and \eqn{\rho}. The implication is that in all situations where the t-EV copula might be deemed an appropriate model then the practitioner can work instead with the simpler Gumbel or Galambos copulas.}
 }
 \usage{
 tEVcop(u, v, para=NULL, ...)
@@ -64,8 +64,7 @@ tauCOP(cop=GHcop,  para=pargh ) # [1] 0.3003678
 tauCOP(cop=tEVcop, para=partev) # [1] 0.3178904
 
 densityCOPplot(cop=GHcop,  para=pargh)
-densityCOPplot(cop=tEVcop, para=partev,
-               ploton=FALSE, contour.col=2) #}
+densityCOPplot(cop=tEVcop, para=partev, ploton=FALSE, contour.col="red") #}
 
 \dontrun{
 # A demonstration Joe (2014, p. 190) for which tEvcop() has
@@ -84,11 +83,11 @@ print(c(lamU, lamU.copBasic, lamU.copula))
 
 \dontrun{
 # Convergence of tEVcop to HRcop as nu goes to infinity.
-nu <- 10^(seq(-4,2,by=.1)) # nu right end point rho dependent
+nu <- 10^(seq(-4, 2, by=.1)) # nu right end point rho dependent
 rho <- 0.7 # otherwise, expect to see 'zeros' errors on the plot()
 # Compute Blomqvist Beta (fast computation is reason for choice)
 btEV <- sapply(nu, function(n) blomCOP(tEVcop, para=c(rho, n)))
-limit.thetas <- sqrt(2/(nu*(1-rho))) # for nu --> infinity HRcop
+limit.thetas <- sqrt(2 / (nu*(1-rho))) # for nu --> infinity HRcop
 thetas <- sapply(btEV, function(b) {
      uniroot(function(l, blom=NA) { blom - blomCOP(HRcop, para=l) },
      interval=c(0,10), blom=b)$root })

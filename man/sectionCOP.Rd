@@ -8,8 +8,7 @@ Compute the \emph{copula sections} or the \emph{(partial) derivatives of copula 
 the \emph{vertical  section} at \eqn{U=a} (a constant, with respect to \eqn{V} or \code{wrtV=TRUE}) is
 \deqn{t \mapsto \mathbf{C}(a,t)\mbox{.}}
 The partial derivatives of the copula sections are \emph{conditional cumulative distribution functions} (see \code{\link{derCOP}} and \code{\link{derCOP2}}). The derivatives are constrained as
-\deqn{0 \le \frac{\delta}{\delta u}\mathbf{C}(u,v) \le 1\mbox{,}}
-or
+\deqn{0 \le \frac{\delta}{\delta u}\mathbf{C}(u,v) \le 1\mbox{, and}}
 \deqn{0 \le \frac{\delta}{\delta v}\mathbf{C}(u,v) \le 1\mbox{.}}
 }
 \usage{
