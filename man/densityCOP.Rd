@@ -58,7 +58,7 @@ densityCOP(1,1, cop=PLcop, para=4, deluv=eps)     # 0 (silent failure)
 densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.5) # 4.5
 densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.4) # 4.002069
 densityCOP(1,1, cop=PLcop, para=4, deluv=eps^0.3) # 3.999513
-# So we see that the small slicing does have an effect, the default of 0.25 is
+# So, we see that the small slicing does have an effect, the default of 0.25 is
 # intented for general application by being away enough from machine limits.}
 
 \dontrun{

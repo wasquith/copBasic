@@ -7,7 +7,7 @@ Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\
 
 \deqn{\sigma_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} |\mathbf{C}(u,v) - uv|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 
-which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association, without the positive sign restriction, is similar to the following form of \emph{Spearman's Rho} (\code{\link{rhoCOP}}) of a copula:
+which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association, without the positive sign restriction, is similar to the following form of \emph{Spearman Rho} (\code{\link{rhoCOP}}) of a copula:
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} [\mathbf{C}(u,v) - uv]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
@@ -61,7 +61,7 @@ In fact, the output above also shows Schweizer--Wolff Sigma to be larger than Bl
 }
 }
 \references{
-\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pal}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators: Accessed on August 11, 2015 at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
+\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pal}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }

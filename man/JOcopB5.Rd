@@ -23,7 +23,7 @@ JOcopB5(u, v, para=NULL, tau=NULL, ...)
 \value{
   Value(s) for the copula are returned. Otherwise if \code{tau} is given, then the \eqn{\Theta} is computed and a \code{list} having
   \item{para}{The parameter \eqn{\Theta}, and}
-  \item{tau}{Kendall tau.}
+  \item{tau}{Kendall Tau.}
 and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and \code{v} are used to compute Kendall Tau and then compute the parameter, and these are returned in the aforementioned list.
 }
 \references{

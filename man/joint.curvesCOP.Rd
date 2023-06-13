@@ -51,7 +51,7 @@ The \emph{Gumbel--Hougaard} copula (\code{\link{GHcop}}) and a reversed Gumbel--
 }
 The code also computed the \emph{Kendall Tau} (\code{\link{tauCOP}}) and \emph{Nu-Skew} (\code{\link{nuskewCOP}}) and the results shown. The code finishes with a simulation by \code{\link{simCOP}} of the copula composition just for reference.
 
-Next, we compute and plot the joint probability curves. The \code{tol}erance for the \code{uniroot} calls is reset from \R's defaults because slight wooble in the numerical solutions exists otherwise.  The \code{AND} and \code{OR} \code{lists} each provide \code{data.frame}s from which successive graphic calls plot the lines. The second \code{plot()} call is commented out so that both sets of joint probability curves are drawn on the same plot.
+Next, we compute and plot the joint probability curves. The \code{tol}erance for the \code{uniroot} calls is reset from the \R defaults because slight wooble in the numerical solutions exists otherwise.  The \code{AND} and \code{OR} \code{lists} each provide \code{data.frame}s from which successive graphic calls plot the lines. The second \code{plot()} call is commented out so that both sets of joint probability curves are drawn on the same plot.
 \preformatted{
   AND <- joint.curvesCOP(cop=composite2COP, para=para, type="and",
                          divisor=1000, tol=.Machine$double.eps)

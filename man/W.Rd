@@ -30,11 +30,11 @@ W(1,1)
 }
 \keyword{copula (formulas)}
 \keyword{copula (limits/bounds)}
-\concept{Frechet upper bound copula}
-\concept{Frechet-Hoeffding upper bound copula}
-\concept{Frechet--Hoeffding upper bound copula}
-\concept{Frechet upper bound}
-\concept{Frechet-Hoeffding upper bound}
-\concept{Frechet--Hoeffding upper bound}
+\concept{Frechet lower-bound copula}
+\concept{Frechet-Hoeffding lower-bound copula}
+\concept{Frechet--Hoeffding lower-bound copula}
+\concept{Frechet lower bound}
+\concept{Frechet-Hoeffding lower-bound}
+\concept{Frechet--Hoeffding lower-bound}
 \keyword{copula}
 

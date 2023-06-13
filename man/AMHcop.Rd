@@ -29,7 +29,7 @@ AMHcop(u, v, para=NULL, rho=NULL, tau=NULL, fit=c("rho", "tau"), ...)
 \value{
   Value(s) for the copula are returned. Otherwise if \code{tau} is given, then the \eqn{\Theta} is computed and a \code{list} having
   \item{para}{The parameter \eqn{\Theta}, and}
-  \item{tau}{Kendall's tau.}
+  \item{tau}{Kendall Tau.}
 and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and \code{v} are used to compute Kendall Tau and then compute the parameter, and these are returned in the aforementioned list.
 }
 
@@ -52,7 +52,7 @@ It is seen that the numerical approaches yield quite similar results for small \
 The plot shows that the apparent differences are less than 1 part in 100 million---The \pkg{copBasic} computation is radically slower though, but \code{\link{rhoCOP}} was designed for generality of copula family.
 }
 \references{
-\enc{Mächler}{Machler}, Martin, 2014, Spearman's Rho for the AMH copula---A beautiful formula: copula package vignette, accessed on April 7, 2018 at \url{https://CRAN.R-project.org/package=copula} under the vignette \emph{rhoAMH-dilog.pdf}.
+\enc{Mächler}{Machler}, Martin, 2014, Spearman's Rho for the AMH copula---A beautiful formula: copula package vignette, accessed on April 7, 2018, at \url{https://CRAN.R-project.org/package=copula} under the vignette \emph{rhoAMH-dilog.pdf}.
 
 Pranesh, Kumar, 2010, Probability distributions and estimation of Ali--Mikhail--Haq copula: Applied Mathematical Sciences, v. 4, no. 14, p. 657--666.
 }
@@ -67,10 +67,10 @@ A <- di*(1+t) - 2*log(1-t) + 2*t*log(1-t) - 3*t # Nelsen (2007, p. 172)
 rho <- 12*A/t^2 - 3    # 0.4070369
 rhoCOP(AMHcop, para=t) # 0.4070369
 sum(sapply(1:100,function(k) 3*t^k/choose(k+2,2)^2)) # Machler (2014)
-# 0.4070369 (see Note, very many tens of terms are needed) }
+# 0.4070369 (see Note section, very many tens of terms are needed) }
 
 \dontrun{
-layout(matrix(1:2, byrow=TRUE)) # Note Kendall Tau is same on reversal.
+layout(matrix(1:2, byrow=TRUE)) # Note: Kendall Tau is same on reversal.
 s <- 2; set.seed(s); nsim <- 10000
 UVn <- simCOP(nsim, cop=AMHcop, para=c(0.9, "FALSE" ), col=4)
 mtext("Normal definition [default]") # '2nd' parameter could be skipped

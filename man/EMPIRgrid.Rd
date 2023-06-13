@@ -88,7 +88,7 @@ lines(thelines, lwd=4, col=6) #}
 "MOcop" <- function(u,v, para=NULL) { # Marshall-Olkin copula
    alpha <- para[1]; beta  <- para[2]; return(min(v*u^(1-alpha), u*v^(1-beta)))
 }
-# EXAMPLE 2: PLOT NUMBER 1 # Note the asymmetry!
+# EXAMPLE 2: PLOT NUMBER 1 # See the asymmetry
 uv <- simCOP(1000, cop=MOcop, para=c(0.4,0.9)) # The parameters cause asymmetry.
 mtext("Simulation from a defined Marshall-Olkin Copula")
 the.grid <- EMPIRgrid(para=uv, deluv=0.025)

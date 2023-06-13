@@ -8,7 +8,7 @@ Compute the \emph{Kullback--Leibler Divergence}, \emph{Jeffrey Divergence}, and 
 \deqn{\mathrm{KL}(f|g) = \int\!\!\int_{\mathcal{I}^2} g\, \log(g/f)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 and Kullback--Leibler Divergence of \eqn{g} relative to \eqn{f} is
 \deqn{\mathrm{KL}(g|f) = \int\!\!\int_{\mathcal{I}^2} f\, \log(f/g)\,\mathrm{d}u\mathrm{d}v\mbox{,}}
-where the limits of integration \eqn{\mathcal{I}^2} theoretically are closed on \eqn{[0,1]^2} but an open interval \eqn{(0,1)^2} might be needed for numerical integration. Note, in general \eqn{\mathrm{KL}(f|g) \ne \mathrm{KL}(g|f)}. The \eqn{\mathrm{KL}(f|g)} is the expected log-likelihood ratios of \eqn{g} to \eqn{f} when \eqn{g} is the true density (Joe, 2014, p. 234), whereas \eqn{\mathrm{KL}(g|f)} is the opposite.
+where the limits of integration \eqn{\mathcal{I}^2} theoretically are closed on \eqn{[0,1]^2} but an open interval \eqn{(0,1)^2} might be needed for numerical integration. Note that in general \eqn{\mathrm{KL}(f|g) \ne \mathrm{KL}(g|f)}. The \eqn{\mathrm{KL}(f|g)} is the expected log-likelihood ratios of \eqn{g} to \eqn{f} when \eqn{g} is the true density (Joe, 2014, p. 234), whereas \eqn{\mathrm{KL}(g|f)} is the opposite.
 
 This asymmetry leads to Jeffrey Divergence, which is defined as a symmetrized version of the two Kullback--Leibler Divergences, and is
 \deqn{J(f,g) = \mathrm{KL}(f|g) + \mathrm{KL}(g|f) = \int\!\!\int_{\mathcal{I}^2} (g-f)\, \log(g/f)\,\mathrm{d}u\mathrm{d}v\mbox{.}}
@@ -42,7 +42,7 @@ kullCOPint(cop1=NULL, cop2=NULL, para1=NULL, para2=NULL, alpha=0.05,
   \item{del}{A small value used to denote the lo and hi values of the numerical integration: \code{lo = del} and \code{hi = 1 - del}. If \code{del == 0}, then \code{lo = 0} and \code{hi = 1}, which corresponds to the theoretical limits \eqn{\mathcal{I}^2 = [0,1]^2} and are defaulted here to \eqn{[0,1]^2} because the Monte Carlo algorithm is preferred for general application. The end point control, however, is maintained just in case pathological situations should arise;}
   \item{n}{\code{kullCOP} (Monte Carlo integration) only---the Monte Carlo integration simulation size;}
   \item{verbose}{A logical trigging a couple of status lines of output through the \code{message()} function in \R;}
-  \item{sobol}{A logical trigging \emph{Sobol sequences} for the Monte Carlo integration instead of the bivariate uniform distribution. The Sobol sequences are dependent on the \pkg{randtoolbox} package and the \code{sobol()} function of the \pkg{randtoolbox} package, and the Sobol sequences canvas the \eqn{\mathcal{I}^2} domain for smaller \eqn{n} values than required if statistical independence is used for the Monte Carlo integration. Note, that \pkg{randtoolbox} at least at version 2.0.+ has \dQuote{scrambling} of Sobol sequences temporarily disabled, and hence \code{scrambling=0} as default for \code{kullCOP};}
+  \item{sobol}{A logical trigging \emph{Sobol sequences} for the Monte Carlo integration instead of the bivariate uniform distribution. The Sobol sequences are dependent on the \pkg{randtoolbox} package and the \code{sobol()} function of the \pkg{randtoolbox} package, and the Sobol sequences canvas the \eqn{\mathcal{I}^2} domain for smaller \eqn{n} values than required if statistical independence is used for the Monte Carlo integration. Note that \pkg{randtoolbox} at least at version 2.0.+ has \dQuote{scrambling} of Sobol sequences temporarily disabled, and hence \code{scrambling=0} as default for \code{kullCOP};}
   \item{scrambling}{The argument of the same name for \code{randtoolbox::sobol}; and}
   \item{...}{Additional arguments to pass to the \code{\link{densityCOP}} function.}
 }
@@ -162,7 +162,7 @@ legend("topright", c("Monte Carlo", "Sobol sequence", "Judged ideal sample size"
 # simulation. First, using this n = nideal, being the apparent sample size to distinguish
 # generally between the two copula having the same Spearman Rho. Do the segments help
 # to visually highlight the differences? Next, ask would one judge the parents in the
-# simulation being different knowing same Spearman Rho? (Note, the segments are all
+# simulation being different knowing same Spearman Rho? (Note that the segments are all
 # vertical because the U axis is the simulation and the V axis is the conditional
 # probability given the U.)
 set.seed(1); UVgh <- simCOP(nideal, GHcop, para=GHpar, graphics=FALSE)

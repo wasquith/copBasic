@@ -147,7 +147,7 @@ mleCOP(UV, cop=CLcop, interval=c(0,1E2))$para    # 3.081699 }
 }
 \keyword{copula (fitting)}
 \keyword{maximum likelihood}
-\concept{Vuong procedure}
+\concept{Vuong Procedure}
 \concept{Akaike}
 \concept{AIC}
 \concept{BIC}

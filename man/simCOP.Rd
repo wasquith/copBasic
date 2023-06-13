@@ -47,9 +47,9 @@ simCOP(n=5, cop=PARETOcop, para=2.4)
 
 \dontrun{
 # The simCOP function is oft used in other Examples sections through this package.
-simCOP(n=10, cop=W)            # Frechet lower bound copula
+simCOP(n=10, cop=W)            # Frechet lower-bound copula
 simCOP(n=10, cop=P)            # Independence copula
-simCOP(n=10, cop=M, col=2)     # Frechet upper bound copula
+simCOP(n=10, cop=M, col=2)     # Frechet upper-bound copula
 simCOP(n=10, cop=PSP)          # The PSP copula}
 
 \dontrun{

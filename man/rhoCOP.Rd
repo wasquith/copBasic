@@ -55,7 +55,7 @@ rhoCOP(cop=PSP)             # 0.4784176
 \dontrun{
 rhoCOP(cop=PSP, brute=TRUE) # 0.4684063
 # CPU heavy example showing that the dual-integration (fast) results in
-# a Spearman's Rho that mimics a sample version
+# a Spearman Rho that mimics a sample version
 do_rho <- function(n) {
    uv <- simCOP(n=n, cop=PSP, ploton=FALSE, points=FALSE)
    return(cor(uv$U, uv$V, method="spearman"))

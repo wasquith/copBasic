@@ -13,7 +13,7 @@ The co-copula is a function and not in itself a copula. Some rules of copulas me
 
 The function \code{coCOP} gives \dQuote{risk} against failure if failure is defined as either hazard source \eqn{U} or \eqn{V} occuring by themselves or if both occurred at the same time. Expressing this in terms of an annual probability of occurrence (\eqn{q}), one has
 \deqn{q = 1 - \mathrm{Pr}[U > u \mathrm{\ or\ } V > v] =  \mathbf{C}^{\star}(u',v') \mbox{\ or}}
-in \R code \code{q <- coCOP(u,v, exceedance=FALSE, ...)}. So in yet other words and as a mnemonic: \emph{A co-copula is the probabililty of exceedance if the hazard sources \bold{collaborate} or \bold{cooperate} to cause failure.} Also, \eqn{q} can be computed by \code{q <- }\code{coCOP(1 - u, 1 - v,} \code{exceedance=TRUE, ...)}.
+in \R code \code{q <- coCOP(u,v, exceedance=FALSE, ...)}. So, in yet other words and as a mnemonic: \emph{A co-copula is the probabililty of exceedance if the hazard sources \bold{collaborate} or \bold{cooperate} to cause failure.} Also, \eqn{q} can be computed by \code{q <- }\code{coCOP(1 - u, 1 - v,} \code{exceedance=TRUE, ...)}.
 }
 \usage{
 coCOP(u, v, cop=NULL, para=NULL, exceedance=TRUE, ...)

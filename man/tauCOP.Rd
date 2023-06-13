@@ -12,7 +12,7 @@ where \eqn{\mathcal{Q}(\mathbf{C}, \mathbf{C})} is a \emph{concordance function}
                          \frac{\delta\mathbf{C}(u,v)}{\delta u}
                          \frac{\delta\mathbf{C}(u,v)}{\delta v}\,
                          \mathrm{d}u\mathrm{d}v}
-is to be preferred. Such an expression hence relies on the partial numerical derivatives of the copula provided by \code{\link{derCOP}} and \code{\link{derCOP2}}. Nelsen's preferred expression is used by the \code{tauCOP} function. Nelsen (2006, pp. 175--176) reports that the relation between \eqn{\tau_\mathbf{C}} and \eqn{\rho_\mathbf{C}} (\code{\link{rhoCOP}}) is
+is to be preferred. Such an expression hence relies on the partial numerical derivatives of the copula provided by \code{\link{derCOP}} and \code{\link{derCOP2}}. The Nelsen (2006) preferred expression is used by the \code{tauCOP} function. Nelsen (2006, pp. 175--176) reports that the relation between \eqn{\tau_\mathbf{C}} and \eqn{\rho_\mathbf{C}} (\code{\link{rhoCOP}}) is
 \eqn{-1 \le 3\tau - 2\rho \le 1} (see \code{\link{rhoCOP}} for more details).
 
 Nelsen (2006, pp. 160--161) lists some special identities involving \eqn{\mathcal{Q}(\mathbf{C}_1,\mathbf{C}_2)}:
@@ -80,7 +80,7 @@ tauCOP(cop=PSP) # 1/3
 \dontrun{
 tauCOP(cop=PSP, brute=TRUE) # 0.3306625
 # CPU heavy example showing that the dual-integration (fast) results in
-# a Kendall's Tau that matches a sample version
+# a Kendall Tau that matches a sample version
 dotau <- function(n) {
    uv <- simCOP(n=n, cop=PSP, ploton=FALSE, points=FALSE)
    return(cor(uv$U, uv$V, method="kendall"))

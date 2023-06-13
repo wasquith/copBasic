@@ -70,7 +70,7 @@ UV <- simCOP(cop=glueCOP,  para=para, col=2,   ploton=FALSE)
 para <- list(cop1=M, cop2=W, para1=NA, para2=NA, glue=0.5)
 rhoCOP( cop=glueCOP, para=para) # -2.181726e-17
 wolfCOP(cop=glueCOP, para=para) #  0.4999953
-# So rhoCOP() indicates independence, but wolfCOP() indicates
+# So, rhoCOP() indicates independence, but wolfCOP() indicates
 # dependence at the minimum value possible for a triangular copula. }
 }
 \keyword{copula (formulas)}

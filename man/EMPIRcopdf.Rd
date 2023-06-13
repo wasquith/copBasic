@@ -32,7 +32,7 @@ uv <- data.frame(U=fakeU, V=fakeV) # our U-statistics
 
 empcop <- EMPIRcopdf(para=uv)
 plot(empcop$u, empcop$v, cex=1.75*empcop$empcop, pch=16,
-     xlab="U NONEXCEEDANCE PROBABILITY", ylab="V NONEXCEEDANCE PROBABILITY")
+     xlab="U, NONEXCEEDANCE PROBABILITY", ylab="V, NONEXCEEDANCE PROBABILITY")
 # Dot size increases with joint probability (height of the copulatic surface).
 points(empcop$u, empcop$v, col=2) # red circles}
 }

@@ -5,7 +5,7 @@
 \description{
 The \emph{\enc{Fréchet}{Frechet} Family copula} (Durante, 2007, pp. 256--259) is
 \deqn{\mathbf{C}_{\alpha, \beta}(u,v) = \mathbf{FF}(u,v) = \alpha\mathbf{M}(u,v) + (1-\alpha-\beta)\mathbf{\Pi}(u,v)+\beta\mathbf{W}(u,v)\mbox{,}}
-where \eqn{\alpha, \beta \ge 0} and \eqn{\alpha + \beta \le 1}. The \enc{Fréchet}{Frechet} Family copulas are \emph{convex combinations} of the fundamental copulas \eqn{\mathbf{W}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding lower bound copula}; \code{\link{W}}), \eqn{\mathbf{\Pi}} (independence; \code{\link{P}}), and \eqn{\mathbf{M}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding upper bound copula}; \code{\link{M}}). The copula is \emph{comprehensive} because both \eqn{\mathbf{W}} and \eqn{\mathbf{M}} can be obtained. The parameters are readily estimated using \emph{Spearman Rho} (\eqn{\rho_\mathbf{C}}; \code{\link{rhoCOP}}) and \emph{Kendall Tau} (\eqn{\tau_\mathbf{C}}; \code{\link{tauCOP}}) by
+where \eqn{\alpha, \beta \ge 0} and \eqn{\alpha + \beta \le 1}. The \enc{Fréchet}{Frechet} Family copulas are \emph{convex combinations} of the fundamental copulas \eqn{\mathbf{W}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding lower-bound copula}; \code{\link{W}}), \eqn{\mathbf{\Pi}} (independence; \code{\link{P}}), and \eqn{\mathbf{M}} (\emph{\enc{Fréchet}{Frechet}--Hoeffding upper-bound copula}; \code{\link{M}}). The copula is \emph{comprehensive} because both \eqn{\mathbf{W}} and \eqn{\mathbf{M}} can be obtained. The parameters are readily estimated using \emph{Spearman Rho} (\eqn{\rho_\mathbf{C}}; \code{\link{rhoCOP}}) and \emph{Kendall Tau} (\eqn{\tau_\mathbf{C}}; \code{\link{tauCOP}}) by
 
 \deqn{\tau_\mathbf{C} = \frac{(\alpha - \beta)(\alpha + \beta + 2)}{3}\mbox{\ and\ } \rho_\mathbf{C} = \alpha - \beta\mbox{.}}
 
@@ -27,7 +27,7 @@ FRECHETcop(u,v, para=NULL, rho=NULL, tau=NULL, par2rhotau=FALSE, ...)
   Value(s) for the copula are returned using the \eqn{\alpha} and \eqn{\beta} as set by argument \code{para}; however, if \code{para=NULL} and \code{rho} and \code{tau} are set and compatible with the copula, then \eqn{\{\rho_\mathbf{C}, \tau_\mathbf{C}\} \rightarrow \{\alpha, \beta\}}, parameter estimation made, and an \R \code{list} is returned.
 }
 \details{
-The function will check the consistency of the parameters whether given by argument or computed from \eqn{\rho_\mathbf{C}} and \eqn{\tau_\mathbf{C}}. The term \dQuote{Family} is used with this particular copula in \pkg{copBasic} so as to draw distinction to the \enc{Fréchet}{Frechet} lower and upper bound copulas as the two limiting copulas are called.
+The function will check the consistency of the parameters whether given by argument or computed from \eqn{\rho_\mathbf{C}} and \eqn{\tau_\mathbf{C}}. The term \dQuote{Family} is used with this particular copula in \pkg{copBasic} so as to draw distinction to the \enc{Fréchet}{Frechet} lower- and upper-bound copulas as the two limiting copulas are called.
 
 For no other reason than that it can be easily done and makes a nice picture, loop through a nest of \eqn{\rho} and \eqn{\tau} for the \enc{Fréchet}{Frechet} Family copula and plot the domain of the resulting parameters:
 \preformatted{

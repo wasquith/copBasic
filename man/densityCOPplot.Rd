@@ -65,7 +65,7 @@ densityCOPplot(cop=composite2COP, para=para, n=9000)
 
 # Now, let us hack back to a contour density plot with U(0,1) and not N(0,1) margins
 # just so show that capability exists, but emphasis of densityCOPplot is clearly
-# on Joe's advocation, so it does not have a default trigger to use U(0,1) margins.
+# on Joe's advocation, because it does not have a default trigger to use U(0,1) margins.
 set.seed(12)
 H <- densityCOPplot(cop=PLACKETTcop, para=41.25, getmatrix="cdenzz", n=1000, snv=FALSE)
 set.seed(12)
@@ -85,7 +85,7 @@ names(AICs) <- c("Clayton", "Joe(B5)", "Plackett")
 print(round(AICs, digits=2))
 #  Clayton    Joe(B5)   Plackett
 #  -156.77     -36.91    -118.38
-# So we conclude Clayton must be the best fit of the three.
+# So, we conclude Clayton must be the best fit of the three.
 
 plot(qnorm(UV[,1]), qnorm(UV[,2]), pch=16, col=8, cex=0.5,
         xlab="Standard normal variate of U", xlim=c(-3,3),

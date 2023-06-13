@@ -15,7 +15,7 @@ where \eqn{\hat{\mathbf{C}}(u',v')} is the survival copula in terms of exceedanc
 
 The function \code{duCOP} gives \dQuote{protection} against simultaneous (concurrent or dual) risk by failure if and only if failure is caused (defined) by both hazard sources \eqn{U} and \eqn{V} being by themselves responsible for failure. Expressing this in terms of an annual probability of occurrence (\eqn{q}), one has
 \deqn{q = 1 - \mathrm{Pr}[U \le v \mathrm{\ or\ } V \le v] = 1 - \tilde{\mathbf{C}}(u,v)\mbox{\ or}}
-in \R code \code{q <- 1 - duCOP(u,v)}. So as a mnemonic: \emph{A dual of a copula is the probabililty of nonexceedance if the hazard sources must \bold{dual} (concur, link, pair, twin, twain) between each other to cause failure.} An informative graphic is shown within \code{\link{copBasic-package}}.
+in \R code \code{q <- 1 - duCOP(u,v)}. So, as a mnemonic: \emph{A dual of a copula is the probabililty of nonexceedance if the hazard sources must \bold{dual} (concur, link, pair, twin, twain) between each other to cause failure.} An informative graphic is shown within \code{\link{copBasic-package}}.
 }
 \usage{
 duCOP(u, v, cop=NULL, para=NULL, ...)

@@ -79,7 +79,7 @@ lamU <- 2*pt(-sqrt((para[2]+1)*(1-para[1])/(1+para[1])), para[2]+1)
 lamU.copBasic <- taildepCOP(cop=tEVcop,        para)$lambdaU
 lamU.copula   <- taildepCOP(cop=tEVcop.copula, para)$lambdaU
 print(c(lamU, lamU.copBasic, lamU.copula))
-#[1] 0.2925185 0.2925200 0.2925200 # So we see that they all match.}
+#[1] 0.2925185 0.2925200 0.2925200 # So, we see that they all match.}
 
 \dontrun{
 # Convergence of tEVcop to HRcop as nu goes to infinity.
@@ -95,7 +95,7 @@ plot(limit.thetas, thetas, log="xy", type="b",
      xlab="Theta of HRcop via limit nu --> infinity",
      ylab="Theta from Blomqvist Beta equivalent HRcop to tEVcop")
 abline(0,1)
-mtext(paste0("Note 'weak' convergence to lower left, and \n",
+mtext(paste0("Notice the 'weak' convergence to lower left, and \n",
              "convergence increasing with rho"))
 # Another reference of note
 # https://mediatum.ub.tum.de/doc/1145695/1145695.pdf (p.39) #}

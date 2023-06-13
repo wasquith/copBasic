@@ -40,7 +40,7 @@ diagCOPatf(0.99, cop=M)   # 0.99 (now see the example below)
 lmrA <- lmomco::vec2lmom(c(3.97, 0.485, -0.1178, 0.06857))
 lmrB <- lmomco::vec2lmom(c(3.77, 0.475, -0.1377, 0.08280))
 # Suppose we think that the Gumbel-Hougaard copula is appropriate with a Tau=0.45
-Tau <- 0.45 #  Kendall's Tau between A and B.
+Tau <- 0.45 #  Kendall Tau between A and B.
 # Suppose that the F=0.99 for either A and B provides a common risk level when they
 # are considered in isolation. But what if A and B are rivers that join and joint
 # FF=0.99 at their union is of interest?

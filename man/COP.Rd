@@ -156,7 +156,7 @@ text(+2,-2, "reflect=3", col=2); text(-2,+2, "reflect=4", col=2) #}
 # Similar example to previous, but COP() can handle the reflection within a
 # parameter list ,and the reflect, being numeric here, is converted to
 # character internally.
-T12 <- CLcop(tau=0.67)$para # Kendall tau of 0.67
+T12 <- CLcop(tau=0.67)$para # Kendall Tau of 0.67
 T12 <- list(cop=CLcop, para=T12, reflect=2) # reflected to upper tail dependency
 UV  <- simCOP(n=1000, cop=COP, para=T12) # }
 }

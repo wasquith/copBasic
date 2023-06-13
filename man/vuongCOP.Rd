@@ -58,7 +58,7 @@ The \code{vuongCOP} function along with \code{\link{kullCOP}} and features of fu
 For an example application, imagine a problem of say low springflow risk at \dQuote{nearby springs} that jointly should converge in the lower tail because drought usually has a strong regional impact. First, it is necessary to form a reflection of the \emph{Gumbel--Hougaard copula} (\eqn{\mathbf{GH}(u,v; \Theta_{\mathbf{GH}})}; \code{\link{GHcop}}) but parameter estimation using \eqn{\tau_\mathbf{C}} is the same because sample \eqn{\hat\tau_K} is invariant to reflection.
 \preformatted{
   "rGHcop" <- function(u,v, ...) { u + v - 1 + GHcop(1-u, 1-v, ...) }
-  set.seed(385) # setting so reported quantities here are reproducible
+  set.seed(385) # setting so that reported quantities here are reproducible
 }
 The prior code also sets a seed on the pseudo-random number generator so that reported values here are reproducible. The reflected \eqn{\mathbf{GH}(u,v; \Theta_{\mathbf{GH}})} is denoted \eqn{\mathbf{rGH}(u,v; \Theta_{\mathbf{rGH}})}.
 
@@ -69,7 +69,7 @@ Second, the \eqn{\mathbf{PSP}(u,v)} copula (\code{\link{PSP}}) is chosen as the 
 }
 By inspection of the so-produced graphic, it is obvious that there is contraction in the lower-left corner of the plot, which is a geometric representation of tail dependency. The lower-tail dependency thus phenomenalogically says that there is joint interconnect during low springflow conditions---both springs are likely to be at low flow simultaneously. The variable \code{UV} contains the bivariate data as uniform variables (nonexceedance probabilities \eqn{u} and \eqn{v}).
 
-The \emph{Plackett copula} (\eqn{\mathbf{PL}(u,v; \Theta_{\mathbf{PL}})}; \code{\link{PLACKETTcop}}) and the \eqn{\mathbf{rGH}(u,v; \Theta_{\mathbf{rGH}})} copula are chosen as candidate models of the \dQuote{unknown} parent. Both \eqn{\mathbf{PL}} and \eqn{\mathbf{rGH}} copulas use different \dQuote{measures of association} for their parameter estimation. So next, sample estimates of the copula parameters using \emph{Schweizer and Wolff's Sigma} \eqn{\hat\sigma_\mathbf{C}}. The sample value computations and parameter estimates also are set as shown in the following code:
+The \emph{Plackett copula} (\eqn{\mathbf{PL}(u,v; \Theta_{\mathbf{PL}})}; \code{\link{PLACKETTcop}}) and the \eqn{\mathbf{rGH}(u,v; \Theta_{\mathbf{rGH}})} copula are chosen as candidate models of the \dQuote{unknown} parent. Both \eqn{\mathbf{PL}} and \eqn{\mathbf{rGH}} copulas use different \dQuote{measures of association} for their parameter estimation. Next, sample estimates of the copula parameters using \emph{Schweizer and Wolff Sigma} \eqn{\hat\sigma_\mathbf{C}}. The sample value computations and parameter estimates also are set as shown in the following code:
 \preformatted{
   Wolf   <- wolfCOP(para=UV, as.sample=TRUE) # 0.496943
   paraPL <- uniroot(function(p)
@@ -78,7 +78,7 @@ The \emph{Plackett copula} (\eqn{\mathbf{PL}(u,v; \Theta_{\mathbf{PL}})}; \code{
                 Wolf - wolfCOP(cop=rGHcop,      para=p), c(1,30))$root
 }
 
-\emph{STEP 1---Compute Kullback--Leibler sample size:} The Kullback--Leibler divergences (\eqn{\mathrm{KL}(f|g)} and \eqn{\mathrm{KL}(g|f)}) are computed (\code{\link{kullCOP}}) for the evaluation of the sample size as appropriate for distinguishing between the two candidate copulas 95 percent of the time. The Kullback--Leibler sample size (\eqn{n_{f\!g}}) also is computed as the following code illustrates and provides additional commentary.
+\emph{STEP 1---Compute Kullback--Leibler sample size:} The Kullback--Leibler Divergences (\eqn{\mathrm{KL}(f|g)} and \eqn{\mathrm{KL}(g|f)}) are computed (\code{\link{kullCOP}}) for the evaluation of the sample size as appropriate for distinguishing between the two candidate copulas 95 percent of the time. The Kullback--Leibler sample size (\eqn{n_{f\!g}}) also is computed as the following code illustrates and provides additional commentary.
 \preformatted{
   KL <- replicate(20, kullCOP(cop1=PLcop,  para1=paraPL,       # CPU intensive
                               cop2=rGHcop, para2=paraGH, n=1E5)$KL.sample.size)
@@ -171,7 +171,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 \keyword{copula (density)}
 \keyword{inference}
 \keyword{goodness-of-fit}
-\concept{Vuong procedure}
+\concept{Vuong Procedure}
 \concept{Akaike}
 \concept{AIC}
 \concept{BIC}

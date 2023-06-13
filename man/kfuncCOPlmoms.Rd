@@ -65,7 +65,7 @@ The L-moments of Kendall Functions appear to be not yet fully researched. An int
   }
   LMR <- data.frame(Rho=Rhos, Theta=Thetas, L1=L1, T2=T2, T3=T3, T4=T4)
   plot(LMR$Rho, LMR$T2, ylim=c(-0.04, 0.5), xlim=c(0,1),
-       xlab="Spearman's Rho or coefficient of L-variation",
+       xlab="Spearman Rho or coefficient of L-variation",
        ylab="L-moment ratio", type="l", col=1) # black
   lines(LMR$Rho, LMR$T3, col=2)        # red
   lines(LMR$Rho, LMR$T4, col=3)        # green
@@ -98,7 +98,7 @@ theta <- PLpar(UV[,1], UV[,2]); zs <- seq(0.01,0.99, by=.01) # for later
 Z  <- PLcop(UV[,1], UV[,2], para=theta); KF <- kfuncCOP(Z, cop=PLcop, para=theta)
 
 # Compute L-moments of the "Kendall function" and the sample versions
-# Note again though that the L-moment are for the distribution of the Z!
+# and again see that the L-moment are for the distribution of the Z!
 KNFlmr <- kfuncCOPlmoms(cop=PLcop, para=theta); SAMlmr <- lmomco::lmoms(Z)
 knftxt <- paste0("Kendall L-moments: ",
                  paste(round(KNFlmr$lambdas, digits=4), collapse=", "))
@@ -117,7 +117,7 @@ points(knf_meanZ, knf_mean, pch=16, col=4, cex=4) # big blue dot
 points(sam_meanZ, sam_mean, pch=16, col=5, cex=2) # smaller pale blue dot
 lines(zs, zs-zs*log(zs), lty=2, lwd=0.8) # dash ref line for independence
 text(0.2, 0.30, knftxt, pos=4, cex=0.8); text(0.2, 0.25, samtxt, pos=4, cex=0.8)
-text(0.2, 0.18, paste0("Note the uniform distribution of the ",
+text(0.2, 0.18, paste0("Notice the uniform distribution of the ",
                        "vertical axis rug."), cex=0.7, pos=4) #}
 }
 \keyword{copula (characteristics)}

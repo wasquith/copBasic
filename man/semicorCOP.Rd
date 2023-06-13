@@ -55,7 +55,7 @@ sd(  unlist(run[3,])) # topright.semicor   Carlo simulation.)
 #  standard deviations           (0.038883)        (0.073392)        (0.073942)
 # Joe (2014, p. 72) shows: rhoN = 0.4_____, rhoN--= 0.132___, rhoN++= 0.415___
 #  standard deviations           (not avail)       (0.08____)        (0.07____)
-# We see alignment with Joe's results with his n=600. #}
+# We see alignment with the results of Joe with his n=600. #}
 
 \dontrun{
 p <- 0.5 # Reasonable strong positive association for the Raftery copula,

@@ -144,7 +144,7 @@ Pos'ly quadrant dependency \tab PQD \tab \code{\link{isCOP.PQD}} \tab bivariate 
 Permutation symmetry \tab \eqn{\mathrm{permsym}} \tab \code{\link{isCOP.permsym}} \tab copula symmetry\cr
 Radial symmetry \tab \eqn{\mathrm{radsym}} \tab \code{\link{isCOP.radsym}} \tab copula symmetry\cr
 Skewness (Joe, 2014) \tab \eqn{\eta(p; \psi)} \tab \code{\link{uvskew}} \tab bivariate skewness\cr
-Kullback--Leibler divergence \tab \eqn{\mathrm{KL}(f|g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
+Kullback--Leibler Divergence \tab \eqn{\mathrm{KL}(f|g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
 KL sample size \tab \eqn{n_{f\!g}} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
 The Vuong Procedure \tab \eqn{{-}{-}} \tab \code{\link{vuongCOP}} \tab bivariate inference\cr
 Spectral measure \tab \eqn{H(w)} \tab \code{\link{spectralmeas}} \tab extremal dependency inference\cr
@@ -217,7 +217,7 @@ With the following code, these bounding return-period values are readily compute
   lmomco::prob2T(  COP(q,q, cop=GHcop, para=3.055)) #  797.110
   lmomco::prob2T(duCOP(q,q, cop=GHcop, para=3.055)) # 1341.438
 }
-An early source (in 2005) by some of those authors cited on p. 151 of Salvadori \emph{et al.} (2007; their citation \dQuote{[67]}) shows \eqn{T_{q;\,\mathrm{dual}} = 798} years---a rounding error seems to have been committed. Finally just for reference, a Gumbel--Hougaard copula having \eqn{\Theta = 3.055} corresponds to an analytical \emph{Kendall's Tau} (see \code{\link{GHcop}}) of \eqn{\tau \approx 0.673}, which can be verified through numerical integration available from \code{\link{tauCOP}} as:
+An early source (in 2005) by some of those authors cited on p. 151 of Salvadori \emph{et al.} (2007; their citation \dQuote{[67]}) shows \eqn{T_{q;\,\mathrm{dual}} = 798} years---a rounding error seems to have been committed. Finally just for reference, a Gumbel--Hougaard copula having \eqn{\Theta = 3.055} corresponds to an analytical \emph{Kendall Tau} (see \code{\link{GHcop}}) of \eqn{\tau \approx 0.673}, which can be verified through numerical integration available from \code{\link{tauCOP}} as:
 \preformatted{
   tauCOP(cop=GHcop, para=3.055, brute=TRUE) # 0.6726542
 }
@@ -264,7 +264,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 set.seed(6234) # setup covariance based on parameter "t" and the "root" parameter
 print(uniroot(afunc, c(0,0.5))) # "t" by simulation = 0.1023742
 # Nelsen reports that if theta appox. 0.103 then covariance of U and V is zero.
-# So one will have mutually completely dependent uncorrelated uniform variables!
+# So, one will have mutually completely dependent uncorrelated uniform variables!
 
 # Let us check some familiar measures of association:
 rhoCOP( cop=MCDURV, para=0.1023742) # Spearman Rho = 0.005854481 (near zero)

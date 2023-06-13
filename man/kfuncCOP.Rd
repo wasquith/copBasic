@@ -74,7 +74,7 @@ kmeasCOP(z, cop=NULL, para=NULL, wrtV=FALSE, as.sample=FALSE,verbose=FALSE,...)
   theo.kendF <- kfuncCOP(Z, cop=P) # theo. Kendall func, numeric integration
   plot(Z, kendF, type="l", col=3, lwd=4, lty=2, xlim=c(0,1), ylim=c(0,1),
        xlab="COPULA(u,v) VALUE [JOINT PROBABILITY]",
-       ylab="KENDALL FUNCTION, A NONEXCEEDANCE PROBABILITY") # analytical
+       ylab="KENDALL FUNCTION, AS NONEXCEEDANCE PROBABILITY") # analytical
   points(Z,     kendF, col=3, lwd=1, lty=2, pch=16) # green (theo. values)
   points(Z, emp.kendF, col=4, lwd=2, cex=1.5)       # blue (empirical values)
   lines(Z, theo.kendF, col=2) # red (theoretical line by numerical integration)
@@ -84,7 +84,7 @@ The figure so produced shows that the theoretical relation in Joe (2014) is corr
 
 Now consider a more comprehensive demonstration using the \code{\link{N4212cop}} copula with some relatively weak dependence in \eqn{\Theta = 1.17}.
 \preformatted{
-  Theta <- 1.17; print(rhoCOP(cop=N4212cop, para=Theta)) # Spearman rho = 6/10
+  Theta <- 1.17; print(rhoCOP(cop=N4212cop, para=Theta)) # Spearman Rho = 6/10
   Z <- sort(c(0.01, seq(0,1, by=0.05), 0.99))      # ** Joint probabilities **
   UV <- simCOP(n=16000,      cop=N4212cop,   para=Theta, graphics=TRUE)
   empir.kendF <- kfuncCOP(Z, as.sample=TRUE, para=UV, ctype="weibull")
@@ -92,7 +92,7 @@ Now consider a more comprehensive demonstration using the \code{\link{N4212cop}}
   kwrtV       <- kfuncCOP(Z, cop=N4212cop,   para=Theta, wrtV=TRUE )
   plot(Z, empir.kendF, type="p", col=2, lwd=7, lty=2, xlim=c(0,1),ylim=c(0,1),
        xlab="COPULA(u,v) VALUE [JOINT PROBABILITY]",
-       ylab="KENDALL FUNCTION, A NONEXCEEDANCE PROBABILITY")
+       ylab="KENDALL FUNCTION, AS NONEXCEEDANCE PROBABILITY")
   abline(0,1, lty=2, lwd=0.8); mtext("Kendall Functions: N4212(1.17) Copula")
   lines(Z, kwrtU, col=4, lwd=4, lty=2); lines(Z, kwrtV, col=3, lwd=1, lty=2)
 }
@@ -106,7 +106,7 @@ The figure so produced again shows congruence between the two theoretical comput
   kwrtV       <- kfuncCOP(Z, cop=PLACKETTcop,   para=Theta, wrtV=TRUE )
   plot(Z, empir.kendF, type="p", col=2, lwd=7, lty=2, xlim=c(0,1),ylim=c(0,1),
        xlab="COPULA(u,v) VALUE [JOINT PROBABILITY]",
-       ylab="KENDALL FUNCTION, A NONEXCEEDANCE PROBABILITY")
+       ylab="KENDALL FUNCTION, AS NONEXCEEDANCE PROBABILITY")
   abline(0,1, lty=2, lwd=0.8); mtext("Kendall Function: Plackett Copula")
   lines(Z, kwrtU, col=4, lwd=4, lty=2); lines(Z, kwrtV, col=3, lwd=1, lty=2)
 }
@@ -228,6 +228,5 @@ plot(zs, kmeasCOP(zs, cop=GHcop, para=5), log="y", type="l", lwd=4,
 \concept{Kendall distribution function}
 \concept{Kendall function}
 \concept{Kendall measure}
-\concept{decomposition of Kendall tau}
-\concept{decomposition of Kendall's tau}
+\concept{decomposition of Kendall Tau}
 \keyword{literature errors and inconsistencies}

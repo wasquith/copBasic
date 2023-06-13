@@ -39,7 +39,7 @@ Now, let us compute the L-comoments from the \pkg{lmomco} \R package for \eqn{n=
   lmomco::lcomoms2(UVa, nmom=4)$T3[2,1] # Only show L-coskew of V wrt U.
   lmomco::lcomoms2(UVb, nmom=4)$T3[2,1] # Only show L-coskew of V wrt U.
 }
-The L-coskew for the \eqn{\mathbf{PSP}} is about \eqn{-0.13} and that for the \eqn{\mathbf{PL}} copula is about zero (\eqn{<0.003}). L-cokurtosis provides a similar result if \code{'T3'} is changed to \code{'T4'}. The \eqn{\mathbf{PSP}} L-cokurtosis is about 0.04, whereas the \eqn{\mathbf{PL}} L-cokurtosis is about \eqn{<0.004}.
+The L-coskew for the \eqn{\mathbf{PSP}} is about \eqn{-0.13} and that for the \eqn{\mathbf{PL}} copula is about zero (\eqn{<0.003}). L-cokurtosis provides a similar result if \code{T3} is changed to \code{T4}. The \eqn{\mathbf{PSP}} L-cokurtosis is about 0.04, whereas the \eqn{\mathbf{PL}} L-cokurtosis is about \eqn{<0.004}.
 }
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
@@ -51,7 +51,7 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 \examples{
 # Radially symmetry is computationally intensive and relies on a gridded [0,1]x[0,1]
 # space and laborious check on equality. Thus these examples are commented out for
-# R's --timings check. Note that the proof of radial symmetry absent of algebraic
+# R --timings check. Note that the proof of radial symmetry absent of algebraic
 # manipulation or verification is difficult and subject to the fineness of the grid
 # to find a nonequality from which to immediately conclude FALSE.
 \dontrun{

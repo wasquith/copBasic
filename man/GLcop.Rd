@@ -92,9 +92,9 @@ Bform <- (2^(t+1) - 1 - taildepCOP(GLPMcop, para=c(t,3))$lambdaU*(2^t -1))^(-1/t
 print(c(Btheo, 4*Bform-1)) # [1] 0.8611903 0.8611900
 
 \dontrun{
-  # See the Note, but check Blomqvist Beta:
+  # See the Note section but check Blomqvist Beta here:
   blomCOP(cop=GLcop, para=c(6.043619))  # 0.8552863 (2p version)
-  blomCOP(cop=GLcop, para=c(5.6,0.3))   # 0.8552863 (1p version) }
+  blomCOP(cop=GLcop, para=c(5.6, 0.3))  # 0.8552863 (1p version) }
 }
 \keyword{Galambos copula}
 \keyword{Galambos copula (lower extreme value form)}
