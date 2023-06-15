@@ -2,9 +2,10 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.1.10 (2023-06-13)
+Changes in version 2.1.10 (2023-06-14)
 -  Minor grammar fixes in copBasic-package.Rd.
--  Minor grammar fixes in taildepCOP.Rd.
+-  Minor grammar fixes in taildepCOP.Rd and commenting out a print() in taildepCOP.R
+-  Cross reference to taildepCOP.Rd made within blomCOPss.Rd.
 -  Changes to COP.R with names(para) <- NULL on the returned copula value inheriting 
        the names of the parameter and added a reflect <- as.character(reflect) to 
        silently permit numerical values (as.integers) for match.arg() and expansion
@@ -29,8 +30,12 @@ Changes in version 2.1.10 (2023-06-13)
        "built" copBasic but only for the developer's use in testing.
 -  Extensive grammar editing of all the .Rd files from proofreading the user manual
        and searches and replacings of various terms to build more consistency. 
--  Variable renamed from T to TT in sectionCOP.R so to avoid visual conflict with how
-       syntax markup appears.
+-  Variable renamed from T to TT in diagCOP.R, isCOP.LTD, isCOP.RTI.R, isCOP.permsym.R, 
+       isCOP.radsym.R, N4212cop.R, PLACKETTcop.R, PLACKETTsim.R, sectionCOP.R, 
+       so to avoid visual conflict with how syntax markup appears. Such a situation
+       does not appear to extend to the letter F.
+-  simCOP.R received an as.integer(n) internally to ensure n is an integer to avoid 
+       warning looking like "user requested n=50.5 simulations" from derCOPinv().
 
 
 Changes in version 2.1.9 (2022-08-30)
