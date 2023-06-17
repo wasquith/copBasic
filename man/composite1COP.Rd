@@ -44,16 +44,16 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 alpha <- 0.24; beta <- 0.23; Theta1 <- NA;
 # W() does not use a parameter, but show how a parameter would be set if needed.
 para  <- list(alpha=alpha, beta=beta, cop1=W, para1=Theta1)
-t <- composite1COP(0.4,0.6,para)
-if( t != W(0.4,0.6)) message("Not equal as expected")
+t <- composite1COP(0.4, 0.6, para)
+if( t != W(0.4, 0.6)) message("Not equal as expected")
 
 # Next use this as a chance to check logic flow through
 # the various "compositing" operators and their as needed
 # dispatch to COP()
-my.para <- list(cop1=GHcop, para1=exp(+1.098612)+1,
+my.para <- list(cop1=GHcop, para1=exp(+1.098612) + 1,
                 cop2=PLcop, para2=exp(-1.203973),
-                alpha=.5, beta=0.25,
-                kappa=.1, gamma=.1,
+                alpha=0.5,  beta=0.25,
+                kappa=0.1,  gamma=0.1,
                 weights=c(0.95, 0.05))
 # uses cop1/2, para1/2, only weights
 nustarCOP(cop=convexCOP,     para=my.para)
