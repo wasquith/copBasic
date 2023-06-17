@@ -82,6 +82,8 @@ if(is.na(spara[1])) { # now a fittable combination is not guaranteed
 \keyword{Frechet Family copula}
 \keyword{copula (formulas)}
 \keyword{copula}
+\keyword{copula (comprehensive)}
+\concept{comprehensive copula}
 \concept{Linear Spearman copula}
 \concept{Linear Spearman}
 

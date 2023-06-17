@@ -22,7 +22,7 @@ P(u, v, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{M}}, \code{\link{W}}}
+\seealso{\code{\link{M}}, \code{\link{W}}, \code{\link{rhoCOP}}}
 \examples{
 P(c(0.4, 0, 1), c(0, 0.6, 1))
 
@@ -50,3 +50,4 @@ lmomco::lcomoms2(UV, nmom=4)
 \concept{independence copula}
 \concept{product copula}
 \keyword{copula}
+\keyword{Pearson correlation coefficient}
