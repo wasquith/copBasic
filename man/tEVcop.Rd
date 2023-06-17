@@ -83,7 +83,7 @@ print(c(lamU, lamU.copBasic, lamU.copula))
 
 \dontrun{
 # Convergence of tEVcop to HRcop as nu goes to infinity.
-nu <- 10^(seq(-4, 2, by=.1)) # nu right end point rho dependent
+nu <- 10^(seq(-4, 2, by=0.1)) # nu right end point rho dependent
 rho <- 0.7 # otherwise, expect to see 'zeros' errors on the plot()
 # Compute Blomqvist Beta (fast computation is reason for choice)
 btEV <- sapply(nu, function(n) blomCOP(tEVcop, para=c(rho, n)))
