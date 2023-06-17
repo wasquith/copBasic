@@ -83,6 +83,7 @@ message("Partial derivatives dU=", R[1], " and dUr=", R[3], "\n",
 \keyword{Plackett copula}
 \keyword{copula (formulas)}
 \keyword{copula (density)}
+\keyword{copula (comprehensive)}
 \concept{comprehensive copula}
 \keyword{copula}
 \keyword{Joe (2014) Examples and Exercises}
