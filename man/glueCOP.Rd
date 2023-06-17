@@ -36,7 +36,7 @@ The following descriptions list in detail the structure and content of the \code
 Erdely, A., 2017, Copula-based piecewise regression (chap. 5) \emph{in} Copulas and dependence models with applications---Contributions in honor of Roger B. Nelsen, \emph{eds.} Flores, U.M., Amo Artero, E., Durante, F., \enc{Sánchez}{Sanchez}, J.F.: Springer, Cham, Switzerland, ISBN 978--3--319--64220--9.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{composite3COP}}, \code{\link{convexCOP}}
+\seealso{\code{\link{COP}}, \code{\link{breveCOP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{composite3COP}}, \code{\link{convexCOP}}
 }
 \examples{
 \dontrun{
