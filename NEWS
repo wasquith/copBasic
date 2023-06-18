@@ -2,7 +2,7 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.1.10 (2023-06-16)
+Changes in version 2.2.1 (2023-06-18)
 -  Minor grammar fixes in copBasic-package.Rd.
 -  Minor grammar fixes in taildepCOP.Rd and commenting out a print() in taildepCOP.R
 -  Cross reference to taildepCOP.Rd made within blomCOPss.Rd.
@@ -39,6 +39,13 @@ Changes in version 2.1.10 (2023-06-16)
 -  Added breveCOP.R/Rd for adding permutation asymmetry to a coupla and this required
        updates to copBasic-package.Rd, minor indexing changes, and cross-linking
        with the other "compositing" coupla (glue, convex, and composite).
+-  Added s argument to mleCOP() with the overhaul too of the verbose and messaging
+       one can see by simulation the current iteration of the optimizing in U,V
+       plotting. This is mostly for teaching purposes but might be useful to many.
+-  Added an example in mleCOP.Rd concerning a test using the breveCOP() that has
+       been added for this version of the package. Demonstration then made of
+       estimation for a simple asymmetric addition to a copula (Plackett choosen).
+-  DESCRIPTION had "asymmetry extension" added to it to hint at breveCOP().
 
 
 Changes in version 2.1.9 (2022-08-30)
