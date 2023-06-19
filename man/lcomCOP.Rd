@@ -75,9 +75,9 @@ bilmoms(cop=composite2COP, n=10000, para=para, sobol=TRUE)$bilcomoms$T3
 # substantially slower and less elegant means in bilmoms().}
 
 \dontrun{
-# The following Spearman Rho and L-coskew values a predicted for a monitoring location
-# of relation between peak streamflow (V) and time into the water year (U) where
-# U and V are "U-statistics."
+# The following Spearman Rho and L-coskew values are predicted for a monitoring
+# location of the relation between peak streamflow (V) and time into the
+# water year (U) where U and V are "U-statistics."
 site_srho  <-  0.15536430
 site_T3_12 <-  0.03866056
 site_T3_21 <- -0.03090144
