@@ -2,7 +2,7 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
-Changes in version 2.2.1 (2023-06-18)
+Changes in version 2.2.0 (2023-06-19)
 -  Minor grammar fixes in copBasic-package.Rd.
 -  Minor grammar fixes in taildepCOP.Rd and commenting out a print() in taildepCOP.R
 -  Cross reference to taildepCOP.Rd made within blomCOPss.Rd.
@@ -11,7 +11,9 @@ Changes in version 2.2.1 (2023-06-18)
        silently permit numerical values (as.integers) for match.arg() and expansion
        of the Examples in COP.Rd. Some other adjustments in the handling of the para
        when it is a list stemming from checks with composite2COP() in the bilmoms()
-       and kullCOP() functions.
+       and kullCOP() functions. Added example showing the use of the reflection via
+       parameter list to the long-standing version of using specific copula
+       redefinition options.
 -  Changed bilmoms.R and kullCOP.R by adding a scrambling argument for the Sobol
        sequences because randtoolbox::sobol() has disabled the scrambling for which
        copBasic was using scrambling=3 (since version 2.0.2). The default for
@@ -45,7 +47,7 @@ Changes in version 2.2.1 (2023-06-18)
 -  Added an example in mleCOP.Rd concerning a test using the breveCOP() that has
        been added for this version of the package. Demonstration then made of
        estimation for a simple asymmetric addition to a copula (Plackett choosen).
--  DESCRIPTION had "asymmetry extension" added to it to hint at breveCOP().
+-  DESCRIPTION has "asymmetry extension" added to it to hint at breveCOP().
 
 
 Changes in version 2.1.9 (2022-08-30)
