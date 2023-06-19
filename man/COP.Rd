@@ -152,15 +152,17 @@ densityCOPplot(RFcop4, para=p, contour.col=1, deluv=d, ploton=FALSE)
 text(-2,-2, "reflect=1", col=2); text(+2,+2, "reflect=2", col=2)
 text(+2,-2, "reflect=3", col=2); text(-2,+2, "reflect=4", col=2)
 
-# To show how the reflection can be alternatively specified and avoid in
-# this case making four Raferty functions, pass by a list para argument.
-densityCOPplot(COP, para=list(reflect=1, cop=RFcop, para=p), deluv=d,
+# To show how the reflection can be alternatively specified and avoid in this case
+# making four Raferty functions, pass by a list para argument. Also, demonstrate
+# that cop1 --> cop and para1 --> para are the same in use of the function. This
+# provides some nomenclature parallel to the other compositing functions.
+densityCOPplot(COP, para=list(reflect=1, cop1=RFcop, para=p ), deluv=d,
                           contour.col=1, drawlabels=FALSE)
-densityCOPplot(COP, para=list(reflect=2, cop=RFcop, para=p), deluv=d,
+densityCOPplot(COP, para=list(reflect=2, cop= RFcop, para1=p), deluv=d,
                           contour.col=2, drawlabels=FALSE, ploton=FALSE)
-densityCOPplot(COP, para=list(reflect=3, cop=RFcop, para=p), deluv=d,
+densityCOPplot(COP, para=list(reflect=3, cop1=RFcop, para1=p), deluv=d,
                           contour.col=3, drawlabels=FALSE, ploton=FALSE)
-densityCOPplot(COP, para=list(reflect=4, cop=RFcop, para=p), deluv=d,
+densityCOPplot(COP, para=list(reflect=4, cop= RFcop, para=p ), deluv=d,
                           contour.col=4, drawlabels=FALSE, ploton=FALSE) #}
 
 \dontrun{
