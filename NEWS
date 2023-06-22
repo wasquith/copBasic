@@ -2,6 +2,12 @@
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
 
+Changes in version 2.2.1 (2023-06-21)
+-  Extension of breveCOP() to have a breve argument that trumps any inside a para list
+       with subordinate extension that a breve inside para trumps beta. This has an
+       effect of working more flexibility with composite2COP() and composite3COP().
+
+
 Changes in version 2.2.0 (2023-06-19)
 -  Minor grammar fixes in copBasic-package.Rd.
 -  Minor grammar fixes in taildepCOP.Rd and commenting out a print() in taildepCOP.R
