@@ -38,7 +38,7 @@ The following descriptions list in detail the structure and content of the \code
 
 The function silently restricts the \eqn{\beta} to its interval as defined, but parameter transform might be useful in some numerical optimization schemes. The following recipe is useful for transform from a parameter in numerical optimization to the asymmetry parameter:
 \preformatted{
-   BREVEpfunc <- function(p) { return(2 * pnorm(p[1]) - 1) }       # [-1  ,   +1]
+   BREVEpfunc <- function(p) { return(2 * pnorm(p[1]) - 1)       } # [-1  , +1  ]
    BREVEifunc <- function(p) { return(   (qnorm(p[1]) + 1) / 2 ) } # [-Inf, +Inf]
 }
 }
@@ -51,6 +51,12 @@ dependence: Journal of Applied Statistics, v. 47, no. 9, pp. 1587--1615, \doi{10
 \examples{
 para <- list(breve=0.24, cop1=FRECHETcop, para1=c(0.4, 0.56))
 breveCOP(0.87, 0.35, para=para) # 0.282743
+
+betas <- seq(-1,1, by=0.01)
+bloms <- sapply(betas, function(b) {
+             breveCOP(0.15, 0.25, para=list(cop=GLPMcop, para=c(2, 2), beta=b))
+         } )
+plot(betas, bloms, type="l", main="GLPMcop(u,v; 2,2) by breveCOP(beta)")
 
 \dontrun{
   # Notice the argument cop and para name adjustments to show that
