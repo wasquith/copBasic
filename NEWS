@@ -1,6 +1,11 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.2.3 (2023-NN-NN)
+-  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
+     adjustments to Examples therein.
+-  Added shuffles of W and M as Wshuf() and Mshuf(), respectively.
+
 
 Changes in version 2.2.2 (2023-10-17)
 -  Added LzCOPpermsym() as "by far the most interesing" measure of permutation
