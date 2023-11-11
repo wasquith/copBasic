@@ -5,6 +5,7 @@ Changes in version 2.2.3 (2023-NN-NN)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
 -  Added shuffles of W and M as Wshuf() and Mshuf(), respectively.
+-  Added ordinal sums as ORDSUMcop() following Nelsen (2006, pp. 63-64).
 
 
 Changes in version 2.2.2 (2023-10-17)
