@@ -19,7 +19,7 @@ ORDSUMcop(u,v, para=list(cop=W, para=NA, part=c(0,1)), ...)
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{v}{Nonexceedance probability \eqn{v} in the \eqn{Y} direction;}
-  \item{para}{A list of sublists for the coupla, parameters, and partitions (see \bold{Examples}) and some allowance for intelligent in fill of \code{para} is made within the sources; and}
+  \item{para}{A list of sublists for the coupla, parameters, and partitions (see \bold{Examples}) and some attempt for intelligent in-fill of \code{para} is made within the sources (the default \code{para} is an example for which \code{cop} and \code{para} elements are converted to lists). The user is responsible that \code{part} element properly canvases by end-point alignment all of \eqn{\mathcal{I}^2}; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
@@ -37,10 +37,10 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
   UV <- simCOP(n=100, cop=ORDSUMcop, para=para, ploton=FALSE)
   plot(c(0,1), c(0,1), xlab="U, NONEXCEEDANCE PROBABILITY",
                        ylab="V, NONEXCEEDANCE PROBABILITY")
-  for(k in seq_len(length(para$part))) {
+  for(k in seq_len(length(para$part))) {         #  to draw the partitions
     a <- para$part[[k]][1]; b <- para$part[[k]][2]
     polygon(c(a, b, b, a, a), c(a,a,b,b,a), lty=2, lwd=0.8, col="lightgreen")
-    text((a+b)/2, (a+b)/2, k, cex=3, col="blue")
+    text((a+b)/2, (a+b)/2, k, cex=3, col="blue") # numbered by partition
   }
   points(UV, pch=21, cex=0.8, col=grey(0.1), bg="white") #}
 
@@ -50,10 +50,10 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
   UV <- simCOP(n=100, cop=ORDSUMcop, para=para, ploton=FALSE)
   plot(c(0,1), c(0,1), xlab="U, NONEXCEEDANCE PROBABILITY",
                        ylab="V, NONEXCEEDANCE PROBABILITY")
-  for(k in seq_len(length(para$part))) {
+  for(k in seq_len(length(para$part))) {         #  to draw the partitions
     a <- para$part[[k]][1]; b <- para$part[[k]][2]
     polygon(c(a, b, b, a, a), c(a,a,b,b,a), lty=2, lwd=0.8, col="lightgreen")
-    text((a+b)/2, (a+b)/2, k, cex=3, col="blue")
+    text((a+b)/2, (a+b)/2, k, cex=3, col="blue") # numbered by partition
   }
  points(UV, pch=21, cex=0.8, col=grey(0.1), bg="white") #}
 
