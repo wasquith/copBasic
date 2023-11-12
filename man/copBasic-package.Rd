@@ -10,6 +10,7 @@ The \pkg{copBasic} package is oriented around \emph{bivariate copula theory} and
 
 
 \bold{Helpful Navigation of Copulas Implemented in the copBasic Package}
+
 Some entry points to the copulas implemented are listed in the \bold{Table of Copulas}:
 \tabular{lclr}{
 \bold{Name} \tab \bold{Symbol} \tab \bold{Function} \tab \bold{Concept} \cr
@@ -100,7 +101,7 @@ Concerning \emph{goodness-of-fit} and although not quite the same as copula prop
 
 \emph{Bivariate skewness} measures are supported in the functions \code{\link{joeskewCOP}} (\code{\link{nuskewCOP}} and \code{\link{nustarCOP}}) and \code{\link{uvlmoms}} (\code{\link{uvskew}}). Extensive discussion and example computations of bivariate skewness are provided in the \code{\link{joeskewCOP}} documentation.  Lastly, so-called \emph{bivariate L-moments} and \emph{bivariate L-comoments} of a copula are directly computable in \code{\link{bilmoms}} (though that function using Monte Carlo integration is deprecated) and \code{\link{lcomCOP}} (direct numerical integration). The \code{\link{lcomCOP}} function is the theoretical counterpart to the \emph{sample L-comoments} provided in the \pkg{lmomco} package.
 
-Bivariate random simulation by several functions is identified in the previous table. The \pkg{copBasic} package explicitly uses only \emph{conditional simulation} also known as the \emph{conditional distribution method} for \emph{random variate} generation following Nelsen (2006, pp. 40--41) (see also \code{\link{simCOPmicro}}, \code{\link{simCOP}}). The \emph{numerical derivatives} (\code{\link{derCOP}} and \code{\link{derCOP2}}) and their \emph{inversions} (\code{\link{derCOPinv}} and \code{\link{derCOPinv2}}) represent the foundation of the conditional simulation. There are other methods in the literature and available in other \R packages, and a comparison of some methods is made in the \bold{Examples} section of the Gumbel--Hougaard copula (\code{\link{GHcop}}).
+Bivariate random simulation methods by several functions are identified in the previous table. The \pkg{copBasic} package explicitly uses only \emph{conditional simulation} also known as the \emph{conditional distribution method} for \emph{random variate} generation following Nelsen (2006, pp. 40--41) (see also \code{\link{simCOPmicro}}, \code{\link{simCOP}}). The \emph{numerical derivatives} (\code{\link{derCOP}} and \code{\link{derCOP2}}) and their \emph{inversions} (\code{\link{derCOPinv}} and \code{\link{derCOPinv2}}) represent the foundation of the conditional simulation. There are other methods in the literature and available in other \R packages, and a comparison of some methods is made in the \bold{Examples} section of the Gumbel--Hougaard copula (\code{\link{GHcop}}).
 
 Several functions in \pkg{copBasic} make the distinction between \eqn{V} with respect to (\emph{wrt}) \eqn{U} and \eqn{U} \emph{wrt} \eqn{V}, and a guide for the nomenclature involving \emph{wrt} distinctions is listed in the following table:
 \tabular{lclr}{
@@ -173,7 +174,9 @@ The \bold{Table of Probabilities} that follows lists important relations between
 }
 The function \code{\link{jointCOP}} has considerable demonstration in its \bold{Note} section of the \bold{joint and} and \bold{joint or} relations shown through simulation and counting scenarios. Also there is a demonstration in the \bold{Note} section of function \code{\link{duCOP}} on application of the concepts of \bold{joint and} conditions, \bold{joint or} conditions, and importantly joint \bold{mutually exclusive or} conditions.
 
-Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters, \code{\link{composite2COP}} composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Finally, multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All seven functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features.
+\bold{Copula Construction Methods}
+
+Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters, \code{\link{composite2COP}} composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} as another and particularly interesting method of combining copulas.
 
 \tabular{cclr}{
 \bold{No. of copulas} \tab \bold{Combining Parameters} \tab \bold{Function} \tab \bold{Concept}\cr
@@ -185,6 +188,7 @@ Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, t
 \eqn{N} \tab \eqn{\omega_{i \in N}} \tab \code{\link{convexCOP}} \tab weighted copula combination\cr
 2 \tab \eqn{\gamma} \tab \code{\link{glueCOP}} \tab gluing of coupla\cr
 2 \tab \eqn{\bigl(\mathbf{C}_1 \ast \mathbf{C}_2 \bigr)} \tab \code{\link{prod2COP}} \tab copula multiplication\cr
+\eqn{N} \tab \eqn{\mathbf{C}_{\mathcal{J}i}} for \eqn{\mathcal{J}_{i \in N}} partitions \tab \code{\link{ORDSUMcop}} \tab ordinal sums of copulas\cr
 }
 
 \bold{Useful Copula Relations by Visualization}
