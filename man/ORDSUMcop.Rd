@@ -7,7 +7,7 @@ Compute ordinal sums of a copula (Nelsen, 2006, p. 63) within \eqn{\mathcal{I}^2
 
 \deqn{\mathbf{C}\bigl(u,v; \mathcal{J}_i, \mathbf{C}_i, \Theta_i, i \in 1,2,\cdots,n\bigr) = a_i + (b_i-a_i)\mathbf{C}_i\biggl(\frac{u-a_i}{b_i-a_i},\, \frac{u-a_i}{b_i-a_i};  \Theta_i\biggr)\  \mbox{for}\ (u,v) \in \mathcal{J}^2\mbox{,}}
 
-for points within the partitions and otherwise outside the partitions as
+for points within the partitions, and for points otherwise outside the partitions the coupla is given by
 
 \deqn{\mathbf{C}\bigl(u,v; \mathcal{J}_i, \mathbf{C}_i, i \in 1,2,\cdots,n\bigr) = \mathbf{M}(u,v)\  \mathrm{for}\ (u,v) \ni \mathcal{J}^2\mbox{, and}}
 
@@ -73,4 +73,3 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \concept{Ordinal Sums}
 \keyword{copula}
 \keyword{ordinal sums}
-
