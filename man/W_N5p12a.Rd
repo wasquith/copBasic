@@ -1,7 +1,7 @@
 \encoding{utf8}
-\name{Wshuf}
-\alias{Wshuf}
-\title{Shuffles of \enc{Fréchet}{Frechet}--Hoeffding Lower-Bound Copula}
+\name{W_N5p12a}
+\alias{W_N5p12a}
+\title{Ordinal Sums of Lower-Bound Copula, Example 5.12a of Nelsen's Book}
 \description{
 Compute shuffles of \emph{\enc{Fréchet}{Frechet}--Hoeffding lower-bound copula} (Nelsen, 2006, p. 173), which is defined by partitioning \eqn{\mathbf{W}} within \eqn{\mathcal{I}^2} into \eqn{n} subintervals:
 \deqn{\mathbf{W}_n(u,v) = \mathrm{max}\biggl(\frac{k-1}{n}, u+v-\frac{k}{n} \biggr)}
@@ -12,7 +12,7 @@ and for points otherwise out side the partitions
 The support of \eqn{\mathbf{W}_n} consists of \eqn{n} line segments connecting coordinate pairs \eqn{\{(k-1)/n,\, k/n\}} and \eqn{\{k/n,\, (k-1)/n\}} as stated by Nelsen (2006). The \emph{Spearman Rho} (\code{\link{rhoCOP}}) is defined by \eqn{\rho_\mathbf{C} = 1 - (2/n^2)}, and the \emph{Kendall Tau} (\code{\link{tauCOP}}) by \eqn{\tau_\mathbf{C} = 1 - (2/n)}.
 }
 \usage{
-Wshuf(u, v, para=1, ...)
+W_N5p12a(u, v, para=1, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
@@ -27,12 +27,13 @@ Wshuf(u, v, para=1, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{W}}, \code{\link{Mshuf}}}
+\seealso{\code{\link{W}}, \code{\link{ORDSUMcop}}, \code{\link{M_N5p12b}}}
 \examples{
-Wshuf(0.4, 0.6, para=5)
+W_N5p12a(0.4, 0.6, para=5)
 
 \dontrun{
-  UV <- simCOP(1000, cop=Wshuf, para=4) # Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a)}
+  # Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a)
+  UV <- simCOP(1000, cop=W_N5p12a, para=4) # }
 }
 \keyword{copula (formulas)}
 \keyword{copula (limits/bounds)}
