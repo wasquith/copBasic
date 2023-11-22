@@ -29,7 +29,7 @@ ORDSUMcop(u,v, para=list(cop=W, para=NA, part=c(0,1)), ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{copBasic-package}}}
+\seealso{\code{\link{copBasic-package}}, \code{\link{W_N5p12a}}}
 \examples{
 \dontrun{
   para = list(cop=c(CLcop, M, PLcop, GHcop), para=list(4, NA, 0.1, c(3,4)),
