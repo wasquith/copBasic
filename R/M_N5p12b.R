@@ -1,4 +1,4 @@
-"Mshuf" <-
+"M_N5p12b" <-
 function(u,v, para=1, ...) {
   para <- as.integer(para[1])
   if(para < 1) {
