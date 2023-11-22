@@ -27,7 +27,7 @@ M_N5p12b(u, v, para=1, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{M}}, \code{\link{ORDSUMcop}}, \code{\link{Wshuf_N5p12a}}}
+\seealso{\code{\link{M}}, \code{\link{ORDSUMcop}}, \code{\link{W_N5p12a}}}
 \examples{
 M_N5p12b(0.4, 0.6, para=3)
 
