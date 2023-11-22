@@ -40,7 +40,7 @@ function(cop=NULL, para=NULL, ploton=TRUE, lines=TRUE,
     # Concerning the tmp handling, there seems to be cases in which empirical copulas
     # are being used with small sample sizes that can trigger a 'wrong sign in 'by' argument
     # error on the following sequence, if so, let us try reversing the sequence and if that
-    # fails then bail out enterly.
+    # fails then bail out entirely
     tmp <- NULL
     try(tmp <- seq(t+delu, 1-delu, by=delu), silent=FALSE)
     if(is.null(tmp)) {
