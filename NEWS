@@ -4,9 +4,18 @@
 Changes in version 2.2.3 (2023-NN-NN)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
--  Added shuffles of W and M as Wshuf() and Mshuf(), respectively.
+-  Added ordinal sums of W as W_N5p12a() following reproduction of
+      Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a).
+-  Added shuffles of M as M_N5p12b() following reproduction of
+      Nelsen (2006, exer. 5.12b, p. 173, fig. 5.3b).
 -  Added ordinal sums as ORDSUMcop() following Nelsen (2006, pp. 63-64).
 -  Updated copBasic-package.Rd with ORDSUMcop() entry into a table.
+-  Formatting edits in composite1COP.Rd and isCOP.permsym.Rd.
+-  Added silent=TRUE default to diagCOPatf(), COPinv(), and COPinv2(). The cascade of
+      NAs had become too much of a burden in an otherwise generally working
+      algorithm. So, original design ideals from 2008 where changed to silence
+      inversion failures.
+-  Added the copula of a circular uniform distribution copula as CIRCcop().
 
 
 Changes in version 2.2.2 (2023-10-17)
