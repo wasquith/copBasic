@@ -20,12 +20,14 @@ Upper-bounds copula \tab \eqn{\mathbf{M}(u,v)} \tab \code{\link{M}} \tab copula\
 \enc{Fréchet}{Frechet} Family copula \tab \eqn{\mathbf{FF}(u,v)} \tab \code{\link{FRECHETcop}} \tab copula\cr
 Ali--Mikhail--Haq copula \tab \eqn{\mathbf{AMH}(u,v)} \tab \code{\link{AMHcop}} \tab copula\cr
 Clayton copula \tab \eqn{\mathbf{CL}(u,v)} \tab \code{\link{CLcop}} \tab copula\cr
+Copula of uniform circle \tab \eqn{\mathbf{CIRC}(u,v)} \tab \code{\link{CIRCcop}} \tab copula\cr
 Farlie--Gumbel--Morgenstern (generalized) \tab \eqn{\mathbf{FGM}(u,v)} \tab \code{\link{FGMcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
 Gumbel--Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
 \enc{Hüsler}{Husler}--Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
 Joe B5 copula \tab \eqn{\mathbf{B5}(u,v)} \tab \code{\link{JOcopB5}} \tab copula\cr
 Nelsen eq.4-2-12 copula \tab \eqn{\mathbf{N4212cop}(u,v)} \tab \code{\link{N4212cop}} \tab copula\cr
+Ordinal Sums by Copula \tab \eqn{\mathbf{C}_\mathcal{J}(u,v)} \tab \code{\link{ORDSUMcop}} \tab copula\cr
 Pareto copula \tab \eqn{\mathbf{PA}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 Plackett copula \tab \eqn{\mathbf{PL}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 PSP copula \tab \eqn{\mathbf{PSP}(u,v)} \tab \code{\link{PSP}} \tab copula\cr
