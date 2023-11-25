@@ -295,6 +295,7 @@ lmomco::lcomoms2(simCOP(n=1000, cop=MCDURV, para=0.5), nmom=5) # Perfect pos. co
 \concept{copula theory}
 \keyword{L-comoments}
 \keyword{Nelsen (2006) Examples and Exercises}
+\keyword{Salvadori et al. (2007) Examples and Exercises}
 \keyword{return period (conditional)}
 \keyword{return period (secondary)}
 \keyword{Table of Copulas}
