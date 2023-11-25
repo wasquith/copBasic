@@ -11,7 +11,7 @@ for points within the partitions, and for points otherwise outside the partition
 
 \deqn{\mathbf{C}\bigl(u,v; \mathcal{J}_i, \mathbf{C}_i, i \in 1,2,\cdots,n\bigr) = \mathbf{M}(u,v)\  \mathrm{for}\ (u,v) \ni \mathcal{J}^2\mbox{, and}}
 
-let \eqn{\mathbf{C}_\mathcal{J}} be a convenient abbreviation for the copula. Finally, Nelsen (2006, theorem 3.2.1) states that a copula is an ordinal sum if and only if for a \eqn{t} if \eqn{\mathbf{C}(t,t)=t} for \eqn{t \in (0,1)}. The \emph{diagonal of a coupla} can be useful for quick assessment (see \bold{Examples}) of this theorem.
+let \eqn{\mathbf{C}_\mathcal{J}(u,v)} be a convenient abbreviation for the copula. Finally, Nelsen (2006, theorem 3.2.1) states that a copula is an ordinal sum if and only if for a \eqn{t} if \eqn{\mathbf{C}(t,t)=t} for \eqn{t \in (0,1)}. The \emph{diagonal of a coupla} can be useful for quick assessment (see \bold{Examples}) of this theorem.
 }
 \usage{
 ORDSUMcop(u,v, para=list(cop=W, para=NA, part=c(0,1)), ...)

@@ -1,9 +1,9 @@
 \encoding{utf8}
 \name{CIRCcop}
 \alias{CIRCcop}
-\title{Copula of a Circular Uniform Distribution}
+\title{Copula of Circular Uniform Distribution}
 \description{
-The \emph{Circular copula} of the coordinates \eqn{[X,Y]} of a point chosen at random on the unit circle (Nelsen, 2007, p. 56) is given by
+The \emph{Circular copula} of the coordinates \eqn{[X,Y]} of a point chosen at random on the unit circle (Nelsen, 2006, p. 56) is given by
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{M}(u,v) \mathrm{\ for\ }|u-v| > 1.2\mathrm{,}}
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{W}(u,v) \mathrm{\ for\ }|u+v-1| > 1.2\mathrm{,\ and}}
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \frac{u+v}{2} - \frac{1}{4} \mathrm{\ otherwise\ }\mathrm{.}}
@@ -12,7 +12,7 @@ The coordinates of the unit circle are given by
 \deqn{\mathrm{CIRC}(x,y) = \biggl(\frac{\mathrm{cos}\bigl(\pi(u-1)\bigr)+1}{2}, \frac{\mathrm{cos}\bigl(\pi(v-1)\bigr)+1}{2}\biggr)\mathrm{.}}
 }
 \usage{
-CIRCcop(u, v, ...)
+CIRCcop(u, v, as.circ=TRUE, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
@@ -34,10 +34,12 @@ CIRCcop(0.5, 1  ) # 0.50 halfway across in horizontal direction
 CIRCcop(1  , 0.5) # 0.50 halfway across in  vertical  direction
 
 \dontrun{
-  nsim <- 1000
+  nsim <- 2000
   rtheta <- runif(nsim, min=0, max=2*pi) # polar coordinate simulation
   XY <- data.frame(X=cos(rtheta)/2 + 1/2, Y=sin(rtheta)/2 + 1/2)
-  plot(XY, lwd=0.8, col="lightgreen", xaxs="i", yaxs="i")
+  plot(XY, lwd=0.8, col="lightgreen", xaxs="i", yaxs="i", las=1,
+           xlab="X OF UNIT CIRCLE OR NONEXCEEDANCE PROBABILITY U",
+           ylab="Y OF UNIT CIRCLE OR NONEXCEEDANCE PROBABILITY V")
   UV <- simCOP(nsim, cop=CIRCcop, lwd=0.8, col="salmon3", ploton=FALSE)
   theta <- 3/4*pi+0.1 # select a point on the upper left of the circle
   x <- cos(theta)/2 + 1/2; y <- sin(theta)/2 + 1/2 # coordinates
@@ -50,11 +52,21 @@ CIRCcop(1  , 0.5) # 0.50 halfway across in  vertical  direction
   segments(0, v, u, v, lty=2, lwd=2, col="salmon3")
   segments(u, 0, u, v, lty=2, lwd=2, col="salmon3")
   points(u, v, pch=16, cex=2,        col="salmon3")
-  arrows(x, y, u, v, code=3, lwd=2, angle=15)
+  arrows(x, y, u, v, code=2, lwd=2, angle=15) # arrow points from (X,Y) coordinate
+  # specified by angle theta in radians on the unit circle to the corresponding
+  # coordinate in (U,V) domain of uniform circular distribution copula
   Hemp2 <- sum(UV$U <= u & UV$V <= v) / nrow(UV) # about 0.22 as expected
   # Hemp1 and Hemp2 are about equal to each other and converge as nsim
   # gets very large, but the origin of the simulations to get to each
-  # are different: (1) one in polar coordinates and (2) by copula. # }
+  # are different: (1) one in polar coordinates and (2) by copula.
+  # Now, draw the level curve for the empirical Hs and as nsim gets large the two
+  # lines will increasingly plot on top of each other.
+  lshemp1 <- level.setCOP(cop=CIRCcop, getlevel=Hemp1, lines=TRUE, col="blue", lwd=2)
+  lshemp2 <- level.setCOP(cop=CIRCcop, getlevel=Hemp2, lines=TRUE, col="blue", lwd=2)
+  txt <- paste0("level curves for Pr[X <= x & Y <= y] and\n",
+                "level curves for Pr[U <= u & V <= v],\n",
+                "which equal each other as nsim gets large")
+  text(0.52, 0.52, txt, srt=-46, col="blue") # }
 
 \dontrun{
   # Nelsen (2007, ex. 3.2, p. 57) # Singular bivariate distribution with
@@ -103,3 +115,4 @@ CIRCcop(1  , 0.5) # 0.50 halfway across in  vertical  direction
 \keyword{copula (formulas)}
 \keyword{copula}
 \keyword{cicular copula}
+\keyword{Nelsen (2006) Examples and Exercises}
