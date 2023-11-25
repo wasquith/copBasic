@@ -16,6 +16,12 @@ Changes in version 2.2.3 (2023-NN-NN)
       algorithm. So, original design ideals from 2008 where changed to silence
       inversion failures.
 -  Added the copula of a circular uniform distribution copula as CIRCcop().
+-  Added silent=TRUE argument to level.curvesCOP() and level.curvesCOP2() as part of
+      silencing try() operations. Also, found nonparallelism between level.curvesCOP()
+      and level.curvesCOP2() with the later not having the try() operations. It is
+      left in the comments that it is unknown that the try() operation is still
+      needed or some deep legacy issue was involved when the EMPIRcop()-operations
+      interacted with the level.curvesCOP2().
 
 
 Changes in version 2.2.2 (2023-10-17)
