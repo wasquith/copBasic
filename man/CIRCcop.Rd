@@ -3,7 +3,7 @@
 \alias{CIRCcop}
 \title{Copula of Circular Uniform Distribution}
 \description{
-The \emph{Circular copula} of the coordinates \eqn{[X,Y]} of a point chosen at random on the unit circle (Nelsen, 2006, p. 56) is given by
+The \emph{Circular copula} of the coordinates \eqn{(x, y)} of a point chosen at random on the unit circle (Nelsen, 2006, p. 56) is given by
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{M}(u,v) \mathrm{\ for\ }|u-v| > 1.2\mathrm{,}}
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{W}(u,v) \mathrm{\ for\ }|u+v-1| > 1.2\mathrm{,\ and}}
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \frac{u+v}{2} - \frac{1}{4} \mathrm{\ otherwise\ }\mathrm{.}}
@@ -99,9 +99,9 @@ CIRCcop(1  , 0.5) # 0.50 halfway across in  vertical  direction
   UV <- simCOP(n=2000, col="darkgreen", cop=composite2COP, para=para)
   XY <- data.frame(X=(cos(pi*(UV$U-1))+1)/2, Y=(cos(pi*(UV$V-1))+1)/2)
   plot(XY, type="n", xlab=paste0("X OF CIRCULAR UNIFORM DISTRIBUTION OR\n",
-                                 "U IN NONEXCEEDANCD PROBABILITY OF SUCH"),
+                                 "NONEXCEEDANCD PROBABILITY OF U"),
                      ylab=paste0("Y OF CIRCULAR UNIFORM DISTRIBUTION OR\n",
-                                 "V IN NONEXCEEDANCD PROBABILITY OF SUCH"))
+                                 "NONEXCEEDANCD PROBABILITY OF V"))
   JK <- data.frame(U=1 - acos(2*XY$X - 1)/pi, V=1 - acos(2*XY$Y - 1)/pi)
   segments(x0=UV$U, y0=UV$V, x1=XY$X, y1=XY$Y, col="lightgreen", lwd=0.8)
   points(XY, lwd=0.8, col="darkgreen")
