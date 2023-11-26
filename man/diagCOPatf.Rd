@@ -77,3 +77,6 @@ AiB <- 10^(EventAj) + 10^(EventBj) # Joint probability 0.99 at the union
 \keyword{diagnostics}
 \keyword{copula (characteristics)}
 \concept{diagonal inversion}
+\keyword{copula (diagonal)}
+\keyword{copula (diagonal inversion)}
+
