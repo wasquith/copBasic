@@ -12,7 +12,7 @@ The coordinates of the unit circle are given by
 \deqn{\mathrm{CIRC}(x,y) = \biggl(\frac{\mathrm{cos}\bigl(\pi(u-1)\bigr)+1}{2}, \frac{\mathrm{cos}\bigl(\pi(v-1)\bigr)+1}{2}\biggr)\mathrm{.}}
 }
 \usage{
-CIRCcop(u, v, as.circ=TRUE, ...)
+CIRCcop(u, v, para=NULL, as.circ=FALSE, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
