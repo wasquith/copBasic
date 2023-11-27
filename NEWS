@@ -8,7 +8,7 @@ Changes in version 2.2.3 (2023-NN-NN)
       Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a).
 -  Added shuffles of M as M_N5p12b() following reproduction of
       Nelsen (2006, exer. 5.12b, p. 173, fig. 5.3b).
--  Added ordinal sums as ORDSUMcop() following Nelsen (2006, pp. 63-64).
+-  Added general ordinal sums as ORDSUMcop() following Nelsen (2006, pp. 63-64).
 -  Updated copBasic-package.Rd with ORDSUMcop() entry into a table.
 -  Formatting edits in composite1COP.Rd and isCOP.permsym.Rd.
 -  Added silent=TRUE default to diagCOPatf(), COPinv(), and COPinv2(). The cascade of
