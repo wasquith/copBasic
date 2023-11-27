@@ -2,7 +2,7 @@
 function(x, y, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor",
                ctype=c("weibull", "hazen", "bernstein", "checkerboard"),
                kumaraswamy=TRUE, plotonuv=TRUE, plotonxy=TRUE, adduv=FALSE, addxy=FALSE,
-               a=0, ff=pnorm(seq(-6, +6, by=0.1)), ...) {
+               a=0, ff=pnorm(seq(-5, +5, by=0.1)), ...) {
   ff <- c(.Machine$double.eps^0.5, ff, 1-.Machine$double.eps^0.5)
 
   if(is.matrix(x) || is.data.frame(x)) {
