@@ -1,11 +1,13 @@
- importFrom("grDevices", "dev.list", "rgb")
- importFrom("graphics", "abline", "contour", "lines", "mtext", "plot", "points")
+ importFrom("grDevices", "dev.list", "rgb", "grey")
+ importFrom("graphics", "abline", "axTicks", "axis", "contour", "lines", "mtext", "plot", "points")
  importFrom("stats", "approx", "complete.cases", "cor", "dnorm",
             "integrate", "median", "qnorm", "quantile", "runif", "var",
             "uniroot", "optimise", "optim", "pnorm", "pt", "qt", "sd",
             "dbeta", "pbeta")
  importFrom("randtoolbox", "halton", "sobol", "torus")
  importFrom("utils", "installed.packages")
+ importFrom("lmomco", "disfitqua", "lmrloc", "lmoms", "lmom2par", "par2qua", "pp",
+                      "rlmomco", "qlmomco", "vec2par")
 export(copBasic.fitpara.beta)
 export(AMHcop)
 export(CIRCcop)
