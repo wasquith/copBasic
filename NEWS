@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.3 (2023-NN-NN)
+Changes in version 2.2.3 (2023-11-30)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
 -  Added ordinal sums of W as W_N5p12a() following reproduction of
@@ -22,6 +22,11 @@ Changes in version 2.2.3 (2023-NN-NN)
       left in the comments that it is unknown that the try() operation is still
       needed or some deep legacy issue was involved when the EMPIRcop()-operations
       interacted with the level.curvesCOP2().
+-  Added bicoploc() as an experimental line-of-organic correlation using inversion
+      of a copula. This function is subject to overhaul or even removal but is
+      tendered to help a research question by a user.
+-  Updates to NAMESPACE to include graphic operations needed within bicoploc()
+      diagnostic plots and those functions needed from the lmomco R package.
 
 
 Changes in version 2.2.2 (2023-10-17)
