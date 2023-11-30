@@ -5,12 +5,11 @@
 \description{
 \emph{HIGHLY EXPERIMENTAL AND SUBJECT TO OVERHAUL OR REMOVAL}---Compute an analog to the \emph{line of organic correlation} (\emph{reduced major axis}) using the \emph{diagonal} of a copula.
 
-\deqn{\mathrm{Pr}[U \le u, V \le v] = \mathbf{C}(u,v)\mbox{.}}
+\deqn{\mathrm{Pr}[U \le u, V \le v] = \mathbf{C}(u,v) = f\mbox{.}}
 
 The primary diagonal is defined as
-\deqn{\mathbf{\delta}_\mathbf{C}(t) = \mathbf{C}(t,t)\mbox{,}}
-and the secondary diagonal is defined as
-\deqn{\mathbf{\delta}^{\star}_\mathbf{C}(t) = \mathbf{C}(t,1-t)\mbox{.}}
+\deqn{\mathbf{\delta}_\mathbf{C}(t) = \mathbf{C}(t,t) = f\mbox{.}}
+
 
 Two diagnostic plots can be plotted by the arguments available for this function. The plot for \eqn{(U,V)} coordinate nonexceedance probability domain along with the analyses involving the copula diagonal inversion comes first, which is followed by that for \eqn{(X,Y)} coordinate domain along with the well-known line of organic correlation by the method of L-moments and such a \dQuote{line} (could be a curve) by copula diagonal inversion.
 }
@@ -19,7 +18,8 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
          ctype=c("weibull", "hazen", "bernstein", "checkerboard"), kumaraswamy=TRUE,
          plotuv=TRUE, plotxy=TRUE, adduv=FALSE, addxy=FALSE, snv=FALSE, limout=TRUE,
          autoleg=TRUE, xleg="topleft", yleg=NULL, rugxy=TRUE, ruglwd=0.5,
-         a=0, ff=pnorm(seq(-5, +5, by=0.05)), verbose=TRUE, x=NULL, y=NULL, ...)
+         xlim=NULL, ylim=NULL, a=0, ff=pnorm(seq(-5, +5, by=0.1)), locdigits=6,
+         verbose=TRUE, x=NULL, y=NULL, ...)
 }
 \arguments{
   \item{xp}{Numeric vector giving paired data points of \eqn{X}. If this is a matrix or data frame, then the first and second columns are extracted for the \code{xp} and \code{yp} internall;}
@@ -36,6 +36,8 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   \item{adduv}{A logical when set true will not call the \code{plot()} function for \eqn{(U,V)} coordinate nonexceedance probability domain but the other graphical operations of lines and points will be called;}
   \item{addxy}{A logical when set true will not call the \code{plot()} function for \eqn{(X,Y)} coordinate domain but the other graphical operations of lines and points will be called;}
   \item{a}{Value for the plotting-position formula for \code{lmomco::pp()}, default is \code{a=0}, which specifies \emph{Weibull plotting positions};}
+  \item{xlim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the horizontal limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{xlim}, if not null, are inserted into a range computation for the limits to apply;}
+  \item{ylim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the vertical limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{ylim}, if not null, are inserted into a range computation for the limits to apply;}
   \item{snv}{A logical when set true will plot the \eqn{(U,V)} coordinate nonexceedance probability domain in units of standard normal variates;}
   \item{limout}{A logical when set true will plot the \eqn{(X,Y)} coordinate domain with horizontal and vertical axis limits inflated to the \code{xout} and \eqn{Y} predictions;}
   \item{autoleg}{A logical when set will draw a legend for the plots if the plots are requested. If the automatic legend is requested, then the \code{kumaraswamy} arugment is set true;}
@@ -43,25 +45,34 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   \item{yleg}{The value to become the argument \code{y} in the \code{legend()} call;}
   \item{rugxy}{Call \code{rug()} plotting operations on the \eqn{X} and \eqn{Y} values used in the parameter estimation of the parametric marginal distributions using the \code{xp} and \code{yp}, unless either or both have been overridden for the contents in \code{x} and (or) \code{y} arguments;}
   \item{ruglwd}{The line wide passed into \code{rug()}. Because plotting of small and large sample sizes can make it difficult in the smaller samples to see the line, it is judged useful to explicitly have this setting as an declared argument;}
-  \item{ff}{The nonexceedance joint probability of of the copula diagonal from which inversion computes the marginal nonexceedance probability values for \eqn{u=v=t};}
+  \item{ff}{The nonexceedance joint probability of of the copula diagonal from which inversion computes the marginal nonexceedance probability values for \eqn{u=v=t} as \eqn{\mathbf{C}(t,t) = f} where \code{ff} is the variable notation for the joint probability \eqn{f};}
+  \item{locdigits}{Number of digits for rounding exclusive to the \code{loc} data frame produced in the returned list. The reasoning for this setting is that the expected application in practical circumstances will have discipline knowledge of the rounding depth suitable;}
   \item{verbose}{Show messages of incremental progress with a incremental counter on the message;}
   \item{x}{Numeric vector of \eqn{X} values to be used in parameter estimation of the marginal parametric distribution if \code{xpara=NULL} and these values are internally replaced with \code{xp} (paired \eqn{X}) if not otherwise specified. This provides the ability to insert an alternative and presumably longer vector of the entire \eqn{X} sample without the restriction of individual values paired to the \eqn{Y}. A feature unique to providing the \code{x} is that missing values can be and are removed on the fly prior to parameter estimation of the marginal distribution. The \code{x} can be specific independent of \code{y} or even at all for either. Absolutely no provision is made that \code{x} can be a matrix or data frame holding the \code{y};}
   \item{y}{Numeric vector of \eqn{Y} values to be used in parameter estimation of the marginal parametric distribution if \code{ypara=NULL} and these values are internally replaced with \code{yp} (paired \eqn{Y}) if not otherwise specified. This provides the ability to insert an alternative and presumably longer vector of the entire \eqn{Y} sample without the restriction of individual values paired to the \eqn{X}. A feature unique to providing the \code{y} is that missing values can be and are removed on the fly prior to parameter estimation of the marginal distribution. The \code{x} can be specific independent of \code{y} or even at all for either; and}
   \item{...}{Additional arguments to pass.}
 }
 \value{
-  List(s) for the computations and predictions are returned.
+  Lists, vectors, and data frames for the computations and predictions are returned.
+  \item{loc}{A list containing a data frame of the predictions for \code{xout} by the conventional LOC (\code{loc}), the estimates by copula diagonal with Kumaraswamy smoothing (if requested) (\code{bicoploc}), and the predictions based solely on the empirical copula approximation for the diagonal (\code{bicoploc_emp}). The \code{bicoploc} and \code{bicoploc_emp} are equal to each other if Kumaraswamy was not used. The \code{bicoploc} is intended to be the official output from the \code{bicoploc()} function. The furthest right column is \code{bicoploc_cop} and represents the predicting values using a parametric copula as fit to the \eqn{(U,V)} domain mapped into the \eqn{(X,Y)} domain as explained elsewhere in this documentation or sources;}
+  \item{xpara}{The parameters of the marginal distribution in \eqn{X} either as given in \code{xpara}, as estimated from \code{xp}, or estimated from \code{x} by the method of L-moments through the \pkg{lmomco} package;}
+  \item{ypara}{The parameters of the marginal distribution in \eqn{Y} either as given in \code{ypara}, as estimated from \code{yp}, or estimated from \code{y} by the method of L-moments through the \pkg{lmomco} package;}
+  \item{faqs}{A named vector containing some numerical facts about the operations and principally the requisite sample sizes involved are reported here;}
+  \item{faqscop}{A named vector containing some numerical facts about the operations involving the fitting of the parametric asymmetric copula (Plackett by default) to the \eqn{(U,V)} domain; and}
+  \item{diag}{A data frame containing information on the copula diagonal including the joint probability column \code{jtprob} (the \code{ff} as stand in for \eqn{C(t,t) = f}), the \eqn{u=v=t} in column \code{uv} by the Kumaraswamy smooth (if requested), and the solely empirical copula version in column \code{uv_emp}. If the Kumaraswamy smooth is not used, then \code{uv} and \code{uv_emp} will be equal to each other. The furthest right column is \code{uv_cop} and represents the values using a parametric copula as fit to the \eqn{(U,V)} domain as explained elsewhere in this documentation or sources.}
 }
 \note{
 The use of a copula diagonal inversion for purposes of a line of organic correlation analog within the text-book literature and elsewhere is unknown to the developers (December 2023).
+
+There are some open questions in the handling of negative associations. On way to test at some point, will be manual reversal or negation of a Y variable and working from the positive association schema and check that solutions match each other. There are some nuances with distribution reversal but achievable.
 }
 \references{
-Kruskal, W.H., 1953, On the uniqueness of the line of organic correlation:
-Biometrics, vol.~9, no.~1, pp. 47--58, \doi{10.2307/3001632}.
+Kruskal, W.H., 1953, On the uniqueness of the line of organic correlation: Biometrics, vol.~9, no.~1, pp. 47--58, \doi{10.2307/3001632}.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{diagCOPatf}}}
 \examples{
+\dontrun{
 set.seed(4); nsim <- 50
 X  <- rnorm(nsim, mean=3, sd=0.6)
 Y  <- rnorm(nsim, mean=0, sd=0.2)
@@ -89,7 +100,7 @@ zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="nor", dtypey="nor")
 set.seed(1); nsim <- 50
 X  <-           lmomco::rlmomco(nsim, lmomco::vec2par(c(3, 0.6, +0.5), type="pe3"))
 Y  <- 0.3*X^2 + lmomco::rlmomco(nsim, lmomco::vec2par(c(0, 0.4, 0),    type="pe3"))
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="gev", dtypey="gev")
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="gev", dtypey="gev") #}
 
 \dontrun{
 ###################################################################################
@@ -98,10 +109,10 @@ zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="gev", dtypey="gev")
 # and (or) alternative x and y vectors providing the larger sample.
 set.seed(1); nsim <- 800; npair <- 50
 X  <-           lmomco::rlmomco(nsim, lmomco::vec2par(c(3, 0.6, +0.5), type="pe3"))
-Y  <- 0.3*X^2 + lmomco::rlmomco(nsim, lmomco::vec2par(c(0, 0.4, 0),    type="pe3"))
+Y  <- 0.3*X^2 + rnorm(nsim, mean=0, sd=0.3)
 ix <- sample(seq_len(nsim), npair, replace=FALSE)
 Xp <- X[ix]; Yp <- Y[ix]; dtypex <- "gev"; dtypey <- "gev"
-xpara <- lmr2par(X, type=dtypex); ypara <- lmr2par(Y, type=dtypey)
+xpara <- lmomco::lmr2par(X, type=dtypex); ypara <- lmomco::lmr2par(Y, type=dtypey)
 
 # The next two bicoploc() calls produce identical results except for the density
 # of data points along the axes for the rug plots. Ultimately, the same parameter
@@ -139,6 +150,8 @@ zz <- bicoploc(X,Y, xout=c(1.5, 2.5, 3.5, 4), xleg="bottomleft", dtypex="aep4", 
 # A TRUE COUNTER EXAMPLE? Are the 1-v operations not sufficient depending on
 # rotation? Is the secondary diagonal of a copula useful? Is there something wrong
 # with the reflection operations as implemented at the end of November 2023?
+# Should negatives be turned into positives by reversing Y within the internal logic?
+# The solution current at end of November 2023 seems proper.
 set.seed(1); nsim <- 500
 para <- list(cop1=W, para1=4, cop2=GHcop, para2=c(30,.6, .9), alpha=0, beta=0.1)
 UV <- rCOP(nsim, cop=composite2COP, para=para)
