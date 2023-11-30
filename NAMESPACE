@@ -1,5 +1,6 @@
  importFrom("grDevices", "dev.list", "rgb", "grey")
- importFrom("graphics", "abline", "axTicks", "axis", "contour", "legend", "lines", "mtext", "plot", "points", "rug")
+importFrom("graphics", "abline", "axTicks", "axis", "contour", "legend", "lines",
+                       "mtext", "par", "plot", "points", "rug")
  importFrom("stats", "approx", "complete.cases", "cor", "dnorm",
             "integrate", "median", "qnorm", "quantile", "runif", "var",
             "uniroot", "optimise", "optim", "pnorm", "pt", "qt", "sd",
