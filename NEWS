@@ -27,6 +27,14 @@ Changes in version 2.2.3 (2023-11-30)
       tendered to help a research question by a user.
 -  Updates to NAMESPACE to include graphic operations needed within bicoploc()
       diagnostic plots and those functions needed from the lmomco R package.
+-  Added a trap in COP() for coupla returned values being > 1 or < 0 to set to the
+      closed interval because in unrelated testing a greater than 1 at the
+      12th decimal was encountered. Instead of trapping in an application felt best
+      to trap in COP(). ** Perhaps other traps might be useful in other functions? **
+-  Added argument resamv01 to rCOP() and simCOP() to resample for simulated v == 0 or
+      v == 1. The default is false, so this new feature maintains the long standing
+      behavior of these simulators. An example added of a demonstration wherein the
+      resampling is needed.
 
 
 Changes in version 2.2.2 (2023-10-17)
