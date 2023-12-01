@@ -4,9 +4,9 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
          plotuv=TRUE, plotxy=TRUE, adduv=FALSE, addxy=FALSE, snv=FALSE, limout=TRUE,
          autoleg=TRUE, xleg="topleft", yleg=NULL, rugxy=TRUE, ruglwd=0.5,
          xlim=NULL, ylim=NULL, a=0, ff=pnorm(seq(-5, +5, by=0.1)), locdigits=6,
-         verbose=TRUE, x=NULL, y=NULL, ...) {
+         paracop=TRUE, verbose=TRUE, x=NULL, y=NULL, ...) {
 
-  use_parametric_copula <- TRUE
+  USE_PARA_COP <- paracop # The capital letters become easier to "find" in the function
 
   lo <- .Machine$double.eps; hi <- 1 - lo
   # being at and close to the edges of probability helps to ensure that we by default stress the
@@ -74,7 +74,7 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   DIAlwd   <- 3
   DIAlty   <- 1
   DIAptlwd <- 1.1
-  OUTcex   <- 1.2
+  OUTcex   <- 1.3
   OUTcol   <- "darkred"    #            symbol plotting color for the Xout, if given
   OUTbg    <- "white"  # background symbol plotting color for the Xout, if given
   OUTpch   <- 16       # plotting character for the predictions from the inverse copula diagonal
@@ -89,8 +89,11 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   LOClty   <- 2
   LOCcol   <- "blue"
   LOCbg    <- "white"
-  LOCcex   <- 1.8
+  LOCcex   <- 1.9
   LOCptlwd <- 1
+  LOCUlty  <- 2
+  LOCUlwd  <- 1.5
+  LOCUcol  <- "deepskyblue2"
   LEGcex   <- 0.75    # legend() text expansion factor
   SEGlen   <- 3.5      # width of line segments in the legend()
   RUGcol <- "wheat3" # ticking color for rug() plotting
@@ -121,7 +124,7 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
       if(verbose) message("(", i <- i + 1, ") using the alternative X values in argument x for parameter estimation")
       thex <- x
     }
-    try(xpara <- lmomco::lmom2par(lmomco::lmoms(thex[! is.na(thex)]), type=dtypex), silent=TRUE)
+    try(xpara <- lmomco::lmom2par(lmomco::lmoms(thex[is.finite(thex)]), type=dtypex), silent=TRUE)
     if(is.null(xpara)) {
       message("parameter estimation for X by method of L-moments has failed, try another dtypex?")
       return(NULL)
@@ -135,8 +138,8 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
     } else {
       thex <- x
     }
-    if(! is.null(dtypex) & (dtypex != xpara$type)) {
-      dtypex <- "--" # reset to empty to ensure that what was given is used from ypara forevermore
+    if(is.null(dtypex) || is.na(dtypey)) {
+      dtypex <- "--" # reset to empty to ensure that what was given is used from xpara forevermore
     }
   }
 
@@ -150,9 +153,10 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
       if(verbose) message("(", i <- i + 1, ") using the alternative X values in argument x for parameter estimation")
       they <- y
     }
-    try(ypara <- lmomco::lmom2par(lmomco::lmoms(they[! is.na(they)]), type=dtypey), silent=TRUE)
+    try(ypara <- lmomco::lmom2par(lmomco::lmoms(they[is.finite(they)]), type=dtypey), silent=TRUE)
     if(is.null(ypara)) {
       message("parameter estimation for Y by method of L-moments has failed, try another dtypey?")
+      print(they)
       return(NULL)
     }
     if(is.null(dtypey)) {
@@ -164,25 +168,48 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
     } else {
       they <- y
     }
-    if(! is.null(dtypey) & (dtypey != ypara$type)) {
+    if(is.null(dtypey) || is.na(dtypey)) {
       dtypey <- "--" # reset to empty to ensure that what was given is used from ypara forevermore
     }
   }
-  n_thex <- length(thex[! is.na(thex)])
-  n_they <- length(they[! is.na(they)])
+
+  n_thex <- length(thex[is.finite(thex)])
+  n_they <- length(they[is.finite(they)])
+
+  rhoS    <- cor(thex[is.finite(thex)], they[is.finite(they)], method="spearman")
+  rhosign <- sign( rhoS ) # kind of like "Wormsign"
 
   if(verbose) message("(", i <- i + 1, ") computing line of organic correlation by lmomco::lmrloc()")
-  loc      <- lmomco::lmrloc( data.frame(X=xp, Y=yp) )
-  # compute the line of organic correlation (reduced major axis), using the method of L-moments
+  XYp <- data.frame(X=xp, Y=yp) # a bet permissive to allow NAs incoming but works with the is.finite
+  XYp <- XYp[complete.cases(XYp),] # check above before the L-moment parameter estimation is called
+  XYp <- XYp[is.finite(XYp[,1]) & is.finite(XYp[,2]),] # an finite check here means that we have the
+  locpair  <- lmomco::lmrloc( XYp )  # locpair existing, -Inf and +Inf incoming likely stem from
+  # simulation play in highly skewed distributions and not in the practical application on
+  # real-world data compute the line of organic correlation (reduced major axis), using the
+  # method of L-moments.
+  names(locpair$loc_lmr) <- c("LMR_PAIR_Intercept", "LMR_PAIR_Slope")
+  names(locpair$loc_pmr) <- c("PMR_PAIR_Intercept", "PMR_PAIR_Slope")
+
+  xlmr <- lmomco::par2lmom(xpara)$lambdas; # print(xlmr)
+  ylmr <- lmomco::par2lmom(ypara)$lambdas; # print(ylmr)
+  m_para  <- rhosign * (ylmr[2] /           xlmr[2])
+  b_para  <-            ylmr[1] - (m_para * xlmr[1])
+  locpara <- c(b_para, m_para)
+  names(locpara) <- c("LMR_PARA_Intercept", "LMR_PARA_Slope")
+  locpara <- list(loc_lmr=locpara)
+
+
   if(verbose) message("(", i <- i + 1, ") estimating xout by line of organic correlation")
-  Yloc     <- loc$loc_lmr[2] * sortX + loc$loc_lmr[1]
-  Yloc_out <- loc$loc_lmr[2] * xout  + loc$loc_lmr[1]
-  names(Yloc)     <- NULL
-  names(Yloc_out) <- NULL
-  #Yloc_unsorted <- loc$loc_lmr[2] * x + loc$loc_lmr[1]
-  #Uloc <- lmomco::cdfnor(            x, lmomco::parnor(lmomco::par2lmom(xpara), checklmom=FALSE))
-  #Vloc <- lmomco::cdfnor(Yloc_unsorted, lmomco::parnor(lmomco::par2lmom(ypara), checklmom=FALSE))
-  # LOC ONLY PRESERVES THE MEAN AND STANDARD DEVIATION.
+  Yloc      <- locpair$loc_lmr[2] * sortX + locpair$loc_lmr[1]
+  Yloc_out  <- locpair$loc_lmr[2] * xout  + locpair$loc_lmr[1]
+  Ylocu     <- locpara$loc_lmr[2] * sortX + locpara$loc_lmr[1]
+  Ylocu_out <- locpara$loc_lmr[2] * xout  + locpara$loc_lmr[1]
+
+  names(Yloc)      <- NULL
+  names(Yloc_out)  <- NULL
+  names(Ylocu)     <- NULL
+  names(Ylocu_out) <- NULL
+
 
   # Invert the diagonals of copula. The ff is the joint probability Pr[X <= x & Y <= y] = C(u,v)
   # and we want to solve on the diagonal for U=V=t --> C(t,t) = ff on the supposition that the
@@ -202,7 +229,7 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   #ec <- eco <- diagCOPatf(ff, cop=EMPIRcop, para=UV, ctype=ctype)
   if(kumaraswamy) { # https://en.wikipedia.org/wiki/Kumaraswamy_distribution
     kur.init.para <- lmomco::vec2par(init.kur, type="kur")
-    eckurpara     <- lmomco::disfitqua(ec, ff,  type="kur", init.para=kur.init.para)
+    eckurpara     <- lmomco::disfitqua(ec, ff, type="kur", init.para=kur.init.para)
     ec <- lmomco::qlmomco(ff, eckurpara) # the replacement of the "smoothed diagonal of the empirical
     # copula through the use of the Kumaraswamy distribution fit to RMSE of method of percentiles.
     # The ec are the u=v=t in the general copula literature nomenclature.
@@ -213,46 +240,50 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   # slope of the line, it appears that we can do the same as part of the extension of the logic
   # with copulas to support negatively associated data sets
 
-  ### BEGIN PARAMETRIC COPULA BLOCK
   permsynsim <- 5E4
-  rhoS  <- cor(xp, yp, method="spearman")
   infS  <- LzCOPpermsym(cop=EMPIRcop, para=UV, n=permsynsim, type="halton", as.vec=FALSE, ctype=ctype)
-  infSv <- LzCOPpermsym(cop=EMPIRcop, para=UV, n=permsynsim, type="halton", as.vec=TRUE,  ctype=ctype)
-  tparf <- function(par) c(exp(par[1]), pnorm( par[2] ), pnorm( par[3] ))
-  rparf <- function(par) c(log(par[1]), qnorm( par[2] ), qnorm( par[3] ))
-  ofunc <- function(par) { # objective function
-    mypara <- tparf(par)
-    mypara <- list(cop=PLcop, para=mypara[1], alpha=mypara[2], beta=mypara[3])
-    rhoT   <- rhoCOP(cop=composite1COP, para=mypara)    # simulated Spearman Rho
-    infTv  <- LzCOPpermsym(cop=composite1COP, para=mypara, n=permsynsim, type="halton", as.vec=TRUE)
-    (rhoT - rhoS)^2 + mean( (infTv - infSv)^2 )
-  }
-  init.par <- rparf(c(1, 0.5, 0.5)); rt <- NULL # initial parameter guess
-  try( rt <- optim(init.par, fn=ofunc) ) # 3D optimization
-  if(is.null(rt)) {
-    message("composite1COP parameter estimation returned NULL, disabling parameteric copula")
-    use_parametric_copula <- FALSE
-  } else {
-    para.cop <- tparf(rt$par)
-    para.cop <- list(cop=PLcop, para=para.cop[1], alpha=para.cop[2], beta=para.cop[3])
-    rhoT <- rhoCOP(      cop=composite1COP, para=para.cop)
-    infT <- LzCOPpermsym(cop=composite1COP, para=para.cop, n=permsynsim, type="halton", as.vec=FALSE)
 
-    #JK <- simCOP(1000, cop=composite1COP, para=para.cop)
-    faqscop <- c(round(rhoS, digits=6), round(rhoT, digits=6),
-                 round(infS, digits=6), round(infT, digits=6),
-                 round(para.cop$para,  digits=6),
-                 round(para.cop$alpha, digits=6), round(para.cop$beta, digits=6))
-    names(faqscop) <- c("SpearmanRhoSample", "SpearmanRhoFittedCopula",
-                        "LzCOPpermsymSample", "LzCOPpermsymFittedCopula",
-                        "CopulaParameter", "Alpha", "Beta")
-    dtt <- COP(ff, ff, cop=composite1COP, para=para.cop, ...)
-  }
-  ### END PARAMETRIC COPULA BLOCK
-  dtt[dtt > 1] <- 1 # assurance in case any numerical issues have caused a nudge outside the
-  dtt[dtt < 0] <- 0 # applicable range of probability on the closed interval [0,1]
+  ### BEGIN PARAMETRIC COPULA BLOCK
+  if(USE_PARA_COP) {
+    infSv <- LzCOPpermsym(cop=EMPIRcop, para=UV, n=permsynsim, type="halton", as.vec=TRUE,  ctype=ctype)
+    tparf <- function(par) c(exp(par[1]), pnorm( par[2] ), pnorm( par[3] ))
+    rparf <- function(par) c(log(par[1]), qnorm( par[2] ), qnorm( par[3] ))
+    ofunc <- function(par) { # objective function
+      mypara <- tparf(par)
+      mypara <- list(cop=PLcop, para=mypara[1], alpha=mypara[2], beta=mypara[3])
+      rhoT   <- rhoCOP(cop=composite1COP, para=mypara)    # simulated Spearman Rho
+      infTv  <- LzCOPpermsym(cop=composite1COP, para=mypara, n=permsynsim, type="halton", as.vec=TRUE)
+      (rhoT - rhoS)^2 + mean( (infTv - infSv)^2 )
+    }
+    init.par <- rparf(c(1, 0.5, 0.5)); rt <- NULL # initial parameter guess
+    try( rt <- optim(init.par, fn=ofunc) ) # 3D optimization
+    if(is.null(rt)) {
+      message("composite1COP parameter estimation returned NULL, disabling parameteric copula")
+      USE_PARA_COP <- FALSE
+    } else {
+      para.cop <- tparf(rt$par)
+      para.cop <- list(cop=PLcop, para=para.cop[1], alpha=para.cop[2], beta=para.cop[3])
+      rhoT <- rhoCOP(      cop=composite1COP, para=para.cop)
+      infT <- LzCOPpermsym(cop=composite1COP, para=para.cop, n=permsynsim, type="halton", as.vec=FALSE)
 
-  rhosign <- sign( rhoS )
+      # JK <- simCOP(1000, cop=composite1COP, para=para.cop) # developer use only for intermediate check
+      faqscop <- c(rhoS, infS, rhoT, infT, para.cop$alpha, para.cop$beta, para.cop$para)
+      ctxt <- paste0("CopulaParameter", seq_len(length(para.cop$para)))
+      faqscop <- round(faqscop, digits=6)
+      names(faqscop) <- c("SpearmanRhoSample",       "LzCOPpermsymSample",
+                          "SpearmanRhoFittedCopula", "LzCOPpermsymFittedCopula",
+                          "Alpha", "Beta", ctxt)
+      dtt <- COP(ff, ff, cop=composite1COP, para=para.cop, ...)
+    }
+  } ### END PARAMETRIC COPULA BLOCK
+
+  if(! USE_PARA_COP) {
+    dtt <- dtty <- rep(NA, length(ff)) # assurance of no misuse by NA these vectors should they leak
+    faqscop <- c(rhoS, infS)
+    faqscop <- round(faqscop, digits=6)
+    names(faqscop) <- c("SpearmanRhoSample", "LzCOPpermsymSample")
+  }
+
   if(rhosign < 0) { # negative association
     ecy  <- 1 - ec
     ecoy <- 1 - eco
@@ -282,16 +313,16 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
       axis(4, axTicks(2), labels=FALSE, lwd=NA, lwd.ticks=1)
     }
     if(snv) {
-      if(! is.null(para.cop)) lines(qff, qnorm(dtt), col=COPcol, lwd=COPlwd)
+      if(USE_PARA_COP) lines(qff, qnorm(dtt), col=COPcol, lwd=COPlwd)
       points(    qff,     qnorm(eco),  pch=PCHctype, cex=PCHcex, col=PCHcol, lwd=PCHlwd)
       points(qnorm(UV$U), qnorm(UV$V), pch=DATpch,   cex=DATcex, col=DATcol, lwd=DATptlwd, bg=DATbg)
-      if(kumaraswamy) lines( qff, qnorm(lmomco::qlmomco(ff, eckurpara)), col=DIAcol, lwd=DIAlwd, lend=2)
+      if(kumaraswamy)  lines(qff, qnorm(lmomco::qlmomco(ff, eckurpara)), col=DIAcol, lwd=DIAlwd, lend=2)
       points(    qff,     qnorm(ecy),  pch=DIApch,   cex=DIAcex, col=DIAeol, lwd=DIAptlwd, bg=DIAbg)
     } else {
-      if(! is.null(para.cop)) lines( ff, dtt, col=COPcol, lwd=COPlwd)
+      if(USE_PARA_COP) lines( ff, dtt, col=COPcol, lwd=COPlwd)
       points(     ff,           eco,   pch=PCHctype, cex=PCHcex, col=PCHcol, lwd=PCHlwd)
       points(UV$U,      UV$V,          pch=DATpch,   cex=DATcex, col=DATcol, lwd=DATptlwd, bg=DATbg)
-      if(kumaraswamy) lines(  ff, lmomco::qlmomco(ff, eckurpara),col=DIAcol, lwd=DIAlwd, lend=2)
+      if(kumaraswamy)  lines( ff, lmomco::qlmomco(ff, eckurpara),col=DIAcol, lwd=DIAlwd, lend=2)
       points(     ff,           ec,    pch=DIApch,   cex=DIAcex, col=DIAeol, lwd=DIAptlwd, bg=DIAbg)
     }
     if(autoleg) {
@@ -308,6 +339,16 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
                    ctypeTXTuv,
        paste0("Paired data points (n=", prettyNum(n, big.mark=","), ") between U and V by ", PPtxt),
               'Note, interpretation of "best fit" to data points on this plot is not applicable.')
+      if(! USE_PARA_COP) {
+        lwd    <- lwd[   -2]
+        lty    <- lty[   -2]
+        col    <- col[   -2]
+        pch    <- pch[   -2]
+        pt.bg  <- pt.bg[ -2]
+        pt.lwd <- pt.lwd[-2]
+        pt.cex <- pt.cex[-2]
+        txt    <- txt[   -2]
+      }
       opts <- par(no.readonly=TRUE)
       par(lend=2)
       legend(xleg, yleg, txt,  bty="o", cex=LEGcex, inset=0.01, seg.len=SEGlen,
@@ -319,14 +360,16 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
 
   if(verbose) message("(", i <- i + 1, ") solving for Y predictions along the diagonal inversion")
   # solve for Y, like missing record estimation using the best available information on the Y
-  # distribution's parameters (ie, the MOMENTS)
+  # distribution's parameters (i.e., the MOMENTS)
   # Back us off from -Inf and +Inf to NaN results when a probability = 0 | 1, to ensure numerical
-  tmp <- ecy;  tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
-  Ysec0  <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
-  tmp <- ecoy; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
-  Ysec0o <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
-  tmp <- dtty; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
-  Ysdtt0 <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
+    tmp <- ecy;  tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
+    Ysec0  <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
+    tmp <- ecoy; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
+    Ysec0o <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
+  if(USE_PARA_COP) {
+    tmp <- dtty; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi
+    Ysdtt0 <- lmomco::par2qua(tmp,  ypara,  paracheck=FALSE)
+  }
 
   # The suppressWarnings() because of this
   #   # Warning message:  # when ties exist in the incoming to approx().
@@ -336,26 +379,34 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   # Back us off from -Inf and +Inf to NaN results when a probability = 0 | 1, to ensure numerical
   # return on the approx() application.
   if(verbose) message("(", i <- i + 1, ") solving for Y predictions along given Xs and given (if any) Xouts")
-  tmp <- ec;  tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
-  suppressWarnings( Ysec      <- approx(lmomco::par2qua(tmp, xpara), Ysec0,  xout=sortX, rule=2)$y )
-  suppressWarnings( Ysec_out  <- approx(lmomco::par2qua(tmp, xpara), Ysec0,  xout=xout,  rule=2)$y )
-  tmp <- eco; tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
-  suppressWarnings( Yseco     <- approx(lmomco::par2qua(tmp, xpara), Ysec0o, xout=sortX, rule=2)$y )
-  suppressWarnings( Ysec_outo <- approx(lmomco::par2qua(tmp, xpara), Ysec0o, xout=xout,  rule=2)$y )
-  tmp <- dtt; tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
-  suppressWarnings( Ysdtt     <- approx(lmomco::par2qua(tmp, xpara), Ysdtt0, xout=sortX, rule=2)$y )
-  suppressWarnings( Ysdtt_out <- approx(lmomco::par2qua(tmp, xpara), Ysdtt0, xout=xout,  rule=2)$y )
+    tmp <- ec;  tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
+    suppressWarnings( Ysec      <- approx(lmomco::par2qua(tmp, xpara), Ysec0,  xout=sortX, rule=2)$y )
+    suppressWarnings( Ysec_out  <- approx(lmomco::par2qua(tmp, xpara), Ysec0,  xout=xout,  rule=2)$y )
+    tmp <- eco; tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
+    suppressWarnings( Yseco     <- approx(lmomco::par2qua(tmp, xpara), Ysec0o, xout=sortX, rule=2)$y )
+    suppressWarnings( Ysec_outo <- approx(lmomco::par2qua(tmp, xpara), Ysec0o, xout=xout,  rule=2)$y )
+  if(USE_PARA_COP) {
+    tmp <- dtt; tmp[tmp <= lo]  <- lo; tmp[tmp >= hi] <- hi
+    suppressWarnings( Ysdtt     <- approx(lmomco::par2qua(tmp, xpara), Ysdtt0, xout=sortX, rule=2)$y )
+    suppressWarnings( Ysdtt_out <- approx(lmomco::par2qua(tmp, xpara), Ysdtt0, xout=xout,  rule=2)$y )
+    names(Ysdtt)     <- NULL
+    names(Ysdtt_out) <- NULL
+  }
 
   names(Ysec)      <- NULL
+  names(Yseco)     <- NULL
   names(Ysec_out)  <- NULL
   names(Ysec_outo) <- NULL
 
   if(plotxy) { # real-world unit plotting
-    myxlim <- range(  c(xp, lmomco::qlmomco(FFedge, xpara)),          na.rm=TRUE)
-    myylim <- range(  c(yp, lmomco::qlmomco(FFedge, ypara)),          na.rm=TRUE)
+    myxlim <- range(  c(xp, lmomco::qlmomco(FFedge, xpara)),                       na.rm=TRUE)
+    myylim <- range(  c(yp, lmomco::qlmomco(FFedge, ypara)),                       na.rm=TRUE)
     if(limout) {
-      myxlim <- range(c(myxlim, xout),                                na.rm=TRUE)
-      myylim <- range(c(myylim, Ysec_out, Ysec_outo, Yloc, Yloc_out), na.rm=TRUE)
+      myxlim <- range(c(myxlim, xout),                                             na.rm=TRUE)
+      myylim <- range(c(myylim, Yloc, Yloc_out, Ysec, Yseco, Ysec_out, Ysec_outo), na.rm=TRUE)
+      if(USE_PARA_COP) {
+        myylim <- range(c(myylim, Ysdtt, Ysdtt_out), na.rm=TRUE)
+      }
     }
     if(! is.null(xlim)) {
       if(length(xlim) == 2 & ! any(is.na(xlim))) {
@@ -382,35 +433,54 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
       rug(they, ticksize=0.02, side=2, col=RUGcol, lwd=ruglwd)
     }
     points(xp, yp, pch=DATpch, cex=DATcex, col=DATcol, bg=DATbg, lwd=DATptlwd)
-    abline(loc$loc_lmr[1], loc$loc_lmr[2], lty=LOClty, lwd=LOClwd, col=LOCcol, lend=2)
-    lines(lmomco::par2qua(dtt, xpara), Ysdtt0, lty=COPlty, lwd=COPlwd, col=COPcol, lend=2)
-    # disabled the dd because in reality we could not know the parent copula itself
-    lines(lmomco::par2qua(ec,  xpara), Ysec0,  lwd=DIAlwd,  col=DIAcol, lend=2)
+    abline(locpara$loc_lmr[1], locpara$loc_lmr[2], lty=LOCUlty, lwd=LOCUlwd, col=LOCUcol, lend=2)
+    abline(locpair$loc_lmr[1], locpair$loc_lmr[2], lty=LOClty,  lwd=LOClwd,  col=LOCcol,  lend=2)
+    if(USE_PARA_COP) {
+      tmp <- dtt; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi # assurance policy
+      lines(lmomco::par2qua(tmp, xpara), Ysdtt0, lty=COPlty, lwd=COPlwd, col=COPcol, lend=2)
+    }
+    tmp <- ec; tmp[tmp <= lo] <- lo; tmp[tmp >= hi] <- hi # assurance policy
+    lines(lmomco::par2qua(tmp,  xpara), Ysec0,  lwd=DIAlwd,  col=DIAcol, lend=2)
     points(sortX, Yseco,     pch=PCHctype, cex=PCHcex, col=PCHcol, lwd=PCHlwd,   bg=PCHbg)
     points(sortX, Ysec,      pch=DIApch,   cex=DIAcex, col=DIAcol, lwd=DIAptlwd, bg=DIAbg)
     points(xout,  Yloc_out,  pch=LOCpch,   cex=LOCcex, col=OUTcol, lwd=LOCptlwd, bg=LOCbg)
+    points(xout,  Ylocu_out, pch=LOCpch,   cex=LOCcex, col=OUTcol, lwd=LOCptlwd, bg=LOCbg)
     points(xout,  Ysec_out,  pch=OUTpch,   cex=OUTcex, col=OUTcol, lwd=OUTptlwd, bg=LOCbg)
-    points(xout,  Ysdtt_out, pch=COPpch,   cex=COPcex, col=COPcol, lwd=COPptlwd, bg=COPbg)
+    if(USE_PARA_COP) {
+      points(xout,  Ysdtt_out, pch=COPpch,   cex=COPcex, col=COPcol, lwd=COPptlwd, bg=COPbg)
+    }
 
     if(autoleg) {
-      lwd    <- c(LOClwd,    COPlwd,    DIAlwd,        NA,        NA,        NA,        NA,        NA,       NA)
-      lty    <- c(LOClty,    COPlty,    DIAlty,        NA,        NA,        NA,        NA,        NA,       NA)
-      col    <- c(LOCcol,    COPcol,    DIAcol,    DIAcol,    PCHcol,    DATcol,    OUTcol,    OUTcol,   COPcol)
-      pch    <- c(NA,            NA,        NA,    DIApch,  PCHctype,    DATpch,    LOCpch,    OUTpch,   COPpch)
-      pt.bg  <- c(NA,            NA,        NA,     DIAbg,     PCHbg,     DATbg,     OUTbg,     OUTbg,    COPbg)
-      pt.lwd <- c(NA,             NA,       NA,  DIAptlwd,    PCHlwd,  DATptlwd,  LOCptlwd,  OUTptlwd, COPptlwd)
-      pt.cex <- c(NA,            NA,        NA,    DIAcex,    PCHcex,    DATcex,    LOCcex,    OUTcex,   COPcex)
-      txt    <- c("Conventional line of organic correlation (LOC) though fit using linear moments",
+      lwd    <- c(LOClwd,  LOCUlwd,  COPlwd,  DIAlwd,        NA,        NA,        NA,        NA,        NA,       NA)
+      lty    <- c(LOClty,  LOCUlty,  COPlty,  DIAlty,        NA,        NA,        NA,        NA,        NA,       NA)
+      col    <- c(LOCcol,  LOCUcol,  COPcol,  DIAcol,    DIAcol,    PCHcol,    DATcol,    OUTcol,    OUTcol,   COPcol)
+      pch    <- c(NA,           NA,      NA,      NA,    DIApch,  PCHctype,    DATpch,    LOCpch,    OUTpch,   COPpch)
+      pt.bg  <- c(NA,           NA,      NA,      NA,     DIAbg,     PCHbg,     DATbg,     OUTbg,     OUTbg,    COPbg)
+      pt.lwd <- c(NA,           NA,      NA,      NA,  DIAptlwd,    PCHlwd,  DATptlwd,  LOCptlwd,  OUTptlwd, COPptlwd)
+      pt.cex <- c(NA,           NA,      NA,      NA,    DIAcex,    PCHcex,    DATcex,    LOCcex,    OUTcex,   COPcex)
+      txt    <- c("Conventional line of organic correlation (LOC) on paired data and fit using linear moments",
+                  "PARA-LOC fit by the linear moments of the marginal parametric distributions",
                   "Organic correlation by parametric asymmetric Plackett copula",
                   "Organic correlation by copula diagonal inverse (Kumaraswamy smooth)",
                   "Coordinates of organic correlation by empirical copula diagonal inverse",
                    ctypeTXTxy,
                   paste0("Paired data points (n=", prettyNum(n, big.mark=","), ") between X and Y"),
-                  "LOC predicted Y for requested X",
+                  "Either LOC predicted Y for requested X on LOC or Ultra-LOC as plotting shows",
                   "Organic correlation predicted Y for requested X through empirical copula",
                   "Organic correlation predicted Y for requested X through parametic copula")
       if(is.null(xout) | length(xout[! is.na(xout)]) == 0) {
         nix    <- -c(7, 8)
+        txt    <- txt[   nix]
+        lwd    <- lwd[   nix]
+        lty    <- lty[   nix]
+        col    <- col[   nix]
+        pch    <- pch[   nix]
+        pt.bg  <- pt.bg[ nix]
+        pt.lwd <- pt.lwd[nix]
+        pt.cex <- pt.cex[nix]
+      }
+      if(! USE_PARA_COP) {
+        nix <- -c(3, length(txt))
         txt    <- txt[   nix]
         lwd    <- lwd[   nix]
         lty    <- lty[   nix]
@@ -429,18 +499,27 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
     }
   }
 
-  df <- data.frame(xout=xout, loc=Yloc_out,
-                   bicoploc=Ysec_out, bicoploc_emp=Ysec_outo, bicoploc_cop=Ysdtt_out)
-  df <- round(df, digits=locdigits)
+  df1 <- data.frame(xout=xout, locpair=Yloc_out, locpara=Ylocu_out,
+                    bicoploc=Ysec_out, bicoploc_emp=Ysec_outo)
+  df2 <- data.frame(jtprob=ff, uv=ec, uv_emp=eco)
+  if(USE_PARA_COP) {
+    df1$bicoploc_cop <- Ysdtt_out
+    df2$uv_cop       <-   dtt
+  }
+  df1 <- round(df1, digits=locdigits)
+  df2 <- round(df1, digits=8)
+
         dtypes  <- c( dtypex,   dtypey )
   names(dtypes) <- c("dtypex", "dtypey")
   faqs <- c(n, n_thex, n_they)
   names(faqs) <- c("paired_sample_size", "nonmissing_x_sample_size", "nonmissing_y_sample_size")
-  zz <- list(loc=df, xpara=xpara, ypara=ypara, dtypes=dtypes, faqs=faqs, faqscop=faqscop,
-             diag=data.frame(jtprob=round(ff,  digits=8),
-                             uv    =round(ec,  digits=8),
-                             uv_emp=round(eco, digits=8),
-                             uv_cop=round(dtt, digits=8)))
+
+  locsols <- list(locpair=locpair, locpara=locpara)
+
+  zz <- list(organic=df1, locsols=locsols, xpara=xpara, ypara=ypara, dtypes=dtypes,
+                          faqs=faqs, faqscop=faqscop,
+             diag=df2)
+
   return(zz)
 }
 
@@ -453,17 +532,3 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
 #X  <- rexp(nsim, rate=3)
 #Y  <- 0.7*X + rnorm(nsim, mean=0, sd=0.2)
 #zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="exp", dtypey="gev")
-
-#set.seed(1); nsim <- 100; npair <- 50
-#UV <- rCOP(nsim, cop=composite1COP, para=list(cop=PLcop, para=150, alpha=0.8, beta=0.3))
-#X  <- lmomco::qlmomco(UV[,1], lmomco::vec2par(c(3, 0.6, +0.5), type="pe3"))
-#Y  <- lmomco::qlmomco(UV[,2], lmomco::vec2par(c(3, 0.4, +0.0), type="pe3"))
-#ix <- sample(seq_len(nsim), npair, replace=FALSE)
-#Xp <- X[ix]; Yp <- Y[ix]; dtypex <- "gev"; dtypey <- "gev"
-#xpara <- lmomco::lmr2par(X, type=dtypex); ypara <- lmomco::lmr2par(Y, type=dtypey)
-#plot(10^X, 10^Y, log="xy", las=1,
-#     xlab="SOME RISK PHENOMENON IN X-DIRECTION", ylab="SOME RISK PHENOMENON IN Y-DIRECTION")
-#zz <- bicoploc(Xp, Yp, xout=c(1.5, 2.5, 3.5, 4), xpara=xpara, ypara=ypara, ylim=c(1.8, 4.5))
-#zz <- bicoploc(Xp, Yp, xout=c(1.5, 2.5, 3.5, 4), xpara=xpara, ypara=ypara, ylim=c(1.8, 4.5), x=X, y=Y)
-#zz <- bicoploc(X,  Y,  xout=c(1.5, 2.5, 3.5, 4), dtypex="pe3", dtypey="pe3", ylim=c(1.8,  4.5))
-

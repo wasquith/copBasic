@@ -19,7 +19,7 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
          plotuv=TRUE, plotxy=TRUE, adduv=FALSE, addxy=FALSE, snv=FALSE, limout=TRUE,
          autoleg=TRUE, xleg="topleft", yleg=NULL, rugxy=TRUE, ruglwd=0.5,
          xlim=NULL, ylim=NULL, a=0, ff=pnorm(seq(-5, +5, by=0.1)), locdigits=6,
-         verbose=TRUE, x=NULL, y=NULL, ...)
+         paracop=TRUE, verbose=TRUE, x=NULL, y=NULL, ...)
 }
 \arguments{
   \item{xp}{Numeric vector giving paired data points of \eqn{X}. If this is a matrix or data frame, then the first and second columns are extracted for the \code{xp} and \code{yp} internall;}
@@ -47,14 +47,19 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   \item{ruglwd}{The line wide passed into \code{rug()}. Because plotting of small and large sample sizes can make it difficult in the smaller samples to see the line, it is judged useful to explicitly have this setting as an declared argument;}
   \item{ff}{The nonexceedance joint probability of of the copula diagonal from which inversion computes the marginal nonexceedance probability values for \eqn{u=v=t} as \eqn{\mathbf{C}(t,t) = f} where \code{ff} is the variable notation for the joint probability \eqn{f};}
   \item{locdigits}{Number of digits for rounding exclusive to the \code{loc} data frame produced in the returned list. The reasoning for this setting is that the expected application in practical circumstances will have discipline knowledge of the rounding depth suitable;}
+  \item{paracop}{A logical trigging the use of the parametric asymmetric copula fit by numerical optimization to the \eqn{(U,V)} domain of the data (see \bold{Details});}
   \item{verbose}{Show messages of incremental progress with a incremental counter on the message;}
   \item{x}{Numeric vector of \eqn{X} values to be used in parameter estimation of the marginal parametric distribution if \code{xpara=NULL} and these values are internally replaced with \code{xp} (paired \eqn{X}) if not otherwise specified. This provides the ability to insert an alternative and presumably longer vector of the entire \eqn{X} sample without the restriction of individual values paired to the \eqn{Y}. A feature unique to providing the \code{x} is that missing values can be and are removed on the fly prior to parameter estimation of the marginal distribution. The \code{x} can be specific independent of \code{y} or even at all for either. Absolutely no provision is made that \code{x} can be a matrix or data frame holding the \code{y};}
   \item{y}{Numeric vector of \eqn{Y} values to be used in parameter estimation of the marginal parametric distribution if \code{ypara=NULL} and these values are internally replaced with \code{yp} (paired \eqn{Y}) if not otherwise specified. This provides the ability to insert an alternative and presumably longer vector of the entire \eqn{Y} sample without the restriction of individual values paired to the \eqn{X}. A feature unique to providing the \code{y} is that missing values can be and are removed on the fly prior to parameter estimation of the marginal distribution. The \code{x} can be specific independent of \code{y} or even at all for either; and}
   \item{...}{Additional arguments to pass.}
 }
+\details{
+\emph{ON THE USE OF AN PARAMETRIC ASYMMETRIC COPULA}---
+}
 \value{
   Lists, vectors, and data frames for the computations and predictions are returned.
-  \item{loc}{A list containing a data frame of the predictions for \code{xout} by the conventional LOC (\code{loc}), the estimates by copula diagonal with Kumaraswamy smoothing (if requested) (\code{bicoploc}), and the predictions based solely on the empirical copula approximation for the diagonal (\code{bicoploc_emp}). The \code{bicoploc} and \code{bicoploc_emp} are equal to each other if Kumaraswamy was not used. The \code{bicoploc} is intended to be the official output from the \code{bicoploc()} function. The furthest right column is \code{bicoploc_cop} and represents the predicting values using a parametric copula as fit to the \eqn{(U,V)} domain mapped into the \eqn{(X,Y)} domain as explained elsewhere in this documentation or sources;}
+  \item{organic}{A list containing a data frame of the predictions for \code{xout} by the conventional LOC (\code{locpair}) (see also \code{locsols$lmrloc}), the estimates by the L-moments of the parameters of the marginal distributions (\code{locpara}), the estimates by copula diagonal with Kumaraswamy smoothing (if requested) (\code{bicoploc}), and the predictions based solely on the empirical copula approximation for the diagonal (\code{bicoploc_emp}). The \code{bicoploc} and \code{bicoploc_emp} are equal to each other if Kumaraswamy was not used. The \code{bicoploc} is intended to be the official output from the \code{bicoploc()} function. The furthest right column is \code{bicoploc_cop} and represents the predicting values using a parametric copula as fit to the \eqn{(U,V)} domain mapped into the \eqn{(X,Y)} domain as explained elsewhere in this documentation or sources;}
+  \item{locsols}{A list of solutions to the LOC based (1) (\code{locpair}) on the conventional definition on the paired data (\code{xp} and \code{yp}) with the finiteness check previously described by \code{lmomco::lmrloc()} and (2) (\code{locpara}) the LOC solution \emph{not on the paired data} but extractable from the L-moments of the parameters for the marginal distributions. Certain permutations of available features will either have the two L-moment solutions equal, or just the slopes equal, or differing in both intercept and slope. The \code{lmrloc} list contains both L-moment and product moment estimation of the LOC to adhere precisely to \code{lmomco::lmrloc()} output;}
   \item{xpara}{The parameters of the marginal distribution in \eqn{X} either as given in \code{xpara}, as estimated from \code{xp}, or estimated from \code{x} by the method of L-moments through the \pkg{lmomco} package;}
   \item{ypara}{The parameters of the marginal distribution in \eqn{Y} either as given in \code{ypara}, as estimated from \code{yp}, or estimated from \code{y} by the method of L-moments through the \pkg{lmomco} package;}
   \item{faqs}{A named vector containing some numerical facts about the operations and principally the requisite sample sizes involved are reported here;}
@@ -67,43 +72,43 @@ The use of a copula diagonal inversion for purposes of a line of organic correla
 There are some open questions in the handling of negative associations. On way to test at some point, will be manual reversal or negation of a Y variable and working from the positive association schema and check that solutions match each other. There are some nuances with distribution reversal but achievable.
 }
 \references{
-Kruskal, W.H., 1953, On the uniqueness of the line of organic correlation: Biometrics, vol.~9, no.~1, pp. 47--58, \doi{10.2307/3001632}.
+Kruskal, W.H., 1953, On the uniqueness of the line of organic correlation: Biometrics, vol. 9, no. 1, pp. 47--58, \doi{10.2307/3001632}.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{diagCOPatf}}}
 \examples{
-\dontrun{
+# paracop set to FALSE in these examples for speed
 set.seed(4); nsim <- 50
 X  <- rnorm(nsim, mean=3, sd=0.6)
 Y  <- rnorm(nsim, mean=0, sd=0.2)
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor")
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor",   paracop=FALSE)
 # cor(X,Y, method="spearman") # +0.0785114 POSITIVE
 
 set.seed(1); nsim <- 50
 X  <- rnorm(nsim, mean=3, sd=0.6)
 Y  <- rnorm(nsim, mean=0, sd=0.2)
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor")
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor",   paracop=FALSE)
 # cor(X,Y, method="spearman") # -0.1351741 NEGATIVE
 
 set.seed(1); nsim <- 50
 X  <-           rnorm(nsim, mean=3, sd=0.6)
 Y  <- 0.843*X + rnorm(nsim, mean=0, sd=0.2)
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor")
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4), dtypex="nor", dtypey="nor",   paracop=FALSE)
 # cor(X,Y, method="spearman") # for nsim=1E6 RHO=0.92367
 
 set.seed(1); nsim <- 50
 X  <-           lmomco::rlmomco(nsim, lmomco::vec2par(c(3, 0.6, +0.5), type="pe3"))
 Y  <- 0.3*X^2 + lmomco::rlmomco(nsim, lmomco::vec2par(c(0, 0.4, 0),    type="pe3"))
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="nor", dtypey="nor")
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="nor", dtypey="nor", paracop=FALSE)
 # cor(X,Y, method="spearman") # for nsim=1E6 RHO=0.92366
 
 set.seed(1); nsim <- 50
 X  <-           lmomco::rlmomco(nsim, lmomco::vec2par(c(3, 0.6, +0.5), type="pe3"))
 Y  <- 0.3*X^2 + lmomco::rlmomco(nsim, lmomco::vec2par(c(0, 0.4, 0),    type="pe3"))
-zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="gev", dtypey="gev") #}
+zz <- bicoploc(X,Y, xout=c(2.5, 3.5, 4.5), dtypex="gev", dtypey="gev", paracop=FALSE)
 
 \dontrun{
-###################################################################################
+########################################################################################
 # Image 800 samples in X and Y and though created as pairs, let us assume only
 # 50 are actually paired for purposes of demonstration of specified parameters
 # and (or) alternative x and y vectors providing the larger sample.
@@ -122,13 +127,12 @@ zz <- bicoploc(Xp,Yp, xout=c(2.5, 3.5, 4.5), ruglwd=0.9, plotuv=FALSE,
                xpara=xpara, ypara=ypara, dtypex=NULL, dtypey=NULL)
 mtext("Example of specific xpara and ypara from larger sample", line=0.5)
 
-zz <- bicoploc(Xp,Yp, xout=c(2.5, 3.5, 4.5), x=X, y=Y,   plotuv=FALSE,
-               xpara=NULL, ypara=NULL, dtypex=dtypex, dtypey=dtypey)
-mtext("Example of larger sample for internal xpara and ypara estimation", line=0.5) #}
+zz <- bicoploc(Xp,Yp, xout=c(2.5, 3.5, 4.5), ruglwd=0.9, plotuv=FALSE,
+               xpara=xpara, ypara=ypara, dtypex=NULL, dtypey=NULL)
+mtext("Example of specific xpara and ypara from larger sample", line=0.5) #}
 
 \dontrun{
-###################################################################################
-# COUNTER EXAMPLES? Slope of the LOC is negative.
+########################################################################################
 set.seed(1); nsim <- 50
 UV <- rCOP(nsim, cop=breveCOP, para=list(cop=W, alpha=0, beta=0))
 X  <- qnorm(UV[,1], mean=3, sd=0.6)
@@ -145,7 +149,8 @@ set.seed(1); nsim <- 50
 UV <- rCOP(nsim, cop=breveCOP, para=list(cop=M_N5p12b, para=3, alpha=0, beta=0.5))
 X  <- qnorm(UV[,1], mean=3, sd=0.6)^2
 Y  <- qnorm(UV[,2], mean=2, sd=0.2)
-zz <- bicoploc(X,Y, xout=c(1.5, 2.5, 3.5, 4), xleg="bottomleft", dtypex="aep4", dtypey="nor")
+zz <- bicoploc(X,Y, xout=c(1.5, 2.5, 3.5, 4),
+                    xleg="bottomleft", dtypex="aep4", dtypey="nor")
 
 # A TRUE COUNTER EXAMPLE? Are the 1-v operations not sufficient depending on
 # rotation? Is the secondary diagonal of a copula useful? Is there something wrong
@@ -159,8 +164,28 @@ X  <- -qexp(UV[,1], rate=10)+0.1 # Or the problem is a reflected exponential but
 Y  <- qnorm(UV[,2], mean=2, sd=0.2)  # exp version in lmomco can not handle
 zz <- bicoploc(X,Y, xout=c(-0.05, 0, 0.2), dtypex="exp", dtypey="nor")
 # Possibly, try another distribution.
-zz <- bicoploc(X,Y, xout=c(-0.3, -0.2, 0), dtypex="aep4", dtypey="nor")
-}
+zz <- bicoploc(X,Y, xout=c(-0.3, -0.2, 0), ylim=c(1,4), dtypex="aep4", dtypey="nor") #}
+
+\dontrun{
+########################################################################################
+set.seed(1); nsim <- 200; npair <- 30
+para <- list(cop=PLcop, para=80, alpha=0.3, beta=0.05)
+UV <- rCOP(nsim, cop=composite1COP, para=para, resamv01=TRUE)
+X  <- lmomco::qlmomco(UV[,1], lmomco::vec2par(c(3, 0.6, +0.4), type="pe3"))
+Y  <- lmomco::qlmomco(UV[,2], lmomco::vec2par(c(3, 0.4, +0.0), type="pe3"))
+ix <- sample(seq_len(nsim), npair, replace=FALSE)
+Xp <- X[ix]; Yp <- Y[ix]; dtypex <- "pe3"; dtypey <- "pe3"
+xpara <- lmomco::lmr2par(X, type=dtypex); ypara <- lmomco::lmr2par(Y, type=dtypey)
+plot(10^X, 10^Y, log="xy", las=1, pch=21, lwd=0.8, col="black", bg="white",
+                 xlab="SOME RISK PHENOMENON IN X-DIRECTION",
+                 ylab="SOME RISK PHENOMENON IN Y-DIRECTION")
+xout <- c(1.5, 2.5, 3.5, 4)
+xlim <- c(1.5, 4.5); ylim <- c(1.8, 5.0)
+zz <- bicoploc(Xp,Yp, xout=xout,xpara=xpara,ypara=ypara,  xlim=xlim,ylim=ylim)
+
+zz <- bicoploc(Xp,Yp, xout=xout,xpara=xpara,ypara=ypara,  xlim=xlim,ylim=ylim,x=X,y=Y)
+
+zz <- bicoploc(X, Y,  xout=xout,dtypex="pe3",dtypey="pe3",xlim=xlim,ylim=ylim)#}
 }
 \keyword{bivariate prediction}
 \keyword{copula (diagonal)}
