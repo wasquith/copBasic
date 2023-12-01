@@ -1,14 +1,26 @@
-"rCOP" <- function(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, ...) {
+"rCOP" <- function(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, resamv01=FALSE, ...) {
    if(! is.null(seed)) set.seed(seed)
    u <- runif(n)
-   data.frame(U=u, V=simCOPmicro(u, cop=cop, para=para, ...))
+   v <- simCOPmicro(u, cop=cop, para=para, ...)
+   if(resamv01) {
+     while(any(v <= 0)) {
+       message("rCOP() has some v <= 0, resampling those")
+       v[v <= 0] <- simCOPmicro(runif(length(v[v <= 0])), cop=cop, para=para, ...)
+     }
+     while(any(v >= 1)) {
+       message("rCOP() has some v >= 1, resampling those")
+       v[v >= 1] <- simCOPmicro(runif(length(v[v >= 1])), cop=cop, para=para, ...)
+     }
+   }
+   data.frame(U=u, V=v)
 }
 
 
 "simCOP" <-
 function(n=100, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, keept=FALSE,
                 graphics=TRUE, ploton=TRUE, points=TRUE, snv=FALSE,
-                infsnv.rm=TRUE, trapinfsnv=.Machine$double.eps, ...) {
+                infsnv.rm=TRUE, trapinfsnv=.Machine$double.eps,
+                resamv01=FALSE, ...) {
 
   if(is.null(cop)) {
      warning("must have copula argument specified, returning NULL")
@@ -26,6 +38,19 @@ function(n=100, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, keept=FALSE,
 
   u <- runif(n); t <- runif(n)
   v <- sapply(seq_len(n), function(i) { derCOPinv(cop=cop, u[i], t[i], para=para, ...) })
+  if(resamv01) {
+    while(any(v <= 0)) {
+      message("simCOP() has some v <= 0, resampling those")
+      v[v <= 0] <- sapply(seq_len(length(v[v <= 0])),
+                            function(i) { derCOPinv(cop=cop, u[i], t[i], para=para, ...) })
+    }
+    while(any(v >= 1)) {
+      message("simCOP() has some v >= 1, resampling those")
+      v[v >= 1] <- sapply(seq_len(length(v[v >= 1])),
+                            function(i) { derCOPinv(cop=cop, u[i], t[i], para=para, ...) })
+    }
+  }
+
   dots <- list(...)
   ditches <- c("delu", "derdir", "trace")
   for(d in ditches) {
