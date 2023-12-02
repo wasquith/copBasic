@@ -35,6 +35,9 @@ Changes in version 2.2.3 (2023-11-30)
       v == 1. The default is false, so this new feature maintains the long standing
       behavior of these simulators. An example added of a demonstration wherein the
       resampling is needed.
+-  Added EvuCOP() and EuvCOP() solving for the expectation of V (U) given U (V),
+      respectively with extensive examples and comparison to median regression.
+      In general practice, EvuCOP(), which solves E[V|U=u], is expect the more common.
 
 
 Changes in version 2.2.2 (2023-10-17)
