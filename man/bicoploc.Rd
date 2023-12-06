@@ -18,7 +18,8 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
          ctype=c("weibull", "hazen", "bernstein", "checkerboard"), kumaraswamy=TRUE,
          plotuv=TRUE, plotxy=TRUE, adduv=FALSE, addxy=FALSE, snv=FALSE, limout=TRUE,
          autoleg=TRUE, xleg="topleft", yleg=NULL, rugxy=TRUE, ruglwd=0.5,
-         xlim=NULL, ylim=NULL, a=0, ff=pnorm(seq(-5, +5, by=0.1)), locdigits=6,
+         xlim=NULL, ylim=NULL, titleuv="", titlexy="", titlecex=1,
+         a=0, ff=pnorm(seq(-5, +5, by=0.1)), locdigits=6,
          paracop=TRUE, verbose=TRUE, x=NULL, y=NULL, ...)
 }
 \arguments{
@@ -35,16 +36,19 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   \item{plotxy}{A logical to trigger plotting of the analyses in the \eqn{(X,Y)} coordinate domain along with the well-known line of organic correlation by the method of L-moments and such a \dQuote{line}  (could be a curve) by copula diagonal inversion. If set true, then \code{addxy} is set false internally;}
   \item{adduv}{A logical when set true will not call the \code{plot()} function for \eqn{(U,V)} coordinate nonexceedance probability domain but the other graphical operations of lines and points will be called;}
   \item{addxy}{A logical when set true will not call the \code{plot()} function for \eqn{(X,Y)} coordinate domain but the other graphical operations of lines and points will be called;}
-  \item{a}{Value for the plotting-position formula for \code{lmomco::pp()}, default is \code{a=0}, which specifies \emph{Weibull plotting positions};}
-  \item{xlim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the horizontal limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{xlim}, if not null, are inserted into a range computation for the limits to apply;}
-  \item{ylim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the vertical limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{ylim}, if not null, are inserted into a range computation for the limits to apply;}
   \item{snv}{A logical when set true will plot the \eqn{(U,V)} coordinate nonexceedance probability domain in units of standard normal variates;}
   \item{limout}{A logical when set true will plot the \eqn{(X,Y)} coordinate domain with horizontal and vertical axis limits inflated to the \code{xout} and \eqn{Y} predictions;}
-  \item{autoleg}{A logical when set will draw a legend for the plots if the plots are requested. If the automatic legend is requested, then the \code{kumaraswamy} arugment is set true;}
+  \item{autoleg}{A logical when set will draw a legend for the plots if the plots are requested;}
   \item{xleg}{The value to become the argument \code{x} in the \code{legend()} call. The default setting is based on general assumption that this \code{bicoploc()} function is to be more commonly used in positive assocation circumstances between \eqn{X} and \eqn{Y} (positive Spearman Rho);}
   \item{yleg}{The value to become the argument \code{y} in the \code{legend()} call;}
   \item{rugxy}{Call \code{rug()} plotting operations on the \eqn{X} and \eqn{Y} values used in the parameter estimation of the parametric marginal distributions using the \code{xp} and \code{yp}, unless either or both have been overridden for the contents in \code{x} and (or) \code{y} arguments;}
   \item{ruglwd}{The line wide passed into \code{rug()}. Because plotting of small and large sample sizes can make it difficult in the smaller samples to see the line, it is judged useful to explicitly have this setting as an declared argument;}
+  \item{xlim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the horizontal limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{xlim}, if not null, are inserted into a range computation for the limits to apply;}
+  \item{ylim}{A numeric vector that if precisely of length 2 and no missing values therein, will override the vertical limits of the \code{plotxy} plot of the \eqn{(X,Y)} domain. Otherwise, the contents of \code{ylim}, if not null, are inserted into a range computation for the limits to apply;}
+  \item{titleuv}{An optional title for the \eqn{(U,V)} domain plot;}
+  \item{titlexy}{An optional title for the \eqn{(X,Y)} domain plot;}
+  \item{titlecex}{The character expansion factor for the titles;}
+  \item{a}{Value for the plotting-position formula for \code{lmomco::pp()}, default is \code{a=0}, which specifies \emph{Weibull plotting positions};}
   \item{ff}{The nonexceedance joint probability of of the copula diagonal from which inversion computes the marginal nonexceedance probability values for \eqn{u=v=t} as \eqn{\mathbf{C}(t,t) = f} where \code{ff} is the variable notation for the joint probability \eqn{f};}
   \item{locdigits}{Number of digits for rounding exclusive to the \code{loc} data frame produced in the returned list. The reasoning for this setting is that the expected application in practical circumstances will have discipline knowledge of the rounding depth suitable;}
   \item{paracop}{A logical trigging the use of the parametric asymmetric copula fit by numerical optimization to the \eqn{(U,V)} domain of the data (see \bold{Details});}
@@ -149,7 +153,7 @@ set.seed(1); nsim <- 50
 UV <- rCOP(nsim, cop=breveCOP, para=list(cop=M_N5p12b, para=3, alpha=0, beta=0.5))
 X  <- qnorm(UV[,1], mean=3, sd=0.6)^2
 Y  <- qnorm(UV[,2], mean=2, sd=0.2)
-zz <- bicoploc(X,Y, xout=c(1.5, 2.5, 3.5, 4),
+zz <- bicoploc(X,Y, xout=c(1.5, 2.5, 3.5, 4), ylim=c(1,2.5),
                     xleg="bottomleft", dtypex="aep4", dtypey="nor")
 
 # A TRUE COUNTER EXAMPLE? Are the 1-v operations not sufficient depending on
@@ -184,6 +188,7 @@ xlim <- c(1.5, 4.5); ylim <- c(1.8, 5.0)
 zz <- bicoploc(Xp,Yp, xout=xout,xpara=xpara,ypara=ypara,  xlim=xlim,ylim=ylim)
 
 zz <- bicoploc(Xp,Yp, xout=xout,xpara=xpara,ypara=ypara,  xlim=xlim,ylim=ylim,x=X,y=Y)
+zz <- bicoploc(Xp,Yp, xout=xout,dtypex="pe3",dtypey="pe3",xlim=xlim,ylim=ylim,x=X,y=Y)
 
 zz <- bicoploc(X, Y,  xout=xout,dtypex="pe3",dtypey="pe3",xlim=xlim,ylim=ylim)#}
 }
