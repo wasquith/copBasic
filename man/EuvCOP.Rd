@@ -54,6 +54,28 @@ sapply(v, function(vv) mean( UV$U[UV$V > vv - 50/n & UV$V < vv + 50/n] ) )
 # when the copula is visualized even at small n let along large.
 
 # See also Examples under EvuCOP().
+
+\dontrun{
+  n <- 5000; Vlo <- rep(0.001, n); Vhi <- 1 - Vlo; Theta <- 3
+  Ulo <- simCOPmicro(Vlo, cop=JOcopB5, para=Theta); dlo <- density(Ulo)
+  Uhi <- simCOPmicro(Vhi, cop=JOcopB5, para=Theta); dhi <- density(Uhi)
+  summary(Ulo)
+  Ulomu <- EuvCOP(Vlo[1], cop=JOcopB5, para=Theta)
+  summary(Uhi)
+  Uhimu <- EuvCOP(Vhi[1], cop=JOcopB5, para=Theta)
+
+  UV <- simCOP(n, cop=JOcopB5, para=Theta, pch=21, bg="lightgreen", col="darkgreen")
+  abline(h=Vlo[1], col="salmon") # near the bottom to then form axis for density
+  abline(h=Vhi[1], col="purple") # near the   top  to then form axis for density
+  lines(dlo$x,   dlo$y/max(dlo$y), col="salmon", lwd=2) # density of the simulation
+  # along the line already drawn at the bottom (Vlo)
+  lines(dhi$x, 1-dhi$y/max(dhi$y), col="purple", lwd=2) # density of the simulation
+  # along the line already drawn at the   top  (Vhi)
+  points(Ulomu, Vlo[1], pch=16,  col="salmon", cex=2)
+  points(Uhimu, Vhi[1], pch=16,  col="purple", cex=2)
+  uv <- seq(0.001, 0.999, by=0.001)
+  lines(uv, EuvCOP(u, cop=JOcopB5, para=Theta),     col="blue", lwd=3.5, lty=2)
+  lines(    EvuCOP(u, cop=JOcopB5, para=Theta), uv, col="blue", lwd=1.5, lty=2) #}
 }
 \keyword{copula (utility)}
 \keyword{copula operator}
