@@ -36,9 +36,9 @@ The author is well aware that the name of this function does not contain the num
 
 There can be the rare examples of the numerical integration failing. In such circumstances, Monte Carlo integration is performed and the returned vector becomes a named vector with the \code{sim} identifying values stemming from the simulation.
 \preformatted{
-  cpara <- list(cop=RFcop, para=0.9)
-  cpara <- list(cop=COP, para=cpara, reflect=1, alpha=0, beta=0.3)
-  EuvCOP(c(0.0001, 0.0002, 0.001, 0.01, 0.1), cop=composite1COP, para=cpara)
+  para <- list(cop=RFcop, para=0.9)
+  para <- list(cop=COP, para=para, reflect=1, alpha=0, beta=0.3)
+  EuvCOP(c(0.0001, 0.0002, 0.001, 0.01, 0.1), cop=composite1COP, para=para)
   #            sim
   #[1] 0.001319395 0.002238238 0.006905300 0.034608078 0.173451788
 }
