@@ -3,35 +3,40 @@
 \alias{EvuCOP}
 \title{Expected value of V given U}
 \description{
-Compute the \emph{expected value} of \eqn{V} given a \eqn{U} through the emph{conditional distribution function} using the appropriate \emph{partial derivative} of a copula (\eqn{\mathbf{C}(u,v)}) with respect to \eqn{U}. The inversion of the partial derivative is the \emph{conditional quantile function}. Basic principles provide the expectation for a \eqn{x \ge 0} is
+Compute the \emph{expected value} of \eqn{V} given a \eqn{U} (the \eqn{X} direction) through the \emph{conditional distribution function} \eqn{F(X)} using the appropriate \emph{partial derivative} of a copula (\eqn{\mathbf{C}(u,v)}) with respect to \eqn{U}. The inversion of the partial derivative is the \emph{conditional quantile function}. Basic principles provide the expectation for a \eqn{x \ge 0} is
 \deqn{E[X] = \int_0^\infty xf(x)\mathrm{d}x = \int_0^\infty \bigl(1-F_x(X)\bigr)\mathrm{d}x\mbox{,}}
 which for the setting here becomes
-\deqn{E[V|U = u] = \int_0^1 \bigl(1 - \frac{\delta}{\delta u} \mathbf{C}(u,v)\bigr)\mathrm{d}v\mbox{.}}
+\deqn{E[V \mid U = u] = \int_0^1 \bigl(1 - \frac{\delta}{\delta u} \mathbf{C}(u,v)\bigr)\mathrm{d}v\mbox{.}}
 This function solves the integral using the \code{\link{derCOP}} function. Verification study is provided in the \bold{Note} section.
 }
 \usage{
-EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, ...)
+EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
+    subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{cop}{A copula function with vectorization as in \code{asCOP};}
   \item{para}{Vector of parameters or other data structures, if needed, to pass to the copula;}
-  \item{asuv}{Return a data frame of the \eqn{U} and \eqn{V}; and}
+  \item{asuv}{Return a data frame of the \eqn{U} and \eqn{V};}
+  \item{subdivisions}{Argument of same name passed to \code{integrate()};}
+  \item{rel.tol}{Argument of same name passed to \code{integrate()};}
+  \item{abs.tol}{Argument of same name passed to \code{integrate()}; and}
   \item{...}{Additional arguments to pass to \code{\link{derCOP}}.}
 }
 \value{
   Value(s) for the expectation are returned.
 }
 \note{
-For the PSP copula with no parameters, compute the the median and mean \eqn{V} given \eqn{U=0.4}.
+For the \code{\link{PSP}} copula with no parameters, compute the the median and mean \eqn{V} given \eqn{U=0.4}, respectively:
 \preformatted{
-  U <- 0.4
-  med.regressCOP(u=U, cop=PSP)                              # V = 0.4912752
+  U <- 0.4; n <- 1E4
+  med.regressCOP(u=U, cop=PSP)                            # V = 0.4912752
   set.seed(1)
-  median(replicate(1E5, derCOPinv(cop=PSP, U, runif(1)) ) ) # V = 0.4912084
-  mean(  replicate(1E5, derCOPinv(cop=PSP, U, runif(1)) ) ) # V = 0.5047865
+  median(replicate(n, derCOPinv(cop=PSP, U, runif(1)) ) ) # V = 0.4876440
+  mean(  replicate(n, derCOPinv(cop=PSP, U, runif(1)) ) ) # V = 0.5049729
 }
-We see in the above that the median \eqn{V} given \eqn{U} is very close to the mean, but is not equal. Using the derivative inversion within \code{\link{med.regressCOP}} the median is about 0.491 and then using large-sample simulation, we get about 0.491 too. This confirms the median and long standing proven use of \code{\link{derCOP}} (conditional distribution function) and \code{\link{derCOPinv}} (conditional quantile function) within the package. We then can be assured that the expectation (mean) by simulation provides the anchor point to check implementation of \code{EuvCOP()}. The mean for \eqn{V} given \eqn{U} is about 0.5048. Continuing, the core logic of \code{EvuCOP()} is to use numerical integration of the conditional distribution function (the partial derivative) and not bother for speed purposes to use the inversion of the partial derivative:
+
+It is seen in the above that the median \eqn{V} given \eqn{U} is very close to the mean, but is not equal. Using the derivative inversion within \code{\link{med.regressCOP}} the median is about 0.491 and then using large-sample simulation, about 0.491 too is computed. This confirms the median and long standing proven use of \code{\link{derCOP}} (conditional distribution function) and \code{\link{derCOPinv}} (conditional quantile function) within the package. The expectation (mean) by simulation provides the anchor point to check implementation of \code{EuvCOP()}. The mean for \eqn{V} given \eqn{U} is about 0.505. Continuing, the core logic of \code{EvuCOP()} is to use numerical integration of the conditional distribution function (the partial derivative) and not bother for speed purposes to use the inversion of the partial derivative:
 \preformatted{
   integrate(function(v)                      1-derCOP(   cop=PSP, U, v),
             lower=0, upper=1) # 0.5047805 with absolute error < 1.4e-11
@@ -39,7 +44,7 @@ We see in the above that the median \eqn{V} given \eqn{U} is very close to the m
   integrate(function(v) sapply(v, function(t)  derCOPinv(cop=PSP, U, t)),
             lower=0, upper=1) # 0.5047862 with absolute error < 7.2e-05
 }
-The two integrals match, which functions as a confirmation of the \eqn{(1-F)} term in the mathematical definition. Finally, the two integrals match the simulation results. The expectation or mean \eqn{V|U=0.4} for the \code{\link{PSP}} copula is about 0.5048.
+The two integrals match, which functions as a confirmation of the \eqn{(1-F)} term in the mathematical definition. Finally, the two integrals match the simulation results. The expectation or mean \eqn{V \mid U=0.4} for the \code{\link{PSP}} copula is about 0.5048.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{EuvCOP}}, \code{\link{derCOP}}}
@@ -55,18 +60,18 @@ EvuCOP(0.25, cop=breveCOP, para=para)  # 0.5982261
   UV <- simCOP(200, cop=PSP)
   u <- seq(0.005, 0.995, by=0.005)
   v <- sapply(u, function(t) integrate(function(k)
-                             1-derCOP(cop=PSP, t, k), lower=0, upper=1)$value)
-  lines(u,v, col="red", lwd=7, lty=1) #        RED LINE
+                         1 - derCOP(cop=PSP, t, k),  lower=0, upper=1)$value)
+  lines(u,v, col="red", lwd=7, lty=1)   # red line
   v <- seq(0.005, 0.995, by=0.005)
   u <- sapply(v, function(t) integrate(function(k)
-                             1-derCOP2(cop=PSP, k, t), lower=0, upper=1)$value)
-  lines(u,v, col="red", lwd=7, lty=2) # DASHED RED LINE
+                         1 - derCOP2(cop=PSP, k, t), lower=0, upper=1)$value)
+  lines(u,v, col="red", lwd=7, lty=2)   # dashed red line
 
-  uv <- seq(0.005, 0.995, by=0.005) # SOLID AND DASHED WHITE LINES
-  lines(EvuCOP(uv, cop=PSP, asuv=TRUE), col="white", lwd=3, lty=1)
-  lines(EuvCOP(uv, cop=PSP, asuv=TRUE), col="white", lwd=3, lty=3)
+  uv <- seq(0.005, 0.995, by=0.005)     # solid and dashed white lines
+  lines(EvuCOP(uv, cop=PSP, asuv=TRUE), col="white",  lwd=3,   lty=1)
+  lines(EuvCOP(uv, cop=PSP, asuv=TRUE), col="white",  lwd=3,   lty=3)
 
-  # median regression lines for comparison
+  # median regression lines for comparison, green and green dashed lines
   lines(med.regressCOP( uv, cop=PSP), col="seagreen", lwd=1.5, lty=1)
   lines(med.regressCOP2(uv, cop=PSP), col="seagreen", lwd=1.5, lty=4) #}
 
@@ -78,7 +83,8 @@ EvuCOP(0.25, cop=breveCOP, para=para)  # 0.5982261
 
 \dontrun{
   uv <- seq(0.005, 0.995, by=0.005) # more asymmetry ---- mean regression in UV and VU
-  para <- list(cop=breveCOP, para=list(cop=GHcop, para=23, alpha=0.1, beta=0.6, reflect=3))
+  para <- list(cop=GHcop, para=23, alpha=0.1, beta=0.6, reflect=3)
+  para <- list(cop=breveCOP, para=para)
   UV <- simCOP(200, cop=COP, para=para)
   lines(EuvCOP(uv,  cop=COP, para=para, asuv=TRUE), col="red",  lwd=2)
   lines(EvuCOP(uv,  cop=COP, para=para, asuv=TRUE), col="blue", lwd=2) #}
@@ -106,3 +112,5 @@ EvuCOP(0.25, cop=breveCOP, para=para)  # 0.5982261
 \keyword{copula operator}
 \keyword{copula (conditional distribution)}
 \keyword{conditional expectation}
+\keyword{mean V given U}
+\concept{expectation}

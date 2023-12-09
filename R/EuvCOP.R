@@ -1,10 +1,12 @@
 "EuvCOP" <-
-function(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, ...) {
+function(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
+         subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...) {
 
    u <- sapply(v, function(t) {
           E <- NULL
           try(E <- integrate(function(k) { 1-derCOP2(cop=cop, para=para, k, t, ...) },
-                    lower=0, upper=1)$value, silent=TRUE)
+                    lower=0, upper=1, subdivisions=subdivisions,
+                    rel.tol=rel.tol, abs.tol=abs.tol)$value, silent=TRUE)
           if(is.null(E)) return(NA)
           return(E)
         })
