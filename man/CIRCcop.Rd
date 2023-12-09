@@ -4,8 +4,8 @@
 \title{Copula of Circular Uniform Distribution}
 \description{
 The \emph{Circular copula} of the coordinates \eqn{(x, y)} of a point chosen at random on the unit circle (Nelsen, 2006, p. 56) is given by
-\deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{M}(u,v) \mathrm{\ for\ }|u-v| > 1.2\mathrm{,}}
-\deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{W}(u,v) \mathrm{\ for\ }|u+v-1| > 1.2\mathrm{,\ and}}
+\deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{M}(u,v) \mathrm{\ for\ }|u-v| > 1/2\mathrm{,}}
+\deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \mathbf{W}(u,v) \mathrm{\ for\ }|u+v-1| > 1/2\mathrm{,\ and}}
 \deqn{\mathbf{C}_{\mathrm{CIRC}}(u,v) = \frac{u+v}{2} - \frac{1}{4} \mathrm{\ otherwise\ }\mathrm{.}}
 
 The coordinates of the unit circle are given by
