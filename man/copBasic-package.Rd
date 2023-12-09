@@ -173,6 +173,8 @@ The \bold{Table of Probabilities} that follows lists important relations between
 \eqn{\mathrm{Pr}[\,U \le u \mid V = v\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta v} --- Partial derivative, \code{\link{derCOP2}}\cr
 \eqn{\mathrm{Pr}[\,U > u \mathrm{\ or\ } V > v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}^\star(u',v') = 1 - \mathbf{C}(u',v')} --- The co-copula, \code{\link{coCOP}}\cr
 \eqn{\mathrm{Pr}[\,U \le u \mathrm{\ or\ } V \le v\,]} \tab \eqn{=} \tab \eqn{\tilde{\mathbf{C}}(u,v) = u + v - \mathbf{C}(u,v)} --- The dual of a copula, \code{\link{duCOP}}\cr
+\eqn{E[U \mid V = v]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta v)\mathrm{d}u} --- Expectation of U given V, \code{\link{EuvCOP}}\cr
+\eqn{E[V \mid U = u]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta u)\mathrm{d}v} --- Expectation of V given U, \code{\link{EvuCOP}}\cr
 }
 The function \code{\link{jointCOP}} has considerable demonstration in its \bold{Note} section of the \bold{joint and} and \bold{joint or} relations shown through simulation and counting scenarios. Also there is a demonstration in the \bold{Note} section of function \code{\link{duCOP}} on application of the concepts of \bold{joint and} conditions, \bold{joint or} conditions, and importantly joint \bold{mutually exclusive or} conditions.
 
@@ -234,7 +236,7 @@ Thus, a \dQuote{better understanding of the statistical characteristics of [mult
 
 \bold{Interaction of copBasic to Copulas in Other Packages}
 
-Originally, the \pkg{copBasic} package was not intended to be a port of the numerous bivariate copulas or over re-implementation other bivariate copulas available in \R though as the package passed its 10th year in 2018, the original intent changed. It is useful to point out a demonstration showing an implementation of the \emph{Gaussian copula} from the \pkg{copula} package, which is shown in the \bold{Note} section of \code{\link{med.regressCOP}} in a circumstance of ordinary least squares linear regression  compared to \emph{median regression} of a copula as well as prediction limits of both regressions. Another demonstration in context of \emph{maximum pseudo-log-likelihood estimation} of copula parameters is seen in the \bold{Note} section \code{\link{mleCOP}}, and also see \dQuote{\bold{API to the copula package}} or \dQuote{\bold{package copula (comparison to)}} entries in the Index of this user manual.
+Originally, the \pkg{copBasic} package was not intended to be a port of the numerous bivariate copulas or over re-implementation other bivariate copulas available in \R though as the package passed its 10th year in 2018, the original intent changed. It is useful to point out a demonstration showing an implementation of the \emph{Gaussian copula} from the \pkg{copula} package, which is shown in the \bold{Note} section of \code{\link{med.regressCOP}} in a circumstance of ordinary least squares linear regression compared to \emph{median regression} of a copula as well as prediction limits of both regressions. Another demonstration in context of \emph{maximum pseudo-log-likelihood estimation} of copula parameters is seen in the \bold{Note} section \code{\link{mleCOP}}, and also see \dQuote{\bold{API to the copula package}} or \dQuote{\bold{package copula (comparison to)}} entries in the Index of this user manual.
 
 \if{html}{\figure{CopulaRelationsFigure4pkg.jpg}}
 \if{latex}{\figure{CopulaRelationsFigure4pkg.pdf}{options: width=4in, trim=1in 2.25in 0.75in 1in, clip}}
@@ -263,14 +265,14 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 }
 "MCDURV" <- function(u,v, para=NULL) {
    if(is.null(para))         stop("need theta")
-   if(para < 0 | para > 0.5) stop("theta ! in [0,1/2]")
+   if(para < 0 | para > 0.5) stop("theta ! in [0, 1/2]")
    return(asCOP(u, v, f=mcdurv, para))
 }
 "afunc" <- function(t) { # a sample size = 1,000 hard wired
    return(cov(simCOP(n=1000, cop=MCDURV, para=t, ploton=FALSE, points=FALSE))[1,2])
 }
 set.seed(6234) # setup covariance based on parameter "t" and the "root" parameter
-print(uniroot(afunc, c(0,0.5))) # "t" by simulation = 0.1023742
+print(uniroot(afunc, c(0, 0.5))) # "t" by simulation = 0.1023742
 # Nelsen reports that if theta appox. 0.103 then covariance of U and V is zero.
 # So, one will have mutually completely dependent uncorrelated uniform variables!
 
@@ -300,3 +302,6 @@ lmomco::lcomoms2(simCOP(n=1000, cop=MCDURV, para=0.5), nmom=5) # Perfect pos. co
 \keyword{return period (secondary)}
 \keyword{Table of Copulas}
 \keyword{Table of Probabilities}
+\keyword{Table of Expectations}
+\keyword{Table of Probabilities and Expectations}
+
