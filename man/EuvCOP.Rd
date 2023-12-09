@@ -14,7 +14,7 @@ which for the setting here becomes
 This function solves the integral using the \code{\link{derCOP2}} function. This avoids a call of the \code{\link{derCOPinv2}} through its \code{uniroot()} inversion of the derivative. The example shown for \code{EuvCOP()} below does a validation check using conditional simulation, which is dependence (of course) of the design of the \pkg{copBasic} package, as part of simple isolation of a horizontal slice of the simulation and computing the mean of the \eqn{V} within the slice.
 }
 \usage{
-EuvCOP(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
+EuvCOP(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, nsim=1E5,
     subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...)
 }
 \arguments{
@@ -22,6 +22,7 @@ EuvCOP(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
   \item{cop}{A copula function with vectorization as in \code{asCOP};}
   \item{para}{Vector of parameters or other data structures, if needed, to pass to the copula;}
   \item{asuv}{Return a data frame of the \eqn{U} and \eqn{V};}
+  \item{nsim}{Number of simulations for Monte Carlo integration when the numerical integration fails (see \bold{Note});}
   \item{subdivisions}{Argument of same name passed to \code{integrate()};}
   \item{rel.tol}{Argument of same name passed to \code{integrate()};}
   \item{abs.tol}{Argument of same name passed to \code{integrate()}; and}
@@ -32,6 +33,14 @@ EuvCOP(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
 }
 \note{
 The author is well aware that the name of this function does not contain the number \code{2} as the family of functions also sharing this \emph{with respect to \eqn{v}} nature. It was a design mistake in 2008 to have used the \code{2}. The \code{uv} in the function name is the moniker for this \emph{with respect to \eqn{v}}.
+
+There can be the rare examples of the numerical integration failing. In such circumstances, Monte Carlo integration is performed and the returned vector becomes a named vector with the \code{sim} identifying values stemming from the simulation.
+\preformatted{
+  cpara <- list(cop=COP, para=list(cop=RFcop, para=0.9), reflect=1, alpha=0, beta=0.3)
+  EuvCOP(c(0.0001, 0.0002, 0.001, 0.01, 0.1), cop=composite1COP, para=cpara)
+  #            sim
+  #[1] 0.001319395 0.002238238 0.006905300 0.034608078 0.173451788
+}
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{EvuCOP}}, \code{\link{derCOP2}}}

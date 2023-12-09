@@ -10,7 +10,7 @@ which for the setting here becomes
 This function solves the integral using the \code{\link{derCOP}} function. Verification study is provided in the \bold{Note} section.
 }
 \usage{
-EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
+EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, nsim=1E5,
     subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...)
 }
 \arguments{
@@ -18,6 +18,7 @@ EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE,
   \item{cop}{A copula function with vectorization as in \code{asCOP};}
   \item{para}{Vector of parameters or other data structures, if needed, to pass to the copula;}
   \item{asuv}{Return a data frame of the \eqn{U} and \eqn{V};}
+  \item{nsim}{Number of simulations for Monte Carlo integration when the numerical integration fails (see \bold{Note} in \code{\link{EvuCOP}});}
   \item{subdivisions}{Argument of same name passed to \code{integrate()};}
   \item{rel.tol}{Argument of same name passed to \code{integrate()};}
   \item{abs.tol}{Argument of same name passed to \code{integrate()}; and}
