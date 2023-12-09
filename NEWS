@@ -37,9 +37,13 @@ Changes in version 2.2.3 (2023-11-30)
       resampling is needed.
 -  Added EvuCOP() and EuvCOP() solving for the expectation of V (U) given U (V),
       respectively with extensive examples and comparison to median regression.
-      In general practice, EvuCOP(), which solves E[V|U=u], is expect the more common.
+      In general practice, EvuCOP(), which solves E[V|U=u], is expected the more
+      common needed.
+-  Added EvuCOP() and EuvCOP() to the copBasic-package.Rd.
 -  Trapped NaN in a square root of a negative number by truncation errors at the
-      end of the PLACKETTcop(). 
+      end of the PLACKETTcop().
+-  Added another simulation example for RFcop.Rd with reflection; revised example
+      in W.Rd.
 
 
 Changes in version 2.2.2 (2023-10-17)
