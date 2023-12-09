@@ -149,7 +149,7 @@ function(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
     } else {
       thex <- x
     }
-    if(is.null(dtypex) || is.na(dtypey)) {
+    if(is.null(dtypex) || is.na(dtypex)) {
       dtypex <- "--" # reset to empty to ensure that what was given is used from xpara forevermore
     }
   }

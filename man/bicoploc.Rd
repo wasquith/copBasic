@@ -132,7 +132,7 @@ zz <- bicoploc(Xp,Yp, xout=c(2.5, 3.5, 4.5), ruglwd=0.9, plotuv=FALSE,
 mtext("Example of specific xpara and ypara from larger sample", line=0.5)
 
 zz <- bicoploc(Xp,Yp, xout=c(2.5, 3.5, 4.5), ruglwd=0.9, plotuv=FALSE,
-               xpara=xpara, ypara=ypara, dtypex=NULL, dtypey=NULL)
+               xpara=xpara, ypara=ypara, dtypex=NULL, dtypey=NULL, x=X, y=Y)
 mtext("Example of specific xpara and ypara from larger sample", line=0.5) #}
 
 \dontrun{
