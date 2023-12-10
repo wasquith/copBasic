@@ -30,7 +30,7 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
   \item{ypara}{An \pkg{lmomco} package parameter object for the \eqn{Y} variable, which if not provided will trigger an method of L-moment parameter estimation for the distribution \code{dtypey};}
   \item{dtypex}{The \pkg{lmomco} package distribution abbreviations (see \code{lmomco::dist.list()}) for the \eqn{X} variable. If this argument is set \code{NULL} and \code{xpara} is given with an element of \code{type}, then that distribution type is assigned internally to \code{dtypex};}
   \item{dtypey}{The \pkg{lmomco} package distribution abbreviations (see \code{lmomco::dist.list()}) for the \eqn{Y} variable; If this argument is set \code{NULL} and \code{xpara} is given with an element of \code{type}, then that distribution type is assigned internally to \code{dtypex};}
-  \item{ctype}{Argument of the same name for the empirical copula for dispatch to \code{\link{EMPIRcop}}, and note that the \code{1/n} form is disabled for \code{bicoploc} operations based on limited experiments. The first letter of the argument's value is extracted, converted to upper case, and used as the plotting character in the two diagnostic plots;}
+  \item{ctype}{Argument of the same name for the empirical copula for dispatch to \code{\link{EMPIRcop}}. The \code{1/n} form is disabled for \code{bicoploc} operations based on limited experiments. The first letter of the argument's value is extracted, converted to upper case, and used as the plotting character in the two diagnostic plots;}
   \item{kumaraswamy}{A logical to trigger Kumaraswamy distribution smoothing of the copula diagonal inversion from the \emph{empricial copula}. The Kumaraswamy distribution is a distribution having support \eqn{[0,1]} with an explicit quantile function and takes the place of a Beta distribution (see \pkg{lmomco} function \code{quakur()} for more details). The smoothing by Kumaraswamy will provide a continuous real number on the interval, which should insure no flat-lining as one rolls on to or off off the discrete interval provided by the empirical copula for expected sample sizes of the operations anticipated for the \code{bicoploc} function;}
   \item{plotuv}{A logical to trigger plotting of the analyses in the \eqn{(U,V)} coordinate nonexceedance probability domain along with the analyses involving the copula diagonal inversion. If set true, then \code{adduv} is set false internally;}
   \item{plotxy}{A logical to trigger plotting of the analyses in the \eqn{(X,Y)} coordinate domain along with the well-known line of organic correlation by the method of L-moments and such a \dQuote{line}  (could be a curve) by copula diagonal inversion. If set true, then \code{addxy} is set false internally;}
@@ -73,7 +73,18 @@ bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor
 \note{
 The use of a copula diagonal inversion for purposes of a line of organic correlation analog within the text-book literature and elsewhere is unknown to the developers (December 2023).
 
-There are some open questions in the handling of negative associations. On way to test at some point, will be manual reversal or negation of a Y variable and working from the positive association schema and check that solutions match each other. There are some nuances with distribution reversal but achievable.
+Though \code{bicoploc} has extensive logic for working through the copula diagonal, if we know the parent distribution and we just have the marginal probabilities equal to each other (the diagonal), then we recover the moments of \eqn{Y} simply with \eqn{u = v}:
+\preformatted{
+  library(lmomco)
+  ff    <- c(0.0001, seq(0.001, 0.999, by=0.001), 0.9999)
+  xpara <- lmomco::vec2par(c(3, 0.6, -0.4), type="pe3")
+  ypara <- lmomco::vec2par(c(3, 0.4, +0.6), type="pe3")
+  xx <-   rlmomco(100000,  xpara)
+  yy <- approx(qlmomco(ff, xpara), qlmomco(ff, ypara), xout=xx)$y
+  lmr2par(yy, type="aep4")$para
+  #        mu     sigma     gamma
+  # 2.9972742 0.3993914 0.5980866
+}
 }
 \references{
 Kruskal, W.H., 1953, On the uniqueness of the line of organic correlation: Biometrics, vol. 9, no. 1, pp. 47--58, \doi{10.2307/3001632}.

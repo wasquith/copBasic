@@ -10,7 +10,7 @@ To begin, there are at least three terms in the literature for what appear as th
 
 \deqn{F_K(z; \mathbf{C}) = \mathrm{Pr}[Z \le z; \mathbf{U} \sim \mathbf{C}(u,v)]\mbox{,}}
 
-where \eqn{F_K} is the nonexceedance probability of the joint probability \eqn{z} stemming from the \eqn{\mathbf{C}}. Note that unlike its univariate counterpart, \eqn{F_K(z)} is rarely uniformly distributed (Nelsen \emph{et al.}, 2001, p. 278). The inverse \eqn{F_K^{(-1)}(z)} is implemented by the \code{\link{kfuncCOPinv}} function, which could be used for simulation of the correct joint probability using a single unformly distributed \eqn{\sim} U(0,1) random variable. A reminder is needed that \eqn{Z} is the \bold{joint probability} and \eqn{F_K(z)} is the Kendall Function.
+where \eqn{F_K} is the nonexceedance probability of the joint probability \eqn{z} stemming from the \eqn{\mathbf{C}}. Note, unlike its univariate counterpart, \eqn{F_K(z)} is rarely uniformly distributed (Nelsen \emph{et al.}, 2001, p. 278). The inverse \eqn{F_K^{(-1)}(z)} is implemented by the \code{\link{kfuncCOPinv}} function, which could be used for simulation of the correct joint probability using a single unformly distributed \eqn{\sim} U(0,1) random variable. A reminder is needed that \eqn{Z} is the \bold{joint probability} and \eqn{F_K(z)} is the Kendall Function.
 
 Joe (2014) and others as cited list various special cases of \eqn{F_K(z)}, inequalities, and some useful identities suitable for validation study:\cr
 \eqn{\mbox{}\quad\bullet\quad\mbox{}}For \eqn{\mathbf{M}(u,v)} (see \code{\link{M}}): \eqn{F_K(z) = z} for all \eqn{0 < z < 1} for all \eqn{d \ge 2} dimensions;\cr

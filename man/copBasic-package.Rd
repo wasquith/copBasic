@@ -148,7 +148,7 @@ Pos'ly quadrant dependency \tab PQD \tab \code{\link{isCOP.PQD}} \tab bivariate 
 Permutation symmetry \tab \eqn{\mathrm{permsym}} \tab \code{\link{isCOP.permsym}} \tab copula symmetry\cr
 Radial symmetry \tab \eqn{\mathrm{radsym}} \tab \code{\link{isCOP.radsym}} \tab copula symmetry\cr
 Skewness (Joe, 2014) \tab \eqn{\eta(p; \psi)} \tab \code{\link{uvskew}} \tab bivariate skewness\cr
-Kullback--Leibler Divergence \tab \eqn{\mathrm{KL}(f|g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
+Kullback--Leibler Divergence \tab \eqn{\mathrm{KL}(f \mid g)} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
 KL sample size \tab \eqn{n_{f\!g}} \tab \code{\link{kullCOP}} \tab bivariate inference\cr
 The Vuong Procedure \tab \eqn{{-}{-}} \tab \code{\link{vuongCOP}} \tab bivariate inference\cr
 Spectral measure \tab \eqn{H(w)} \tab \code{\link{spectralmeas}} \tab extremal dependency inference\cr
@@ -156,7 +156,7 @@ Stable tail dependence \tab \eqn{\widehat{l}(x,y)} \tab \code{\link{stabtaildepf
 L-comoments (samp. distr.) \tab \eqn{{-}{-}} \tab \code{\link{lcomCOPpv}} \tab experimental bivariate inference\cr
 }
 
-The \bold{Table of Probabilities} that follows lists important relations between various joint probability concepts, the copula, nonexceedance probabilities \eqn{u} and \eqn{v}, and exceedance probabilities \eqn{u'} and \eqn{v'}. A compact summary of these probability relations has obvious usefulness. The notation \eqn{[\ldots, \ldots]} is to read as \eqn{[\ldots \mathrm{\ and\ } \ldots]}, and the \eqn{[\ldots | \ldots]} is to be read as \eqn{[\ldots \mathrm{\ given\ } \ldots]}.
+The \bold{Table of Probabilities} that follows lists important relations between various joint probability concepts, the copula, nonexceedance probabilities \eqn{u} and \eqn{v}, and exceedance probabilities \eqn{u'} and \eqn{v'}. A compact summary of these probability relations has obvious usefulness. The notation \eqn{[\ldots, \ldots]} is to read as \eqn{[\ldots \mathrm{\ and\ } \ldots]}, and the \eqn{[\ldots \mid  \ldots]} is to be read as \eqn{[\ldots \mathrm{\ given\ } \ldots]}.
 \tabular{rcl}{
 \bold{Probability} \tab \bold{and} \tab \bold{Symbol Convention}\cr
 \eqn{\mathrm{Pr}[\,U \le u, V \le v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}(u,v)} --- The copula, \code{\link{COP}}\cr
