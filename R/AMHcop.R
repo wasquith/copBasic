@@ -13,7 +13,7 @@
       if(is.null(rho)) {
         # Nelsen (2006,p.172)
         if(tau < (5 - 8*log(2))/3 | tau > 1/3) { # [-0.1817, 0.3333]
-          warning("Kendall tau=", tau, " is outside limits attainable")
+          warning("Kendall tau=", tau, " is outside limits attainable [-0.1817, 0.3333]")
           return(NULL)
         }
         "ktau" <- function(t) {
@@ -40,7 +40,7 @@
         #}
         # Nelsen(2006,p172)
         if(rho < 33 - 48*log(2) | rho > 4*pi^2 - 39) { # [-0.2711, +0.4784]
-          warning("Spearman rho=", rho, " is outside limits attainable")
+          warning("Spearman rho=", rho, " is outside limits attainable [-0.2711, +0.4784]")
           return(NULL)
         }
         "srho" <- function(t) {
