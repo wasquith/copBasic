@@ -32,18 +32,25 @@ Changes in version 2.2.3 (2023-11-30)
       12th decimal was encountered. Instead of trapping in an application felt best
       to trap in COP(). ** Perhaps other traps might be useful in other functions? **
 -  Added argument resamv01 to rCOP() and simCOP() to resample for simulated v == 0 or
-      v == 1. The default is false, so this new feature maintains the long standing
-      behavior of these simulators. An example added of a demonstration wherein the
-      resampling is needed.
+      v == 1. The default is false; this new feature maintains the long standing
+      behavior of these simulators. An example demonstrating such is added.
+      Also added argument showresamv01 to display a message of how many of the
+      resampling are being done. There is structural protection from infinite looping
+      as well added.
 -  Added EvuCOP() and EuvCOP() solving for the expectation of V (U) given U (V),
       respectively with extensive examples and comparison to median regression.
-      In general practice, EvuCOP(), which solves E[V|U=u], is expected the more
+      In general practice, EvuCOP(), which solves E[V | U=u], is expected the more
       common needed.
 -  Added EvuCOP() and EuvCOP() to the copBasic-package.Rd.
 -  Trapped NaN in a square root of a negative number by truncation errors at the
       end of the PLACKETTcop().
 -  Added another simulation example for RFcop.Rd with reflection; revised example
       in W.Rd.
+-  Edit to sectionCOP() to prepend the U or V as appropriate to the xlab.
+-  Edits in Rds to systematically use latex character "\mid" for "given" made.
+-  Edits to convert "Note that" to "Note," for tightness and consistency.
+-  Added reporting of attainable Kendall Tau or Spearman Rho values in parameter
+      exceedance warnings within AMHcop().
 
 
 Changes in version 2.2.2 (2023-10-17)
