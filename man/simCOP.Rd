@@ -11,8 +11,10 @@ The \code{simCOP} function is based on a uniformly simulating nonexceedance prob
 \usage{
 simCOP(n=100, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, keept=FALSE,
               graphics=TRUE, ploton=TRUE, points=TRUE, snv=FALSE,
-              infsnv.rm=TRUE, trapinfsnv=.Machine$double.eps, resamv01=FALSE, ...)
-rCOP(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, resamv01=FALSE, ...)
+              infsnv.rm=TRUE, trapinfsnv=.Machine$double.eps,
+              resamv01=FALSE, showresamv01=FALSE, ...)
+rCOP(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL,
+              resamv01=FALSE, showresamv01=FALSE, ...)
 }
 \arguments{
   \item{n}{A sample size, default is \eqn{n = 100};}
@@ -27,7 +29,8 @@ rCOP(n, cop=NULL, para=NULL, na.rm=TRUE, seed=NULL, resamv01=FALSE, ...)
   \item{snv}{A logical to convert the \eqn{\{u,v\}} to standard normal scores (variates) both for the optional graphics and the returned \R \code{data.frame}. Curiously, Joe (2014) advocates extensively for use of normal scores, which is in contrast to Nelsen (2006) who does not;}
    \item{infsnv.rm}{A logical that will quietly strip out any occurrences of \eqn{u = \{0,1\}} or \eqn{v = \{0,1\}} from the simulations because these are infinity in magnitude when converted to standard normal variates has been selected. Thus, this logical only impacts logic flow when \code{snv} is \code{TRUE}. The \code{infsnv.rm} is mutually exclusive from \code{trapinfsnv};}
    \item{trapinfsnv}{If \code{TRUE} and presumably small, the numerical value of this argument (\eqn{\eta}) is used to replace \eqn{u = \{0,1\}} and \eqn{v = \{0,1\}} with \eqn{u(0) =  v(0) = \eta} or \eqn{u(1) = v(1) = 1 - \eta} as appropriate when conversion to standard normal variates has been selected. The setting of \code{trapinfsnv} only is used if \code{snv} is \code{TRUE} and \code{infsnv.rm} is \code{FALSE};}
-  \item{resamv01}{A logical triggering resampling for the elements of \eqn{v=0} and \eqn{v=1} (see \bold{Examples}). This is a relatively late addition to \pkg{copBasic} logic and hence is disabled by default. If this is set to true, then the operations related to \code{infsnv.rm} and \code{trapinfsnv} are never to be involved later down in the functions' logic; and}
+  \item{resamv01}{A logical triggering resampling for the elements of \eqn{v=0} and \eqn{v=1} (see \bold{Examples}). This is a relatively late addition to \pkg{copBasic} logic and hence is disabled by default. If this is set to true, then the operations related to \code{infsnv.rm} and \code{trapinfsnv} are never to be involved later down in the functions' logic;}
+  \item{showresamv01}{A logical providing a trigger to display a \code{message()} within the resampling loops for \eqn{v <= 0, v >= 1}; and}
   \item{...}{Additional arguments to pass to the \code{points()} function in \R.}
 }
 \value{
@@ -74,7 +77,7 @@ rug(D$U, side=3, col=2); rug(D$V, side=4, col=2)
 # composite2COP as a "compositor." The parameter argument becomes more complex, but
 # is passed as shown into composite2COP.
 para <- list(cop1=PLACKETTcop,cop2=PLACKETTcop, alpha=0.3,beta=0.5, para1=0.1,para2=50)
-D <- simCOP(n=950, cop=composite2COP, para=para, col=rgb(0,0,0,0.2), pch=16, snv=TRUE)#}
+D <- simCOP(n=950, cop=composite2COP, para=para, col=grey(0, 0.2), pch=16, snv=TRUE) #}
 }
 \keyword{copula (simulation)}
 \keyword{visualization}
