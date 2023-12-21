@@ -91,11 +91,11 @@ ThetaHR <- uniroot(function(p)
 ls.str(kfuncCOPlmoms(cop=GHcop, para=ThetaGH)) # Gumbel-Hougaard copula
 # lambdas :  num [1:5] 0.440617 0.169085 0.011228 -0.000797 0.000249
 # ratios  :  num [1:5]       NA 0.38375  0.0664   -0.00472  0.00147
-# source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.0664}
+# source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.0664
 ls.str(kfuncCOPlmoms(cop=HRcop, para=ThetaHR)) # Husler-Reiss copula
 # lambdas :  num [1:5] 0.439627 0.169052 0.011427 -0.000785 0.000249
 # ratios  :  num [1:5]       NA 0.38454  0.06759  -0.00464  0.00147
-# source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.06759}
+# source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.06759
 # These L-moments are extremely similar and within the numerics used.
 # Extreme value copula all have the same Kendall Distribution function.}
 
