@@ -52,11 +52,11 @@ kfuncCOPlmoms(cop=NULL, para=NULL, nmom=5, begin.mom=1, ...)
 \note{
 The L-moments of Kendall Functions appear to be not yet fully researched. An interesting research direction would be the trajectories of the L-moments or \emph{L-moment ratio diagrams} for the Kendall Function and the degree to which distinction between copulas becomes evident---such diagrams are in wide-spread use for distinquishing between univariate distributions. It is noted, however, that \emph{Kendall Function L-moment ratio diagrams} might be of less utility that in the univariate world because different copulas can have the same \eqn{F_K(z)}, such as all bivariate extreme value copulas.
 \preformatted{
-  Rhos <- seq(0, 0.9, by=0.05)
+  Rhos <- c(0.001, 0.01, seq(0.05, 0.95, by=0.05), 0.99, 0.999)
   L1 <- T2 <- T3 <- T4 <- Thetas <- vector(mode="numeric", length(Rhos))
   for(i in 1:length(Thetas)) {
      Thetas[i] <- uniroot(function(p)
-                 Rhos[i] - rhoCOP(cop=PARETOcop, para=p), c(0,100))$root
+                 Rhos[i] - rhoCOP(cop=PARETOcop, para=p), c(0,200))$root
      message("Rho = ", Rhos[i], " and Pareto theta = ",
                                              round(Thetas[i], digits=4))
      lmr <- kfuncCOPlmoms(cop=PARETOcop, para=Thetas[i], nmom=4)
@@ -64,14 +64,14 @@ The L-moments of Kendall Functions appear to be not yet fully researched. An int
      T3[i] <- lmr$ratios[3];  T4[i] <- lmr$ratios[4]
   }
   LMR <- data.frame(Rho=Rhos, Theta=Thetas, L1=L1, T2=T2, T3=T3, T4=T4)
-  plot(LMR$Rho, LMR$T2, ylim=c(-0.04, 0.5), xlim=c(0,1),
+  plot(LMR$Rho, LMR$T2, ylim=c(-0.04, 0.5), xlim=c(0, 1),
        xlab="Spearman Rho or coefficient of L-variation",
-       ylab="L-moment ratio", type="l", col=1) # black
-  lines(LMR$Rho, LMR$T3, col=2)        # red
-  lines(LMR$Rho, LMR$T4, col=3)        # green
-  lines(LMR$T2,  LMR$T3, lty=2, col=4) # dashed blue
-  lines(LMR$T2,  LMR$T4, lty=2, col=5) # dashed cyan
-  lines(LMR$T3,  LMR$T4, lty=2, col=6) # dashed purple
+       ylab="L-moment ratio", type="l", col="black")
+  lines(LMR$Rho, LMR$T3, lty=1, col="red"         )
+  lines(LMR$Rho, LMR$T4, lty=1, col="green"       )
+  lines(LMR$T2,  LMR$T3, lty=2, col="blue"        )
+  lines(LMR$T2,  LMR$T4, lty=2, col="deepskyblue2")
+  lines(LMR$T3,  LMR$T4, lty=2, col="purple"      )
 }
 }
 \references{
@@ -84,10 +84,20 @@ Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the 
 kfuncCOPlmom(1, cop=P) # 0.5 * 0.5 = 0.25 is expected joint prob. of independence
 #[1] 0.2499999  (in agreement with theory)
 
-ls.str(kfuncCOPlmoms(cop=GHcop, para=4.21)) # Gumbel-Hougaard copula
+ThetaGH <- 4.21
+Rho <- rhoCOP(cop=GHcop, para=ThetaGH)
+ThetaHR <- uniroot(function(p)
+                 Rho - rhoCOP(cop=HRcop, para=p), c(0, 100))$root
+ls.str(kfuncCOPlmoms(cop=GHcop, para=ThetaGH)) # Gumbel-Hougaard copula
 # lambdas :  num [1:5] 0.440617 0.169085 0.011228 -0.000797 0.000249
 # ratios  :  num [1:5]       NA 0.38375  0.0664   -0.00472  0.00147
 # source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.0664}
+ls.str(kfuncCOPlmoms(cop=HRcop, para=ThetaHR)) # Husler-Reiss copula
+# lambdas :  num [1:5] 0.439627 0.169052 0.011427 -0.000785 0.000249
+# ratios  :  num [1:5]       NA 0.38454  0.06759  -0.00464  0.00147
+# source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.06759}
+# These L-moments are extremely similar and within the numerics used.
+# Extreme value copula all have the same Kendall Distribution function.
 
 \dontrun{
 UV <- simCOP(200, cop=PLcop, para=1/pi, graphics=FALSE)
