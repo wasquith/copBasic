@@ -97,7 +97,7 @@ ls.str(kfuncCOPlmoms(cop=HRcop, para=ThetaHR)) # Husler-Reiss copula
 # ratios  :  num [1:5]       NA 0.38454  0.06759  -0.00464  0.00147
 # source  :  chr "kfuncCOPlmoms"  # e.g. L-skew = 0.06759}
 # These L-moments are extremely similar and within the numerics used.
-# Extreme value copula all have the same Kendall Distribution function.
+# Extreme value copula all have the same Kendall Distribution function.}
 
 \dontrun{
 UV <- simCOP(200, cop=PLcop, para=1/pi, graphics=FALSE)
