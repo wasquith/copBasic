@@ -12,6 +12,8 @@ The primary diagonal is defined as
 
 
 Two diagnostic plots can be plotted by the arguments available for this function. The plot for \eqn{(U,V)} coordinate nonexceedance probability domain along with the analyses involving the copula diagonal inversion comes first, which is followed by that for \eqn{(X,Y)} coordinate domain along with the well-known line of organic correlation by the method of L-moments and such a \dQuote{line} (could be a curve) by copula diagonal inversion.
+
+This much infrastructure written for flexibility in how a copula would interact for the purpose of estimation with moment preservation. The simple \eqn{u = v} might be sufficient but let us have some flexibility.
 }
 \usage{
 bicoploc(xp, yp=NULL, xout=NA, xpara=NULL, ypara=NULL, dtypex="nor", dtypey="nor",
