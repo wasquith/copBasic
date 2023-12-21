@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.3 (2023-11-30)
+Changes in version 2.2.3 (2023-12-21)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
 -  Added ordinal sums of W as W_N5p12a() following reproduction of
@@ -51,6 +51,11 @@ Changes in version 2.2.3 (2023-11-30)
 -  Edits to convert "Note that" to "Note," for tightness and consistency.
 -  Added reporting of attainable Kendall Tau or Spearman Rho values in parameter
       exceedance warnings within AMHcop().
+-  Added integrate() control arguments subdivisions, rel.tol, and abs.tol to
+      kfuncCOP(), kmeasCOP(), and kfuncCOPinv(). Experiments with secondary return
+      period by Kendall Distribution function suggest for some deep-tail estimation
+      that additional control of integrate() calls is needed. But we set the defaults
+      to match those of integrate().
 
 
 Changes in version 2.2.2 (2023-10-17)
