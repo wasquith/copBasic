@@ -111,7 +111,8 @@ ls.str(kfuncCOPlmoms(cop=GLcop, para=ThetaGL)) # Galambos copula
 
 \dontrun{
 UV <- simCOP(200, cop=PLcop, para=1/pi, graphics=FALSE)
-theta <- PLpar(UV[,1], UV[,2]); zs <- seq(0.01,0.99, by=.01) # for later
+theta <- PLpar(UV[,1], UV[,2])
+zs <- c(0.001, seq(0.01, 0.99, by=0.01), 0.999) # for later
 
 # Take the sample estimated parameter and convert to joint probabilities Z
 # Convert the Z to the Kendall Function estimates again with the sample parameter
@@ -125,16 +126,16 @@ knftxt <- paste0("Kendall L-moments: ",
 samtxt <- paste0("Sample L-moments: " ,
                  paste(round(SAMlmr$lambdas, digits=4), collapse=", "))
 
-plot(Z, KF, xlim=c(0,1), ylim=c(0,1), lwd=0.8, col=1,
+plot(Z, KF, xlim=c(0,1), ylim=c(0,1), lwd=0.8, col="black",
      xlab="COPULA(u,v) VALUE [JOINT PROBABILITY]",
      ylab="KENDALL FUNCTION, AS NONEXCEEDANCE PROBABILITY")
 rug(Z,  side=1, col=2, lwd=0.2); rug(KF, side=2, col=2, lwd=0.2) # rug plots
-lines(zs, kfuncCOP(zs, cop=PLcop, para=1/pi), col=3)
+lines(zs, kfuncCOP(zs, cop=PLcop, para=1/pi), col="darkgreen")
 knf_meanZ <- KNFlmr$lambdas[1]; sam_meanZ <- SAMlmr$lambdas[1]
 knf_mean  <- kfuncCOP(knf_meanZ, cop=PLcop, para=theta) # theo. Kendall function
 sam_mean  <- kfuncCOP(sam_meanZ, cop=PLcop, para=theta) # sam. est. of Kendall func
-points(knf_meanZ, knf_mean, pch=16, col=4, cex=4) # big blue dot
-points(sam_meanZ, sam_mean, pch=16, col=5, cex=2) # smaller pale blue dot
+points(knf_meanZ, knf_mean, pch=16, col="blue", cex=4)
+points(sam_meanZ, sam_mean, pch=16, col="cyan", cex=2)
 lines(zs, zs-zs*log(zs), lty=2, lwd=0.8) # dash ref line for independence
 text(0.2, 0.30, knftxt, pos=4, cex=0.8); text(0.2, 0.25, samtxt, pos=4, cex=0.8)
 text(0.2, 0.18, paste0("Notice the uniform distribution of the ",
