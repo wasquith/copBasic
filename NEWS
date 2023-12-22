@@ -56,6 +56,7 @@ Changes in version 2.2.3 (2023-12-21)
       period by Kendall Distribution function suggest for some deep-tail estimation
       that additional control of integrate() calls is needed. But we set the defaults
       to match those of integrate().
+-  Expanded examples and some documentation in kfuncCOPlmoms().
 
 
 Changes in version 2.2.2 (2023-10-17)
