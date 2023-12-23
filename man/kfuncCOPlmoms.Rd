@@ -86,14 +86,9 @@ kfuncCOPlmom(1, cop=P) # 0.5 * 0.5 = 0.25 is expected joint prob. of independenc
 
 ThetaGH <- 4.21
 Rho <- rhoCOP(cop=GHcop, para=ThetaGH)
-ThetaHR <- uniroot(function(p)
-                 Rho - rhoCOP(cop=HRcop, para=p), c(0, 100))$root
-                 ThetaHR <- uniroot(function(p)
-                 Rho - rhoCOP(cop=HRcop, para=p), c(0, 100))$root
-ThetaGL <- uniroot(function(p)
-                 Rho - rhoCOP(cop=GLcop, para=p), c(0, 100))$root
-                 ThetaHR <- uniroot(function(p)
-                 Rho - rhoCOP(cop=GLcop, para=p), c(0, 100))$root
+ThetaHR <- uniroot(function(p) Rho - rhoCOP(cop=HRcop, para=p), c(0, 100))$root
+ThetaHR <- uniroot(function(p) Rho - rhoCOP(cop=HRcop, para=p), c(0, 100))$root
+ThetaGL <- uniroot(function(p) Rho - rhoCOP(cop=GLcop, para=p), c(0, 100))$root
 ls.str(kfuncCOPlmoms(cop=GHcop, para=ThetaGH)) # Gumbel-Hougaard copula
 # lambdas :  num [1:5] 0.440617 0.169085 0.011228 -0.000797 0.000249
 # ratios  :  num [1:5]       NA 0.383750 0.066400 -0.004720 0.001470
@@ -126,20 +121,24 @@ knftxt <- paste0("Kendall L-moments: ",
 samtxt <- paste0("Sample L-moments: " ,
                  paste(round(SAMlmr$lambdas, digits=4), collapse=", "))
 
-plot(Z, KF, xlim=c(0,1), ylim=c(0,1), lwd=0.8, col="black",
+plot(Z, KF, xlim=c(0,1), ylim=c(0,1), col="black",
      xlab="COPULA(u,v) VALUE [JOINT PROBABILITY]",
-     ylab="KENDALL FUNCTION, AS NONEXCEEDANCE PROBABILITY")
-rug(Z,  side=1, col=2, lwd=0.2); rug(KF, side=2, col=2, lwd=0.2) # rug plots
+     ylab="KENDALL DISTRIBUTION FUNCTION (KDF), AS NONEXCEEDANCE PROBABILITY")
+rug(Z, side=1, col="red", lwd=0.5); rug(KF, side=2, col="red", lwd=0.5) # rug plots
 lines(zs, kfuncCOP(zs, cop=PLcop, para=1/pi), col="darkgreen")
 knf_meanZ <- KNFlmr$lambdas[1]; sam_meanZ <- SAMlmr$lambdas[1]
 knf_mean  <- kfuncCOP(knf_meanZ, cop=PLcop, para=theta) # theo. Kendall function
 sam_mean  <- kfuncCOP(sam_meanZ, cop=PLcop, para=theta) # sam. est. of Kendall func
-points(knf_meanZ, knf_mean, pch=16, col="blue", cex=4)
+points(knf_meanZ, knf_mean, pch=16, col="blue", cex=3)
 points(sam_meanZ, sam_mean, pch=16, col="cyan", cex=2)
 lines(zs, zs-zs*log(zs), lty=2, lwd=0.8) # dash ref line for independence
-text(0.2, 0.30, knftxt, pos=4, cex=0.8); text(0.2, 0.25, samtxt, pos=4, cex=0.8)
-text(0.2, 0.18, paste0("Notice the uniform distribution of the ",
-                       "vertical axis rug."), cex=0.7, pos=4) #}
+text(0.2, 0.30, knftxt, pos=4, cex=1); text(0.2, 0.25, samtxt, pos=4, cex=1)
+text(0.2, 0.18, paste0("Notice uniform distribution of vertical axis rug.\n",
+                       "A Critical remark with respect to to KDFs."), cex=1, pos=4)
+legend("bottomright", c("Independence copula", "KDF of Plackett copula",
+                        "Theoretical mean", "Sample mean"), bty="n", y.intersp=1.5,
+       lwd=c(1, 1, NA, NA), lty=c(2, 1, NA, NA), pch=c(NA, NA, 16, 16),
+       col=c("black", "darkgreen", "blue", "cyan"), pt.cex=c(NA, NA, 3, 2)) #}
 }
 \keyword{copula (characteristics)}
 \keyword{Kendall Function (L-moments)}
