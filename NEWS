@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.3 (2023-12-21)
+Changes in version 2.2.3 (2023-12-22)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
 -  Added ordinal sums of W as W_N5p12a() following reproduction of
@@ -33,10 +33,9 @@ Changes in version 2.2.3 (2023-12-21)
       to trap in COP(). ** Perhaps other traps might be useful in other functions? **
 -  Added argument resamv01 to rCOP() and simCOP() to resample for simulated v == 0 or
       v == 1. The default is false; this new feature maintains the long standing
-      behavior of these simulators. An example demonstrating such is added.
-      Also added argument showresamv01 to display a message of how many of the
-      resampling are being done. There is structural protection from infinite looping
-      as well added.
+      behavior of these simulators. An example demonstrating such is added. Added
+      argument showresamv01 to display a message of how many of the resampling are
+      being done. There is structural protection from infinite looping as well added.
 -  Added EvuCOP() and EuvCOP() solving for the expectation of V (U) given U (V),
       respectively with extensive examples and comparison to median regression.
       In general practice, EvuCOP(), which solves E[V | U=u], is expected the more
