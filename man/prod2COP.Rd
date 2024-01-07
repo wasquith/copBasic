@@ -73,7 +73,7 @@ UV <- simCOP(n=1000, cop=prod2COP, para=para, resamv01=FALSE, showresamv01=FALSE
 # that NAs, empty simulations, remain intact. We can try resampling:
 UV <- simCOP(n=1000, cop=prod2COP, para=para, resamv01=TRUE, showresamv01=TRUE)
 rhoCOP(cop=prod2COP, para=para) # -0.4271195 (theoretical)
-rhoCOP(para=UV, as.sample=TRUE) # -0.4274703
+rhoCOP(para=UV, as.sample=TRUE) # -0.4274703 #}
 
 \dontrun{
 para <- list(cop1=PLcop, para1=0.19, cop2=PLcop, para2=34.5)
