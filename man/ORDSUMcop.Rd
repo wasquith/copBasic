@@ -28,7 +28,7 @@ ORDSUMcop(u,v, para=list(cop=W, para=NA, part=c(0,1)), ...)
 \references{
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
-Klement, E.P., Kolesarova, A., Mesiar, R., Saminger-Platz, S., 2017, Copula constructions using ultramodularity, Chapter 9 \emph{in} Copulas and Dependence Models with Applications: Springer, \doi{10.1007/978-3-319-64221-5}.
+Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S., 2017, Copula constructions using ultramodularity, Chapter 9 \emph{in} Copulas and Dependence Models with Applications: Springer, \doi{10.1007/978-3-319-64221-5}.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{copBasic-package}}, \code{\link{W_N5p12a}}, \code{\link{ORDSUWcop}}}
