@@ -27,13 +27,15 @@ W_N5p12a(u, v, para=1, ...)
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{W}}, \code{\link{ORDSUMcop}}, \code{\link{M_N5p12b}}}
+\seealso{\code{\link{W}}, \code{\link{ORDSUMcop}}, \code{\link{ORDSUWcop}}, \code{\link{M_N5p12b}}}
 \examples{
 W_N5p12a(0.4, 0.6, para=5)
 
 \dontrun{
   # Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a)
-  UV <- simCOP(1000, cop=W_N5p12a, para=4) # }
+  UV <- simCOP(1000, cop=W_N5p12a, para=4) # which is the same as
+  para <- list(cop=c(W, W, W, W), para=NULL, part=c(0,0.25,0.50,0.75,1))
+  UV <- simCOP(1000, cop=ORDSUMcop, para=para) }
 }
 \keyword{copula (formulas)}
 \keyword{copula (limits/bounds)}
