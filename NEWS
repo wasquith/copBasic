@@ -1,14 +1,15 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.3 (2023-12-22)
+Changes in version 2.2.3 (2024-01-08)
 -  Added additional comments to AMHcop.R, math extensions in AMHcop.Rd, and
      adjustments to Examples therein.
 -  Added ordinal sums of W as W_N5p12a() following reproduction of
       Nelsen (2006, exer. 5.12a, p. 172, fig. 5.3a).
 -  Added shuffles of M as M_N5p12b() following reproduction of
       Nelsen (2006, exer. 5.12b, p. 173, fig. 5.3b).
--  Added general ordinal sums as ORDSUMcop() following Nelsen (2006, pp. 63-64).
+-  Added general M-ordinal sums as ORDSUMcop() (Nelsen, 2006, pp. 63-64).
+-  Added general W-ordinal sums as ORDSUWcop() (Klement and others, 2017, p. 138).
 -  Updated copBasic-package.Rd with ORDSUMcop() entry into a table.
 -  Formatting edits in composite1COP.Rd and isCOP.permsym.Rd.
 -  Added silent=TRUE default to diagCOPatf(), COPinv(), and COPinv2(). The cascade of
@@ -45,7 +46,7 @@ Changes in version 2.2.3 (2023-12-22)
       end of the PLACKETTcop().
 -  Added another simulation example for RFcop.Rd with reflection; revised example
       in W.Rd.
--  Edit to sectionCOP() to prepend the U or V as appropriate to the xlab.
+-  Edits to sectionCOP() to prepend the U or V as appropriate to the xlab.
 -  Edits in Rds to systematically use latex character "\mid" for "given" made.
 -  Edits to convert "Note that" to "Note," for tightness and consistency.
 -  Added reporting of attainable Kendall Tau or Spearman Rho values in parameter
@@ -53,7 +54,7 @@ Changes in version 2.2.3 (2023-12-22)
 -  Added integrate() control arguments subdivisions, rel.tol, and abs.tol to
       kfuncCOP(), kmeasCOP(), and kfuncCOPinv(). Experiments with secondary return
       period by Kendall Distribution function suggest for some deep-tail estimation
-      that additional control of integrate() calls is needed. But we set the defaults
+      that additional control of integrate() calls is needed. The defaults are set
       to match those of integrate().
 -  Expanded examples and some documentation in kfuncCOPlmoms().
 
