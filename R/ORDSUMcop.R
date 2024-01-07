@@ -22,8 +22,24 @@ function(u,v, para=list(cop=W, para=NA, part=c(0,1)), ...) {
     warning("must have the part element of the para list populated")
     return(NULL)
   }
-  if(is.vector(para$part) & length(para$part) == 2) {
-    J <- list(para$part)
+
+  if(! is.list(para$part)) {
+    x  <- as.vector(para$part)
+    np <- length(x)
+    ck <-   diff(x)
+    if(np < 2) {
+      warning("para$para given as vector of break pionts but length is not >= 2")
+      return(NULL)
+    }
+    if(any(ck <  0)) {
+      warning("para$part given as vector of break points but not monotonic increasing")
+      return(NULL)
+    }
+    if(any(ck == 0)) {
+      warning("para$part given as vector of break points but a number is repeated")
+      return(NULL)
+    }
+    J <- lapply(seq(1, np-1, by=1), function(i) c(x[i], x[i+1]))
   } else {
     J <- para$part
   }
