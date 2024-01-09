@@ -20,5 +20,7 @@ Repository: CRAN
 Depends: R (>= 4.0.0)
 Imports: lmomco, randtoolbox
 Suggests: copula
+URL: https://github.com/wasquith/copBasic
+BugReports: https://github.com/wasquith/copBasic/issues
 License: GPL-2
 NeedsCompilation: no
