@@ -32,7 +32,7 @@ The following descriptions list in detail the structure and content of the \code
 For the \code{para} argument, the same nomenclature as used for \code{\link{composite2COP}} is used with obviously \code{cop2} and \code{para2} dropped for \code{composite1COP}. The \code{cop1} and \code{para1} names remain enumerated for \code{composite1COP} so that the \code{para} argument of the more general \code{\link{composite2COP}} function could be used directly in \code{\link{composite1COP}}. Albeit, the second copula and its parameters would not be used. A more complex (extended) composition in \code{\link{composite3COP}} extends this basic parameter structure.
 }
 \references{
-Joe, H., 2017, Parametric copula families for statistical models (chap. 8) \emph{in} Copulas and dependence models with applications---Contributions in honor of Roger B. Nelsen, \emph{eds.} Flores, U.M., Amo Artero, E., Durante, F., \enc{Sánchez}{Sanchez}, J.F.: Springer, Cham, Switzerland, ISBN 978--3--319--64220--9.
+Joe, H., 2017, Parametric copula families for statistical models (chap. 8)  \emph{in} Copulas and dependence models with applications---Contributions in honor of Roger B. Nelsen, \emph{eds.} Flores, U.M., Amo Artero, E., Durante, F., \enc{Sánchez}{Sanchez}, J.F.: Springer, Cham, Switzerland, ISBN 978--3--319--64220--9, \doi{10.1007/978-3-319-64221-5}.
 
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
