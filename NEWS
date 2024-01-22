@@ -5,6 +5,9 @@ Changes in version 2.2.4 (2024-NN-NN)
 -  Added Rayleigh copula as RAYcop().
 -  Minor mathematical edits in numerous Rd files; left and right () and [] enlargement
 -  Minor grammar edits in numerous Rd files.
+-  Error in breveCOP.Rd related to recipes for transforms of breve for optimizations.
+-  Added in simCOP.R additional "ditches" to the "dots" to avoid plot() complaining on
+     breve argument used by breveCOP().
 
 
 Changes in version 2.2.3 (2024-01-08)
