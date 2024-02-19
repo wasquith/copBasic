@@ -1,6 +1,6 @@
 "RAYcop" <-
 function(u, v, para=NULL, rho=NULL, method=c("default"),
-               rel.tol=.Machine$double.eps^0.25, ...) {
+               rel.tol=.Machine$double.eps^0.5, ...) {
 
   if(! is.null(rho)) {
     Rho2Theta <- function(rho) {
@@ -62,12 +62,12 @@ function(u, v, para=NULL, rho=NULL, method=c("default"),
   # NEED TO STUDY MORE })
 
   sapply(seq_len(length((u))), function(i) {
-    a1 <- -log(1-u[i])
+    a1 <- -log(1-u[i]) # use of log1p() does not seem to help get deeper into the tail
     if(is.infinite(a1)) return(v[i])
-    a2 <- -log(1-v[i])
+    a2 <- -log(1-v[i]) # use of log1p() does not seem to help get deeper into the tail
     if(is.infinite(a2)) return(u[i])
-    a1 <- exp(log(a1) - log(1-p))
-    a2 <- exp(log(a2) - log(1-p))
+    a1 <- exp(log(a1) - log(1-p)) # use of log1p() does not seem to help get deeper into the tail
+    a2 <- exp(log(a2) - log(1-p)) # use of log1p() does not seem to help get deeper into the tail
     #    print(c(a1, a2))
     #if(is.infinite(a1)) return(v[i])
     #if(is.infinite(a2)) return(u[i])
@@ -82,7 +82,8 @@ function(u, v, para=NULL, rho=NULL, method=c("default"),
       try(i1 <- integrate(function(s) { x <- 2*sqrt(  s*a1)
                     exp( -s + x + log( besselI(x, 0, expon.scaled=TRUE) ) )
                   }, 0, p*a2, rel.tol=rel.tol)$value, silent=TRUE)
-      if(is.na(i1)) return(M(u[i], v[i])) # perhaps not ideal, could try Monte Carlo integration
+      if(is.na(i1)) return(min(u[i], v[i])) # slightly faster
+      #if(is.na(i1)) return(M(u[i], v[i])) # perhaps not ideal, could try Monte Carlo integration
       # at this stage, and have in testing, can not seem to go beyond numerical blowup, so slipping
       # in M copula pinches the relation deep to the upper right and as para ---> 1 the M part
       # progresses down towards the lower left corner
@@ -90,7 +91,8 @@ function(u, v, para=NULL, rho=NULL, method=c("default"),
       try(i2 <- integrate(function(t) { x <- 2*sqrt(p*t*a1)
                   exp( -t + x + log( besselI(x, 0, expon.scaled=TRUE) ) )
                   }, 0,   a2, rel.tol=rel.tol)$value, silent=TRUE)
-      if(is.na(i2)) return(M(u[i], v[i]))
+      if(is.na(i2)) return(min(u[i], v[i])) # slightly faster
+      #if(is.na(i2)) return(M(u[i], v[i]))
       #print(c(i1, i2))
       #t1 <- b1*(b2*i1 - 1)
       #t2 <- b2*i2

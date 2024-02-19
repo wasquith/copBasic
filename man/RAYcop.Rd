@@ -11,7 +11,7 @@ where \eqn{a1 = -\log(1-u)/(1-\Theta)}, \eqn{a2 = -\log(1-v)/(1-\Theta)}, \eqn{I
 }
 \usage{
 RAYcop(u, v, para=NULL, rho=NULL, method=c("default"),
-             rel.tol=.Machine$double.eps^0.25, ...)
+             rel.tol=.Machine$double.eps^0.5, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
@@ -26,7 +26,7 @@ RAYcop(u, v, para=NULL, rho=NULL, method=c("default"),
   Value(s) for the copula are returned.
 }
 \note{
-The documentation in Zeng and other [Part II] appear to have corrected the Marcum-Q function solution to the copula. The essence of that solution is with a Chi-distribution computation the Marcum-Q. Testing indictates that this is a correct solution but the derivative for the conditional simulation as the design of \pkg{copBasic} has difficulties---perhaps this is related to numerical precision of the Marcum-Q?
+The documentation in Zeng and other [Part II] appear to have corrected the Marcum-Q function solution to the copula. The essence of that solution is with a Chi-distribution computation the Marcum-Q. Testing indictates that this is a correct solution, but the derivative for the conditional simulation as built into the design of \pkg{copBasic} has difficulties. Perhaps this is related to numerical precision of the Marcum-Q?
 \preformatted{
   sapply(seq_len(length((u))), function(i) {
     a1 <- -log(1-u[i])
@@ -35,9 +35,9 @@ The documentation in Zeng and other [Part II] appear to have corrected the Marcu
     if(is.infinite(a2)) return(u[i])
     a1 <- exp(log(a1) - log(1-p))
     a2 <- exp(log(a2) - log(1-p))
-    a3 <- marcumq.chi(sqrt(2*a1), sqrt(2*p*a2)) # Zeng and others (Part II)
-    a4 <- marcumq.chi(sqrt(2*p*a1), sqrt(2*a2)) # Zeng and others (Part II)
-    zz <- 1 + (1-v[i])*a3 - (1-u[i])*(1-a4)     # Zeng and others (Part II)
+    a3 <- marcumq.chi(sqrt(2*  a1), sqrt(2*p*a2)) # Zeng and others (Part II)
+    a4 <- marcumq.chi(sqrt(2*p*a1), sqrt(2*  a2)) # Zeng and others (Part II)
+    zz <- 1 + (1-v[i])*a3 - (1-u[i])*(1-a4)       # Zeng and others (Part II)
     zz[zz < 0] <- 0
     zz[zz > 1] <- 1
     return(zz)
@@ -70,7 +70,7 @@ Rho2Theta <- function(rho) {
   sapply(rho, function(r) coes[1]*r^1 + coes[2]*r^2 + coes[3]*r^4 + coes[4]*r^6 )
 }
 plot(RHOs, Thetas, type="l", col=grey(0.8), lwd=12, lend=1,
-      xlab="Spearman Rho", ylab="Theta Rayleigh parameter")
+      xlab="Spearman Rho", ylab="Rayleigh Copula Parameter Theta")
 lines(RHOs, Rho2Theta(RHOs), col="red", lwd=2) # }
 }
 \keyword{Rayleigh copula}
