@@ -32,6 +32,7 @@ Pareto copula \tab \eqn{\mathbf{PA}(u,v)} \tab \code{\link{PLcop}} \tab copula\c
 Plackett copula \tab \eqn{\mathbf{PL}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 PSP copula \tab \eqn{\mathbf{PSP}(u,v)} \tab \code{\link{PSP}} \tab copula\cr
 Raftery copula \tab \eqn{\mathbf{RF}(u,v)} \tab \code{\link{RFcop}} \tab copula\cr
+Rayleigh copula \tab \eqn{\mathbf{RAY}(u,v)} \tab \code{\link{RAYcop}} \tab copula\cr
 g-EV copula (Gaussian extreme value) \tab \eqn{\mathbf{gEV}(u,v)} \tab \code{\link{gEVcop}} \tab copula\cr
 t-EV copula (t-distribution extreme value) \tab \eqn{\mathbf{tEV}(u,v)} \tab \code{\link{tEVcop}} \tab copula\cr
 }
@@ -173,14 +174,14 @@ The \bold{Table of Probabilities} that follows lists important relations between
 \eqn{\mathrm{Pr}[\,U \le u \mid V = v\,]}   \tab \eqn{=} \tab \eqn{\delta \mathbf{C}(u,v)/\delta v} --- Partial derivative, \code{\link{derCOP2}}\cr
 \eqn{\mathrm{Pr}[\,U > u \mathrm{\ or\ } V > v\,]}     \tab \eqn{=} \tab \eqn{\mathbf{C}^\star(u',v') = 1 - \mathbf{C}(u',v')} --- The co-copula, \code{\link{coCOP}}\cr
 \eqn{\mathrm{Pr}[\,U \le u \mathrm{\ or\ } V \le v\,]} \tab \eqn{=} \tab \eqn{\tilde{\mathbf{C}}(u,v) = u + v - \mathbf{C}(u,v)} --- The dual of a copula, \code{\link{duCOP}}\cr
-\eqn{E[U \mid V = v]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta v)\mathrm{d}u} --- Expectation of U given V, \code{\link{EuvCOP}}\cr
-\eqn{E[V \mid U = u]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta u)\mathrm{d}v} --- Expectation of V given U, \code{\link{EvuCOP}}\cr
+\eqn{E[\,U \mid V = v\,]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta v)\mathrm{d}u} --- Expectation of U given V, \code{\link{EuvCOP}}\cr
+\eqn{E[\,V \mid U = u\,]} \tab \eqn{=} \tab \eqn{\int_0^1 (1 - \delta \mathbf{C}(u,v)/\delta u)\mathrm{d}v} --- Expectation of V given U, \code{\link{EvuCOP}}\cr
 }
 The function \code{\link{jointCOP}} has considerable demonstration in its \bold{Note} section of the \bold{joint and} and \bold{joint or} relations shown through simulation and counting scenarios. Also there is a demonstration in the \bold{Note} section of function \code{\link{duCOP}} on application of the concepts of \bold{joint and} conditions, \bold{joint or} conditions, and importantly joint \bold{mutually exclusive or} conditions.
 
 \bold{Copula Construction Methods}
 
-Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters, \code{\link{composite2COP}} composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} as another and particularly interesting method of combining copulas.
+Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters, \code{\link{composite2COP}} composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} and \code{\link{ORDSUWcop}} as particularly interesting methods of combining copulas.
 
 \tabular{cclr}{
 \bold{No. of copulas} \tab \bold{Combining Parameters} \tab \bold{Function} \tab \bold{Concept}\cr
@@ -192,7 +193,8 @@ Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, t
 \eqn{N} \tab \eqn{\omega_{i \in N}} \tab \code{\link{convexCOP}} \tab weighted copula combination\cr
 2 \tab \eqn{\gamma} \tab \code{\link{glueCOP}} \tab gluing of coupla\cr
 2 \tab \eqn{\bigl(\mathbf{C}_1 \ast \mathbf{C}_2 \bigr)} \tab \code{\link{prod2COP}} \tab copula multiplication\cr
-\eqn{N} \tab \eqn{\mathbf{C}_{\mathcal{J}i}} for \eqn{\mathcal{J}_{i \in N}} partitions \tab \code{\link{ORDSUMcop}} \tab ordinal sums of copulas\cr
+\eqn{N} \tab \eqn{\mathbf{C}_{\mathcal{J}i}} for \eqn{\mathcal{J}_{i \in N}} partitions \tab \code{\link{ORDSUMcop}} \tab \code{\link{M}}-ordinal sums of copulas\cr
+\eqn{N} \tab \eqn{\mathbf{C}_{\mathcal{J}i}} for \eqn{\mathcal{J}_{i \in N}} partitions \tab \code{\link{ORDSUWcop}} \tab \code{\link{W}}-ordinal sums of copulas\cr
 }
 
 \bold{Useful Copula Relations by Visualization}
