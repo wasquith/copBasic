@@ -65,8 +65,8 @@ varFTunderIndpendence <- function(n) {
 }
 ns <- c(10, 15, 20, 25, 50, 75, 100)
 plot(min(ns):max(ns), varFTunderIndpendence(10:max(ns)), type="l",
-     xlab="Sample size", ylab="Variance of Sample Estimator")
-mtext("Sample Spearman Footrule Under Independence")
+     xlab="Sample size", ylab="Variance of Sample Estimator", col="salmon4")
+mtext("Sample Spearman Footrule Under Independence", col="salmon4")
 for(n in ns) {
   sFT <- vector(length=nsim)
   for(i in seq_len(nsim)) {
@@ -77,7 +77,7 @@ for(n in ns) {
   zz <- round(c(n, mean(sFT), var(sFT), varFT), digits=6)
   names(zz) <- c("n", "mean_sim", "var_sim", "var_Genest")
   print(zz)
-  points(n, zz[3], cex=2, pch=21, col="darkgreen", bg="lightgreen")
+  points(n, zz[3], cex=2, pch=21, col="salmon4", bg="salmon1")
 } # results show proper implementation and Genest et al. (2010, sec. 3) }
 }
 \keyword{copula (characteristics)}

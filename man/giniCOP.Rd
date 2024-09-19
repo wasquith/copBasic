@@ -119,8 +119,8 @@ varGIunderIndpendence <- function(n) {
 }
 ns <- c(10, 15, 20, 25, 50, 75, 100)
 plot(min(ns):max(ns), varGIunderIndpendence(10:max(ns)), type="l",
-     xlab="Sample size", ylab="Variance of Sample Estimator")
-mtext("Sample Gini Gamma Under Independence")
+     xlab="Sample size", ylab="Variance of Sample Estimator", col="darkgreen")
+mtext("Sample Gini Gamma Under Independence", col="darkgreen")
 for(n in ns) {
   sGI <- vector(length=nsim)
   for(i in seq_len(nsim)) {
