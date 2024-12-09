@@ -1,6 +1,14 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.2.7 (2025-NN-NN)
+-  Added Frank copula after a few years of trying off and on to determine numerical
+     end points to determine parameter range suitable for copBasic structure and
+     support for Spearman Rho and Kendall Tau. Added example from Joe (2014) using the
+     Frank in the context of a C-vine 3-dimensional copula using also the Gumbel. 
+     Results show Frank is implemented properly as well as the example C-vine.
+
+
 Changes in version 2.2.6 (2024-10-08)
 -  Added Authors@R field to DESCRIPTION as per CRAN requirements.
 
