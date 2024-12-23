@@ -33,7 +33,7 @@ FRcop(u, v, para=NULL, rhotau=NULL, userhotau_chk=TRUE,
   Value(s) for the copula are returned. Otherwise if \code{tau} is given, then the \eqn{\Theta} is computed and a \code{list} having
   \item{para}{The parameter \eqn{\Theta}, and}
   \item{tau}{Kendall Tau.}
-and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and \code{v} are used to compute Kendall Tau and then compute the parameter, and these are returned in the aforementioned list. Or if \code{rho} is given, then the \eqn{\Theta} is computed and a similar \code{list} is returned having similar structure but with Spearman Rho.
+and if \code{para=NULL} and \code{tau=NULL}, then the values within \code{u} and \code{v} are used to compute Kendall Tau and then compute the parameter, and these are returned in the aforementioned list. Or if \code{rho} is given, then the \eqn{\Theta} is computed and a similar \code{list} is returned having similar structure but with Spearman Rho instead.
 }
 \note{
 Whether because of default directions of derivative in \code{\link{derCOP}} for partial derivative of the copula or other numerical challenges, the implementation uses the negative parameter whether positive or not and rotates the copula as needed for complete operation of \code{\link{simCOP}}. Several default limiting conditions are in the sources before conversion to independence, perfect positive dependence, or perfect negative dependence.
@@ -57,8 +57,8 @@ print(FRcop(UV[,1], UV[,2], cortype="spearman")$rho) # 0.9536648
   # asymmetry (if needed) and reflections (rotations) of copula:
   nsim <- 5000 # number of simulations but not too large for long CPU
   d <- 3 # three dimensions in implementation of Joe (2014, algorithm 15).
-  GHcop_para <- GHcop(tau=0.5)$para # theta = 2
-  FRcop_para <- FRcop(tau=0.7)$para # theta = 11.41155
+  GHcop_para <- GHcop(tau   =0.5                   )$para # theta = 2
+  FRcop_para <- FRcop(rhotau=0.7, cortype="kendall")$para # theta = 11.41155
   # Substantial notation complexity by structuring the C-vine by matrices for
   # copula families and their parameters then dial in asymmetry by "breves"
   # (see copBasic::breveCOP) and then reflection (rotation ability in the
@@ -118,7 +118,7 @@ print(FRcop(UV[,1], UV[,2], cortype="spearman")$rho) # 0.9536648
     } }
     return(ktau)
   }
-  PairwiseTaus  <- computePairwiseTaus(U) # [1,2] and [1,3] are 0.5 and 0.7 matching
+  PairwiseTaus  <- PairwiseTaus(U) # [1,2] and [1,3] are 0.5 and 0.7 matching
   # requirement and more importantly for Joe (2014, table 8.3, p. 405). Now, [2,3] is
   # about 0.783 which again matches Joe's results of 0.782.
   Tau23given1pc <- pc3dCOP(PairwiseTaus[2,3], PairwiseTaus[2,1], PairwiseTaus[3,1])
@@ -131,7 +131,9 @@ print(FRcop(UV[,1], UV[,2], cortype="spearman")$rho) # 0.9536648
 \concept{Frank copula}
 \keyword{Joe (2014) Examples and Exercises}
 \keyword{Debye function}
-\keyword{C-vine}
+\keyword{C-vine copula}
 \keyword{Vine Copula}
 \keyword{copula (comprehensive)}
 \concept{comprehensive copula}
+\concept{C-vine}
+\concept{C-vines}
