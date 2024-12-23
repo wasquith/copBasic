@@ -4,9 +4,9 @@
 \alias{copBasic-package}
 \title{Basic Theoretical Copula, Empirical Copula, and Various Utility Functions}
 \description{
-The \pkg{copBasic} package is oriented around \emph{bivariate copula theory} and mathematical operations closely follow the standard texts of Nelsen (2006) and Joe (2014) as well as select other references. Another recommended text is Salvadori \emph{et al.} (2007) and is cited herein, but about half of that excellent book concerns univariate applications. The primal objective of \pkg{copBasic} is to provide a basic application programming interface (API) to numerous results shown by authoritative texts on copulas. It is intended that the package will help other copula students in self study, potential course work, and applied circumstances.
+The \pkg{copBasic} package is oriented around \emph{bivariate copula theory} and mathematical operations closely follow the standard texts of Nelsen (2006) and Joe (2014) as well as select other references. Another recommended text is Salvadori \emph{et al.} (2007) and Hofert \emph{et al.} (2018) and are cited herein, but about half of that excellent book concerns univariate applications. The primal objective of \pkg{copBasic} is to provide a basic application programming interface (API) to numerous results shown by authoritative texts on copulas. It is intended that the package will help other copula students in self study, potential course work, and applied circumstances.
 
-\bold{Notes on copulas that are supported.} The author has focused on pedagogical aspects of copulas, and this package is a \emph{diary} of sorts. Originally, the author did not implement many copulas in the \pkg{copBasic} in order to deliberately avoid redundancy to that support such as it exists on the \R CRAN. Though as time has progressed, other copulas have been added occasionally based on needs of the user community, need to show some specific concept in the general theory, or test algorithms. For example, the Clayton copula (\code{\link{CLcop}}) is a late arriving addition to the \pkg{copBasic} package (\emph{c.}2017), which was added to assist a specific user.
+\bold{Notes on copulas that are supported.} The author has focused on pedagogical aspects of copulas, and this package is a \emph{diary} of sorts. Originally, the author did not implement many copulas in the \pkg{copBasic} in order to deliberately avoid redundancy to that support such as it exists on the \R CRAN. Though as time has progressed, other copulas have been added occasionally based on needs of the user community, need to show some specific concept in the general theory, or test algorithms. For example, the Clayton copula (\code{\link{CLcop}}) was a late arriving addition the package (\emph{c.}2017), which was added to assist a specific user; the Frank copula (\code{\link{FRcop}} was added in December 2024 for purposes of an inquiry on using the package for \emph{vine copula} (see example under \code{\link{FRcop}}).
 
 
 \bold{Helpful Navigation of Copulas Implemented in the copBasic Package}
@@ -22,6 +22,7 @@ Ali--Mikhail--Haq copula \tab \eqn{\mathbf{AMH}(u,v)} \tab \code{\link{AMHcop}} 
 Clayton copula \tab \eqn{\mathbf{CL}(u,v)} \tab \code{\link{CLcop}} \tab copula\cr
 Copula of uniform circle \tab \eqn{\mathbf{CIRC}(u,v)} \tab \code{\link{CIRCcop}} \tab copula\cr
 Farlie--Gumbel--Morgenstern (generalized) \tab \eqn{\mathbf{FGM}(u,v)} \tab \code{\link{FGMcop}} \tab copula\cr
+Frank \tab \eqn{\mathbf{FR}(u,v)} \tab \code{\link{FRcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
 Gumbel--Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
 \enc{Hüsler}{Husler}--Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
@@ -38,9 +39,9 @@ t-EV copula (t-distribution extreme value) \tab \eqn{\mathbf{tEV}(u,v)} \tab \co
 }
 
 
-The language and vocabulary of copulas is formidable. The author (Asquith) has often emphasized \dQuote{vocabulary} words in \emph{italics}, which is used extensively and usually near the opening of function-by-function documentation to identify vocabulary words, such as \emph{survival copula} (see \code{\link{surCOP}}). This syntax tries to mimic and accentuate the word usage in Nelsen (2006) and Joe (2014).
+The language and vocabulary of copulas is formidable even within the realm of \emph{bivariate} or \emph{bicopula} as design basis for the package. Often \dQuote{vocabulary} words are often emphasized in \emph{italics}, which is used extensively and usually near the opening of function-by-function documentation to identify vocabulary words, such as \emph{survival copula} (see \code{\link{surCOP}}). This syntax tries to mimic and accentuate the word usage in Nelsen (2006) and Joe (2014).
 
-The italics then are used to draw connections between concepts. In conjunction with the summary of functions in \bold{copBasic-package}, the extensive cross referencing to functions and expansive keyword indexing should be beneficial. The author had no experience with copulas prior to a chance happening upon Nelsen (2006) in \emph{c.}2008. The \pkg{copBasic} package is a personal \emph{tour de force} in self-guided learning. Hopefully, this package and user's manual will be helpful to others.
+Italics then are used to draw connections between concepts. In conjunction with the summary of functions in \bold{copBasic-package}, the extensive cross referencing to functions and expansive keyword indexing should be beneficial. The author had no experience with copulas prior to a chance happening upon Nelsen (2006) in \emph{c.}2008. The \pkg{copBasic} package is a personal \emph{tour de force} in self-guided learning. Hopefully, this package and user's manual will be helpful to others.
 
 A few comments on notation herein are needed. A bold math typeface is used to represent a copula such as \eqn{\mathbf{\Pi}} (see \code{\link{P}}) for the \emph{independence copula}. The syntax \eqn{\mathcal{R}\times\mathcal{R} \equiv \mathcal{R}^2} denotes the orthogonal domain of two real numbers, and \eqn{[0,1]\times [0,1]} \eqn{\equiv} \eqn{\mathcal{I}\times\mathcal{I} \equiv \mathcal{I}^2} denotes the orthogonal domain on the unit square of probabilities. Limits of integration \eqn{[0,1]} or \eqn{[0,1]^2} involving copulas are thus shown as \eqn{\mathcal{I}} and \eqn{\mathcal{I}^2}, respectively.
 
@@ -132,6 +133,7 @@ Copula section \tab \eqn{t \mapsto \mathbf{C}(a,t)} \tab \code{\link{sectionCOP}
 The previous two tables do not include all of the myriad of special functions to support similar operations on \emph{empirical copulas}. All empirical copula operators and utilities are prepended with \code{EMPIR} in the function name. An additional note concerning package nomenclature is that an appended \dQuote{\code{2}} to a function name indicates \eqn{U} \emph{wrt} \eqn{V} (\emph{e.g.} \code{\link{EMPIRgridderinv2}} for an inversion of the partial derivatives \eqn{\delta \mathbf{C}/\delta v} across the grid of the empirical copula).
 
 Some additional functions to compute often salient features or characteristics of copulas or bivariate data, including functions for bivariate inference or goodness-of-fit, are listed in the following table:
+
 \tabular{lclr}{
 \bold{Name} \tab \bold{Symbol} \tab \bold{Function} \tab \bold{Concept} \cr
 Left-tail decreasing \tab \eqn{V} \emph{wrt} \eqn{U}  \tab \code{\link{isCOP.LTD}} \tab bivariate association\cr
@@ -181,13 +183,16 @@ The function \code{\link{jointCOP}} has considerable demonstration in its \bold{
 
 \bold{Copula Construction Methods}
 
-Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters, \code{\link{composite2COP}} composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} and \code{\link{ORDSUWcop}} as particularly interesting methods of combining copulas.
+Permutation asymmetry can be added to a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters (\emph{Khoudraji device} with \emph{independence}), \code{\link{composite2COP}} (\emph{Khoudraji device}) composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters. Also two copulas can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multipling copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} and \code{\link{ORDSUWcop}} as particularly interesting methods of combining copulas.
 
 \tabular{cclr}{
 \bold{No. of copulas} \tab \bold{Combining Parameters} \tab \bold{Function} \tab \bold{Concept}\cr
 1 \tab \eqn{\beta} \tab \code{\link{breveCOP}} \tab adding permuation asymmetry\cr
 1 \tab \eqn{\alpha, \beta} \tab \code{\link{composite1COP}} \tab copula combination\cr
+1 \tab \eqn{\alpha, \beta} \tab \code{\link{khoudraji1COP}} \tab copula combination\cr
+1 \tab \eqn{\alpha, \beta} \tab \code{\link{khoudrajiPCOP}} \tab copula combination\cr
 2 \tab \eqn{\alpha, \beta} \tab \code{\link{composite2COP}} \tab copula combination\cr
+2 \tab \eqn{\alpha, \beta} \tab \code{\link{khoudraji2COP}} \tab copula combination\cr
 2 \tab \eqn{\alpha, \beta, \kappa, \gamma} \tab \code{\link{composite3COP}} \tab copula combination\cr
 2 \tab \eqn{\alpha, (1-\alpha)} \tab \code{\link{convex2COP}} \tab weighted copula combination\cr
 \eqn{N} \tab \eqn{\omega_{i \in N}} \tab \code{\link{convexCOP}} \tab weighted copula combination\cr
@@ -225,7 +230,7 @@ Numerical demonstration is informative. Salvadori \emph{et al.} (2007, p. 151) s
 
 With the following code, these bounding return-period values are readily computed and verified using the \code{prob2T()} function from the \pkg{lmomco} package along with \pkg{copBasic} functions \code{\link{COP}} (generic functional interface to a copula) and \code{\link{duCOP}} (\emph{dual of a copula}):
 \preformatted{
-  q <- T2prob(1000)
+  q <- lmomco::T2prob(1000)
   lmomco::prob2T(  COP(q,q, cop=GHcop, para=3.055)) #  797.110
   lmomco::prob2T(duCOP(q,q, cop=GHcop, para=3.055)) # 1341.438
 }
@@ -251,6 +256,8 @@ Cherubini, U., Luciano, E., and Vecchiato, W., 2004, Copula methods in finance: 
 \enc{Hernández-Maldonado}{Hernandez-Maldonado}, V., \enc{Díaz-Viera}{Diaz-Viera}, M., and Erdely, A., 2012, A joint stochastic simulation method using the Bernstein copula as a flexible tool for modeling nonlinear dependence structures between petrophysical properties: Journal of Petroleum Science and Engineering, v. 90--91, pp. 112--123.
 
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
+
+Hofert, M., Kojadinovic, I., \enc{Mächler}{Machler},  M., and Yan, J., 2018, Elements of copula modeling with R: Dordrecht, Netherlands, Springer.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
