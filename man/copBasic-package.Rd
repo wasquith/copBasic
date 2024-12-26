@@ -55,6 +55,8 @@ Some other entry points into the package are listed in the following table:
 \tabular{lclr}{
 \bold{Name} \tab \bold{Symbol} \tab \bold{Function} \tab \bold{Concept} \cr
 Copula  \tab \eqn{\mathbf{C}(u,v)} \tab \code{\link{COP}} \tab copula theory\cr
+\eqn{\cdots} \tab \eqn{\mathbf{C}(u,v)} \tab \code{\link{COP}}\code{(..., reflect=*)} \tab reflection\cr
+\eqn{\cdots} \tab \eqn{\mathbf{C}(u,v)} \tab \code{\link{COP}}\code{(..., reflect=*)} \tab rotation\cr
 Survival copula \tab \eqn{\hat{\mathbf{C}}(u',v')} \tab \code{\link{surCOP}} \tab copula theory\cr
 Joint survival function \tab \eqn{\overline{\mathbf{C}}(u,v)} \tab \code{\link{surfuncCOP}} \tab copula theory\cr
 Co-copula \tab \eqn{\mathbf{C}^\star(u',v')} \tab \code{\link{coCOP}} \tab copula theory\cr
