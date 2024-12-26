@@ -50,13 +50,13 @@ print(FRcop(UV[,1], UV[,2], cortype="kendall" )$tau) # 0.8072993
 print(FRcop(UV[,1], UV[,2], cortype="spearman")$rho) # 0.9536648
 
 \dontrun{
-  # A Joe (2014) examples follows but extends the functionality of copBasic
+  # Joe (2014) example follows by extendinh the functionality of copBasic
   # into a 3-dimensional C-vine copula using Frank and Gumbel copulas and
-  # Kendall Taus and Kendall Partial Taus but the example is expanded to
-  # to illustrate how advanced features of copBasic can be incorporated for
-  # asymmetry (if needed) and reflections (rotations) of copula:
+  # Kendall Taus and Kendall Partial Taus. The example is expanded to show
+  # how advanced features of copBasic can be incorporated for asymmetry
+  # (if needed) and reflections (rotations) of copula:
   nsim <- 5000 # number of simulations but not too large for long CPU
-  d <- 3 # three dimensions in implementation of Joe (2014, algorithm 15).
+  d <- 3       # three dimensions in Joe (2014, algorithm 15) implementation
   GHcop_para <- GHcop(tau   =0.5                   )$para # theta = 2
   FRcop_para <- FRcop(rhotau=0.7, cortype="kendall")$para # theta = 11.41155
   # Substantial notation complexity by structuring the C-vine by matrices for
