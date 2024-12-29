@@ -9,9 +9,7 @@ The \emph{composition of a single copula} (Salvadori \emph{et al.}, 2006, p. 266
 
 \deqn{\mathbf{C}_{\alpha,\beta}(u,v) = u^\alpha v^\beta \cdot \mathbf{C}(u^{1-\alpha},v^{1-\beta})\mbox{.}}
 
-The \code{composite1COP} function provides the means for inserting \emph{permutation asymmetry} from a \emph{permutation symmetric} copula as described by Joe (2017, p. 124), but do so in a more general way through the provision of two and not just one parameter. Joe's description is supported herein if one of the \eqn{\alpha} or \eqn{\beta} is held at zero. Very loosely, the \eqn{\alpha > 0} kicks probability density down towards the lower right corner, whereas \eqn{\beta > 0} kicks density up towards the upper left corner. Finally, the \code{\link{composite2COP}} function is based on a slighty more general result (see \code{\link{composite2COP}} for further details of copula composition).
-
-Hofert \emph{et al.} (2018, p. 121) state that this use of the Khoudraji device \dQuote{from a practical perspective, a useful subset of families} where {nonexchangable [see \code{\link{isCOP.permsym}}] versions of \eqn{\mathbf{C}(u,v)} can obtained by choosing [\eqn{\alpha} or \eqn{\beta}] relative close to 1.} Finally, the \code{khoudraji1COP()} and \code{khoudrajiPCOP()} (the \code{P} meaning \code{\link{P}}) aliases are added for programming clarity for developers desiring to have contrasting copula calls to the three \emph{compositing} copula: \code{composite1COP()}, \code{\link{composite2COP}}, and \code{\link{composite3COP}}.
+The \code{composite1COP} function provides the means for inserting \emph{permutation asymmetry} from a \emph{permutation symmetric} copula as described by Joe (2017, p. 124), but do so in a more general way through the provision of two and not just one parameter. Joe's description is supported herein if one of the \eqn{\alpha} or \eqn{\beta} is held at zero. Very loosely, the \eqn{\alpha > 0} kicks probability density down towards the lower right corner, whereas \eqn{\beta > 0} kicks density up towards the upper left corner. Finally, the \code{\link{composite2COP}} function is based on a slighty more general result (see \code{\link{composite2COP}} for further details of copula composition and more contextualization of Hofert \emph{et al.} (2018) remarks on the \emph{Khoudraji device}).
 }
 \usage{
 composite1COP(u, v, para, ...)
@@ -98,7 +96,7 @@ if( t != W(0.4, 0.6)) message("Not equal as expected") #}
 }
 \keyword{copula composition}
 \keyword{copula composition (two compositing parameters)}
-\keyword{copula composition (two compositing parameters, with independence)}
+\keyword{copula composition (two compositing parameters with independence)}
 \keyword{Khoudraji device}
 \keyword{Khoudraji device (with independence)}
 \keyword{Hofert et al. (2018) Examples and Exercises}

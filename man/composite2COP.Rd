@@ -17,7 +17,7 @@ It is possible to simplify the construction of an asymmetric copula from a symme
 
 \deqn{\mathbf{C}_{\alpha,\beta}(u,v) = u^\alpha v^\beta \cdot \mathbf{C}(u^{1-\alpha},v^{1-\beta})\mbox{.}}
 
-Hofert \emph{et al.} (2018, p. 121) state that this use of the Khoudraji device \dQuote{from a practical perspective, a useful subset of families} where {nonexchangable [see \code{\link{isCOP.permsym}}] versions of \eqn{\mathbf{C}(u,v)} can obtained by choosing [\eqn{\alpha} or \eqn{\beta}] relative close to 1.} The \code{composite2COP} function is based on the more general result given in the former rather than the later mathematical definition to provide additional flexibility. For simpler case of composition involving only one copula, \code{\link{composite1COP}} is available, and a more complex (extended) composition is available in \code{\link{composite3COP}}.  Finally, the \code{khoudraji2COP()} alias is added for programming clarity for developers desiring to have contrasting copula calls to the three \emph{compositing} copula: \code{\link{composite1COP}}, \code{composite2COP()}, and \code{\link{composite3COP}}.
+Hofert \emph{et al.} (2018, p. 121) comment that \dQuote{from a practical perspective, a useful subset of families constructed from [the] Khoudraji device is obtained} by choosing \emph{independence copula} (\eqn{\mathbf{\Pi}}, \code{\link{P}}) for one of the copula and that choosing [\eqn{\alpha} or \eqn{\beta}] relative close to \eqn{1} produces nonexchangable [see \code{\link{isCOP.permsym}}] versions of \eqn{\mathbf{C}(u,v)} (meaning \eqn{\mathbf{C}(u,v) \ne \mathbf{C}(v,u)}). For the \pkg{copBasic} package, the \code{khoudraji1COP()} and \code{khoudrajiPCOP()} (the \code{P} meaning \code{\link{P}}) aliases are added for programming clarity for developers desiring to have contrasting copula calls to the three \emph{compositing} copula: \code{\link{composite1COP}}, \code{composite2COP()}, and \code{\link{composite3COP}}.
 }
 \usage{
 composite2COP(u, v, para, ...)
@@ -38,9 +38,9 @@ The following descriptions list in detail the structure and content of the \code
   \item{\code{alpha}}{--- The \eqn{\alpha} compositing parameter;}
   \item{\code{beta}}{--- The \eqn{\beta} compositing parameter;}
   \item{\code{cop1}}{--- Function of the first copula \eqn{\mathbf{A}};}
-  \item{\code{cop2}}{--- Function of the second copula  \eqn{\mathbf{B}};}
-  \item{\code{para1}}{--- Vector of parameters \eqn{\Theta_\mathbf{A}} for  \eqn{\mathbf{A}}; and}
-  \item{\code{para2}}{--- Vector of parameters \eqn{\Theta_\mathbf{B}} for  \eqn{\mathbf{B}}.}
+  \item{\code{cop2}}{--- Function of the second copula \eqn{\mathbf{B}};}
+  \item{\code{para1}}{--- Vector of parameters \eqn{\Theta_\mathbf{A}} for \eqn{\mathbf{A}}; and}
+  \item{\code{para2}}{--- Vector of parameters \eqn{\Theta_\mathbf{B}} for \eqn{\mathbf{B}}.}
 }
 
 The \code{para} argument of this function also can be passed to \code{\link{composite1COP}}; albeit, the second copula and its parameters would not be used. A more complex (extended) composition in \code{\link{composite3COP}} extends this basic parameter structure.
