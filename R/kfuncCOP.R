@@ -4,7 +4,7 @@ function(z, cop=NULL, para=NULL, wrtV=FALSE, as.sample=FALSE, verbose=FALSE,
    kfuncCOP(z, cop=cop, para=para, wrtV=wrtV, as.sample=as.sample, verbose=verbose, ...)
 }
 
-"kfuncCOP2" <-
+"kfuncCOP" <-
 function(z, cop=NULL, para=NULL, wrtV=FALSE, as.sample=FALSE, verbose=FALSE,
             subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...) {
    as.sample <- as.character(as.sample)
