@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.7 (2025-12-26)
+Changes in version 2.2.7 (2025-01-02)
 -  Added Frank copula after a few years of trying off and on to determine numerical
      end points determining apparent parameter range suitable for copBasic structure
      and support for Spearman Rho and Kendall Tau. Added example from Joe (2014) using
@@ -13,6 +13,9 @@ Changes in version 2.2.7 (2025-12-26)
 -  Fixed math notation in JOcopB5.Rd.
 -  Added keywords "copula (rotation)" and "Theory Examples (reflection/rotation)" to
      applicable *.Rd files.
+-  Minor to rhoCOP.Rd and copBasic-package.Rd.
+-  Minor bug fix to kfuncCOP.R where as.sample="Charpentier" was using an undefined
+     variable and minor edits to kfuncCOP.Rd.
 
 
 Changes in version 2.2.6 (2024-10-08)
