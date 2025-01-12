@@ -13,8 +13,8 @@ Changes in version 2.2.7 (2025-01-03)
 -  Fixed math notation in JOcopB5.Rd.
 -  Added keywords "copula (rotation)" and "Theory Examples (reflection/rotation)" to
      applicable *.Rd files.
--  Minor edits to copBasic-package.Rd, COP.Rd, densityCOP.Rd, densityCOPplot.Rd,
-     jointCOP.Rd, rhoCOP.Rd, and tEVcop.Rd.
+-  Minor edits to aicCOP.Rd, AMHcop.Rd, asCOP.Rd, copBasic-package.Rd, COP.Rd,
+     densityCOP.Rd, densityCOPplot.Rd, jointCOP.Rd, rhoCOP.Rd, and tEVcop.Rd.
 -  Minor bug fix to kfuncCOP.R where as.sample="Charpentier" was using an undefined
      variable and minor edits to kfuncCOP.Rd.
 -  Modified a warning message in each of ORDSUMcop.R and ORDSUWcop.R.
