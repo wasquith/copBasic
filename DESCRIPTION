@@ -1,7 +1,7 @@
 Package: copBasic
 Title: General Bivariate Copula Theory and Many Utility Functions
 Version: 2.2.7
-Date: 2025-01-02
+Date: 2025-01-25
 Authors@R: person(given = "William",
                   family = "Asquith",
                   role = c("aut", "cre"),
