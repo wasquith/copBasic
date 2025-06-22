@@ -1,10 +1,15 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.8 (2025-02-08)
+Changes in version 2.2.8 (2025-06-21)
 -  Added list(...) work in level.curvesCOP[2].R, handling lwd from ... if ramp=TRUE
      and ability to override the built-in ramp by the lwd being passed as a function.
 -  Minor grammar/spacing/math markup changes in FRcop.Rd, GLcop.Rd, and HRcop.Rd.
+-  Corrections to a dontrun example in FGMcop.Rd.
+-  Expansion of details sections in LzCOPpermsym.Rd.
+-  Added package ____ (application of) to indexing for FGMcop.Rd, GHcop.Rd,
+     kullCOP.Rd, and LzCOPpermsym.Rd.
+-  Edits to hoefCOP.Rd.
 
 
 Changes in version 2.2.7 (2025-01-25)
