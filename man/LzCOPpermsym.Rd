@@ -63,8 +63,9 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
 \emph{COPULA PARAMETER ESTIMATION}---Parameter estimation using \emph{signed permutation asymmetry vector} can readily be accomplished, which means that we are interested in near-preservation of what permutation asymmetry might be present within the sample. In the self-contained example below, we will assume a parent of \emph{Gumbel--Hougaard} (\eqn{\mathbf{GH}(u,v; \Theta)}, \code{\link{GHcop}}) extended to asymmetry by using three parameters (\eqn{\Theta = (10, 0.8, 0.6)}. Imagine that we unfortunately have a very small sample size (\eqn{n = 100}) as \dQuote{hundred years of data.} The small sample size facilitates the use of the \emph{checkboard empirical copula} (\code{\link{EMPIRcop}}); the sample size is small enough that the checkerboard helps smooth through ties. The simulation size for \code{LzCOPpermsym} is set \dQuote{large} as presumed by the existing default. The premise here is that we desire to have near-precise matching to the sample Spearman Rho in conjunction with the permutation asymmetry.
 
 \preformatted{
+  # will need packages ** ABCoptim **, ** metaheuristicOpt **, ** pso **
   para <- c(10, 0.8, 0.6) # parameters of the parent
-  nsam <- 100; seed <- 2  # sample size to fit and seed for RNG
+  nsam <- 100; seed <- 2  # sample size to fit and seed for the RNG
   nsim <- 2E4 # note a change from default n argument in LzCOPpermsym()
   as.vec <- TRUE          # set to FALSE to use just Permutation-Mu
   rhoP <- rhoCOP(cop=GHcop, para=para)          # parent Spearman Rho
