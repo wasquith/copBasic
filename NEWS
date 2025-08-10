@@ -1,14 +1,23 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.8 (2025-06-21)
+Changes in version 2.2.9 (2025-NN-NN)
+-  Added example of Kendall function span by permutation asymmetry inserted to M and W
+     copulas through sweep of breves for breveCOP to be a demonstration of the Kendall
+     function is a distribution unto itself with its own nonexceedance probabilities.
+     Minor insertions to breveCOP.Rd and kfuncCOP.Rd made to announce this example.
+-  Correction to a doi{} macro in a citation in RAYcop.Rd.
+-  Grammar correction to FRcop.Rd and LzCOPpermsym.Rd (unrelated edits).
+
+
+Changes in version 2.2.8 (2025-06-27)
 -  Added list(...) work in level.curvesCOP[2].R, handling lwd from ... if ramp=TRUE
      and ability to override the built-in ramp by the lwd being passed as a function.
 -  Minor grammar/spacing/math markup changes in FRcop.Rd, GLcop.Rd, and HRcop.Rd.
 -  Corrections to a dontrun example in FGMcop.Rd.
 -  Expansion of details sections in LzCOPpermsym.Rd.
--  Added package ____ (application of) to indexing for FGMcop.Rd, GHcop.Rd,
-     kullCOP.Rd, and LzCOPpermsym.Rd.
+-  Added package ____ (application of) indexing for FGMcop.Rd, GHcop.Rd, kullCOP.Rd,
+      and LzCOPpermsym.Rd for other packages but not dependencies are demonstrated.
 -  Edits to hoefCOP.Rd.
 
 
