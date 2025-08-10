@@ -11,6 +11,8 @@ for \eqn{0 \le \beta \le +1} by
 
 \deqn{\breve{\mathbf{C}}_{\beta;\Theta}(u,v) = u^{+\beta}\cdot\mathbf{C}(u^{(1-\beta)}, v;\Theta)\mbox{.}}
 The parameter \eqn{\beta} clashes in name and symbology with a parameter used by functions \code{\link{composite1COP}}, \code{\link{composite2COP}}, and \code{\link{composite3COP}}. As a result, support for alternative naming is provided for compatibility.
+
+Lastly, an example under \code{\link{W}} demonstrates the span of the \emph{Kendall function} (\code{\link{kfuncCOP}}) based on \code{\link{M}} and \code{\link{W}} having permutation asymmetry inserted by \code{breveCOP()}. The demonstration shows that the Kendall function is a distribution unto itself with its own nonexceedance probabilities.
 }
 \usage{
 breveCOP(u,v, para, breve=NULL, ...)

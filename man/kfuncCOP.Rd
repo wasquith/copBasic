@@ -200,6 +200,8 @@ substitution can now proceed:
 which simplfies to
 \deqn{F_K(z; \mathbf{\Pi}) = z + \bigl[z\log(u)\bigr]\bigg|^1_z  = z + z[\log(1) - \log(z)] = z - z\log z\mbox{,}}
 which matches the special case shown by Joe (2014) for the independence copula (\eqn{\mathbf{\Pi}}; \code{\link{P}}). It is obvious thus that the \dQuote{\eqn{+}} is needed in the \eqn{F_K(z)} definition in order to stay consistent with the basic form and integration limits shown by Salvadori \emph{et al.} (2007) for \eqn{K_\mathbf{C}(z)}.
+
+Lastly, an example under \code{\link{W}} demonstrates the span of the Kendall function based on \code{\link{M}} and \code{\link{W}} having permutation asymmetry inserted by \code{\link{breveCOP}}. The demonstration shows that the Kendall function is a distribution unto itself with its own nonexceedance probabilities.
 }
 \references{
 Durante, F., and Sempi, C., 2015, Principles of copula theory: Boca Raton, CRC Press, 315 p.
@@ -220,10 +222,10 @@ Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in
 \seealso{\code{\link{kfuncCOPinv}}, \code{\link{tauCOP}}, \code{\link{derCOP}}, \code{\link{derCOP2}}, \code{\link{derCOPinv}}, \code{\link{derCOPinv2}}}
 \examples{
 \dontrun{
-# Salvadori et al. (2007, p. 148, fig. 3.5 [right])
-zs <- c(0.0001, seq(0.01, 1, by=0.01), 0.9999)
-plot(zs, kmeasCOP(zs, cop=GHcop, para=5), log="y", type="l", lwd=4,
-     xlab="Z <= z", ylab="Kendall Function", xlim=c(0,1), ylim=c(0.001,1)) #}
+  # Salvadori et al. (2007, p. 148, fig. 3.5 [right])
+  zs <- c(0.0001, seq(0.01, 1, by=0.01), 0.9999)
+  plot(zs, kmeasCOP(zs, cop=GHcop, para=5), log="y", type="l", lwd=4,
+       xlab="Z <= z", ylab="Kendall Function", xlim=c(0,1), ylim=c(0.001,1)) #}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
