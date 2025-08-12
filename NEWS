@@ -7,7 +7,11 @@ Changes in version 2.2.9 (2025-NN-NN)
      function is a distribution unto itself with its own nonexceedance probabilities.
      Minor insertions to breveCOP.Rd and kfuncCOP.Rd made to announce this example.
 -  Correction to a doi{} macro in a citation in RAYcop.Rd.
--  Grammar correction to FRcop.Rd and LzCOPpermsym.Rd (unrelated edits).
+-  Grammar correction to FRcop.Rd, kfuncCOP.Rd, and LzCOPpermsym.Rd (unrelated edits).
+-  Modest extensions to footCOP.Rd.
+-  Add Marshall-Olkin copula (MOcop.[R|Rd]) because of user discussion about what the
+     Footrule might measure in a nonfunctional way compared to Spearman Rho.
+-  Minor extensions to spectralmeas.Rd, the documention read as somewhat incomplete.
 
 
 Changes in version 2.2.8 (2025-06-27)
