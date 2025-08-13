@@ -12,6 +12,10 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Add Marshall-Olkin copula (MOcop.[R|Rd]) because of user discussion about what the
      Footrule might measure in a nonfunctional way compared to Spearman Rho.
 -  Minor extensions to spectralmeas.Rd, the documention read as somewhat incomplete.
+-  Minor edits and en-dash encoding changes in copBasic-package.Rd to have proper
+     typography for the "tables" therein.
+-  Minor edits to taildepCOP.Rd and P.Rd (with tidy-up of a L-comoment demo therein).
+-  Added argument stop.on.error to throw to integrate().
 
 
 Changes in version 2.2.8 (2025-06-27)
