@@ -89,8 +89,8 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
     }
   } #}
 }
-\keyword{Marshall-Olkin copula}
-\keyword{Cuadras-Auge copula}
+\keyword{Marshall--Olkin copula}
+\keyword{Cuadras--Auge copula}
 \keyword{copula (formulas)}
 \keyword{copula}
 \keyword{L-comoments}
