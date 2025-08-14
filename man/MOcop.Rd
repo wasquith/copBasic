@@ -23,7 +23,7 @@ and \emph{Kendall tau} (\code{\link{tauCOP}}) is
 
 \deqn{\tau_\mathbf{C} = \alpha\beta / (\alpha + \beta - \alpha\beta)\mbox{.}}
 
-Parameter estimation using \eqn{\rho_\mathbf{C}} and \eqn{\tau_\mathbf{C}} is problematic because the two statistics are so \dQuote{correlated} with each other and that either nonunique solutions or nonconverged solutions manifest with simultaneous numerical optimization. Also, application of \emph{maximum likelihood} (\code{\link{mleCOP}}) can be problematic because of varying contributions of singularities that the copula can produce. The total contribution of singularity is given by \eqn{S(u\rightarrow1,v\rightarrow1) = \alpha\beta/ (\alpha + \beta - \alpha\beta)}, which Nelsen (2006, p. 165) remarks that it is \dQuote{interesting to note that} Kendall tau is the singular component. Lastly, the \emph{L-comoments} of copulas (\code{\link{lcomCOP}}) appear an attractive mechanism for parameter estimation not effectd by singularities (refer to \bold{Examples}).
+Parameter estimation using \eqn{\rho_\mathbf{C}} and \eqn{\tau_\mathbf{C}} is problematic because the two statistics are so \dQuote{correlated} with each other and that either nonunique solutions or nonconverged solutions manifest with simultaneous numerical optimization. Also, application of \emph{maximum likelihood} (\code{\link{mleCOP}}) can be problematic because of varying contributions of singularities that the copula can produce. The total contribution of singularity is given by \eqn{S(u\rightarrow1,v\rightarrow1) = \alpha\beta/ (\alpha + \beta - \alpha\beta)}, which Nelsen (2006, p. 165) remarks that it is \dQuote{interesting to note that} Kendall tau is the singular component. Lastly, the \emph{L-comoments} of copulas (\code{\link{lcomCOP}}) appear an attractive mechanism for parameter estimation not effected by singularities (refer to \bold{Examples}). The \eqn{\mathbf{MO}} copula has a role in the three-parameter \emph{Gumbel--Hougaard copula} copula (\code{\link{GHcop}}).
 }
 \usage{
 MOcop(u, v, para=NULL, lcomCOP=NULL, ...)
@@ -96,3 +96,5 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 \keyword{L-comoments}
 \keyword{Lcomoments}
 \concept{Marshall--Olkin copula}
+\concept{Marshall-Olkin copula}
+\concept{Cuadras-Auge copula}
