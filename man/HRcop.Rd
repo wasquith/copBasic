@@ -7,7 +7,7 @@ The \emph{\enc{Hüsler}{Husler}--Reiss copula} (Joe, 2014, p. 176) is
 \deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{HR}(u,v) = \mathrm{exp}\bigr[-x \Phi(X) - y\Phi(Y)\bigr]\mbox{,}}
 where \eqn{\Theta \ge 0}, \eqn{x = - \log(u)}, \eqn{y = - \log(v)}, \eqn{\Phi(.)} is the cumulative distribution function of the standard normal distribution, \eqn{X} and \eqn{Y} are defined as:
 \deqn{X = \frac{1}{\Theta} + \frac{\Theta}{2}  \log\biggl(\frac{x}{y}\biggr)\mbox{\ and\ } Y = \frac{1}{\Theta} + \frac{\Theta}{2} \log\biggl(\frac{y}{x}\biggr)\mbox{.}}
-As \eqn{\Theta \rightarrow 0^{+}}, the copula limits to \emph{independence} (\eqn{\mathbf{\Pi}}; \code{\link{P}}). The copula here is a \emph{bivariate extreme value copula} (\eqn{BEV}), and the parameter \eqn{\Theta} requires numerical methods.
+As \eqn{\Theta \rightarrow 0^{+}}, the copula limits to \emph{independence} (\eqn{\mathbf{\Pi}}; \code{\link{P}}). The \eqn{\mathbf{HR}} copula is a \emph{bivariate extreme value copula} (\eqn{BEV}), and the parameter \eqn{\Theta} requires numerical methods.
 }
 \usage{
 HRcop(u, v, para=NULL, ...)
@@ -36,6 +36,8 @@ qnorm(1 - log( 1 + blomCOP(cop=HRcop, para=pi) ) / ( 2 * log(2) ) )^(-1)
 \keyword{copula}
 \concept{Husler--Reiss extreme value copula}
 \concept{Husler-Reiss extreme value copula}
+\concept{Husler-Reiss copula}
+\concept{Husler--Reiss copula}
 \keyword{Joe (2014) Examples and Exercises}
 \keyword{copula (extreme value)}
 \keyword{extreme value copula}
