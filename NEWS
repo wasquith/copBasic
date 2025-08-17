@@ -18,6 +18,10 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Added argument stop.on.error to throw to integrate().
 -  Reworking of some extended Examples in GHcop.Rd.
 -  Minor edits to isCOP.permsym.Rd following some extensions to isCOP.radsym.Rd
+-  Minor mathematical delimited size adjustment in composite[1-3]COP.Rd, glueCOP.Rd,
+     and breveCOP.Rd.
+-  Math notation fix, italics added for unit circle, color changes, and spelling
+     correction in CIRCcop.Rd.
 
 
 Changes in version 2.2.8 (2025-06-27)
