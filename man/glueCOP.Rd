@@ -4,10 +4,10 @@
 \title{Gluing Two Copulas}
 \description{
 The \emph{gluing copula} technique (Erdely, 2017, p. 71), given two bivariate copulas \eqn{\mathbf{C}_A} and \eqn{\mathbf{C}_B} and a fixed value \eqn{0 \le \gamma \le 1} is
-\deqn{\mathbf{C}_{\gamma}(u,v) = \gamma\cdot\mathbf{C}_A(u/\gamma, v)}
+\deqn{\mathbf{C}_{\gamma}(u,v) = \gamma\cdot\mathbf{C}_A\bigl(u/\gamma, v\bigr)}
 for \eqn{0 \le u \le \gamma} and
-\deqn{\mathbf{C}_{\gamma}(u,v) = (1-\gamma)\cdot\mathbf{C}_B((u-\gamma)
-\,/\,(1-\gamma), v)}
+\deqn{\mathbf{C}_{\gamma}(u,v) = (1-\gamma)\cdot\mathbf{C}_B\bigl((u-\gamma)
+\,/\,(1-\gamma), v\bigr)}
 for \eqn{\gamma \le u \le 1} and \eqn{\gamma} represents the \emph{gluing point} in \eqn{u} (horizontal axis). The logic is simply the rescaling of \eqn{\mathbf{C}_A} to \eqn{[0,\gamma] \times [0,1]} and \eqn{\mathbf{C}_B} to \eqn{[\gamma,1] \times [0,1]}. Copula gluing is potentially useful in circumstances for which regression is non-monotone.
 }
 \usage{
