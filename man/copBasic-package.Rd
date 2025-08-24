@@ -32,7 +32,10 @@ Gumbel\enc{–}{-}Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{G
 Joe B5 (the \dQuote{Joe}) copula \tab \eqn{\mathbf{B5}(u,v)} \tab \code{\link{JOcopB5}} \tab copula\cr
 Marshall\enc{–}{-}Olkin copula \tab \eqn{\mathbf{MO}(u,v)} \tab \code{\link{MOcop}} \tab copula\cr
 Nelsen eq.4-2-12 copula \tab \eqn{\mathbf{N4212cop}(u,v)} \tab \code{\link{N4212cop}} \tab copula\cr
+Nelsen eq.4-2-20 copula \tab \eqn{\mathbf{N4220cop}(u,v)} \tab \code{\link{N4220cop}} \tab copula\cr
+Nelsen eq.4-2-20 copula (reflected) \tab \eqn{\mathbf{rN4220cop}(u,v)} \tab \code{\link{rN4220cop}} \tab copula\cr
 Ordinal Sums by Copula \tab \eqn{\mathbf{C}_\mathcal{J}(u,v)} \tab \code{\link{ORDSUMcop}} \tab copula\cr
+Ordinal Sums by W-Copula \tab \eqn{\mathbf{C}_\mathcal{J}(u,v)} \tab \code{\link{ORDSUWcop}} \tab copula\cr
 Pareto copula \tab \eqn{\mathbf{PA}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 Plackett copula \tab \eqn{\mathbf{PL}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 PSP copula \tab \eqn{\mathbf{PSP}(u,v)} \tab \code{\link{PSP}} \tab copula\cr
