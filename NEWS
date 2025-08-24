@@ -22,6 +22,9 @@ Changes in version 2.2.9 (2025-NN-NN)
      and breveCOP.Rd.
 -  Math notation fix, italics added for unit circle, color changes, and spelling
      correction in CIRCcop.Rd.
+-  Added N4220cop.[R|Rd] (containing rN4220cop) and rN4220cop.Rd copula + NAMESPACE
+-  Added [r]N4220cop and ORDSUWcop to copBasic-package.Rd.
+-  Vectorization improvement in PSP.R.
 
 
 Changes in version 2.2.8 (2025-06-27)
