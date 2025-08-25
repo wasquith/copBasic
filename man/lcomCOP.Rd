@@ -26,14 +26,18 @@ The integral for \eqn{\delta^{[12]}_{4;\mathbf{C}}} does not appear in Brahimi \
 Chine and Benatia (2017) describe \emph{trimmed L-comoments} as the multivariate extensions of the univariate \emph{trimmed L-moments} (Elamir and Seheult, 2003) that are implemented in \pkg{lmomco}. These are not yet implemented in \pkg{copBasic}.
 }
 \usage{
-lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5,
-                  stop.on.error=TRUE, ...)
+lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, lo=0, hi=1,
+        subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol,
+        stop.on.error=TRUE, ...)
 }
 \arguments{
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
   \item{as.bilmoms}{A logical to trigger return of the \eqn{\delta_k} and the return vectors will be named differently;}
   \item{orders}{The orders of the L-comoments to return, which is internally adjusted if the argument \code{as.bilmoms} is set. There is no first order L-comoment and the first index on returned values is set to \code{NA} to remain index consistent with the \pkg{lmomco} package. An order greater than 5 is not supported;}
+  \item{subdivisions}{Maximum number of subintervals for \code{integrate()};}
+  \item{rel.tol}{Relative accuracy requested for \code{integrate()};}
+  \item{abs.tol}{Absolute accuracy requested for \code{integrate()};}
   \item{stop.on.error}{Logical of same name for \code{integrate()} to silence for some cases of singularity or other more obscure problems the error \dQuote{Error in integrate(function(v) : the integral is probably divergent;} and}
   \item{...}{Additional arguments to pass to the \code{\link{densityCOP}} function and to \code{integrate()}.}
 }
