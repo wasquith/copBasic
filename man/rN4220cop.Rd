@@ -3,7 +3,7 @@
 \alias{rN4220cop}
 \title{The (Reflected) Copula of Equation 4.2.20 of Nelsen's Book}
 \description{
-The \emph{rN4220 copula} (Nelsen, 2006, p. nn; eq. 4.2.20) is named by the author (Asquith) for the \pkg{copBasic} package and is a reflected version of \code{\link{N4220cop}} defined as
+The \emph{rN4220 copula} (Nelsen, 2006, p. 118; eq. 4.2.20) is named by the author (Asquith) for the \pkg{copBasic} package and is a reflected version of \code{\link{N4220cop}} defined as
 
 \deqn{\mathbf{C}_{\mathrm{rN4220}}(u,v; \Theta) = u + v - 1 + \biggl[\mathrm{log}\biggl( \mathrm{exp}\bigl((1-u)^{-\Theta}\bigr) +
 \mathrm{exp}\bigl((1-v)^{-\Theta}\bigr) -

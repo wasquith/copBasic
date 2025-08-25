@@ -3,7 +3,7 @@
 \alias{N4220cop}
 \title{The Copula of Equation 4.2.20 of Nelsen's Book}
 \description{
-The \emph{N4220 copula} (Nelsen, 2006, p. nn; eq. 4.2.20) is named by the author (Asquith) for the \pkg{copBasic} package and is defined as
+The \emph{N4220 copula} (Nelsen, 2006, p. 118; eq. 4.2.20) is named by the author (Asquith) for the \pkg{copBasic} package and is defined as
 
 \deqn{\mathbf{C}_{\mathrm{N4220}}(u,v; \Theta) = \biggl[\mathrm{log}\biggl( \mathrm{exp}\bigl(u^{-\Theta}\bigr) +
 \mathrm{exp}\bigl(v^{-\Theta}\bigr) -
