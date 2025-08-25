@@ -25,6 +25,10 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Added N4220cop.[R|Rd] (containing rN4220cop) and rN4220cop.Rd copula + NAMESPACE
 -  Added [r]N4220cop and ORDSUWcop to copBasic-package.Rd.
 -  Vectorization improvement in PSP.R.
+-  Added argument support in lcomCOP.R for all of those for integrate().
+-  Example extensions in ORDSUMcop.Rd and minor tidy up to examples in ORSUWcop.Rd.
+-  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added 
+     therein. Expect to upgrade support for this in some future release.
 
 
 Changes in version 2.2.8 (2025-06-27)
