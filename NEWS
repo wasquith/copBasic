@@ -29,6 +29,7 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Example extensions in ORDSUMcop.Rd and minor tidy up to examples in ORSUWcop.Rd.
 -  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added 
      therein. Expect to upgrade support for this in some future release.
+-  L-comoment diagram expansion in Examples of glueCOP.Rd.
 
 
 Changes in version 2.2.8 (2025-06-27)
