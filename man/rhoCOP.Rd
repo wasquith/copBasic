@@ -51,12 +51,16 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}
 }
 \examples{
-rhoCOP(cop=PSP)             # 0.4784176
+rhoCOP(cop=PSP)              # 0.4784176
+
+\dontrun{
+  n <- 1E4; set.seed(4784)   # quick Monte Carlo integration
+  12*mean(replicate(n/10, sum(PSP(runif(n),runif(n)))/n)) - 3 # 0.4779 (for instance) }
 
 \dontrun{
   rhoCOP(cop=PSP, brute=TRUE) # 0.4684063
-  # CPU heavy example showing that the dual-integration (fast) results in
-  # a Spearman Rho that mimics a sample version
+  # Heavy CPU example showing dual-integration (fast) results in Rho mimicking the
+  # sample version
   do_rho <- function(n) {
     uv <- simCOP(n=n, cop=PSP, ploton=FALSE, points=FALSE)
     return(cor(uv$U, uv$V, method="spearman"))
