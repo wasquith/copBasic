@@ -35,6 +35,8 @@ lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, lo=0, hi=1,
   \item{para}{Vector of parameters or other data structure, if needed, to pass to the copula;}
   \item{as.bilmoms}{A logical to trigger return of the \eqn{\delta_k} and the return vectors will be named differently;}
   \item{orders}{The orders of the L-comoments to return, which is internally adjusted if the argument \code{as.bilmoms} is set. There is no first order L-comoment and the first index on returned values is set to \code{NA} to remain index consistent with the \pkg{lmomco} package. An order greater than 5 is not supported;}
+  \item{lo}{Lower limit of integration (must assurdly leave as zero);}
+  \item{hi}{Upper integrand (must assurdly leave as unity);}
   \item{subdivisions}{Maximum number of subintervals for \code{integrate()};}
   \item{rel.tol}{Relative accuracy requested for \code{integrate()};}
   \item{abs.tol}{Absolute accuracy requested for \code{integrate()};}
