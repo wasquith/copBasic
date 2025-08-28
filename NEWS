@@ -30,6 +30,9 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added 
      therein. Expect to upgrade support for this in some future release.
 -  L-comoment diagram expansion in Examples of glueCOP.Rd.
+-  Clean up of some of the outdated examples in favor of alternatives for GHcop.Rd.
+-  Added L-comoment ratio diagram for gEVcop(), GHcop(), GLcop(), and HRcop()
+     comparison in the Examples of gEVcop.Rd.
 
 
 Changes in version 2.2.8 (2025-06-27)
