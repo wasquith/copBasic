@@ -5,13 +5,13 @@
 \description{
 \emph{SYMMETRIC GUMBEL-HOUGAARD}---The \emph{Gumbel--Hougaard copula} (Nelsen, 2006, pp. 118 and 164) is
 
-\deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{GH}(u,v) = \mathrm{exp}\bigl\{-\bigl[(-\log u)^\Theta+(-\log v)^\Theta\bigr]^{1/\Theta}\bigr\}\mbox{,}}
+\deqn{\mathbf{C}_{\Theta}(u,v) = \mathbf{GH}(u,v) = \mathrm{exp}\biggl\{-\bigl[(-\log u)^\Theta+(-\log v)^\Theta\bigr]^{1/\Theta}\biggr\}\mbox{,}}
 
 where \eqn{\Theta \in [1 , \infty)}. The \eqn{\mathbf{GH}} copula is a \emph{bivariate extreme value copula} (\eqn{BEV}). The parameter \eqn{\Theta} is readily estimated using a \emph{Kendall Tau} (say a sample version \eqn{\hat\tau}) where the \eqn{\tau} of the copula (\eqn{\tau_\mathbf{C}}) is defined as
 
 \deqn{\tau_\mathbf{C} = \frac{\Theta - 1}{\Theta} \rightarrow \Theta = \frac{1}{1-\tau}\mbox{.}}
 The copula is readily extended into \eqn{d} dimensions by
-\deqn{\mathbf{C}_{\Theta}(u,v) = \mathrm{exp}\bigl\{-\bigl[(-\log u_1)^\Theta+\cdots+(-\log u_d)^\Theta\bigr]^{1/\Theta}\bigl\}\mbox{.}}
+\deqn{\mathbf{C}_{\Theta}(u,v) = \mathrm{exp}\biggl\{-\bigl[(-\log u_1)^\Theta+\cdots+(-\log u_d)^\Theta\bigr]^{1/\Theta}\biggl\}\mbox{.}}
 
 However, such an implementation is not available in the \pkg{copBasic} package.
 
@@ -37,7 +37,7 @@ where \eqn{\beta_1 \ge 1} and \eqn{\beta_2 > 0}. Both parameters controls the ge
 \deqn{\mathbf{C}(u,v; \Theta, \pi_2, \pi_3) = \mathrm{exp}[-\mathcal{A}(-\log u, -\log v; \Theta, \pi_2, \pi_3)]\mbox{,}}
 where \eqn{\Theta \ge 1} as before, \eqn{0 \le \pi_2,  \pi_3 \le 1}, and
 
-\deqn{\mathcal{A}(x, y; \Theta, \pi_2, \pi_3) = [(\pi_2 x)^\Theta + (\pi_3 y)^\Theta]^{1/\Theta} + (1-\pi_2)x + (1-\pi_3)y\mbox{.}}
+\deqn{\mathcal{A}(x, y; \Theta, \pi_2, \pi_3) = \bigl[(\pi_2 x)^\Theta + (\pi_3 y)^\Theta\bigr]^{1/\Theta} + (1-\pi_2)x + (1-\pi_3)y\mbox{.}}
 
 The asymmetric \eqn{\mathbf{GH}} is triggered if the length of the \code{para} argument is exactly 3. The \code{GHcop} function provides no mechanism for estimation of the parameters for the asymmetric version. Reviewing simulations, the bounds on the \eqn{\pi} parameters in Joe (2014, p. 185) \dQuote{[\eqn{0 \le \pi_2 < \pi_3 \le 1}]} might be incorrect---by Joe back referencing to Joe (2014, eq. 4.35, p. 183) the \eqn{\pi}-limits as stated for \pkg{copBasic} are shown. An algorithm for parameter estimation for the asymmetric \eqn{\mathbf{GH}} using two different measures of \emph{bivariate skewness} as well as an arbitrary \emph{measure of association} is shown in section \bold{Details} in \code{\link{joeskewCOP}}.
 }
@@ -220,43 +220,6 @@ as.logical(del.lamU < 1E-6) # TRUE
   # sRho[+]=0.407 (SE[+]=0.074) Joe(p.72)=0.415 (SE[+]=0.07)
   # SE(sRho[-] - sRho[+])=0.107 Joe(p.72) SE=0.10
   # Joe (2014, p. 72) reports the values 0.132, 0.415, 0.08, 0.07, 0.10, respectively.}
-
-\dontrun{
-  glfunc <- function(k, rho=NA) rho - rhoCOP(cop=GLcop, para=exp(k))
-  hrfunc <- function(k, rho=NA) rho - rhoCOP(cop=HRcop, para=exp(k))
-  D <- NULL
-  for(tau in seq(0,0.95, by=0.005)) {
-
-   gh   <- GHcop(u=NULL, v=NULL, tau=tau)$para
-   trho <-  rhoCOP(cop=GHcop, para=gh)
-   GH   <- lcomCOP(cop=GHcop, para=gh)
-   gl   <- uniroot(glfunc, c(-6,3), rho=trho)$root
-   GL   <- lcomCOP(cop=GLcop, para=gl)
-   hr   <- uniroot(glfunc, c(-6,3), rho=trho)$root
-   HR   <- lcomCOP(cop=HRcop, para=hr)
-   x <- data.frame(tau=tau, trho=trho,
-                   GHpara=gh, GLpara=gl, HRpara=hr,
-                   GHT2.12=GH$lcomUV[2], GHT2.21=GL$lcomVU[2],
-                   GHT3.12=GH$lcomUV[3], GHT3.21=GL$lcomVU[3],
-                   GHT4.12=GH$lcomUV[4], GHT4.21=GL$lcomVU[4],
-                   GLT2.12=GL$lcomUV[2], GLT2.21=GL$lcomVU[2],
-                   GLT3.12=GL$lcomUV[3], GLT3.21=GL$lcomVU[3],
-                   GLT4.12=GL$lcomUV[4], GLT4.21=GL$lcomVU[4] )
-   D <- rbind(D, x)
-  }
-
-  # After a processing run with very large "n", then meaningful results exist.
-  D <- read.table(file, header=TRUE); D <- D[complete.cases(D),]
-  plot(D$tau, D$GHT3, ylim=c(-0.08,0.08), type="n",
-       xlab="KENDALL TAU", ylab="L-COSKEW OR NEGATED L-COKURTOSIS")
-  points(D$tau,  D$GHT3, col=2);             points(D$tau,  D$PLT3, col=1)
-  points(D$tau, -D$GHT4, col=4, pch=2);      points(D$tau, -D$PLT4, col=1, pch=2)
-  LM3 <- lm(D$GHT3~I(D$tau^1)+I(D$tau^2)+I(D$tau^4)-1)
-  LM4 <- lm(D$GHT4~I(D$tau^1)+I(D$tau^2)+I(D$tau^4)-1)
-  LM3c <- LM3$coe; LM4c <- LM4$coe
-  Tau <- seq(0,1, by=.01); abline(0,0, lty=2, col=3)
-  lines(Tau,   0 + LM3c[1]*Tau^1 + LM3c[2]*Tau^2 + LM3c[3]*Tau^4,  col=4, lwd=3)
-  lines(Tau, -(0 + LM4c[1]*Tau^1 + LM4c[2]*Tau^2 + LM4c[3]*Tau^4), col=2, lwd=3) #}
 
 \dontrun{
   # Let us compare the conditional simulation method of copBasic by numerics and by the
