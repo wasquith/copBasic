@@ -182,6 +182,26 @@ LzCOPpermsym(cop=GHcop, para=c(10, 0.9, 0.3))    # 0.17722861
     UV <- simCOP(1000, cop=COP, para=list(cop=GLcop, para=2, reflect=r))
     mtext(paste0("Reflection ", r, " : Permutation-Mu =", Lz)); Lz })
   # [1] 0.00000000 0.00000000 0.07430326 0.07430326 }
+
+\dontrun{
+  # Example purpose = exploring sample sizes permutation symmetry metrics to
+  # stablize by some examples of difference metrics for empirical copula that
+  # are computed in about the simplist and most efficient manner at the expense
+  # of the copying of UV inside the two EMPIRcop() calls, which could become
+  # substantial if n ---> large, but we do not require additional book keeping
+  # for u <- c(UV[,1], UV[,2]); v <- c(UV[,2], UV[,1]);
+  # h <- EMPIRcop(u,v, para=UV) and then h[first half] - h[second half].
+  DF <- NULL; para <- list(breve=0.2, para=10, cop=GHcop)
+  for(n in as.integer(10^seq(log10(100), log10(50000), by=0.04))) {
+    UV  <- simCOP(n, cop=breveCOP, para=para, graphics=FALSE)
+    hh  <- EMPIRcop(UV[,1], UV[,2], para=UV) - EMPIRcop(UV[,2], UV[,1], para=UV)
+    mad <- mean(abs(hh)); rmse <- sqrt(mean(hh^2)); max <- 3*max(hh)
+    DF  <- rbind(DF, data.frame(n, mad, rmse, max))
+  }
+  ylim <- c(0, max(sapply(2:ncol(DF), function(i) max(DF[,i]))))
+  plot( DF$n, DF$mad,  col="red", type="l", log="x", ylim=ylim)
+  lines(DF$n, DF$rmse, col="seagreen")
+  lines(DF$n, DF$max,  col="blue") # }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
