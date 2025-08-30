@@ -79,7 +79,11 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   glfunc <- function(k, rho=NA) rho - rhoCOP(cop=GLcop,     para=exp(k)  )
   hrfunc <- function(k, rho=NA) rho - rhoCOP(cop=HRcop,     para=exp(k)  )
   nnfunc <- function(k, rho=NA) rho - rhoCOP(cop=rN4220cop, para=exp(k)  )
-  D <- NULL; rs <- c(0.002, 0.005, seq(0.04, 0.98, by=0.02), 0.995, 0.998)
+  rffunc <- function(k, rho=NA) rho - rhoCOP(cop=COP,
+                           para=list(reflect=2, cop=RFcop,  para=pnorm(k)))
+  D <- NULL; rs <- c(0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009,
+                     seq(0.02, 0.99, by=0.01),
+              0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998, 0.999)
   for(r in rs) { # Spearman Rhos
     cl   <- exp(  uniroot(clfunc, c(-9,+5), rho=r)$root)-1
     CL   <- lcomCOP(cop=COP, para=list(cop=CLcop, para=cl, reflect=2))
@@ -95,8 +99,10 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
     HR   <- lcomCOP(cop=HRcop, para=hr)
     nn   <- exp(  uniroot(nnfunc, c(-9,+4), rho=r)$root)
     NN   <- lcomCOP(cop=rN4220cop, para=nn)
+    rf   <- pnorm(  uniroot(rffunc, c(-6,6), rho=r)$root)
+    RF   <- lcomCOP(cop=COP, para=list(cop=RFcop, para=rf, reflect=2))
     x <- data.frame(rho=r, CLpara=cl, FRpara=fr, GEpara=ge,
-                GHpara=gh, GLpara=gl, HRpara=hr, NNpara=nn,
+                GHpara=gh, GLpara=gl, HRpara=hr, NNpara=nn, RFpara=rf,
                  CLT2.12=CL$lcomUV[2],   CLT2.21=CL$lcomVU[2],
                  CLT3.12=CL$lcomUV[3],   CLT3.21=CL$lcomVU[3],
                  CLT4.12=CL$lcomUV[4],   CLT4.21=CL$lcomVU[4],
@@ -117,13 +123,16 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
                  HRT4.12=HR$lcomUV[4],   HRT4.21=HR$lcomVU[4],
                  NNT2.12=NN$lcomUV[2],   NNT2.21=NN$lcomVU[2],
                  NNT3.12=NN$lcomUV[3],   NNT3.21=NN$lcomVU[3],
-                 NNT4.12=NN$lcomUV[4],   NNT4.21=NN$lcomVU[4] )
+                 NNT4.12=NN$lcomUV[4],   NNT4.21=NN$lcomVU[4],
+                 RFT2.12=RF$lcomUV[2],   RFT2.21=RF$lcomVU[2],
+                 RFT3.12=RF$lcomUV[3],   RFT3.21=RF$lcomVU[3],
+                 RFT4.12=RF$lcomUV[4],   RFT4.21=RF$lcomVU[4] )
     D <- rbind(D, x)
   }
   row.names(D) <- NULL
 
-  cols <- c("turquoise", "firebrick3", "darkorange1",
-            "forestgreen", "darkorchid3", "skyblue3", "black")
+  cols <- c("turquoise", "firebrick2", "darkorange1", "forestgreen",
+            "darkorchid3", "skyblue3", "black", "brown4")
   plot(rs, D$GHT3.12, ylim=c(-0.15, 0.20), type="n",
        xlab="SPEARMAN RHO", ylab="L-COSKEW (cT3) OR NEGATED L-COKURTOSIS (cT4)")
   lines(rs, D$CLT3.12, col=cols[1]); lines(rs, -D$CLT4.12, col=cols[1], lty=2)
@@ -140,14 +149,17 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   lines(rs, D$HRT3.21, col=cols[6]); lines(rs, -D$HRT4.21, col=cols[6], lty=2)
   lines(rs, D$NNT3.12, col=cols[7]); lines(rs, -D$NNT4.12, col=cols[7], lty=2)
   lines(rs, D$NNT3.21, col=cols[7]); lines(rs, -D$NNT4.21, col=cols[7], lty=2)
+  lines(rs, D$RFT3.12, col=cols[8]); lines(rs, -D$RFT4.12, col=cols[8], lty=2)
+  lines(rs, D$RFT3.21, col=cols[8]); lines(rs, -D$RFT4.21, col=cols[8], lty=2)
   txt <- c("cT3 CLcop(reflected)",  "Negated cT4 CLcop(reflected)",
            "cT3 FRcop",  "Negated cT4 FRcop",
            "cT3 gEVcop", "Negated cT4 gEVcop",
            "cT3 GHcop",  "Negated cT4 GHcop",
            "cT3 GLcop",  "Negated cT4 GLcop",
            "cT3 HRcop",  "Negated cT4 HRcop",
-           "cT3 rN4220cop", "Negated cT4 rN4220cop")
-   legend("bottomleft", txt, col=c(cols[c(1,1,2,2,3,3,4,4,5,5,6,6,7,7)]),
+           "cT3 rN4220cop", "Negated cT4 rN4220cop",
+           "cT3 RFcop", "Negated cT4 RFcop")
+   legend("bottomleft", txt, col=c(cols[c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8)]),
            cex=0.8, ncol=2, lty=c(1,2))
   mtext("L-comoment ratio diagram for various copula", line=0.8)
   # Now, simulation, note that in samples T[2+].[12|21] are not perfectly equal
@@ -174,41 +186,30 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   plot(D$GHT3.12, xlim=c(0, 0.20), ylim=c(-0.05, 0.10), type="n",
        xlab="L-COSKEW (cT3)", ylab="L-COKURTOSIS (cT4)")
   lines(D$CLT3.12, D$CLT4.12, col=cols[1])
-  lines(D$CLT3.12, D$CLT4.12, col=cols[1], lty=2)
-  lines(D$CLT3.21, D$CLT4.21, col=cols[1])
   lines(D$CLT3.21, D$CLT4.21, col=cols[1], lty=2)
   lines(D$FRT3.12, D$FRT4.12, col=cols[2])
-  lines(D$FRT3.12, D$FRT4.12, col=cols[2], lty=2)
-  lines(D$FRT3.21, D$FRT4.21, col=cols[2])
   lines(D$FRT3.21, D$FRT4.21, col=cols[2], lty=2)
   lines(D$GET3.12, D$GET4.12, col=cols[3])
-  lines(D$GET3.12, D$GET4.12, col=cols[3], lty=2)
-  lines(D$GET3.21, D$GET4.21, col=cols[3])
   lines(D$GET3.21, D$GET4.21, col=cols[3], lty=2)
   lines(D$GHT3.12, D$GHT4.12, col=cols[4])
-  lines(D$GHT3.12, D$GHT4.12, col=cols[4], lty=2)
-  lines(D$GHT3.21, D$GHT4.21, col=cols[4])
   lines(D$GHT3.21, D$GHT4.21, col=cols[4], lty=2)
   lines(D$GLT3.12, D$GLT4.12, col=cols[5])
-  lines(D$GLT3.12, D$GLT4.12, col=cols[5], lty=2)
-  lines(D$GLT3.21, D$GLT4.21, col=cols[5])
   lines(D$GLT3.21, D$GLT4.21, col=cols[5], lty=2)
   lines(D$HRT3.12, D$HRT4.12, col=cols[6])
-  lines(D$HRT3.12, D$HRT4.12, col=cols[6], lty=2)
-  lines(D$HRT3.21, D$HRT4.21, col=cols[6])
   lines(D$HRT3.21, D$HRT4.21, col=cols[6], lty=2)
   lines(D$NNT3.12, D$NNT4.12, col=cols[7])
-  lines(D$NNT3.12, D$NNT4.12, col=cols[7], lty=2)
-  lines(D$NNT3.21, D$NNT4.21, col=cols[7])
   lines(D$NNT3.21, D$NNT4.21, col=cols[7], lty=2)
-  points(T3, T4, lwd=0.8, cex=0.8)
-  points(mT3, mT4, cex=2, pch=21, col=cols[6], bg="darkorchid1")
+  lines(D$RFT3.12, D$RFT4.12, col=cols[8])
+  lines(D$RFT3.21, D$RFT4.21, col=cols[8], lty=2)
+  points( T3,  T4, lwd=0.8, cex=0.8)
+  points(mT3, mT4, lwd=2,   cex=2, pch=21, col=cols[5], bg="darkorchid1")
   txt <- c(    "CLcop(reflected)[UV]",           "CLcop(reflected)[VU]",
             "FRcop[UV]",  "FRcop[VU]",    "gEVcop[UV]",    "gEVcop[VU]",
             "GHcop[UV]",  "GHcop[VU]",     "GLcop[UV]",     "GLcop[VU]",
-            "HRcop[UV]",  "HRcop[VU]", "rN4220cop[UV]", "rN4220cop[VU]")
-   legend("bottomright", txt, col=c(cols[c(1,1,2,2,3,3,4,4,5,5,6,6,7,7)]),
-           cex=0.8, ncol=2, lty=c(1,2))
+            "HRcop[UV]",  "HRcop[VU]", "rN4220cop[UV]", "rN4220cop[VU]",
+            "RFcop[UV]", "RFcop[VU]")
+   legend("bottomright", txt, cex=0.8, ncol=2, lty=c(1,2),
+          col=c(cols[c(1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8)]))
    mtext("L-comoment ratio diagram for various copula", line=0.8) # }
 }
 \keyword{g-EV copula}
