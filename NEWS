@@ -23,16 +23,17 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Math notation fix, italics added for unit circle, color changes, and spelling
      correction in CIRCcop.Rd.
 -  Added N4220cop.[R|Rd] (containing rN4220cop) and rN4220cop.Rd copula + NAMESPACE
--  Added [r]N4220cop and ORDSUWcop to copBasic-package.Rd.
--  Vectorization improvement in PSP.R.
+-  Added [r]N4220cop and ORDSUWcop to copBasic-package.Rd as well as a mention
+     L-comoment ratio diagrams.
+-  Vectorization improvement in M.R, PSP.R, and W.R.
 -  Added argument support in lcomCOP.R for all of those for integrate().
 -  Example extensions in ORDSUMcop.Rd and minor tidy up to examples in ORSUWcop.Rd.
 -  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added 
      therein. Expect to upgrade support for this in some future release.
 -  L-comoment diagram expansion in Examples of glueCOP.Rd.
 -  Clean up of some of the outdated examples in favor of alternatives for GHcop.Rd.
--  Added L-comoment ratio diagram for gEVcop(), GHcop(), GLcop(), and HRcop()
-     comparison in the Examples of gEVcop.Rd.
+-  Added L-comoment ratio diagram for several families including gEVcop(), GHcop(),
+     GLcop(), and HRcop() and a simulation comparison in the Examples of gEVcop.Rd.
 
 
 Changes in version 2.2.8 (2025-06-27)
