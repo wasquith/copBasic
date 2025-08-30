@@ -84,9 +84,17 @@ print(composite2COP(0.4, 0.6, para)) # 0.3387506
   #   f() values at end points not of opposite sign
   # warnings might be triggered. This is particularly true because of the flat derivative
   # above the near singularity in this example composited copula.
-  points(D$U, D$V, pch=4, col=4, cex=0.75)
+  points(D$U, D$V, pch=4, col="blue", cex=0.75)
   level.curvesCOP(cop=EMPIRcop, para=D, ploton=FALSE, delu=0.02, delt=0.05)
   mtext("Empirical copula from n=2000 simulation") #}
+
+\dontrun{
+  # Demonstration in how to add reflection (rotation by 180) degrees of the GHcop
+  # and use the two-parameter version of that coupla to accent upper tail coupling
+  # with a much weaker lower tail, but we want open up or spread the middle part of
+  # the distribution. Lastly, because alpha != beta, permutation asymmetry is added.
+  para <- list(cop1=W, para1=NA, cop2=GHcop, para2=c(1,10), alpha=0.01, beta=0.06)
+  UV <- simCOP(1000, cop=COP, para=list(cop=composite2COP, reflect=2, para=para)) #}
 }
 \keyword{copula composition}
 \keyword{copula composition (two compositing parameters)}
