@@ -34,6 +34,8 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Clean up of some of the outdated examples in favor of alternatives for GHcop.Rd.
 -  Added L-comoment ratio diagram for several families including gEVcop(), GHcop(),
      GLcop(), and HRcop() and a simulation comparison in the Examples of gEVcop.Rd.
+-  Added NORMcop() and Tcop() for the Gaussian and t-Student copulas, which then
+     caused the Imports of the mvtnorm package and changes to DESCRIPTION.
 
 
 Changes in version 2.2.8 (2025-06-27)
