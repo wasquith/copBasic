@@ -105,7 +105,7 @@ rhoCOP(cop=PSP)              # 0.4784176
   }
   rhoCOP(       cop=composite2COP, para=para) # 0.1031758
   rhoCOPbyJoe21(cop=composite2COP, para=para) # 0.1031803
-  rhoCOPbyJoe12(cop=composite2COP, para=para) # 0.1031532}
+  rhoCOPbyJoe12(cop=composite2COP, para=para) # 0.1031532 }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
