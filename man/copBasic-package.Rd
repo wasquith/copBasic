@@ -34,15 +34,17 @@ Marshall\enc{–}{-}Olkin copula \tab \eqn{\mathbf{MO}(u,v)} \tab \code{\link{MO
 Nelsen eq.4-2-12 copula \tab \eqn{\mathbf{N4212cop}(u,v)} \tab \code{\link{N4212cop}} \tab copula\cr
 Nelsen eq.4-2-20 copula \tab \eqn{\mathbf{N4220cop}(u,v)} \tab \code{\link{N4220cop}} \tab copula\cr
 Nelsen eq.4-2-20 copula (reflected) \tab \eqn{\mathbf{rN4220cop}(u,v)} \tab \code{\link{rN4220cop}} \tab copula\cr
+Normal copula \tab \eqn{\mathbf{NORM}(u,v)} \tab \code{\link{NORMcop}} \tab copula\cr
 Ordinal Sums by Copula \tab \eqn{\mathbf{C}_\mathcal{J}(u,v)} \tab \code{\link{ORDSUMcop}} \tab copula\cr
 Ordinal Sums by W-Copula \tab \eqn{\mathbf{C}_\mathcal{J}(u,v)} \tab \code{\link{ORDSUWcop}} \tab copula\cr
-Pareto copula \tab \eqn{\mathbf{PA}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
+Pareto copula \tab \eqn{\mathbf{PA}(u,v)} \tab \code{\link{PAcop}} \tab copula\cr
 Plackett copula \tab \eqn{\mathbf{PL}(u,v)} \tab \code{\link{PLcop}} \tab copula\cr
 PSP copula \tab \eqn{\mathbf{PSP}(u,v)} \tab \code{\link{PSP}} \tab copula\cr
 Raftery copula \tab \eqn{\mathbf{RF}(u,v)} \tab \code{\link{RFcop}} \tab copula\cr
 Rayleigh copula \tab \eqn{\mathbf{RAY}(u,v)} \tab \code{\link{RAYcop}} \tab copula\cr
 g-EV copula (Gaussian extreme value) \tab \eqn{\mathbf{gEV}(u,v)} \tab \code{\link{gEVcop}} \tab copula\cr
 t-EV copula (t-distribution extreme value) \tab \eqn{\mathbf{tEV}(u,v)} \tab \code{\link{tEVcop}} \tab copula\cr
+t-Student copula \tab \eqn{\mathbf{T}(u,v)} \tab \code{\link{Tcop}} \tab copula\cr
 }
 
 
