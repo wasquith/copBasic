@@ -64,22 +64,6 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   for(rho in gEVparameter) UV <- simCOP(n=1000, cop=gEVcop, para=rho) #}
 
 \dontrun{
-  "NORMcop" <-  # pCoupla() from package copula is analogous to COP()
-  function(u,v, para=NULL, ...) {
-    if(length(u) == 1) u <- rep(u, length(v)) # see asCOP() for reasoning of
-    if(length(v) == 1) v <- rep(v, length(u)) # this "vectorization" hack
-    return(copula::pCopula(matrix(c(u,v), ncol=2), para))
-  }
-  "Tcop" <-  # pCoupla() from package copula is analogous to COP()
-  function(u,v, para=NULL, ...) {
-    if(length(u) == 1) u <- rep(u, length(v)) # see asCOP() for reasoning of
-    if(length(v) == 1) v <- rep(v, length(u)) # this "vectorization" hack
-    #print(c(para))
-    para <- copula::tCopula(c(para[1]), dim=2, df=as.integer(para[2]))
-    #print(c(para))
-    return(copula::pCopula(matrix(c(u,v), ncol=2), para))
-  }
-
   # Demonstration of L-comoment ratio diagram as a function of Spearman Rho
   # for the gEVcop(), GHcop(), GLcop(), and HRcop() where each copula is
   # fit to the Spearman Rho and the L-comoments computed. The copulas here
@@ -88,7 +72,6 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   # to insert permutation asymmetry say by blending in the breveCOP() or other
   # composition frameworks. L-cokurtosis is negated to have it simply plot
   # away from the L-coskew.
-  tfunc  <- function(k, rho=NA) rho - rhoCOP(cop=Tcop,    para=c(pnorm(k), 4))
   clfunc <- function(k, rho=NA) rho - rhoCOP(cop=COP,
                            para=list(reflect=2, cop=CLcop,  para=exp(k)-1))
   gefunc <- function(k, rho=NA) rho - rhoCOP(cop=gEVcop,    para=pnorm(k))
@@ -102,10 +85,10 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
                            para=list(reflect=2, cop=RFcop,  para=pnorm(k)))
   D <- NULL; rs <- c(0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009,
                      seq(0.02, 0.99, by=0.01),
-              0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998, 0.999)
+              0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998)#, 0.999)
   for(r in rs) { # Spearman Rhos
     ga   <- 2*sin(pi*r/6)
-    GA   <- lcomCOP(cop=NORMcop, para=copula::normalCopula(c(ga), dim = 2))
+    GA   <- lcomCOP(cop=NORMcop, para=ga)
     cl   <- exp(  uniroot(clfunc, c(-9,+5), rho=r)$root)-1
     CL   <- lcomCOP(cop=COP, para=list(cop=CLcop, para=cl, reflect=2))
     fr   <- FRcop(rhotau=r, cortype="rho")$para
@@ -127,11 +110,9 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
     RA   <- lcomCOP(cop=RAYcop, para=ra)
     rf   <- pnorm(  uniroot(rffunc, c(-6,6), rho=r)$root)
     RF   <- lcomCOP(cop=COP, para=list(cop=RFcop, para=rf, reflect=2))
-    tf   <- pnorm(  uniroot(tfunc, c(-6,6), rho=r)$root)
-    print(c(r, tf))
-    TF   <- lcomCOP(cop=COP, para=list(cop=Tcop, para=c(tf,1), reflect=2))
+    TF   <- lcomCOP(cop=Tcop, para=c(ga,1))
     x <- data.frame(rho=r, CLpara=cl, FRpara=fr, GApara=ga, GEpara=ge, GHpara=gh,
-                GLpara=gl, HRpara=hr, JOpara=jo, NNpara=nn, RApara=ra, RFpara=rf, TFpara=tf,
+                GLpara=gl, HRpara=hr, JOpara=jo, NNpara=nn, RApara=ra, RFpara=rf, TFpara=ga,
                  CLT2.12=CL$lcomUV[2],   CLT2.21=CL$lcomVU[2],
                  CLT3.12=CL$lcomUV[3],   CLT3.21=CL$lcomVU[3],
                  CLT4.12=CL$lcomUV[4],   CLT4.21=CL$lcomVU[4],
@@ -181,28 +162,28 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
        xlab="SPEARMAN RHO", ylab="L-COSKEW (cT3) OR NEGATED L-COKURTOSIS (cT4)")
   lines(rs, D$CLT3.12, col=cols[ 1]); lines(rs, -D$CLT4.12, col=cols[ 1], lty=2)
   lines(rs, D$CLT3.21, col=cols[ 1]); lines(rs, -D$CLT4.21, col=cols[ 1], lty=2)
-  lines(rs, D$FRT3.12, col=cols[ 2]); lines(rs, -D$FRT4.12, col=cols[ 2], lty=2)
-  lines(rs, D$FRT3.21, col=cols[ 2]); lines(rs, -D$FRT4.21, col=cols[ 2], lty=2)
-  lines(rs, D$GAT3.12, col=cols[ 3]); lines(rs, -D$GAT4.12, col=cols[ 3], lty=2)
-  lines(rs, D$GAT3.21, col=cols[ 3]); lines(rs, -D$GAT4.21, col=cols[ 3], lty=2)
+  lines(rs, D$FRT3.12, col=cols[ 2]); lines(rs, -D$FRT4.12, col=cols[ 2], lty=4)
+  lines(rs, D$FRT3.21, col=cols[ 2]); lines(rs, -D$FRT4.21, col=cols[ 2], lty=4)
+  lines(rs, D$GAT3.12, col=cols[ 3], lwd=2); lines(rs, -D$GAT4.12, col=cols[ 3], lty=2, lwd=2)
+  lines(rs, D$GAT3.21, col=cols[ 3], lwd=2); lines(rs, -D$GAT4.21, col=cols[ 3], lty=2, lwd=2)
   lines(rs, D$GET3.12, col=cols[ 4]); lines(rs, -D$GET4.12, col=cols[ 4], lty=2)
   lines(rs, D$GET3.21, col=cols[ 4]); lines(rs, -D$GET4.21, col=cols[ 4], lty=2)
-  lines(rs, D$GHT3.12, col=cols[ 5]); lines(rs, -D$GHT4.12, col=cols[ 5], lty=2)
-  lines(rs, D$GHT3.21, col=cols[ 5]); lines(rs, -D$GHT4.21, col=cols[ 5], lty=2)
+  lines(rs, D$GHT3.12, col=cols[ 5]); lines(rs, -D$GHT4.12, col=cols[ 5], lty=4)
+  lines(rs, D$GHT3.21, col=cols[ 5]); lines(rs, -D$GHT4.21, col=cols[ 5], lty=4)
   lines(rs, D$GLT3.12, col=cols[ 6]); lines(rs, -D$GLT4.12, col=cols[ 6], lty=2)
   lines(rs, D$GLT3.21, col=cols[ 6]); lines(rs, -D$GLT4.21, col=cols[ 6], lty=2)
-  lines(rs, D$HRT3.12, col=cols[ 7]); lines(rs, -D$HRT4.12, col=cols[ 7], lty=2)
-  lines(rs, D$HRT3.21, col=cols[ 7]); lines(rs, -D$HRT4.21, col=cols[ 7], lty=2)
+  lines(rs, D$HRT3.12, col=cols[ 7]); lines(rs, -D$HRT4.12, col=cols[ 7], lty=4)
+  lines(rs, D$HRT3.21, col=cols[ 7]); lines(rs, -D$HRT4.21, col=cols[ 7], lty=4)
   lines(rs, D$JOT3.12, col=cols[ 8]); lines(rs, -D$JOT4.12, col=cols[ 8], lty=2)
   lines(rs, D$JOT3.21, col=cols[ 8]); lines(rs, -D$JOT4.21, col=cols[ 8], lty=2)
-  lines(rs, D$NNT3.12, col=cols[ 9]); lines(rs, -D$NNT4.12, col=cols[ 9], lty=2)
-  lines(rs, D$NNT3.21, col=cols[ 9]); lines(rs, -D$NNT4.21, col=cols[ 9], lty=2)
+  lines(rs, D$NNT3.12, col=cols[ 9]); lines(rs, -D$NNT4.12, col=cols[ 9], lty=4)
+  lines(rs, D$NNT3.21, col=cols[ 9]); lines(rs, -D$NNT4.21, col=cols[ 9], lty=4)
   lines(rs, D$RAT3.12, col=cols[10]); lines(rs, -D$RAT4.12, col=cols[10], lty=2)
   lines(rs, D$RAT3.21, col=cols[10]); lines(rs, -D$RAT4.21, col=cols[10], lty=2)
-  lines(rs, D$RFT3.12, col=cols[11]); lines(rs, -D$RFT4.12, col=cols[11], lty=2)
-  lines(rs, D$RFT3.21, col=cols[11]); lines(rs, -D$RFT4.21, col=cols[11], lty=2)
-  lines(rs, D$TFT3.12, col=cols[12]); lines(rs, -D$TFT4.12, col=cols[12], lty=2)
-  lines(rs, D$TFT3.21, col=cols[12]); lines(rs, -D$TFT4.21, col=cols[12], lty=2)
+  lines(rs, D$RFT3.12, col=cols[11]); lines(rs, -D$RFT4.12, col=cols[11], lty=4)
+  lines(rs, D$RFT3.21, col=cols[11]); lines(rs, -D$RFT4.21, col=cols[11], lty=4)
+  lines(rs, D$TFT3.12, col=cols[12]); lines(rs, -D$TFT4.12, col=cols[12], lty=2, lwd=2)
+  lines(rs, D$TFT3.21, col=cols[12]); lines(rs, -D$TFT4.21, col=cols[12], lty=2, lwd=2)
   txt <- c("cT3 CLcop(reflected)",  "Negated cT4 CLcop(reflected)",
            "cT3 FRcop (equals zero)",    "Negated cT4 FRcop",
            "cT3 NORMcop (equals zero)",  "Negated cT4 NORMcop",
@@ -215,7 +196,7 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
            "cT3 RAYcop", "cT4 RAYcop",
            "cT3 RFcop", "Negated cT4 RFcop",
            "cT3 Tcop", "Negated cT4 Tcop")
-  legend("bottomleft", txt, cex=0.8, ncol=3, lty=c(1,2), col=coll)
+  legend("bottomleft", txt, cex=0.8, ncol=3, lty=c(1,2,1,4), col=coll)
   mtext("L-comoment ratio diagram for various copula", line=0.8)
   # Now, simulation, note that in samples T[2+].[12|21] are not perfectly equal
   # even for known permutation asymmetry. These could be average or used in
@@ -243,27 +224,27 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
   lines(D$CLT3.12, D$CLT4.12, col=cols[ 1])
   lines(D$CLT3.21, D$CLT4.21, col=cols[ 1], lty=2)
   lines(D$FRT3.12, D$FRT4.12, col=cols[ 2])
-  lines(D$FRT3.21, D$FRT4.21, col=cols[ 2], lty=2)
+  lines(D$FRT3.21, D$FRT4.21, col=cols[ 2], lty=4)
   lines(D$GAT3.12, D$GAT4.12, col=cols[ 3], lwd=4)
   lines(D$GAT3.21, D$GAT4.21, col=cols[ 3], lty=2, lwd=4)
   lines(D$GET3.12, D$GET4.12, col=cols[ 4])
-  lines(D$GET3.21, D$GET4.21, col=cols[ 4], lty=2)
+  lines(D$GET3.21, D$GET4.21, col=cols[ 4], lty=4)
   lines(D$GHT3.12, D$GHT4.12, col=cols[ 5])
   lines(D$GHT3.21, D$GHT4.21, col=cols[ 5], lty=2)
   lines(D$GLT3.12, D$GLT4.12, col=cols[ 6])
-  lines(D$GLT3.21, D$GLT4.21, col=cols[ 6], lty=2)
+  lines(D$GLT3.21, D$GLT4.21, col=cols[ 6], lty=4)
   lines(D$HRT3.12, D$HRT4.12, col=cols[ 7])
   lines(D$HRT3.21, D$HRT4.21, col=cols[ 7], lty=2)
   lines(D$JOT3.12, D$JOT4.12, col=cols[ 8], lwd=4)
-  lines(D$JOT3.21, D$JOT4.21, col=cols[ 8], lty=2, lwd=4)
+  lines(D$JOT3.21, D$JOT4.21, col=cols[ 8], lty=4, lwd=4)
   lines(D$NNT3.12, D$NNT4.12, col=cols[ 9])
   lines(D$NNT3.21, D$NNT4.21, col=cols[ 9], lty=2)
   lines(D$RAT3.12, D$RAT4.12, col=cols[10])
-  lines(D$RAT3.21, D$RAT4.21, col=cols[10], lty=2)
+  lines(D$RAT3.21, D$RAT4.21, col=cols[10], lty=4)
   lines(D$RFT3.12, D$RFT4.12, col=cols[11])
   lines(D$RFT3.21, D$RFT4.21, col=cols[11], lty=2)
   lines(D$TFT3.12, D$TFT4.12, col=cols[12])
-  lines(D$TFT3.21, D$TFT4.21, col=cols[12], lty=2)
+  lines(D$TFT3.21, D$TFT4.21, col=cols[12], lty=4)
   points( T3,  T4, lwd=0.8, cex=0.8)
   points(mT3, mT4, lwd=2,   cex=2, pch=21, col=cols[5], bg=grey(0.9))
   txt <- c(    "CLcop(reflected)[UV]",           "CLcop(reflected)[VU]",
