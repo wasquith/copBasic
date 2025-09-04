@@ -3,7 +3,7 @@
 \alias{tEVcop}
 \title{The t-EV (Extreme Value) Copula}
 \description{
-The \emph{t-EV copula} (Joe, 2014, p. 189) is a limiting form of the \emph{t-copula} (multivariate t-distribution):
+The \emph{t-EV copula} (Joe, 2014, p. 189) is a limiting form of the \emph{t-Student copula} (multivariate t-distribution) (\code{\link{Tcop}}):
 \deqn{
 \mathbf{C}_{\rho,\nu}(u,v) = \mathbf{tEV}(u,v; \rho, \nu) =
 \mathrm{exp}\bigl(-(x+y) \times B(x/(x+y); \rho, \nu)\bigr)\mbox{,}
