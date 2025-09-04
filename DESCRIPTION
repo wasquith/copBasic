@@ -1,7 +1,7 @@
 Package: copBasic
 Title: General Bivariate Copula Theory and Many Utility Functions
 Version: 2.2.9
-Date: 2025-09-01
+Date: 2025-09-03
 Authors@R: person(given = "William",
                   family = "Asquith",
                   role = c("aut", "cre"),
@@ -18,7 +18,8 @@ Description: Extensive functions for bivariate copula (bicopula) computations an
  Wolff Sigma, tail dependency, tail order, skewness, and bivariate Lmoments are implemented, and
  positive/negative quadrant dependency, left (right) increasing (decreasing) are available.
  Other features include Kullback-Leibler Divergence, Vuong Procedure, spectral measure, and
- Lcomoments for inference, maximum likelihood, and AIC, BIC, and RMSE for goodness-of-fit.
+ Lcomoments for fit and inference, Lcomoment ratio diagrams, maximum likelihood,
+ and AIC, BIC, and RMSE for goodness-of-fit.
 Maintainer: William Asquith <william.asquith@ttu.edu>
 Repository: CRAN
 Depends: R (>= 4.0.0)

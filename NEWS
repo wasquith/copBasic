@@ -36,6 +36,9 @@ Changes in version 2.2.9 (2025-NN-NN)
      GLcop(), and HRcop() and a simulation comparison in the Examples of gEVcop.Rd.
 -  Added NORMcop() and Tcop() for the Gaussian and t-Student copulas, which then
      caused the Imports of the mvtnorm package and changes to DESCRIPTION.
+-  Tune up of large parameter behavior in simulation for JOcopB5.R and .Rd edits.
+-  Created LcomomentDiagrams.Rd as the holding ground for large L-comoment ratio
+     diagrams.
 
 
 Changes in version 2.2.8 (2025-06-27)
