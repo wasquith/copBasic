@@ -3,7 +3,7 @@
 \alias{lcomCOP}
 \title{L-comoments and Bivariate L-moments of a Copula}
 \description{
-Compute the \emph{L-comoments} (Serfling and Xiao, 2007; Asquith, 2011) through the \emph{bivariate L-moments (ratios)} (\eqn{\delta^{[\ldots]}_{k;\mathbf{C}}}) of a copula \eqn{\mathbf{C}(u,v; \Theta)}  The L-comoments include \emph{L-correlation} (\emph{Spearman Rho}), \emph{L-coskew}, and \emph{L-cokurtosis}.  As described by Brahimi \emph{et al.} (2015), the first four bivariate L-moments \eqn{\delta^{[12]}_k} for random variable \eqn{X^{(1)}} or \eqn{U} with respect to (\emph{wrt}) random variable \eqn{X^{(2)}} or \eqn{V} are defined as
+Compute the \emph{L-comoments} (Serfling and Xiao, 2007; Asquith, 2011) through the \emph{bivariate L-moments (ratios)} (\eqn{\delta^{[\ldots]}_{k;\mathbf{C}}}) of a copula \eqn{\mathbf{C}(u,v; \Theta)}.  The L-comoments include \emph{L-correlation} (\emph{Spearman Rho}), \emph{L-coskew}, and \emph{L-cokurtosis}.  As described by Brahimi \emph{et al.} (2015), the first four bivariate L-moments \eqn{\delta^{[12]}_k} for random variable \eqn{X^{(1)}} or \eqn{U} with respect to (\emph{wrt}) random variable \eqn{X^{(2)}} or \eqn{V} are defined as
 \deqn{\delta^{[12]}_{1;\mathbf{C}} = 2\int\!\!\int_{\mathcal{I}^2}
 \mathbf{C}(u,v)\,\mathrm{d}u\mathrm{d}v - \frac{1}{2}\mbox{,}}
 \deqn{\delta^{[12]}_{2;\mathbf{C}} = \int\!\!\int_{\mathcal{I}^2}
@@ -51,7 +51,7 @@ lcomCOP(cop=NULL, para=NULL, as.bilmoms=FALSE, orders=2:5, lo=0, hi=1,
   \item{lcomVU}{The L-comoments \eqn{\tau^{[21]}_k} of \eqn{V} with respect to \eqn{U} for \eqn{k \in [2,3,4,5]} if \code{orders} is \code{2:5} and index 1 is \code{NA}.}
 }
 \note{
-The documention here is highly parallel to \code{\link{bilmoms}} for which that function was developed some years before \code{lmomCOP} was developed in January 2019. Also, \code{\link{bilmoms}} is based on gridded or Monte Carlo integration, and \code{\link{bilmoms}} is to be considered \bold{deprecated}. However, it is deliberate that related background and various algorithm testing are still made available in \code{\link{bilmoms}}.
+The documention here is highly parallel to \code{\link{bilmoms}} for which that function was developed some years before \code{lmomCOP} was developed in January 2019. Also, \code{\link{bilmoms}} is based on gridded or Monte Carlo integration, and \code{\link{bilmoms}} is to be considered \bold{deprecated}. However, it is deliberate that related background and various algorithm testing are still made available in \code{\link{bilmoms}}. \emph{L-comoment ratio diagrams} are demonstrated by extensive example for many copula in \code{\link{LcomomentDiagrams}}.
 }
 \references{
 Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the R environment for statistical computing: Createspace Independent Publishing Platform, ISBN 978--146350841--8.
@@ -129,3 +129,5 @@ Serfling, R., and Xiao, P., 2007, A contribution to multivariate L-moments---L-c
 \keyword{L-comoments}
 \concept{Lcomoments}
 \keyword{Spearman Rho}
+\keyword{L-comoments (ratio diagram)}
+\keyword{L-comoment ratio diagram}

@@ -75,5 +75,3 @@ Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
 \keyword{extreme value copula}
 \keyword{Spearman Rho}
 \keyword{Pearson correlation coefficient}
-\keyword{L-comoments (ratio diagram)}
-\keyword{L-comoment ratio diagram}

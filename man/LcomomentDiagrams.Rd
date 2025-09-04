@@ -227,3 +227,5 @@ L-comoment ratio diagrams by computation example are shown.
    mtext("L-comoment ratio diagram for various copula", line=0.8)
    # ------------------------------------------------------------------------------------}
 }
+\keyword{L-comoments (ratio diagram)}
+\keyword{L-comoment ratio diagram}
