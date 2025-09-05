@@ -93,7 +93,7 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
   cor(UVm[,1], UVm[,2], method="spearman"); cor(UVw[,1], UVw[,2], method="spearman")
   # -----------------------------------------------------------
   opts <- par(las=1, lend=1, ljoin=1) # all lab horz, butted, mitred
-  del  <- 0.05
+  del  <- 0.005
   nsim <- 300; ps <- c(0.001, seq(del, 1-del, by=del), 0.999)
   # The ylim might need extension, it seems cases of L-comoments exceeding unity
   # can be found dependening on the settings of the myM and myW.
@@ -206,6 +206,88 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
            "L-coskew T3[21], cop(myW, myM)", "L-cokurtosis T4[21], cop(myW, myM)")
   legend("topleft", txt, bty="n", seg.len=3, lty=c(1, 2, 1, 2), lwd=c(3, 3, 1, 1),
          col=c("seagreen4", "seagreen4", "darkorchid4", "darkorchid4")) # }
+
+\dontrun{
+  xs   <- seq(-1,1, by=0.001)
+  X    <- c(T2m12, T2m21)
+  Y3mw <- c(T3m12, T3m21)
+  T3fT2mw <- lm(Y3mw~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
+                     I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
+  plot(X, Y3mw, xlab="Spearman Rho", ylab="L-coskew")
+  lines(xs, predict(T3fT2mw, newdata=data.frame(X=xs)), col="red")
+  mtext("2-partition ORDSUMcop : M, W")
+
+  X    <- c(T2w12, T2w21)
+  Y3wm <- c(T3w12, T3w21)
+  T3fT2wm <- lm(Y3wm~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
+                     I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
+  plot(X, Y3wm, xlab="Spearman Rho", ylab="L-coskew")
+  lines(xs, predict(T3fT2wm, newdata=data.frame(X=xs)), col="red")
+  mtext("2-partition ORDSUMcop : W, M")
+
+  X  <- c(T2m12, T2m21, T2w12, T2w21)
+  Y4 <- c(T4m12, T4m21, T4w12, T4w21)
+  T4fT2mwwm <- lm(Y4~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
+                     I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
+
+  plot(X, Y4, xlab="Spearman Rho", ylab="L-cokurtosis")
+  lines(xs, predict(T4fT2mwwm, newdata=data.frame(X=xs)), col="red")
+
+  X  <- c(T3m12, T3m21, T3w12, T3w21)
+  Y4 <- c(T4m12, T4m21, T4w12, T4w21)
+  plot(X, Y4, type="l", xlab="L-cokurtosis", ylab="L-coskew")
+  points(T3m12, T4m12, col="seagreen4")
+  points(T3w12, T4w12, col="orchid3"  ) # }
+
+\dontrun{
+  coesA <- T3fT2mw$coefficients;   names(coesA) <- NULL
+  coesB <- T3fT2wm$coefficients;   names(coesB) <- NULL
+  coesC <- T4fT2mwwm$coefficients; names(coesC) <- NULL
+  print(coesA, 12)
+  print(coesB, 12)
+  print(coesC, 12)
+  coesT3 <- sapply(seq_len(length(coesA)), function(i) {
+               mean(c(abs(coesA[i]), abs(coesB[i]))) })
+  print(coesT3, 12)
+  "T34fT2" <- function(rho, type=c("T3mw", "T3wm", "T4mwwm")) {
+    type <- match.arg(type)
+    cs3 <- c(0.618673707079,
+             0.175958850204, 0.512576942435, 0.145431255262, 0.265479078036,
+             0.163312255777, 1.016327127995, 0.537153927577, 2.225271502140,
+             0.636080402864, 2.191529289514, 0.292183399458, 0.823239656100)
+    if(type == "T3mw") {
+      #cs <- c(-0.618673707079,
+      #        -0.175958850204,  0.512576942435, 0.145431255262, 0.265479078036,
+      #        -0.163312255777, -1.016327127995, 0.537153927577, 2.225271502140,
+      #        -0.636080402864, -2.191529289514, 0.292183399458, 0.823239656100)
+      cs <- c(-1,-1,1,1,1,-1,-1,1,1,-1,-1,1,1)*cs3
+    } else if(type == "T3wm") {
+      #cs <- c( 0.618673707079,
+      #         0.175958850204, -0.512576942435, -0.145431255262, -0.265479078036,
+      #         0.163312255777,  1.016327127995, -0.537153927577, -2.225271502140,
+      #         0.636080402864,  2.191529289514, -0.292183399458, -0.823239656100)
+      cs <- c(1,1,-1,-1,-1,1,1,-1,-1,1,1,-1,-1)*cs3
+    } else if(type == "T4mwwm") {
+      cs <- c( 0.236681925424,
+              -0.429191591357, -0.573421581827, 0.352083105242, 1.042508365628,
+              -0.710792468014, -4.321529301154, 2.229039543342, 9.419379550877,
+              -2.652104491697, -9.275892279321, 1.208446517629, 3.472344853036)
+      snmw <- rep(1, length(cs))
+    } else {
+      stop("should not be here in logic")
+    }
+    print(cs)
+    z <- sapply(rho, function(r) sum(sapply(seq_len(length(cs)),
+                                     function(p) cs[p] * r^(p-1))))
+    return(z)
+  }
+
+  ylim <- c(-0.7, 0.7)
+  plot( xs, T34fT2(xs, "T3mw"), type="n", ylim=ylim,
+       xlab="Spearman Rho", ylab="L-coskew or L-cokurtosis approximations")
+  lines(xs, T34fT2(xs, "T3mw"),   col="brown3")
+  lines(xs, T34fT2(xs, "T3wm"),   col="blue3" )
+  lines(xs, T34fT2(xs, "T4mwwm"), col="orange") # }
 }
 \keyword{copula (formulas)}
 \concept{Ordinal Sums}
