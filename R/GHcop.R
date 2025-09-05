@@ -93,8 +93,12 @@ function(u, v, para=NULL, tau=NULL, tau.big=0.985, cor=NULL, ...) {
      # and make a local copy
      return(exp(-(((-log(u))^para + (-log(v))^para)^(1/para))))
   } else if(length(para) == 2) {
+     # v <- simCOPmicro(0.01, cop=GHcop2, para=c(2,88))
      b1 <- para[1]; b2 <- -para[2]
-     cop <- (((u^b2 - 1)^b1 + (v^b2 - 1)^b1)^(1/b1) + 1)^(1/b2)
+     bb1 <- (u^b2 - 1)^b1; bb2 <- (v^b2 - 1)^b1
+     cop <- ((bb1 + bb2)^(1/b1) + 1)^(1/b2)
+     wnt <- bb1 == Inf | bb2 == Inf # this makes simCOP() work throughout range of parameters
+     cop[wnt] <- pmin(u[wnt], v[wnt], na.rm=TRUE) # from extremely large scale lcomCOP() testing.
      return(cop)
   } else if(length(para) == 3) {
      pi2 <- para[2]; pi3 <- para[3]; di <- 1/para[1]
