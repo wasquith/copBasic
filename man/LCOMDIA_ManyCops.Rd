@@ -1,12 +1,12 @@
 \encoding{utf8}
-\name{LcomomentDiagrams}
-\alias{LcomomentDiagrams}
-\title{L-comoment Ratio Diagrams}
+\name{LCOMDIA_ManyCops}
+\alias{LCOMDIA_ManyCops}
+\title{L-comoment Ratio Diagrams for Many Copulas}
 \description{
-L-comoment ratio diagrams by computation example are shown.
+L-comoment ratio diagrams by computation example are shown for many copulas of the \pkg{copBasic} package.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{lcomCOP}}
+\seealso{\code{\link{lcomCOP}}, \code{\link{LCOMDIA_GHcop}}
 }
 \examples{
 \dontrun{
@@ -19,17 +19,24 @@ L-comoment ratio diagrams by computation example are shown.
   # composition frameworks. L-cokurtosis is negated to have it simply plot away from
   # the L-coskew.
   # ------------------------------------------------------------------------------------
-  clfunc <- function(k, rho=NA) rho - rhoCOP(cop=COP,
+  LCMempty <- list(lcomUV=rep(NA, 5), lcomVU=rep(NA, 5)) # for comprehensive show of
+  # features and handling for situations of a Spearman Rho being incompatible with a
+  # copula, which is the case for the N4212cop that we have reversed here to put the
+  # tail dependency for moderate Spearman Rho into the upper tail.
+  rN4212cop <- function(u,v, para, ...) COP(u,v, cop=N4212cop, para=para, reflect=2)
+
+  clfunc  <- function(k, rho=NA) rho - rhoCOP(cop=COP,
                            para=list(reflect=2, cop=CLcop,  para=exp(k)-1))
-  gefunc <- function(k, rho=NA) rho - rhoCOP(cop=gEVcop,    para=pnorm(k))
-  ghfunc <- function(k, rho=NA) rho - rhoCOP(cop=GHcop,     para=exp(k)+1)
-  glfunc <- function(k, rho=NA) rho - rhoCOP(cop=GLcop,     para=exp(k)  )
-  hrfunc <- function(k, rho=NA) rho - rhoCOP(cop=HRcop,     para=exp(k)  )
-  jofunc <- function(k, rho=NA) rho - rhoCOP(cop=JOcopB5,   para=exp(k)+1)
-  mofunc <- function(k, rho=NA) rho - rhoCOP(cop=MOcop,     para=pnorm(rep(k,2)))
-  nnfunc <- function(k, rho=NA) rho - rhoCOP(cop=rN4220cop, para=exp(k)  )
-  rafunc <- function(k, rho=NA) rho - rhoCOP(cop=RAYcop,    para=pnorm(k))
-  rffunc <- function(k, rho=NA) rho - rhoCOP(cop=COP,
+  gefunc  <- function(k, rho=NA) rho - rhoCOP(cop=gEVcop,    para=pnorm(k))
+  ghfunc  <- function(k, rho=NA) rho - rhoCOP(cop=GHcop,     para=exp(k)+1)
+  glfunc  <- function(k, rho=NA) rho - rhoCOP(cop=GLcop,     para=exp(k)  )
+  hrfunc  <- function(k, rho=NA) rho - rhoCOP(cop=HRcop,     para=exp(k)  )
+  jofunc  <- function(k, rho=NA) rho - rhoCOP(cop=JOcopB5,   para=exp(k)+1)
+  mofunc  <- function(k, rho=NA) rho - rhoCOP(cop=MOcop,     para=pnorm(rep(k,2)))
+  n12func <- function(k, rho=NA) rho - rhoCOP(cop=rN4212cop, para=exp(k)+1)
+  n20func <- function(k, rho=NA) rho - rhoCOP(cop=rN4220cop, para=exp(k)  )
+  rafunc  <- function(k, rho=NA) rho - rhoCOP(cop=RAYcop,    para=pnorm(k))
+  rffunc  <- function(k, rho=NA) rho - rhoCOP(cop=COP,
                            para=list(reflect=2, cop=RFcop,  para=pnorm(k)))
   D <- NULL; rs <- c(0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009,
                      seq(0.02, 0.99, by=0.01),
@@ -54,9 +61,14 @@ L-comoment ratio diagrams by computation example are shown.
     mo   <- pnorm( uniroot(mofunc, c(-6,+6), rho=r)$root)
     mo   <- rep(mo, 2)
     MO   <- lcomCOP(cop=MOcop, para=mo)
-    nn   <- exp(  uniroot(nnfunc, c(-9,+4), rho=r)$root)
-    NN   <- lcomCOP(cop=rN4220cop, para=nn)
-    #ra   <- pnorm(  uniroot(rafunc, c(-6,4), rho=r)$root)
+    if(r > 0.4784176) { # rhoCOP(rN4212cop, para=1)
+      n12 <- exp(  uniroot(n12func, c(-9,+4), rho=r)$root)+1
+      N12  <- lcomCOP(cop=rN4220cop, para=n12)
+    } else {
+      n12 <- NA; N12 <- LCMempty
+    }
+    n20  <- exp(  uniroot(n20func, c(-9,+4), rho=r)$root)
+    N20  <- lcomCOP(cop=rN4220cop, para=n20)
     ra   <- RAYcop(rho=r)
     RA   <- lcomCOP(cop=RAYcop, para=ra)
     rf   <- pnorm(  uniroot(rffunc, c(-6,6), rho=r)$root)
@@ -64,7 +76,7 @@ L-comoment ratio diagrams by computation example are shown.
     TF   <- lcomCOP(cop=Tcop, para=c(ga,1))
     x <- data.frame(rho=r, CLpara=cl, FRpara=fr, GApara=ga, GEpara=ge, GHpara=gh,
                 GLpara=gl, HRpara=hr, JOpara=jo, MOpara=mo[1],
-                NNpara=nn, RApara=ra, RFpara=rf, TFpara=ga,
+                N12para=n12, N20para=n20, RApara=ra, RFpara=rf, TFpara=ga,
                  CLT2.12=CL$lcomUV[2],   CLT2.21=CL$lcomVU[2],
                  CLT3.12=CL$lcomUV[3],   CLT3.21=CL$lcomVU[3],
                  CLT4.12=CL$lcomUV[4],   CLT4.21=CL$lcomVU[4],
@@ -92,9 +104,12 @@ L-comoment ratio diagrams by computation example are shown.
                  MOT2.12=MO$lcomUV[2],   MOT2.21=MO$lcomVU[2],
                  MOT3.12=MO$lcomUV[3],   MOT3.21=MO$lcomVU[3],
                  MOT4.12=MO$lcomUV[4],   MOT4.21=MO$lcomVU[4],
-                 NNT2.12=NN$lcomUV[2],   NNT2.21=NN$lcomVU[2],
-                 NNT3.12=NN$lcomUV[3],   NNT3.21=NN$lcomVU[3],
-                 NNT4.12=NN$lcomUV[4],   NNT4.21=NN$lcomVU[4],
+               N12T2.12=N12$lcomUV[2], N12T2.21=N12$lcomVU[2],
+               N12T3.12=N12$lcomUV[3], N12T3.21=N12$lcomVU[3],
+               N12T4.12=N12$lcomUV[4], N12T4.21=N12$lcomVU[4],
+               N20T2.12=N20$lcomUV[2], N20T2.21=N20$lcomVU[2],
+               N20T3.12=N20$lcomUV[3], N20T3.21=N20$lcomVU[3],
+               N20T4.12=N20$lcomUV[4], N20T4.21=N20$lcomVU[4],
                  RAT2.12=RA$lcomUV[2],   RAT2.21=RA$lcomVU[2],
                  RAT3.12=RA$lcomUV[3],   RAT3.21=RA$lcomVU[3],
                  RAT4.12=RA$lcomUV[4],   RAT4.21=RA$lcomVU[4],
@@ -108,39 +123,41 @@ L-comoment ratio diagrams by computation example are shown.
   }
   row.names(D) <- NULL
   # ------------------------------------------------------------------------------------
-  ix <- c(9, 6, 3, 12, 10, 5, 11, 1, 2, 7, 8, 4, 13)
-  cols <- hcl.colors(13, palette="Dark3")
+  ix <- c(9, 6, 3, 12, 10, 5, 11, 1, 14, 2, 7, 8, 4, 13)
+  cols <- hcl.colors(length(ix), palette="Dark3")
   cols <- cols[ix]
-  coll <- cols[unlist( sapply(1:13, function(i) list(rep(i, 2))) )]
+  coll <- cols[unlist( sapply(seq_len(length(ix)), function(i) list(rep(i, 2))) )]
   rs <- D$rho
   plot(rs, D$GHT3.12, ylim=c(-0.15, 0.20), type="n",
       xlab="SPEARMAN RHO", ylab="L-COSKEW (cT3) OR -NEGATED L-COKURTOSIS (cT4)")
-  lines(rs, D$CLT3.12, col=cols[ 1]); lines(rs, -D$CLT4.12, col=cols[ 1], lty=2)
-  lines(rs, D$CLT3.21, col=cols[ 1]); lines(rs, -D$CLT4.21, col=cols[ 1], lty=2)
-  lines(rs, D$FRT3.12, col=cols[ 2]); lines(rs, -D$FRT4.12, col=cols[ 2], lty=4)
-  lines(rs, D$FRT3.21, col=cols[ 2]); lines(rs, -D$FRT4.21, col=cols[ 2], lty=4)
-  lines(rs, D$GAT3.12, col=cols[ 3]); lines(rs, -D$GAT4.12, col=cols[ 3], lty=2)
-  lines(rs, D$GAT3.21, col=cols[ 3]); lines(rs, -D$GAT4.21, col=cols[ 3], lty=2)
-  lines(rs, D$GET3.12, col=cols[ 4]); lines(rs, -D$GET4.12, col=cols[ 4], lty=2)
-  lines(rs, D$GET3.21, col=cols[ 4]); lines(rs, -D$GET4.21, col=cols[ 4], lty=2)
-  lines(rs, D$GHT3.12, col=cols[ 5]); lines(rs, -D$GHT4.12, col=cols[ 5], lty=4)
-  lines(rs, D$GHT3.21, col=cols[ 5]); lines(rs, -D$GHT4.21, col=cols[ 5], lty=4)
-  lines(rs, D$GLT3.12, col=cols[ 6]); lines(rs, -D$GLT4.12, col=cols[ 6], lty=2)
-  lines(rs, D$GLT3.21, col=cols[ 6]); lines(rs, -D$GLT4.21, col=cols[ 6], lty=2)
-  lines(rs, D$HRT3.12, col=cols[ 7]); lines(rs, -D$HRT4.12, col=cols[ 7], lty=4)
-  lines(rs, D$HRT3.21, col=cols[ 7]); lines(rs, -D$HRT4.21, col=cols[ 7], lty=4)
-  lines(rs, D$JOT3.12, col=cols[ 8]); lines(rs, -D$JOT4.12, col=cols[ 8], lty=2)
-  lines(rs, D$JOT3.21, col=cols[ 8]); lines(rs, -D$JOT4.21, col=cols[ 8], lty=2)
-  lines(rs, D$MOT3.21, col=cols[ 9]); lines(rs, -D$MOT4.21, col=cols[ 9], lty=4)
-  lines(rs, D$MOT3.12, col=cols[ 9]); lines(rs, -D$MOT4.12, col=cols[ 9], lty=4)
-  lines(rs, D$NNT3.12, col=cols[10]); lines(rs, -D$NNT4.12, col=cols[10], lty=2)
-  lines(rs, D$NNT3.21, col=cols[10]); lines(rs, -D$NNT4.21, col=cols[10], lty=2)
-  lines(rs, D$RAT3.12, col=cols[11]); lines(rs, -D$RAT4.12, col=cols[11], lty=4)
-  lines(rs, D$RAT3.21, col=cols[11]); lines(rs, -D$RAT4.21, col=cols[11], lty=4)
-  lines(rs, D$RFT3.12, col=cols[12]); lines(rs, -D$RFT4.12, col=cols[12], lty=2)
-  lines(rs, D$RFT3.21, col=cols[12]); lines(rs, -D$RFT4.21, col=cols[12], lty=2)
-  lines(rs, D$TFT3.12, col=cols[13]); lines(rs, -D$TFT4.12, col=cols[13], lty=4)
-  lines(rs, D$TFT3.21, col=cols[13]); lines(rs, -D$TFT4.21, col=cols[13], lty=4)
+  lines(rs, D$CLT3.12,  col=cols[ 1]); lines(rs, -D$CLT4.12,  col=cols[ 1], lty=2)
+  lines(rs, D$CLT3.21,  col=cols[ 1]); lines(rs, -D$CLT4.21,  col=cols[ 1], lty=2)
+  lines(rs, D$FRT3.12,  col=cols[ 2]); lines(rs, -D$FRT4.12,  col=cols[ 2], lty=4)
+  lines(rs, D$FRT3.21,  col=cols[ 2]); lines(rs, -D$FRT4.21,  col=cols[ 2], lty=4)
+  lines(rs, D$GAT3.12,  col=cols[ 3]); lines(rs, -D$GAT4.12,  col=cols[ 3], lty=2)
+  lines(rs, D$GAT3.21,  col=cols[ 3]); lines(rs, -D$GAT4.21,  col=cols[ 3], lty=2)
+  lines(rs, D$GET3.12,  col=cols[ 4]); lines(rs, -D$GET4.12,  col=cols[ 4], lty=2)
+  lines(rs, D$GET3.21,  col=cols[ 4]); lines(rs, -D$GET4.21,  col=cols[ 4], lty=2)
+  lines(rs, D$GHT3.12,  col=cols[ 5]); lines(rs, -D$GHT4.12,  col=cols[ 5], lty=4)
+  lines(rs, D$GHT3.21,  col=cols[ 5]); lines(rs, -D$GHT4.21,  col=cols[ 5], lty=4)
+  lines(rs, D$GLT3.12,  col=cols[ 6]); lines(rs, -D$GLT4.12,  col=cols[ 6], lty=2)
+  lines(rs, D$GLT3.21,  col=cols[ 6]); lines(rs, -D$GLT4.21,  col=cols[ 6], lty=2)
+  lines(rs, D$HRT3.12,  col=cols[ 7]); lines(rs, -D$HRT4.12,  col=cols[ 7], lty=4)
+  lines(rs, D$HRT3.21,  col=cols[ 7]); lines(rs, -D$HRT4.21,  col=cols[ 7], lty=4)
+  lines(rs, D$JOT3.12,  col=cols[ 8]); lines(rs, -D$JOT4.12,  col=cols[ 8], lty=2)
+  lines(rs, D$JOT3.21,  col=cols[ 8]); lines(rs, -D$JOT4.21,  col=cols[ 8], lty=2)
+  lines(rs, D$MOT3.21,  col=cols[ 9]); lines(rs, -D$MOT4.21,  col=cols[ 9], lty=4)
+  lines(rs, D$MOT3.12,  col=cols[ 9]); lines(rs, -D$MOT4.12,  col=cols[ 9], lty=4)
+  lines(rs, D$N12T3.12, col=cols[10]); lines(rs, -D$N12T4.12, col=cols[10], lty=2)
+  lines(rs, D$N12T3.21, col=cols[10]); lines(rs, -D$N12T4.21, col=cols[10], lty=2)
+  lines(rs, D$N20T3.12, col=cols[11]); lines(rs, -D$N20T4.12, col=cols[11], lty=4)
+  lines(rs, D$N20T3.21, col=cols[11]); lines(rs, -D$N20T4.21, col=cols[11], lty=4)
+  lines(rs, D$RAT3.12,  col=cols[12]); lines(rs, -D$RAT4.12,  col=cols[12], lty=2)
+  lines(rs, D$RAT3.21,  col=cols[12]); lines(rs, -D$RAT4.21,  col=cols[12], lty=2)
+  lines(rs, D$RFT3.12,  col=cols[13]); lines(rs, -D$RFT4.12,  col=cols[13], lty=4)
+  lines(rs, D$RFT3.21,  col=cols[13]); lines(rs, -D$RFT4.21,  col=cols[13], lty=4)
+  lines(rs, D$TFT3.12,  col=cols[14]); lines(rs, -D$TFT4.12,  col=cols[14], lty=2)
+  lines(rs, D$TFT3.21,  col=cols[14]); lines(rs, -D$TFT4.21,  col=cols[14], lty=2)
   txt <- c("cT3 CLcop(reflect)",        "-cT4 CLcop(reflect)",
            "cT3 FRcop (equals zero)",   "-cT4 FRcop",
            "cT3 NORMcop (equals zero)", "-cT4 NORMcop",
@@ -149,6 +166,7 @@ L-comoment ratio diagrams by computation example are shown.
            "cT3 GLcop",                 "-cT4 GLcop",
            "cT3 HRcop",                 "-cT4 HRcop",
            "cT3 JOcopB5",               "-cT4 JOcopB5",
+           "cT3 rN4212cop",             "-cT4 rN4212cop",
            "cT3 rN4220cop",             "-cT4 rN4220cop",
            "cT3 MOcop (a=b)",           "-cT4 MOcop (a=b)",
            "cT3 RAYcop",                "-cT4 RAYcop",
@@ -182,32 +200,34 @@ L-comoment ratio diagrams by computation example are shown.
   # L-comoments provide evidence back to the GLcop copula.
   plot(D$GHT3.12, xlim=c(0, 0.20), ylim=c(-0.045, 0.075), type="n",
        xlab="L-COSKEW (cT3)", ylab="L-COKURTOSIS (cT4)")
-  lines(D$CLT3.12, D$CLT4.12, col=cols[ 1])
-  lines(D$CLT3.21, D$CLT4.21, col=cols[ 1], lty=2)
-  lines(D$FRT3.12, D$FRT4.12, col=cols[ 2])
-  lines(D$FRT3.21, D$FRT4.21, col=cols[ 2], lty=4)
-  lines(D$GAT3.12, D$GAT4.12, col=cols[ 3])
-  lines(D$GAT3.21, D$GAT4.21, col=cols[ 3], lty=2)
-  lines(D$GET3.12, D$GET4.12, col=cols[ 4])
-  lines(D$GET3.21, D$GET4.21, col=cols[ 4], lty=4)
-  lines(D$GHT3.12, D$GHT4.12, col=cols[ 5])
-  lines(D$GHT3.21, D$GHT4.21, col=cols[ 5], lty=2)
-  lines(D$GLT3.12, D$GLT4.12, col=cols[ 6],        lwd=2)
-  lines(D$GLT3.21, D$GLT4.21, col=cols[ 6], lty=4, lwd=2)
-  lines(D$HRT3.12, D$HRT4.12, col=cols[ 7])
-  lines(D$HRT3.21, D$HRT4.21, col=cols[ 7], lty=2)
-  lines(D$JOT3.12, D$JOT4.12, col=cols[ 8])
-  lines(D$JOT3.21, D$JOT4.21, col=cols[ 8], lty=4)
-  lines(D$MOT3.12, D$MOT4.12, col=cols[ 9])
-  lines(D$MOT3.21, D$MOT4.21, col=cols[ 9], lty=2)
-  lines(D$NNT3.12, D$NNT4.12, col=cols[10])
-  lines(D$NNT3.21, D$NNT4.21, col=cols[10], lty=2)
-  lines(D$RAT3.12, D$RAT4.12, col=cols[11])
-  lines(D$RAT3.21, D$RAT4.21, col=cols[11], lty=4)
-  lines(D$RFT3.12, D$RFT4.12, col=cols[12])
-  lines(D$RFT3.21, D$RFT4.21, col=cols[12], lty=2)
-  lines(D$TFT3.12, D$TFT4.12, col=cols[13])
-  lines(D$TFT3.21, D$TFT4.21, col=cols[13], lty=4)
+  lines( D$CLT3.12,  D$CLT4.12, col=cols[ 1])
+  lines( D$CLT3.21,  D$CLT4.21, col=cols[ 1], lty=2)
+  lines( D$FRT3.12,  D$FRT4.12, col=cols[ 2])
+  lines( D$FRT3.21,  D$FRT4.21, col=cols[ 2], lty=4)
+  lines( D$GAT3.12,  D$GAT4.12, col=cols[ 3])
+  lines( D$GAT3.21,  D$GAT4.21, col=cols[ 3], lty=2)
+  lines( D$GET3.12,  D$GET4.12, col=cols[ 4])
+  lines( D$GET3.21,  D$GET4.21, col=cols[ 4], lty=4)
+  lines( D$GHT3.12,  D$GHT4.12, col=cols[ 5])
+  lines( D$GHT3.21,  D$GHT4.21, col=cols[ 5], lty=2)
+  lines( D$GLT3.12,  D$GLT4.12, col=cols[ 6],        lwd=2)
+  lines( D$GLT3.21,  D$GLT4.21, col=cols[ 6], lty=4, lwd=2)
+  lines( D$HRT3.12,  D$HRT4.12, col=cols[ 7])
+  lines( D$HRT3.21,  D$HRT4.21, col=cols[ 7], lty=2)
+  lines( D$JOT3.12,  D$JOT4.12, col=cols[ 8])
+  lines( D$JOT3.21,  D$JOT4.21, col=cols[ 8], lty=4)
+  lines( D$MOT3.12,  D$MOT4.12, col=cols[ 9])
+  lines( D$MOT3.21,  D$MOT4.21, col=cols[ 9], lty=2)
+  lines(D$N12T3.12, D$N12T4.12, col=cols[10])
+  lines(D$N12T3.21, D$N12T4.21, col=cols[10], lty=2)
+  lines(D$N20T3.12, D$N20T4.12, col=cols[11])
+  lines(D$N20T3.21, D$N20T4.21, col=cols[11], lty=2)
+  lines( D$RAT3.12,  D$RAT4.12, col=cols[12])
+  lines( D$RAT3.21,  D$RAT4.21, col=cols[12], lty=4)
+  lines( D$RFT3.12,  D$RFT4.12, col=cols[13])
+  lines( D$RFT3.21,  D$RFT4.21, col=cols[13], lty=2)
+  lines( D$TFT3.12,  D$TFT4.12, col=cols[14])
+  lines( D$TFT3.21,  D$TFT4.21, col=cols[14], lty=4)
   points( T3,  T4, lwd=0.8, cex=0.8)
   points(mT3, mT4, lwd=2,   cex=2, pch=21, col=cols[6], bg=grey(0.9))
   txt <- c("CLcop(reflect)[UV]", "CLcop(reflect)[VU]",
@@ -219,6 +239,7 @@ L-comoment ratio diagrams by computation example are shown.
              "HRcop[UV]",         "HRcop[VU]",
              "JOcop[UV]",         "JOcop[VU]",
              "MOcop[UV] (a=b)",   "MOcop[VU] (a=b)",
+           "rN4212cop[UV]",   "rN4212cop[VU]",
            "rN4220cop[UV]",   "rN4220cop[VU]",
              "RAcop[UV]",         "RAcop[VU]",
              "RFcop[UV]",         "RFcop[VU]",
