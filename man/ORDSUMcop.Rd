@@ -37,8 +37,8 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
   para <- list(cop=c(CLcop, M, PLcop, GHcop), para=list(4, NA, 0.1, c(3, 4)),
                part=list(c(0, 0.25), c(0.25, 0.35), c(0.35, 0.85), c(0.85, 1)))
   UV <- simCOP(n=100, cop=ORDSUMcop, para=para, ploton=FALSE)
-  plot(c(0,1), c(0,1), xlab="U, NONEXCEEDANCE PROBABILITY", type="n", las=1,
-                       ylab="V, NONEXCEEDANCE PROBABILITY")
+  plot(c(0,1), c(0,1), xlab="U, nonexceedance probability", type="n", las=1,
+                       ylab="V, nonexceedance probability")
   for(k in seq_len(length(para$part))) {         #  to draw the partitions
     a <- para$part[[k]][1]; b <- para$part[[k]][2]
     polygon(c(a, b, b, a, a), c(a, a, b, b, a), lty=2, lwd=0.8, col="lightgreen")
@@ -50,8 +50,8 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
   para <- list(cop=c(GHcop), para=list(c(2, 3)), # internally replicated
                part=list(c(0, 0.2), c(0.2, 0.3), c(0.3, 0.5), c(0.5, 0.7), c(0.7, 1)))
   UV <- simCOP(n=100, cop=ORDSUMcop, para=para, ploton=FALSE)
-  plot(c(0,1), c(0,1), xlab="U, NONEXCEEDANCE PROBABILITY", type="n", las=1,
-                       ylab="V, NONEXCEEDANCE PROBABILITY")
+  plot(c(0,1), c(0,1), xlab="U, nonexceedance probability", type="n", las=1,
+                       ylab="V, nonexceedance probability")
   for(k in seq_len(length(para$part))) {         #  to draw the partitions
     a <- para$part[[k]][1]; b <- para$part[[k]][2]
     polygon(c(a, b, b, a, a), c(a, a, b, b, a), lty=2, lwd=0.8, col="lightgreen")
@@ -179,73 +179,82 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
   # symmetric, then triangles for nuskew will diverge from each other.}
 
 \dontrun{
-  # Now, look at the coupling between the Spearman Rho and the L-comoments.
+  # Now, look at the coupling between the Spearman Rho and the L-comoments through
+  # formation of L-comoment ratio diagrams of the ordindal sums.
   # Here, we just draw lines from whatever the vectors stemming from the previous
   # example produced by dolcomCOP being set TRUE (theoretical) or FALSE (sample)
   # L-comoments. For the simple, ordinal sum of M,W or W,M, then L-cokurtosis
   # will plot on top of each other; therefore, we use the thick line for T4m12.
-  plot(c(-1, 1), c(-1, 1), type="n", las=1, ylab="L-coskew or L-cokurtosis",
-       xlab="Spearman Rho (driven by ordinal sum parition)")
+  plot(c(-1, 1), c(-1, 1), type="n", las=1,
+       xlab="Spearman Rho (driven by ordinal sum parition)"
+       ylab="L-coskew (cT3) or L-cokurtosis (cT4)")
+  lines(par()$usr[1:2], rep(0, 2))
   lines(T2m12, T3m12, lty=1, col="seagreen4", lwd=3)
   lines(T2m12, T4m12, lty=2, col="seagreen4", lwd=3)
   lines(T2w12, T3w12, lty=1, col="darkorchid4")
   lines(T2w12, T4w12, lty=2, col="darkorchid4") # (myM,myW);(myW,myM) plot on T4m21?
-  txt <- c("L-coskew T3[12], cop(myM, myW)", "L-cokurtosis T4[12], cop(myM, myW)",
-           "L-coskew T3[12], cop(myW, myM)", "L-cokurtosis T4[12], cop(myW, myM)")
+  txt <- c("L-coskew cT3[12], cop(myM, myW)", "L-cokurtosis cT4[12], cop(myM, myW)",
+           "L-coskew cT3[12], cop(myW, myM)", "L-cokurtosis cT4[12], cop(myW, myM)")
   legend("topleft", txt, bty="n", seg.len=3, lty=c(1, 2, 1, 2), lwd=c(3, 3, 1, 1),
          col=c("seagreen4", "seagreen4", "darkorchid4", "darkorchid4"))
   # --------------------------
-  # If the user is working with sufficiently complex
+  # If the user is working with sufficiently complex copulas, then differing
+  # trajectories through the domain occur.
   plot(c(-1, 1), c(-1, 1), type="n", las=1, ylab="L-coskew or L-cokurtosis",
        xlab="Spearman Rho (driven by ordinal sum parition)")
+  lines(par()$usr[1:2], rep(0, 2))
   lines(T2m21, T3m21, lty=1, col="seagreen4", lwd=3)
   lines(T2m21, T4m21, lty=2, col="seagreen4", lwd=3)
   lines(T2w21, T3w21, lty=1, col="darkorchid4")
   lines(T2w21, T4w21, lty=2, col="darkorchid4") # (myM,myW);(myW,myM) plot on T4m21?
-  txt <- c("L-coskew T3[21], cop(myM, myW)", "L-cokurtosis T4[21], cop(myM, myW)",
-           "L-coskew T3[21], cop(myW, myM)", "L-cokurtosis T4[21], cop(myW, myM)")
+  txt <- c("L-coskew cT3[21], cop(myM, myW)", "L-cokurtosis cT4[21], cop(myM, myW)",
+           "L-coskew cT3[21], cop(myW, myM)", "L-cokurtosis cT4[21], cop(myW, myM)")
   legend("topleft", txt, bty="n", seg.len=3, lty=c(1, 2, 1, 2), lwd=c(3, 3, 1, 1),
          col=c("seagreen4", "seagreen4", "darkorchid4", "darkorchid4")) # }
 
 \dontrun{
-  xs   <- seq(-1,1, by=0.001)
-  X    <- c(T2m12, T2m21)
-  Y3mw <- c(T3m12, T3m21)
+  # --------------------------
+  # Next, let us build polynomial approximations for the boundaries and the polynomial
+  # degree has been set pretty large in order that the user would have built-in
+  # flexibility to construction of these approximations for more complex copula than
+  # the stacking of M,W and W,M.
+  X    <- c(T2m12, T2m21); Y3mw <- c(T3m12, T3m21); xs <- seq(-1,1, by=0.001)
   T3fT2mw <- lm(Y3mw~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
                      I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
-  plot(X, Y3mw, xlab="Spearman Rho", ylab="L-coskew")
+  plot(X, Y3mw, xlab="Spearman Rho", ylab="L-coskew (cT3)")
   lines(xs, predict(T3fT2mw, newdata=data.frame(X=xs)), col="red")
   mtext("2-partition ORDSUMcop : M, W")
 
-  X    <- c(T2w12, T2w21)
-  Y3wm <- c(T3w12, T3w21)
+  X    <- c(T2w12, T2w21); Y3wm <- c(T3w12, T3w21)
   T3fT2wm <- lm(Y3wm~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
                      I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
-  plot(X, Y3wm, xlab="Spearman Rho", ylab="L-coskew")
+  plot(X, Y3wm, xlab="Spearman Rho", ylab="L-coskew (cT3)")
   lines(xs, predict(T3fT2wm, newdata=data.frame(X=xs)), col="red")
   mtext("2-partition ORDSUMcop : W, M")
 
-  X  <- c(T2m12, T2m21, T2w12, T2w21)
-  Y4 <- c(T4m12, T4m21, T4w12, T4w21)
+  X  <- c(T2m12, T2m21, T2w12, T2w21); Y4 <- c(T4m12, T4m21, T4w12, T4w21)
   T4fT2mwwm <- lm(Y4~I(X^ 1)+I(X^ 2)+I(X^ 3)+I(X^ 4)+I(X^ 5)+I(X^ 6)+
                      I(X^ 7)+I(X^ 8)+I(X^ 9)+I(X^10)+I(X^11)+I(X^12))
 
-  plot(X, Y4, xlab="Spearman Rho", ylab="L-cokurtosis")
+  plot(X, Y4, xlab="Spearman Rho", ylab="L-cokurtosis (cT4)")
   lines(xs, predict(T4fT2mwwm, newdata=data.frame(X=xs)), col="red")
 
   X  <- c(T3m12, T3m21, T3w12, T3w21)
   Y4 <- c(T4m12, T4m21, T4w12, T4w21)
-  plot(X, Y4, type="l", xlab="L-cokurtosis", ylab="L-coskew")
+  plot(X, Y4, type="l", xlab="L-coskew", ylab="L-cokurtosis")
   points(T3m12, T4m12, col="seagreen4")
   points(T3w12, T4w12, col="orchid3"  ) # }
 
 \dontrun{
+  # --------------------------
+  # Next, let us extract the coefficients and build-up stand alone functions that
+  # could be used to draw the L-comoments of the ordinal sums and potentially
+  # overlaid on L-comoment ratio diagrams such as seen built under the Examples in the
+  # LCOMDIA*.Rd documentation files (for instance LCOMDIA_ManyCops.Rd) of the package.
   coesA <- T3fT2mw$coefficients;   names(coesA) <- NULL
   coesB <- T3fT2wm$coefficients;   names(coesB) <- NULL
   coesC <- T4fT2mwwm$coefficients; names(coesC) <- NULL
-  print(coesA, 12)
-  print(coesB, 12)
-  print(coesC, 12)
+  print(coesA, 12); print(coesB, 12); print(coesC, 12)
   coesT3 <- sapply(seq_len(length(coesA)), function(i) {
                mean(c(abs(coesA[i]), abs(coesB[i]))) })
   print(coesT3, 12)
@@ -256,17 +265,9 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
              0.163312255777, 1.016327127995, 0.537153927577, 2.225271502140,
              0.636080402864, 2.191529289514, 0.292183399458, 0.823239656100)
     if(type == "T3mw") {
-      #cs <- c(-0.618673707079,
-      #        -0.175958850204,  0.512576942435, 0.145431255262, 0.265479078036,
-      #        -0.163312255777, -1.016327127995, 0.537153927577, 2.225271502140,
-      #        -0.636080402864, -2.191529289514, 0.292183399458, 0.823239656100)
-      cs <- c(-1,-1,1,1,1,-1,-1,1,1,-1,-1,1,1)*cs3
+      cs <- c(-1,-1, 1, 1, 1,-1,-1, 1, 1,-1,-1, 1, 1)*cs3
     } else if(type == "T3wm") {
-      #cs <- c( 0.618673707079,
-      #         0.175958850204, -0.512576942435, -0.145431255262, -0.265479078036,
-      #         0.163312255777,  1.016327127995, -0.537153927577, -2.225271502140,
-      #         0.636080402864,  2.191529289514, -0.292183399458, -0.823239656100)
-      cs <- c(1,1,-1,-1,-1,1,1,-1,-1,1,1,-1,-1)*cs3
+      cs <- c( 1, 1,-1,-1,-1, 1, 1,-1,-1, 1, 1,-1,-1)*cs3
     } else if(type == "T4mwwm") {
       cs <- c( 0.236681925424,
               -0.429191591357, -0.573421581827, 0.352083105242, 1.042508365628,
@@ -276,18 +277,31 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
     } else {
       stop("should not be here in logic")
     }
-    print(cs)
     z <- sapply(rho, function(r) sum(sapply(seq_len(length(cs)),
                                      function(p) cs[p] * r^(p-1))))
     return(z)
   }
 
+  # Finally, plot again the L-comoment ratio diagram of Spearman Rho and the
+  # two higher L-comoments and a L-coskew and L-cokurtosis diagram could also be
+  # readily built from a vector of Spearman Rhos.
   ylim <- c(-0.7, 0.7)
   plot( xs, T34fT2(xs, "T3mw"), type="n", ylim=ylim,
        xlab="Spearman Rho", ylab="L-coskew or L-cokurtosis approximations")
+  lines(par()$usr[1:2], rep(0, 2))
   lines(xs, T34fT2(xs, "T3mw"),   col="brown3")
   lines(xs, T34fT2(xs, "T3wm"),   col="blue3" )
-  lines(xs, T34fT2(xs, "T4mwwm"), col="orange") # }
+  lines(xs, T34fT2(xs, "T4mwwm"), col="orange")
+  # --------------------------
+  ylim <- c(-0.7, 0.7)
+  plot(c(T34fT2(xs, "T3mw"  ), T34fT2(xs, "T3wm"  )),
+       c(T34fT2(xs, "T4mwwm"), T34fT2(xs, "T4mwwm")), type="n", ylim=ylim,
+       xlab="L-coskew approximations", ylab="L-cokurtosis approximations")
+  lines(par()$usr[1:2], rep(0, 2)); lines(rep(0, 2), par()$usr[3:4])
+  lines(T34fT2(xs, "T3mw"), T34fT2(xs, "T4mwwm"),      col="seagreen4")
+  lines(T34fT2(xs, "T3wm"), T34fT2(xs, "T4mwwm"),      col="orchid3"  )
+  text(-0.35, 0.07, "Ordinal sum of\nM and W", font=2, col="seagreen4")
+  text(+0.35, 0.07, "Ordinal sum of\nW and M", font=2, col="orchid3"  ) # }
 }
 \keyword{copula (formulas)}
 \concept{Ordinal Sums}
@@ -295,3 +309,5 @@ Klement, E.P., \enc{Kolesárová}{Kolesarova}, A., Mesiar, R., Saminger-Platz, S
 \keyword{ordinal sums}
 \keyword{M-ordinal sum of the summands}
 \concept{summands}
+\keyword{L-comoments (ratio diagram)}
+\keyword{L-comoment ratio diagram}
