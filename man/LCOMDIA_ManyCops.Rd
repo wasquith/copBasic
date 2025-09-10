@@ -6,11 +6,11 @@
 L-comoment ratio diagrams by computation example are shown for many copulas of the \pkg{copBasic} package.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{lcomCOP}}, \code{\link{LCOMDIA_GHcop}}
+\seealso{\code{\link{lcomCOP}}, \code{\link{LCOMDIA_GH2cop}}, \code{\link{LCOMDIA_GH3cop}}, \code{\link{ORDSUMcop}}
 }
 \examples{
 \dontrun{
-  # Demonstration of L-comoment ratio diagram as a function of Spearman Rho for various
+  # Demonstration of an L-comoment ratio diagram as function of Spearman Rho for various
   # copula where each copula is fit to the Spearman Rho and the L-comoments computed.
   # ------------------------------------------------------------------------------------
   # The copulas here are permutation symmetric, which means that T*.12 and T*.21 are
@@ -41,27 +41,27 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   D <- NULL; rs <- c(0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009,
                      seq(0.02, 0.99, by=0.01),
               0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998)#, 0.999)
-  for(r in rs) { # Spearman Rhos
+  for(r in rs) {  message(r, "-", appendLF=FALSE) # Spearman Rhos,
     ga   <- 2*sin(pi*r/6)
     GA   <- lcomCOP(cop=NORMcop, para=ga)
-    cl   <- exp(  uniroot(clfunc, c(-9,+5), rho=r)$root)-1
+    cl   <- exp(  uniroot(clfunc,  c(-9,+5), rho=r)$root)-1
     CL   <- lcomCOP(cop=COP, para=list(cop=CLcop, para=cl, reflect=2))
     fr   <- FRcop(rhotau=r, cortype="rho")$para
     FR   <- lcomCOP(cop=FRcop, para=fr)
-    ge   <- pnorm(uniroot(gefunc, c(-4,+4), rho=r)$root)
+    ge   <- pnorm(uniroot(gefunc,  c(-4,+4), rho=r)$root)
     GE   <- lcomCOP(cop=gEVcop, para=ge)
-    gh   <- exp(  uniroot(ghfunc, c(-9,+4), rho=r)$root)+1
+    gh   <- exp(  uniroot(ghfunc,  c(-9,+4), rho=r)$root)+1
     GH   <- lcomCOP(cop=GHcop, para=gh)
-    gl   <- exp(  uniroot(glfunc, c(-9,+4), rho=r)$root)
+    gl   <- exp(  uniroot(glfunc,  c(-9,+4), rho=r)$root)
     GL   <- lcomCOP(cop=GLcop, para=gl)
-    hr   <- exp(  uniroot(hrfunc, c(-9,+4), rho=r)$root)
+    hr   <- exp(  uniroot(hrfunc,  c(-9,+4), rho=r)$root)
     HR   <- lcomCOP(cop=HRcop, para=hr)
-    jo   <- exp(  uniroot(jofunc, c(-9,+4), rho=r)$root)+1
+    jo   <- exp(  uniroot(jofunc,  c(-9,+4), rho=r)$root)+1
     JO   <- lcomCOP(cop=JOcopB5, para=jo)
     mo   <- pnorm( uniroot(mofunc, c(-6,+6), rho=r)$root)
     mo   <- rep(mo, 2)
     MO   <- lcomCOP(cop=MOcop, para=mo)
-    if(r > 0.4784176) { # rhoCOP(rN4212cop, para=1)
+    if(r > 0.4784176) { # rhoCOP(rN4212cop, para=1) = 0.4784176
       n12 <- exp(  uniroot(n12func, c(-9,+4), rho=r)$root)+1
       N12  <- lcomCOP(cop=rN4220cop, para=n12)
     } else {
@@ -121,6 +121,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
                  TFT4.12=TF$lcomUV[4],   TFT4.21=TF$lcomVU[4] )
     D <- rbind(D, x)
   }
+  message("done")
   row.names(D) <- NULL
   # ------------------------------------------------------------------------------------
   ix <- c(9, 6, 3, 12, 10, 5, 11, 1, 14, 2, 7, 8, 4, 13)
@@ -128,8 +129,8 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   cols <- cols[ix]
   coll <- cols[unlist( sapply(seq_len(length(ix)), function(i) list(rep(i, 2))) )]
   rs <- D$rho
-  plot(rs, D$GHT3.12, ylim=c(-0.15, 0.20), type="n",
-      xlab="SPEARMAN RHO", ylab="L-COSKEW (cT3) OR -NEGATED L-COKURTOSIS (cT4)")
+  plot(rs, D$GHT3.12, ylim=c(-0.20, 0.20), type="n", las=1,
+      xlab="Spearman Rho", ylab="L-coskew (cT3) or -negated L-cokurtosis (cT4)")
   lines(rs, D$CLT3.12,  col=cols[ 1]); lines(rs, -D$CLT4.12,  col=cols[ 1], lty=2)
   lines(rs, D$CLT3.21,  col=cols[ 1]); lines(rs, -D$CLT4.21,  col=cols[ 1], lty=2)
   lines(rs, D$FRT3.12,  col=cols[ 2]); lines(rs, -D$FRT4.12,  col=cols[ 2], lty=4)
@@ -172,7 +173,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
            "cT3 RAYcop",                "-cT4 RAYcop",
            "cT3 RFcop",                 "-cT4 RFcop",
            "cT3 Tcop",                  "-cT4 Tcop")
-  legend("bottomleft", txt, cex=0.8, ncol=3, lty=c(1,2,1,4), col=coll)
+  legend("bottomleft", txt, bty="n", cex=0.7, ncol=3, lty=c(1,2,1,4), col=coll)
   mtext("L-comoment ratio diagram for various copula", line=0.8)
   # ------------------------------------------------------------------------------------
   # Now, simulation, note that in samples T[2+].[12|21] are not perfectly equal even for
@@ -198,8 +199,8 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   # "with respect to's" have the same L-comoments. The GLcop was used in the simulation;
   # so, the lines for it are thicker to see that the general centrality of the sample
   # L-comoments provide evidence back to the GLcop copula.
-  plot(D$GHT3.12, xlim=c(0, 0.20), ylim=c(-0.045, 0.075), type="n",
-       xlab="L-COSKEW (cT3)", ylab="L-COKURTOSIS (cT4)")
+  plot(D$GHT3.12, xlim=c(0, 0.10), ylim=c(-0.075, 0.075), type="n", las=1,
+       xlab="L-coskew (cT3)", ylab="L-cokurtosis (cT4)")
   lines( D$CLT3.12,  D$CLT4.12, col=cols[ 1])
   lines( D$CLT3.21,  D$CLT4.21, col=cols[ 1], lty=2)
   lines( D$FRT3.12,  D$FRT4.12, col=cols[ 2])
@@ -244,7 +245,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
              "RAcop[UV]",         "RAcop[VU]",
              "RFcop[UV]",         "RFcop[VU]",
               "Tcop[UV]",          "Tcop[VU]")
-   legend("bottomright", txt, cex=0.8, ncol=3, lty=c(1,2), col=coll)
+   legend("bottomright", txt, cex=0.7, ncol=3, lty=c(1,2), col=coll)
    mtext("L-comoment ratio diagram for various copula", line=0.8)
    # ------------------------------------------------------------------------------------}
 }
