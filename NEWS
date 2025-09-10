@@ -37,9 +37,13 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Added NORMcop() and Tcop() for the Gaussian and t-Student copulas, which then
      caused the Imports of the mvtnorm package and changes to DESCRIPTION.
 -  Tune up of large parameter behavior in simulation for JOcopB5.R and .Rd edits.
--  Created LCOMDIA_ManyCops.Rd and LCOMDIA_GHcop as holding grounds for large
-     L-comoment ratio diagrams construction examples.
+-  Created LCOMDIA_ManyCops.Rd and LCOMDIA_GH[23]cop.Rd as holding grounds for many
+     large L-comoment ratio diagrams construction examples.
 -  Enhanced GHcop() for 2-parameter with Infinity checks to locally snap it M().
+     Added derivative end point checks to the 3-parameter version to assess whether
+     snapping to MOcop() itself is required. Extensive study of L-comoments of both
+     the 2- and 3-parameter versions.
+-  Added kfuncCOP_Pd() for the Kendall function for d-Dimensional independence.
 
 
 Changes in version 2.2.8 (2025-06-27)
