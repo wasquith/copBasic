@@ -44,6 +44,7 @@ Changes in version 2.2.9 (2025-NN-NN)
      snapping to MOcop() itself is required. Extensive study of L-comoments of both
      the 2- and 3-parameter versions.
 -  Added kfuncCOP_Pd() for the Kendall function for d-Dimensional independence.
+-  Added an L-comoment ratio diagram example within FGMcop.Rd for the FGM copula.
 
 
 Changes in version 2.2.8 (2025-06-27)
