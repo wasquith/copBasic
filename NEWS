@@ -45,7 +45,10 @@ Changes in version 2.2.9 (2025-NN-NN)
      the 2- and 3-parameter versions.
 -  Added kfuncCOP_Pd() for the Kendall function for d-Dimensional independence.
 -  Added an L-comoment ratio diagram example within FGMcop.Rd for the FGM copula.
-
+-  Added a sentence and citation within HRcop.Rd, that it and GHcop and GLcop are
+     very similar and extremely large sample sizes are needed to distinguish between
+     them as a class of extreme-value copula.
+ 
 
 Changes in version 2.2.8 (2025-06-27)
 -  Added list(...) work in level.curvesCOP[2].R, handling lwd from ... if ramp=TRUE
