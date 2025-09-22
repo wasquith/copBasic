@@ -38,9 +38,11 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   rafunc  <- function(k, rho=NA) rho - rhoCOP(cop=RAYcop,    para=pnorm(k))
   rffunc  <- function(k, rho=NA) rho - rhoCOP(cop=COP,
                            para=list(reflect=2, cop=RFcop,  para=pnorm(k)))
-  D <- NULL; rs <- c(0.002, 0.003, 0.004, 0.005, 0.006, 0.007, 0.008, 0.009,
-                     seq(0.02, 0.99, by=0.01),
-              0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998)#, 0.999)
+  D <- NULL; rs <- c(0.0001, 0.0002, 0.0005, 0.0008, 0.001, 0.0013, 0.002, 0.003,
+                     0.004, 0.005, 0.006, 0.007, 0.008, 0.009, 0.01, 0.015,
+                     seq(0.02, 0.99, by=0.005), 0.99,
+              0.991, 0.992, 0.993, 0.994, 0.995, 0.996, 0.997, 0.998)
+  rs <- sort(unique(rs)) # to fix defects
   for(r in rs) {  message(r, "-", appendLF=FALSE) # Spearman Rhos,
     ga   <- 2*sin(pi*r/6)
     GA   <- lcomCOP(cop=NORMcop, para=ga)
@@ -50,13 +52,13 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
     FR   <- lcomCOP(cop=FRcop, para=fr)
     ge   <- pnorm(uniroot(gefunc,  c(-4,+4), rho=r)$root)
     GE   <- lcomCOP(cop=gEVcop, para=ge)
-    gh   <- exp(  uniroot(ghfunc,  c(-9,+4), rho=r)$root)+1
+    gh   <- exp(  uniroot(ghfunc,  c(-10,+4), rho=r)$root)+1
     GH   <- lcomCOP(cop=GHcop, para=gh)
     gl   <- exp(  uniroot(glfunc,  c(-9,+4), rho=r)$root)
     GL   <- lcomCOP(cop=GLcop, para=gl)
     hr   <- exp(  uniroot(hrfunc,  c(-9,+4), rho=r)$root)
     HR   <- lcomCOP(cop=HRcop, para=hr)
-    jo   <- exp(  uniroot(jofunc,  c(-9,+4), rho=r)$root)+1
+    jo   <- exp(  uniroot(jofunc,  c(-10,+4), rho=r)$root)+1
     JO   <- lcomCOP(cop=JOcopB5, para=jo)
     mo   <- pnorm( uniroot(mofunc, c(-6,+6), rho=r)$root)
     mo   <- rep(mo, 2)
@@ -67,7 +69,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
     } else {
       n12 <- NA; N12 <- LCMempty
     }
-    n20  <- exp(  uniroot(n20func, c(-9,+4), rho=r)$root)
+    n20  <- exp(  uniroot(n20func, c(-10,+4), rho=r)$root)
     N20  <- lcomCOP(cop=rN4220cop, para=n20)
     ra   <- RAYcop(rho=r)
     RA   <- lcomCOP(cop=RAYcop, para=ra)
@@ -121,8 +123,21 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
                  TFT4.12=TF$lcomUV[4],   TFT4.21=TF$lcomVU[4] )
     D <- rbind(D, x)
   }
+  Z <- D[1,]
+  Z$rho <- 0
+  Z[,grep("[12]$", names(Z))] <- rep(0, length(grep("[12]$", names(Z))))
+  Z[,grep("para$", names(Z))] <- floor(     Z[,grep("para$", names(Z))])
+  D <- rbind(Z, D)
+  Z <- D[1,]
+  Z$rho <- 1
+  Z[,grep("[12]$", names(Z))] <- rep(0,   length(grep("[12]$", names(Z))))
+  Z[,grep("para$", names(Z))] <- rep(Inf, length(grep("para$", names(Z))))
+  D <- rbind(   D, Z)
   message("done")
   row.names(D) <- NULL
+  D$MOT3.12[is.na(D$MOT3.12)] <- D$MOT3.21[is.na(D$MOT3.12)]
+  D$TFT3.12[      is.na(D$TFT3.12)] <- approx(D$rho[! is.na(D$TFT3.12)],
+      D$TFT3.12[! is.na(D$TFT3.12)],     xout=D$rho[  is.na(D$TFT3.12)])$y
   # ------------------------------------------------------------------------------------
   ix <- c(9, 6, 3, 12, 10, 5, 11, 1, 14, 2, 7, 8, 4, 13)
   cols <- hcl.colors(length(ix), palette="Dark3")
@@ -137,28 +152,28 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   lines(rs, D$FRT3.21,  col=cols[ 2]); lines(rs, -D$FRT4.21,  col=cols[ 2], lty=4)
   lines(rs, D$GAT3.12,  col=cols[ 3]); lines(rs, -D$GAT4.12,  col=cols[ 3], lty=2)
   lines(rs, D$GAT3.21,  col=cols[ 3]); lines(rs, -D$GAT4.21,  col=cols[ 3], lty=2)
-  lines(rs, D$GET3.12,  col=cols[ 4]); lines(rs, -D$GET4.12,  col=cols[ 4], lty=2)
-  lines(rs, D$GET3.21,  col=cols[ 4]); lines(rs, -D$GET4.21,  col=cols[ 4], lty=2)
-  lines(rs, D$GHT3.12,  col=cols[ 5]); lines(rs, -D$GHT4.12,  col=cols[ 5], lty=4)
-  lines(rs, D$GHT3.21,  col=cols[ 5]); lines(rs, -D$GHT4.21,  col=cols[ 5], lty=4)
-  lines(rs, D$GLT3.12,  col=cols[ 6]); lines(rs, -D$GLT4.12,  col=cols[ 6], lty=2)
-  lines(rs, D$GLT3.21,  col=cols[ 6]); lines(rs, -D$GLT4.21,  col=cols[ 6], lty=2)
-  lines(rs, D$HRT3.12,  col=cols[ 7]); lines(rs, -D$HRT4.12,  col=cols[ 7], lty=4)
-  lines(rs, D$HRT3.21,  col=cols[ 7]); lines(rs, -D$HRT4.21,  col=cols[ 7], lty=4)
-  lines(rs, D$JOT3.12,  col=cols[ 8]); lines(rs, -D$JOT4.12,  col=cols[ 8], lty=2)
-  lines(rs, D$JOT3.21,  col=cols[ 8]); lines(rs, -D$JOT4.21,  col=cols[ 8], lty=2)
-  lines(rs, D$MOT3.21,  col=cols[ 9]); lines(rs, -D$MOT4.21,  col=cols[ 9], lty=4)
-  lines(rs, D$MOT3.12,  col=cols[ 9]); lines(rs, -D$MOT4.12,  col=cols[ 9], lty=4)
-  lines(rs, D$N12T3.12, col=cols[10]); lines(rs, -D$N12T4.12, col=cols[10], lty=2)
-  lines(rs, D$N12T3.21, col=cols[10]); lines(rs, -D$N12T4.21, col=cols[10], lty=2)
-  lines(rs, D$N20T3.12, col=cols[11]); lines(rs, -D$N20T4.12, col=cols[11], lty=4)
-  lines(rs, D$N20T3.21, col=cols[11]); lines(rs, -D$N20T4.21, col=cols[11], lty=4)
-  lines(rs, D$RAT3.12,  col=cols[12]); lines(rs, -D$RAT4.12,  col=cols[12], lty=2)
-  lines(rs, D$RAT3.21,  col=cols[12]); lines(rs, -D$RAT4.21,  col=cols[12], lty=2)
-  lines(rs, D$RFT3.12,  col=cols[13]); lines(rs, -D$RFT4.12,  col=cols[13], lty=4)
-  lines(rs, D$RFT3.21,  col=cols[13]); lines(rs, -D$RFT4.21,  col=cols[13], lty=4)
-  lines(rs, D$TFT3.12,  col=cols[14]); lines(rs, -D$TFT4.12,  col=cols[14], lty=2)
-  lines(rs, D$TFT3.21,  col=cols[14]); lines(rs, -D$TFT4.21,  col=cols[14], lty=2)
+  lines(rs, D$GET3.12,  col=cols[ 4]); lines(rs, -D$GET4.12,  col=cols[ 4], lty=4)
+  lines(rs, D$GET3.21,  col=cols[ 4]); lines(rs, -D$GET4.21,  col=cols[ 4], lty=4)
+  lines(rs, D$GHT3.12,  col=cols[ 5]); lines(rs, -D$GHT4.12,  col=cols[ 5], lty=2)
+  lines(rs, D$GHT3.21,  col=cols[ 5]); lines(rs, -D$GHT4.21,  col=cols[ 5], lty=2)
+  lines(rs, D$GLT3.12,  col=cols[ 6]); lines(rs, -D$GLT4.12,  col=cols[ 6], lty=4)
+  lines(rs, D$GLT3.21,  col=cols[ 6]); lines(rs, -D$GLT4.21,  col=cols[ 6], lty=4)
+  lines(rs, D$HRT3.12,  col=cols[ 7]); lines(rs, -D$HRT4.12,  col=cols[ 7], lty=2)
+  lines(rs, D$HRT3.21,  col=cols[ 7]); lines(rs, -D$HRT4.21,  col=cols[ 7], lty=2)
+  lines(rs, D$JOT3.12,  col=cols[ 8]); lines(rs, -D$JOT4.12,  col=cols[ 8], lty=4)
+  lines(rs, D$JOT3.21,  col=cols[ 8]); lines(rs, -D$JOT4.21,  col=cols[ 8], lty=4)
+  lines(rs, D$MOT3.21,  col=cols[ 9]); lines(rs, -D$MOT4.21,  col=cols[ 9], lty=2)
+  lines(rs, D$MOT3.12,  col=cols[ 9]); lines(rs, -D$MOT4.12,  col=cols[ 9], lty=2)
+  lines(rs, D$N12T3.12, col=cols[10]); lines(rs, -D$N12T4.12, col=cols[10], lty=4)
+  lines(rs, D$N12T3.21, col=cols[10]); lines(rs, -D$N12T4.21, col=cols[10], lty=4)
+  lines(rs, D$N20T3.12, col=cols[11]); lines(rs, -D$N20T4.12, col=cols[11], lty=2)
+  lines(rs, D$N20T3.21, col=cols[11]); lines(rs, -D$N20T4.21, col=cols[11], lty=2)
+  lines(rs, D$RAT3.12,  col=cols[12]); lines(rs, -D$RAT4.12,  col=cols[12], lty=4)
+  lines(rs, D$RAT3.21,  col=cols[12]); lines(rs, -D$RAT4.21,  col=cols[12], lty=4)
+  lines(rs, D$RFT3.12,  col=cols[13]); lines(rs, -D$RFT4.12,  col=cols[13], lty=2)
+  lines(rs, D$RFT3.21,  col=cols[13]); lines(rs, -D$RFT4.21,  col=cols[13], lty=2)
+  lines(rs, D$TFT3.12,  col=cols[14]); lines(rs, -D$TFT4.12,  col=cols[14], lty=4)
+  lines(rs, D$TFT3.21,  col=cols[14]); lines(rs, -D$TFT4.21,  col=cols[14], lty=4)
   txt <- c("cT3 CLcop(reflect)",        "-cT4 CLcop(reflect)",
            "cT3 FRcop (equals zero)",   "-cT4 FRcop",
            "cT3 NORMcop (equals zero)", "-cT4 NORMcop",
@@ -167,13 +182,13 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
            "cT3 GLcop",                 "-cT4 GLcop",
            "cT3 HRcop",                 "-cT4 HRcop",
            "cT3 JOcopB5",               "-cT4 JOcopB5",
+           "cT3 MOcop (a=b)",           "-cT4 MOcop (a=b)",
            "cT3 rN4212cop",             "-cT4 rN4212cop",
            "cT3 rN4220cop",             "-cT4 rN4220cop",
-           "cT3 MOcop (a=b)",           "-cT4 MOcop (a=b)",
            "cT3 RAYcop",                "-cT4 RAYcop",
            "cT3 RFcop",                 "-cT4 RFcop",
-           "cT3 Tcop",                  "-cT4 Tcop")
-  legend("bottomleft", txt, bty="n", cex=0.7, ncol=3, lty=c(1,2,1,4), col=coll)
+           "cT3 Tcop (equals zero)",    "-cT4 Tcop")
+  legend("bottomleft", txt, bty="n", cex=0.7, ncol=4, lty=c(1,2,1,4), col=coll)
   mtext("L-comoment ratio diagram for various copula", line=0.8)
   # ------------------------------------------------------------------------------------
   # Now, simulation, note that in samples T[2+].[12|21] are not perfectly equal even for
@@ -199,7 +214,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   # "with respect to's" have the same L-comoments. The GLcop was used in the simulation;
   # so, the lines for it are thicker to see that the general centrality of the sample
   # L-comoments provide evidence back to the GLcop copula.
-  plot(D$GHT3.12, xlim=c(0, 0.10), ylim=c(-0.075, 0.075), type="n", las=1,
+  plot(D$GHT3.12, xlim=c(0, 0.20), ylim=c(-0.075, 0.075), type="n", las=1,
        xlab="L-coskew (cT3)", ylab="L-cokurtosis (cT4)")
   lines( D$CLT3.12,  D$CLT4.12, col=cols[ 1])
   lines( D$CLT3.21,  D$CLT4.21, col=cols[ 1], lty=2)
@@ -245,7 +260,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
              "RAcop[UV]",         "RAcop[VU]",
              "RFcop[UV]",         "RFcop[VU]",
               "Tcop[UV]",          "Tcop[VU]")
-   legend("bottomright", txt, cex=0.7, ncol=3, lty=c(1,2), col=coll)
+   legend("bottomright", txt, cex=0.7, ncol=4, lty=c(1,2), col=coll)
    mtext("L-comoment ratio diagram for various copula", line=0.8)
    # ------------------------------------------------------------------------------------}
 }
