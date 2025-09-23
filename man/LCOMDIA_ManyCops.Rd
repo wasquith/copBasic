@@ -138,6 +138,7 @@ L-comoment ratio diagrams by computation example are shown for many copulas of t
   D$MOT3.12[is.na(D$MOT3.12)] <- D$MOT3.21[is.na(D$MOT3.12)]
   D$TFT3.12[      is.na(D$TFT3.12)] <- approx(D$rho[! is.na(D$TFT3.12)],
       D$TFT3.12[! is.na(D$TFT3.12)],     xout=D$rho[  is.na(D$TFT3.12)])$y
+  # write.table(D, file="LCOMDIA_ManyCops.txt", sep=",", row.names=FALSE)
   # ------------------------------------------------------------------------------------
   ix <- c(9, 6, 3, 12, 10, 5, 11, 1, 14, 2, 7, 8, 4, 13)
   cols <- hcl.colors(length(ix), palette="Dark3")
