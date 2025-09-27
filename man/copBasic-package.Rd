@@ -28,6 +28,7 @@ Farlie\enc{–}{-}Gumbel\enc{–}{-}Morgenstern (generalized) \tab \eqn{\mathbf{
 Frank \tab \eqn{\mathbf{FR}(u,v)} \tab \code{\link{FRcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
 Gumbel\enc{–}{-}Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
+Hairpin copula \tab \eqn{\mathbf{HAIRPIN(u,v)}} \tab \code{\link{HAIRPIN}} \tab copula\cr
 \enc{Hüsler}{Husler}\enc{–}{-}Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
 Joe B5 (the \dQuote{Joe}) copula \tab \eqn{\mathbf{B5}(u,v)} \tab \code{\link{JOcopB5}} \tab copula\cr
 Marshall\enc{–}{-}Olkin copula \tab \eqn{\mathbf{MO}(u,v)} \tab \code{\link{MOcop}} \tab copula\cr
@@ -191,7 +192,7 @@ The function \code{\link{jointCOP}} has considerable demonstration in its \bold{
 
 \bold{Copula Construction Methods}
 
-\emph{Permutation asymmetry} can be added to (inserted in) a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. The package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters (\emph{Khoudraji device} with \emph{independence}), \code{\link{composite2COP}} (\emph{Khoudraji device}) composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters.\cr
+\emph{Permutation asymmetry} (\emph{nonexchangability}) can be added to (inserted in) a copula by \code{\link{breveCOP}}. One, two, or more copulas can be \dQuote{composited,} \dQuote{combined,} or \dQuote{multiplied} in interesting ways to create highly unique bivariate relations and as a result, complex dependence structures can be formed. Such operations can often insert permutation asymmetry as well. To such an end, the package provides three main functions for copula composition: \code{\link{composite1COP}} composites a single copula with two compositing parameters (\emph{Khoudraji device} with \emph{independence}), \code{\link{composite2COP}} (\emph{Khoudraji device}) composites two copulas with two compositing parameters, and \code{\link{composite3COP}} composites two copulas with four compositing parameters.\cr
 
 Two copulas also can be combined through a weighted convex combination using \code{\link{convex2COP}} with a single weighting parameter, and even \eqn{N} number of copulas can be combined by weights using \code{\link{convexCOP}}. So-called \dQuote{gluing} two copula by a parameter is provided by \code{\link{glueCOP}}. Multiplication of two copulas to form a third is supported by \code{\link{prod2COP}}. All eight functions for compositing, combining, or multiplying copulas are compatible with joint probability simulation (\code{\link{simCOP}}), measures of association (\emph{e.g.} \eqn{\rho_\mathbf{C}}), and presumably all other copula operations using \pkg{copBasic} features. Finally, \emph{ordinal sums} of copula are provided by \code{\link{ORDSUMcop}} and \code{\link{ORDSUWcop}} as particularly interesting methods of combining copulas.
 
