@@ -28,7 +28,7 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Vectorization improvement in M.R, PSP.R, and W.R.
 -  Added argument support in lcomCOP.R for all of those for integrate().
 -  Example extensions in ORDSUMcop.Rd and minor tidy up to examples in ORSUWcop.Rd.
--  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added 
+-  EMPIRcop.Rd phrasing extension to a fast Bernstein copula and citation added
      therein. Expect to upgrade support for this in some future release.
 -  L-comoment diagram expansion in Examples of glueCOP.Rd.
 -  Clean up of some of the outdated examples in favor of alternatives for GHcop.Rd.
@@ -48,7 +48,8 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Added a sentence and citation within HRcop.Rd, that it and GHcop and GLcop are
      very similar and extremely large sample sizes are needed to distinguish between
      them as a class of extreme-value copula.
- 
+ - Added HAIRPINcop.
+
 
 Changes in version 2.2.8 (2025-06-27)
 -  Added list(...) work in level.curvesCOP[2].R, handling lwd from ... if ramp=TRUE
@@ -65,7 +66,7 @@ Changes in version 2.2.7 (2025-01-25)
 -  Added Frank copula after a few years of trying off and on to determine numerical
      end points establishing apparent parameter range suitable for copBasic structure
      and support for Spearman Rho and Kendall Tau. Added example from Joe (2014) using
-     the Frank in the context of a C-vine 3-dimensional copula using also the Gumbel. 
+     the Frank in the context of a C-vine 3-dimensional copula using also the Gumbel.
      Results show Frank is implemented properly as well as the example of a C-vine.
 -  Added additional remarks on the Khoudarji's Devices, which is just the compositing
      of two copula by composite2COP() or with independence in composite1COP().
