@@ -47,5 +47,5 @@ function(u, v, para=c(1, 2, 1), ...) {
   return(zz)
 }
 
-# Durante, F., Fernández-Sánchez, J., and Trutschnig, W., 2014, Multivariate copulas with
+# Durante, F., Fernandez-Sanchez, J., and Trutschnig, W., 2014, Multivariate copulas with
 # hairpin support: Journal of Multivariate Analysis, v. 130, pp. 323-334, \doi{10.1016/j.jmva.2014.06.009}.

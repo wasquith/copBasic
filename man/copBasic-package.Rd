@@ -28,7 +28,7 @@ Farlie\enc{–}{-}Gumbel\enc{–}{-}Morgenstern (generalized) \tab \eqn{\mathbf{
 Frank \tab \eqn{\mathbf{FR}(u,v)} \tab \code{\link{FRcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
 Gumbel\enc{–}{-}Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
-Hairpin copula \tab \eqn{\mathbf{HAIRPIN(u,v)}} \tab \code{\link{HAIRPIN}} \tab copula\cr
+Hairpin copula \tab \eqn{\mathbf{HAIRPIN(u,v)}} \tab \code{\link{HAIRPINcop}} \tab copula\cr
 \enc{Hüsler}{Husler}\enc{–}{-}Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
 Joe B5 (the \dQuote{Joe}) copula \tab \eqn{\mathbf{B5}(u,v)} \tab \code{\link{JOcopB5}} \tab copula\cr
 Marshall\enc{–}{-}Olkin copula \tab \eqn{\mathbf{MO}(u,v)} \tab \code{\link{MOcop}} \tab copula\cr
