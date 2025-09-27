@@ -11,12 +11,12 @@ L-comoment ratio diagrams by computation example are shown for the 3-parameter \
 \examples{
 \dontrun{
   # ------------------------------------------------------------------------------------
-  PLOT <- FALSE
-  for(f in 1:20) {
+  PLOT <- TRUE
+  for(f in 1:10) {
     if(PLOT) {
       plot(c(0, 1), c(-0.2, +0.3), type="n", xaxs="i", yaxs="i", las=1,
            xlab="Spearman Rho", ylab="L-coskew (cT3) or L-cokurtosis (cT4)")
-      legend("topright", c("L-coskew of GHcop(para=c(b1,p2,p3))",
+      legend("topright", c(    "L-coskew of GHcop(para=c(b1,p2,p3))",
                            "L-cokurtosis of GHcop(para=c(b1,p2,p3))"), bty="n",
             pch=c(3,4), pt.cex=0.5, col=c("seagreen4", "orchid3"))
     }
@@ -24,9 +24,9 @@ L-comoment ratio diagrams by computation example are shown for the 3-parameter \
     nsim <- 10000
     for(i in seq_len(nsim)) {
       if(length(grep("000$", as.character(i)))) message(i,"-", appendLF=FALSE)
-      b1 <- 10^(runif(1, min=-5, max=3))+1
+      b1  <- 10^(runif(1, min=-5, max=3))+1
       p2  <- runif(1, min=0, max=1); p3 <- runif(1, min=0, max=1)
-      GH3 <- lcomCOP(cop=GHcop2, para=c(b1, p2, p3),     stop.on.error=FALSE)
+      GH3 <- lcomCOP(cop=GHcop, para=c(b1, p2, p3),       stop.on.error=FALSE)
       GH3$lcomUV <- round(GH3$lcomUV, digits=8)
       GH3$lcomVU <- round(GH3$lcomVU, digits=8)
       d3 <- data.frame(b1, p2, p3,
@@ -58,7 +58,7 @@ L-comoment ratio diagrams by computation example are shown for the 3-parameter \
   for(file in files) GH3 <- rbind(GH3, as.data.frame(feather::read_feather(file)))
   # ------------------------------------------------------------------------------------
   plot(GH3$T2.12, GH3$T3.12, cex=0.2, pch=16, col=grey(0.5), las=1,
-       xlim=c(0,0.10), ylim=c(-0.07,0.0))
+       xlim=c(0, 0.10), ylim=c(-0.07, 0.0))
   abline(0, -0.33) # }
 }
 \keyword{L-comoments (ratio diagram)}
