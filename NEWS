@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.9 (2025-NN-NN)
+Changes in version 2.2.9 (2025-09-28)
 -  Added example of Kendall function span by permutation asymmetry inserted to M and W
      copulas through sweep of breves for breveCOP to be a demonstration of the Kendall
      function is a distribution unto itself with its own nonexceedance probabilities.
@@ -9,8 +9,8 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Correction to a doi{} macro in a citation and two missing subscripts in RAYcop.Rd.
 -  Grammar correction to FRcop.Rd, kfuncCOP.Rd, and LzCOPpermsym.Rd (unrelated edits).
 -  Modest extensions to footCOP.Rd.
--  Add Marshall-Olkin copula (MOcop.[R|Rd]) because of user discussion about what the
-     Footrule might measure in a nonfunctional way compared to Spearman Rho.
+-  Added Marshall-Olkin copula (MOcop.[R|Rd]) because of user discussion about what
+     the Footrule might measure in a nonfunctional way compared to Spearman Rho.
 -  Minor extensions to spectralmeas.Rd, the documentation read as somewhat incomplete.
 -  Minor edits and en-dash encoding changes in copBasic-package.Rd to have proper
      typography for the "tables" therein.
@@ -38,7 +38,7 @@ Changes in version 2.2.9 (2025-NN-NN)
      caused the Imports of the mvtnorm package and changes to DESCRIPTION.
 -  Tune up of large parameter behavior in simulation for JOcopB5.R and .Rd edits.
 -  Created LCOMDIA_ManyCops.Rd and LCOMDIA_GH[23]cop.Rd as holding grounds for many
-     large L-comoment ratio diagrams construction examples.
+     large L-comoment ratio diagram construction examples.
 -  Enhanced GHcop() for 2-parameter with Infinity checks to locally snap it M().
      Added derivative end point checks to the 3-parameter version to assess whether
      snapping to MOcop() itself is required. Extensive study of L-comoments of both
@@ -48,7 +48,7 @@ Changes in version 2.2.9 (2025-NN-NN)
 -  Added a sentence and citation within HRcop.Rd, that it and GHcop and GLcop are
      very similar and extremely large sample sizes are needed to distinguish between
      them as a class of extreme-value copula.
- - Added HAIRPINcop.
+ - Added HAIRPINcop because it can make pretty graphics (refer to Examples).
 
 
 Changes in version 2.2.8 (2025-06-27)
