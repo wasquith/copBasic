@@ -12,12 +12,16 @@ L-comoment ratio diagrams by computation example are shown for the 2-parameter \
 \dontrun{
   # b1 <- 1 # fixing 2pGHcop gives it L-coskews and L-cokurtoses matching the Clayton.
   GH   <- lcomCOP(cop=GHcop, para=c(1, 1.23107734))
-  clfunc  <- function(k, rho=NA) rho - rhoCOP(cop=CLcop, para=exp(k)-1)
-  cl   <- exp( uniroot(clfunc, c(-9,+5), rho=GH$lcomUV[2])$root)-1
+  clfunc  <- function(k, rho=NA) rho - rhoCOP(cop=CLcop, para=exp(k) - 1)
+  cl   <- exp( uniroot(clfunc, c(-9, +5), rho=GH$lcomUV[2])$root)- 1
   CL   <- lcomCOP(cop=CLcop, para=cl) # }
 
 \dontrun{
   # ------------------------------------------------------------------------------------
+  # L-comoments of the GH2. Alert, there is a commented out write_feather below, so for
+  # a "production" run, uncomment that. The reasoning for kicking-out output every nsim
+  # so that another R session can already be "harvesting" output should the user seek
+  # to study the output earlier than total run will make.
   PLOT <- FALSE
   for(f in 1:20) {
     if(PLOT) {
@@ -27,7 +31,7 @@ L-comoment ratio diagrams by computation example are shown for the 2-parameter \
                            "L-cokurtosis of GHcop(para=c(b1,b2))"), bty="n",
             pch=c(15, 16), pt.cex=0.5, col=c("seagreen4", "orchid3"))
     }
-    fileGH2 <- tempfile()
+    fileGH2 <- tempfile(); message("Temp File = ", fileGH2)
     nsim <- 10000
     for(i in seq_len(nsim)) {
       if(length(grep("000$", as.character(i)))) message(i,"-", appendLF=FALSE)
@@ -40,8 +44,7 @@ L-comoment ratio diagrams by computation example are shown for the 2-parameter \
       d2 <- data.frame(b1, b2,
               T2.12=GH2$lcomUV[2], T3.12=GH2$lcomUV[3], T4.12=GH2$lcomUV[4],
               T2.21=GH2$lcomVU[2], T3.21=GH2$lcomVU[3], T4.21=GH2$lcomVU[4])
-      row.names(d2) <- NULL
-      #print(d2)
+      row.names(d2) <- NULL; #print(d2)
       if(abs(d2$T2.12) < 1 & d2$T2.12 > 0) {
         if(PLOT) points(d2$T2.12, d2$T3.12, cex=0.5, pch=15, col="seagreen4")
         if(PLOT) points(d2$T2.12, d2$T4.12, cex=0.5, pch=16, col="orchid3"  )
@@ -57,7 +60,7 @@ L-comoment ratio diagrams by computation example are shown for the 2-parameter \
     fGH2 <- read.table(fileGH2, sep="\t", header=TRUE)
     file <- paste0("LCM_GH2_", f, ".feather")
     message("writing file '", file, "' to ", getwd())
-    feather::write_feather(fGH2, file)
+    # feather::write_feather(fGH2, file)
   }
   # ------------------------------------------------------------------------------------
   files <- list.files(pattern=".feather")
@@ -92,7 +95,7 @@ L-comoment ratio diagrams by computation example are shown for the 2-parameter \
   lines(rhos, predict(posT3, newdata=data.frame(X=rhos)), lwd=2)
 
   t2t3hull <- grDevices::chull(df$T2, df$T3)
-  polygon(df$T2[t2t3hull], df$T3[t2t3hull], col=NULL, border="seagreen4", lwd=3, lty=2)
+  polygon(df$T2[t2t3hull],  df$T3[t2t3hull], col=NULL, border="seagreen4", lwd=3,lty=2)
   write.table(data.frame(T2=df$T2[t2t3hull], T3=df$T3[t2t3hull]),
               file="lcom_GH2cop_nodes.txt", sep="\t")
   # The user might consider plotting this polygon() underneath L-comoment curves
