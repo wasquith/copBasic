@@ -1,6 +1,12 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.2.10 (20NN-NN-NN)
+-  Added JOMAcop for the Joe-Ma (2000) copula shown in Joe (2014) with changes to the
+     parameterization to work with the package and JOMAcop.R internals reflect some
+     asymmetrical numerical limiting behavior of the Gamma distribution.
+
+
 Changes in version 2.2.9 (2025-09-28)
 -  Added example of Kendall function span by permutation asymmetry inserted to M and W
      copulas through sweep of breves for breveCOP to be a demonstration of the Kendall
