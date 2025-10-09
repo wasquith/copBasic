@@ -15,7 +15,7 @@ The \emph{Joe--Ma copula} (Joe, 2014, p. 177), crediting Joe and Ma (2000), is
 where \eqn{F_\Gamma(x;\Theta)} is the \emph{cumulative distribution function} of the \emph{Gamma} distribution, \eqn{F_\Gamma^{(-1)}(f;\Theta)} is the \emph{quantile function} of the Gamma distribution, and \eqn{\Theta \in (-1, +1)}, which is a different parameter range than shown in Joe (2014, p. 177) because of numerical difficulties with the Gamma distribution and functional performance in context of \pkg{copBasic} design. The copula limits, as \eqn{\Theta \rightarrow -1}, to the \emph{countermonotonicity coupla} (\eqn{\mathbf{W}(u,v)}; \code{\link{W}}), as \eqn{\Theta \rightarrow 1}, to the \emph{comonotonicity copula} (\eqn{\mathbf{M}(u,v)}; \code{\link{M}}), and as \eqn{\Theta \rightarrow 0^{\pm}}, to the \emph{independence copula} (\eqn{\mathbf{\Pi}(u,v)}; \code{\link{P}}), and as \eqn{\Theta \rightarrow +\infty}. The parameter \eqn{\Theta} is readily computed from \emph{Kendall Tau} (\code{\link{tauCOP}}) or \emph{Spearman Rho} (\code{\link{rhoCOP}}) by root-solving methods. Because the formulation here uses a differing parameter range than shown in Joe (2014), integral formulations for Kendall Tau are not shown in this documentation.
 }
 \usage{
-JOMOcop(u, v, para=NULL, rhotau=NULL,
+JOMAcop(u, v, para=NULL, rhotau=NULL,
               cortype=c("kendall", "spearman", "tau", "rho"), ...)
 }
 \arguments{
@@ -65,7 +65,15 @@ All this tells us is that when the principle direction of the points are along t
   lcomCOP(cop=JOMAcop, para=-0.6)
   lcomCOP(cop=FRcop, para=FRcop(rhotau=tauCOP(cop=JOMAcop, para=-0.6))$para)
 }
-that shows us that the two copula for the same Kendall Tau have differing L-comoments of course but that the Frank as L-coskews of zero and the Joe--Ma does not.
+that shows us that the two copula for the same Kendall Tau have differing L-comoments of course but that the Frank as L-coskews of zero and the Joe--Ma does not. One more check is now made to provide more informative about the diagonal and symmetry or not:
+\preformatted{
+  d <- -0.9; t <- seq(0.001, 0.999, by=0.001)
+  UV <- simCOP(1000, cop=JOMAcop, para=d) # "crying" towards the upper right
+  abline(1, -1, col="red") # corner, so not symmetrical about the -1 diagonal.
+  u <- 0.5; der <- derCOP(cop=JOMAcop, u, t, para=-0.9, derdir="left")
+  plot(qnorm(t), qnorm(der), type="l", )
+}
+that tells us that a vertical second line at \eqn{u = c} has a longer tail above the median and hence confirming that the Gamma distribution involvement must be producing the asymmetry.
 }
 \references{
 Joe, H., 2014, Dependence modeling with copulas: Boca Raton, CRC Press, 462 p.
