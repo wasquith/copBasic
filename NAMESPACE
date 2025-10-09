@@ -4,7 +4,7 @@
  importFrom("stats", "approx", "complete.cases", "cor", "dnorm",
             "integrate", "median", "qnorm", "quantile", "runif", "var",
             "uniroot", "optimise", "optim", "pnorm", "pt", "qt", "sd",
-            "dbeta", "pbeta")
+            "dbeta", "pbeta", "pgamma", "qgamma")
  importFrom("mvtnorm", "GenzBretz", "Miwa", "TVPACK", "pmvnorm", "pmvt")
  importFrom("randtoolbox", "halton", "sobol", "torus")
  importFrom("utils", "installed.packages")
