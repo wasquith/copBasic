@@ -5,6 +5,9 @@ Changes in version 2.2.10 (20NN-NN-NN)
 -  Added JOMAcop for the Joe-Ma (2000) copula shown in Joe (2014) with changes to the
      parameterization to work with the package and JOMAcop.R internals reflect some
      asymmetrical numerical limiting behavior of the Gamma distribution.
+-  Removed man/LCOMDIA_GHcop.Rd because it was inadvertently included in 2.2.9 when
+     by that point the content in LCOMDIA_GHcop.Rd had been split between
+     LCOMDIA_GH2cop.Rd and LCOMDIA_GH3cop.Rd.
 
 
 Changes in version 2.2.9 (2025-09-28)
