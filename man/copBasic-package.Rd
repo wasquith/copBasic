@@ -107,7 +107,7 @@ Maximum likelihood \tab \eqn{\mathcal{L}(\Theta_d)} \tab \code{\link{mleCOP}} \t
 Akaike information criterion \tab \eqn{\mathrm{AIC}_\mathbf{C}} \tab \code{\link{aicCOP}} \tab goodness-of-fit\cr
 Bayesian information crit. \tab \eqn{\mathrm{BIC}_\mathbf{C}} \tab \code{\link{bicCOP}} \tab goodness-of-fit\cr
 Root mean square error \tab \eqn{\mathrm{RMSE}_\mathbf{C}} \tab \code{\link{rmseCOP}} \tab goodness-of-fit\cr
-Another goodness-of-fit \tab \eqn{T_n} \tab \code{\link{statTn}} \tab goodness-of-fit\cr\cr
+Another goodness-of-fit \tab \eqn{T_n} \tab \code{\link{statTn}} \tab goodness-of-fit\cr
 }
 
 
