@@ -1,7 +1,10 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.10 (20NN-NN-NN)
+Changes in version 2.2.11 (2025-11-02)
+-  Extra table ending \cr is now NOTEd in r-devel-linux-x86_64*, so removed the \cr.
+
+Changes in version 2.2.10 (2025-11-02)
 -  Added JOMAcop for the Joe-Ma (2000) copula shown in Joe (2014) with changes to the
      parameterization to work with the package and JOMAcop.R internals reflect some
      asymmetrical numerical limiting behavior of the Gamma distribution.
