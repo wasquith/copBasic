@@ -1,6 +1,12 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.2.12 (2026-NN-NN)
+-  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
+-  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
+     expanded Examples section therein to include a Ubeda-Flores (2022) example.
+
+
 Changes in version 2.2.11 (2025-11-02)
 -  Extra table ending \cr is now NOTEd in r-devel-linux-x86_64*, so removed the \cr.
 
