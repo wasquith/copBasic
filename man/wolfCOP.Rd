@@ -11,7 +11,7 @@ which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl[\mathbf{C}(u,v) - uv\bigr]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
-If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.PQD}}), then \eqn{\sigma_\mathbf{C} = \rho_\mathbf{C}}; conversely if a copula is \emph{negatively quadrant dependent} (NQD), then \eqn{\sigma_\mathbf{C} = -\rho_\mathbf{C}}. However, a feature making \eqn{\sigma_\mathbf{C}} especially attractive is that for random variables \eqn{X} and \eqn{Y}, which are not PQD or NQD---copulas that are neither larger nor smaller than \eqn{\mathbf{\Pi}}---is that \dQuote{\eqn{\sigma_\mathbf{C}} is often a better measure of [dependency] than \eqn{\rho_\mathbf{C}}} (Nelsen, 2006, p. 209).
+If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.PQD}}), then \eqn{\sigma_\mathbf{C} = \rho_\mathbf{C}}; conversely if a copula is \emph{negatively quadrant dependent} (NQD), then \eqn{\sigma_\mathbf{C} = -\rho_\mathbf{C}}. However, a feature making \eqn{\sigma_\mathbf{C}} especially attractive is that for random variables \eqn{X} and \eqn{Y}, which are not PQD or NQD---copulas that are neither larger nor smaller than \eqn{\mathbf{\Pi}}---is that \dQuote{\eqn{\sigma_\mathbf{C}} is often a better measure of [dependency] than \eqn{\rho_\mathbf{C}}} (Nelsen, 2006, p. 209). \enc{Úbeda-Flores}{Ubeda-Flores} (2022) studies the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -64,15 +64,42 @@ In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \e
 \enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pal}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
+
+\enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, A note on the maximum difference between Schweizer and Wolff's Sigma and the absolute value of Spearman's Rho: Transactions on Fuzzy Sets and Systems, v. 1, no. 2, pp. 1--5.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}},
-         \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}
+         \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}, \code{\link{ORDSUMcop}}
 }
 \examples{
 \dontrun{
 wolfCOP(cop=PSP) # 0.4784176}
+
+\dontrun{
+  # Maximum Difference between Sigma and Absolute Spearman Rho
+  k <- 1/2 + sqrt(3)/6 # Ubeda-Flores (2022) or 1/2 - sqrt(3)/6
+  para <- list(cop=c(W, W), para=NULL, part=c(0, k, 1))
+  rho <- rhoCOP( ORDSUMcop, para=para)
+  wol <- wolfCOP(ORDSUMcop, para=para)
+  message("Wolf - |Rho| = ", wol - abs(rho))
+  # 0.604967382.... that is approx. 0.60496 given by Ubeda-Flores (2022).
+
+  ks <- seq(0.01, 0.99, by=0.002); rhos <- wols <- NULL
+  for(k in ks) {
+    message(k, "-", appendLF=FALSE)
+    para <- list(cop=c(W, W), para=NULL, part=c(0, k, 1))
+    rhos <- c(rhos, abs( rhoCOP( cop=ORDSUMcop, para=para, subdivisions=200) ))
+    wols <- c(wols,      wolfCOP(cop=ORDSUMcop, para=para, subdivisions=200)  )
+  }
+  message("done")
+  plot( ks, rhos, type="l", lty=2, main="Ubeda-Flores (2022) Example 2.3",
+       xlab="Theta of W,W shuffle", ylab="Value")
+  lines(ks, wols, lty=1); lines(ks, wols - rhos, lwd=3)
+  legend(0.3, 0.9, c("|Spearman Rho|", "Schweizer and Wolff Sigma",
+                     "Schweizer and Wolff Sigma minus |Spearman Rho|"),
+         bty="n", lty=c(2,1,1), lwd=c(1,1,2))
+  abline(v=1/2 + c(-1, +1) * sqrt(3)/6) # Ubeda-Flores (2022) }
 
 \dontrun{
   n <- 1000; UV <- simCOP(n=n, cop=N4212cop, para=7.53, graphics=FALSE, seed=1)
