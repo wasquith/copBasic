@@ -43,3 +43,6 @@ data/.DS_Store
 3dcopula/.DS_Store
 3dcopula/3dconfig_examples/.DS_Store
 
+inst/make_wolfCOPtest/montecarlo_wolfPI_*.txt
+inst/make_wolfCOPtest/nohup*.out
+inst/make_wolfCOPtest/Rplots.pdf
