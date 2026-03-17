@@ -68,7 +68,8 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, A note on the maximum difference between Schweizer and Wolff's Sigma and the absolute value of Spearman's Rho: Transactions on Fuzzy Sets and Systems, v. 1, no. 2, pp. 1--5.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
+\seealso{\code{\link{wolfCOPtest}}\cr
+         \code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}, \code{\link{ORDSUMcop}}
 }
