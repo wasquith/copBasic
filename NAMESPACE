@@ -170,6 +170,7 @@ export(uvskew)
 export(uvlmoms)
 export(vuongCOP)
 export(wolfCOP)
+export(wolfCOPsamc)
 export(wolfCOPtest)
 
 
