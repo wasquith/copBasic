@@ -7,6 +7,21 @@ function(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
   if(is.null(probs))      probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
   if( length(probs) == 0) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
 
+  # -------------------------------
+  dtype <- tolower(dtype)
+  suppressWarnings( have_dtype <- lmomco::dist.list(dtype) )
+  if(length(grep("does not match", as.character(have_dtype))) == 1) { # "The given type argument does not match a distribution") {
+    warning("requested dtype='", dtype, "' does not exist in lmomco::dist.list() function")
+    return(NULL)
+  }
+  if(have_dtype >= 5) {
+    warning("function only supports up to 4-parameter distributions ")
+  }
+  if(have_dtype == "gld") {
+    warning("function does support first four Lmoments, but a fifth would be needed for dtype='gld'")
+  }
+  # -------------------------------
+
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
     rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- ngiven <- y[1] # and the sample size is in y[1]
     if(n < 9) {
@@ -38,18 +53,18 @@ function(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.12369183, -1.07795696, 1.16681396, -1.189758)
-    l2coe <- c( 0.12125886, 0.00100835, 0.09894904, -1.8678)
-    t3coe <- c( 0.05074128, 0.01159302, 0.18226512, -1.628)
-    t4coe <- c( 0.13344806, -0.00293734, 0.03696636, -3.3768)
+    mucoe <- c(-0.11655885, -1.07964311, 1.1612798, -1.19358)
+    l2coe <- c(0.13256181, -0.00178554, 0.09075513, -2.06958)
+    t3coe <- c(0.08710575, 0.00329644, 0.15671491, -1.98558)
+    t4coe <- c(0.12818454, -0.00139074, 0.04120657, -2.9368)
   } else {
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution not using its logit assuming the Independence copula.
-    mucoe <- c(-3.16153648,  0.15611458, 3.49673189, -0.221656258)
-    l2coe <- c( 0.12361444, -0.13149745, 0.06148417, 1.371758)
-    t3coe <- c( 0.22372611, -0.00055411, 0.00390533, -3.6248)
-    t4coe <- c( 0.16659332, -0.00150613, -0.02151112, -2.3928)
+    mucoe <- c(-2.61652495, 0.14574984, 2.96319764, -0.26006258)
+    l2coe <- c(0.13525809, -0.30994223, 0.22869554, 1.1418)
+    t3coe <- c(0.22490525, -0.00120998, 0.00490342, -5.5048)
+    t4coe <- c(0.16640906, -0.00180767, -0.02055019, -2.5168)
   }
 
   # Apply the regressions using the hardwired coefficients herein
@@ -104,3 +119,20 @@ function(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
   }
   return(zz)
 }
+
+
+
+#CPU <- NULL
+#for(n in as.integer(10^seq(log10(700), log10(3000), by=.05))) {
+#  UV <- simCOP(n=n, cop=CLcop, para=2, graphics=FALSE)
+#  THwolf <- wolfCOP(cop=PSP, para=2, )
+#  a <- system.time(MC <- wolfCOPsamc(UV[,1], UV[,2]))
+#  b <- system.time(SA <- wolfCOP(para=UV, as.sample=TRUE))
+#  CPU <- rbind(CPU, data.frame(n=n, a=a[3], b=b[3],
+#                               mc=MC$estimates[2], sam=SA))
+#}
+#plot(  CPU$n, CPU$b, log="xy")
+#points(CPU$n, CPU$a, pch=16)
+#
+#plot(  CPU$n, CPU$mc,  log="xy")
+#points(CPU$n, CPU$sam, pch=16)
