@@ -1,7 +1,7 @@
 \encoding{utf8}
 \name{wolfCOP}
 \alias{wolfCOP}
-\title{The Schweizer and Wolff Sigma of a Copula}
+\title{Schweizer and Wolff Sigma of a Copula}
 \description{
 Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
 
@@ -11,7 +11,12 @@ which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl[\mathbf{C}(u,v) - uv\bigr]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
-If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.PQD}}), then \eqn{\sigma_\mathbf{C} = \rho_\mathbf{C}}; conversely if a copula is \emph{negatively quadrant dependent} (NQD), then \eqn{\sigma_\mathbf{C} = -\rho_\mathbf{C}}. However, a feature making \eqn{\sigma_\mathbf{C}} especially attractive is that for random variables \eqn{X} and \eqn{Y}, which are not PQD or NQD---copulas that are neither larger nor smaller than \eqn{\mathbf{\Pi}}---is that \dQuote{\eqn{\sigma_\mathbf{C}} is often a better measure of [dependency] than \eqn{\rho_\mathbf{C}}} (Nelsen, 2006, p. 209). \enc{Úbeda-Flores}{Ubeda-Flores} (2022) studies the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
+If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.PQD}}), then \eqn{\sigma_\mathbf{C} = \rho_\mathbf{C}}; conversely if a copula is \emph{negatively quadrant dependent} (NQD), then \eqn{\sigma_\mathbf{C} = -\rho_\mathbf{C}}. However, a feature making \eqn{\sigma_\mathbf{C}} especially attractive is that for random variables \eqn{X} and \eqn{Y}, which are not PQD or NQD---copulas that are neither larger nor smaller than \eqn{\mathbf{\Pi}}---is that \dQuote{\eqn{\sigma_\mathbf{C}} is often a better measure of [dependency] than \eqn{\rho_\mathbf{C}}} (Nelsen, 2006, p. 209).
+
+\enc{Úbeda-Flores}{Ubeda-Flores} (2022) studies the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
+
+By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined cumulative distribution function is
+\deqn{H(x, y) = F(x)G(x) = \mathbf(C)(u,v) = uv\mbox{.}}
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -59,16 +64,17 @@ In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \e
 \preformatted{
   wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (an example sample)
 }
+with a Monte Carlo integration version more suitable to very large sample sizes or difficult to integrate copula families located at \code{\link{wolfCOPsamc}}.
 }
 \references{
-\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, Sergey, \enc{Pál}{Pal}, \enc{Szepesvári}{Szepesvari}, Csaba, and Schneider, Jeff, 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
+\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, A note on the maximum difference between Schweizer and Wolff's Sigma and the absolute value of Spearman's Rho: Transactions on Fuzzy Sets and Systems, v. 1, no. 2, pp. 1--5.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{wolfCOPtest}}\cr
+\seealso{\code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest}}\cr
          \code{\link{blomCOP}}, \code{\link{footCOP}}, \code{\link{giniCOP}},
          \code{\link{hoefCOP}}, \code{\link{rhoCOP}}, \code{\link{tauCOP}},
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}, \code{\link{ORDSUMcop}}
@@ -104,8 +110,10 @@ wolfCOP(cop=PSP) # 0.4784176}
 
 \dontrun{
   n <- 1000; UV <- simCOP(n=n, cop=N4212cop, para=7.53, graphics=FALSE, seed=1)
-  wolfCOP(cop=N4212cop, para=7.53) # 0.9884666 (theoretical)
-  wolfCOP(para=UV, as.sample=TRUE) # 0.9873274 (  sample   ) }
+  wolfCOP(cop=N4212cop, para=7.53)  # 0.9884666 (theoretical)
+  wolfCOP(para=UV, as.sample=TRUE)  # 0.9873274 (  sample   )
+  wolfCOPsamc(para=UV)$estimates[2] # 0.9861096 (Monte Carlo integration)
+  # Much faster as the sample size gets large to use the Monte Carlo. }
 
 \dontrun{
   # Redo D from Note section above
@@ -142,4 +150,5 @@ wolfCOP(cop=PSP) # 0.4784176}
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
+\keyword{Schweizer and Wolff Sigma}
 

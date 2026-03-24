@@ -94,6 +94,8 @@ Semi-correlations (positives) \tab \eqn{\rho_N^{+}(a)} \tab \code{\link{semicorC
 Spearman Footrule \tab \eqn{\psi_\mathbf{C}} \tab \code{\link{footCOP}} \tab bivariate association\cr
 Spearman Rho \tab \eqn{\rho_\mathbf{C}} \tab \code{\link{rhoCOP}} \tab bivariate association\cr
 Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\sigma_\mathbf{C}} \tab \code{\link{wolfCOP}} \tab bivariate association\cr
+Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\hat\sigma_\mathbf{C}} \tab \code{\link{wolfCOPsamc}} \tab bivariate association\cr
+Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\mathrm{NULL}{:}\sigma_\mathbf{C}{=}\mathbf{\Pi}} \tab \code{\link{wolfCOPtest}} \tab bivariate association\cr
 Density of a copula\tab \eqn{c(u,v)} \tab \code{\link{densityCOP}} \tab copula density\cr
 Density visualization \tab \eqn{{-}{-}} \tab \code{\link{densityCOPplot}} \tab copula density\cr
 Empirical copula \tab \eqn{\mathbf{C}_n(u,v)} \tab \code{\link{EMPIRcop}} \tab copula\cr
@@ -142,7 +144,7 @@ Copula section \tab \eqn{t \mapsto \mathbf{C}(a,t)} \tab \code{\link{sectionCOP}
 
 The previous two tables do not list all of the myriad of special functions to support similar operations on \emph{empirical copulas}. All empirical copula operators and utilities are prepended with \code{EMPIR} in the function name. An additional note concerning package nomenclature is that an appended \dQuote{\code{2}} to a function name indicates \eqn{U} \emph{wrt} \eqn{V} (\emph{e.g.} \code{\link{EMPIRgridderinv2}} for an inversion of the partial derivatives \eqn{\delta \mathbf{C}/\delta v} across the grid of the empirical copula).
 
-Some additional functions to compute often salient features or characteristics of copulas or bivariate data, including functions for bivariate inference or goodness-of-fit, are listed in the following table:
+Some additional functions to compute often salient features or characteristics of copulas or bivariate data, including functions for bivariate inference or goodness-of-fit, are listed in the following table:\cr\cr
 
 \tabular{lclr}{
 \bold{Name} \tab \bold{Symbol} \tab \bold{Function} \tab \bold{Concept} \cr
@@ -216,7 +218,7 @@ Two copulas also can be combined through a weighted convex combination using \co
 
 \bold{Useful Copula Relations by Visualization}
 
-There are a myriad of relations amongst variables computable through copulas, and these were listed in the \bold{Table of Probabilities} earlier in this documentation. There is a script located in the \code{inst/doc} directory of the \pkg{copBasic} sources titled \code{CopulaRelations_BaseFigure_inR.txt}. This script demonstrates, using the \code{\link{PSP}} copula, relations between the copula (\code{\link{COP}}), survival copula (\code{\link{surCOP}}), joint survival function of a copula (\code{\link{surfuncCOP}}), co-copula (\code{\link{coCOP}}), and dual of a copula function (\code{\link{duCOP}}). The script performs simulation and manual counts observations meeting various criteria in order to compute their \emph{empirical probabilities}. The script produces a base figure, which after extending in editing software, is suitable for educational description and is provided at the end of this documentation.\cr\cr
+There are a myriad of relations amongst variables computable through copulas, and these were listed in the \bold{Table of Probabilities} earlier in this documentation. There is a script located in the \code{inst/doc} directory of the \pkg{copBasic} sources titled \code{CopulaRelations_BaseFigure_inR.txt}. This script demonstrates, using the \code{\link{PSP}} copula, relations between the copula (\code{\link{COP}}), survival copula (\code{\link{surCOP}}), joint survival function of a copula (\code{\link{surfuncCOP}}), co-copula (\code{\link{coCOP}}), and dual of a copula function (\code{\link{duCOP}}). The script performs simulation and manual counts observations meeting various criteria in order to compute their \emph{empirical probabilities}. The script produces a base figure, which after extending in editing software, is suitable for educational description and is provided at the end of this documentation.
 
 \bold{A Review of \dQuote{Return Periods} using Copulas}
 

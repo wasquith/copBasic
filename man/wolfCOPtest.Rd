@@ -1,9 +1,9 @@
 \encoding{utf8}
 \name{wolfCOPtest}
 \alias{wolfCOPtest}
-\title{The Schweizer and Wolff Sigma Test Against an Independence Copula}
+\title{A Schweizer and Wolff Sigma Test Against an Independence Copula}
 \description{
-\emph{EXPERIMENTAL}---Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C} : \mathbf{C} = \mathbf{P}} (\emph{Independence copula}, \eqn{\mathbf{\Pi}}, \code{\link{P}}). The Schweizer--Wolff Sigma is defined under \code{\link{wolfCOP}}. The algorithm is based on simulation of \eqn{\mathbf{\Pi}} and computation of the L-moments of a logit transform of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created as used through a generalized normal distribution model (GNO) (\code{lmomco::pargno}, \code{lmomco::cdfgno}, \code{lmomco::quagno}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
+\emph{EXPERIMENTAL}---Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \eqn{\mathbf{\Pi}}, \code{\link{P}}). The Schweizer--Wolff Sigma is defined under \code{\link{wolfCOP}}. The algorithm is based on simulation of \eqn{\mathbf{\Pi}} and computation of the L-moments of a logit transform of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created as used through a generalized normal distribution model (GNO) (\code{lmomco::pargno}, \code{lmomco::cdfgno}, \code{lmomco::quagno}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
 
 Development scripts based on Monte Carlo simulation are located at \code{inst/make_wolfCOPtest/} of \pkg{copBasic} sources. A logit transformation is defined as
 \deqn{\eta = \mathrm{log}\biggl(\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}}\biggr)\mbox{\  and}
@@ -22,7 +22,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
   \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (\code{lmomco::pp()} function);}
   \item{asuv}{Logical identifying whether the \code{x} and \code{y} are already in nonexceedance probabilities or rather such need to be computed internally by plotting-position formula (\code{lmomco::pp()} function);}
   \item{aslist}{Logical to return a list of the test results rather than a vector;}
-  \item{bylogit}{Compute results using a logit transform of the \eqn{\sigma_\mathbf{C}} distribution through the L-moments of the logit in lieu of remaining in \dQuote{sigma} units. This argument is subject to deprecation as \code{inst/make_wolfCOPtest/} development to implementation provides evidence for preference of working through a \bold{logit} that honors the \eqn{\sigma_\mathbf{C} \in (0, 1)});}
+  \item{bylogit}{Compute results using a logit transform of the \eqn{\sigma_\mathbf{C}} distribution through the L-moments of the logit in lieu of remaining in \dQuote{sigma} units. This argument is subject to deprecation as \code{inst/make_wolfCOPtest/} development to implementation provides evidence for preference of working through a \bold{logit} that honors the \eqn{\sigma_\mathbf{C} \in (0, 1)};}
   \item{dtype}{Distribution in the abbreviation recognized by the \pkg{lmomco} package that will be used to estimate quantiles and p-value based on fitted L-moments whether based on logit transformation (\code{bylogit=TRUE}) or just no transformation (\code{bylogit=FALSE});}
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
@@ -33,7 +33,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
   The value for \eqn{\sigma_\mathbf{C}} is returned.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{wolfCOP}}
+\seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}
 }
 \examples{
 uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=6)
@@ -47,3 +47,4 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, bylogit=FALSE, aslist=FALSE)
 \keyword{copula (hypothesis test)}
 \keyword{generalized normal distribution}
 \keyword{GNO (see generalized normal distribution)}
+\keyword{Schweizer and Wolff Sigma}
