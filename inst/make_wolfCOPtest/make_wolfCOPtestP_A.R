@@ -9,8 +9,12 @@ library(copBasic)
 
 SHOW_PLOT <- FALSE
 
-FCORE <- "montecarlo_wolfPI"
-RUNNO  <- 0:9
+FCORE <- "mc_wolfPI"
+RUNNO  <- 6:6
+ns <- unique( as.integer( 10^(c(seq(log10(10), log10(1000), by=0.05)) ) ) )
+ns <- rev(ns)
+
+stop()
 
 for(runno in RUNNO) {
   OUTFILE <- paste0(FCORE, "_", runno, ".txt")
@@ -24,9 +28,9 @@ for(runno in RUNNO) {
 message("writing to ", OUTFILE)
 
 
-d <- 6
-nsim <- 40000
-ns <- unique( as.integer( 10^(c(seq(log10(5), log10(1000), by=0.01), log10(1000)) ) ) )
+d <- 16
+nsim <- 100000
+
 x <- seq(min(ns), max(ns), by=1)
 
 par(lend=1, ljoin=1, las=1, mar=c(5, 5, 4, 5)+0.1) # c(bottom, left, top, right)
@@ -40,11 +44,26 @@ for(n in ns) {
   if(n <= 40 ) mynsim <- 10000
   if(n <= 20 ) mynsim <- 20000
   if(mynsim < 1/(1 - 0.995)) mynsim <- 1000
+  mynsim <- 1000
   print(c(n, mynsim))
-  wolfP <- replicate(mynsim, { copBasic::wolfCOP(para=simCOP(n=n, cop=P, graphics=FALSE),
-                                                 as.sample=TRUE) })
-  lmr <- Lmoments::Lcoefs(wolfP, rmax=5)
-  emp <- round(quantile(wolfP, probs=c(0.9, 0.95, 0.98, 0.99, 0.995), rule=2), digits=d)
+  #wolfP <- replicate(mynsim, { copBasic::wolfCOP(para=simCOP(n=n, cop=P, graphics=FALSE),
+  #                                               as.sample=TRUE) })
+  wolfP <- rep(NA, mynsim)
+  for(i in seq_len(mynsim)) {
+    wolfP[i] <- copBasic::wolfCOP(para=as.data.frame(matrix(runif(n*2), ncol=2)), as.sample=TRUE)
+    print(c(mynsim, n, i, wolfP[i]))
+  }
+  #for(i in seq_len(mynsim)) {
+  #  results <- copBasic::wolfCOPsamc(para=as.data.frame(
+  #                              matrix(runif(mynsim*2), ncol=2)))
+  #  wolfP[i] <- results$estimates[2]
+  #  print(c(i, results$its, wolfP[i]))
+  #}
+  lmr <- Lmoments::Lcoefs( wolfP, rmax=5)
+  print(lmr)
+  lmc <- lmomco::lmoms.cov(wolfP, se="lmrse")
+  print(lmc)
+  emp <- round(quantile(wolfP, probs=c(0.9, 0.95, 0.98, 0.99, 0.995), type=6), digits=d)
   df <- data.frame(nsim=mynsim, n=n,
                     mu=round(          lmr[1],    digits=d),
                    var=round((sqrt(pi)*lmr[2])^2, digits=d),
@@ -52,15 +71,30 @@ for(n in ns) {
                   tau3=round(          lmr[3],    digits=d),
                   tau4=round(          lmr[4],    digits=d),
                   tau5=round(          lmr[5],    digits=d),
+                  muse=round(          lmc[1],    digits=d),
+                  l2se=round(          lmc[2],    digits=d),
+                  t3se=round(          lmc[3],    digits=d),
+                  t4se=round(          lmc[4],    digits=d),
+                  t5se=round(          lmc[5],    digits=d),
                   f90=emp[1], f95=emp[2], f98=emp[3], f99=emp[4], f99p5=emp[5])
-  lmr <- Lmoments::Lcoefs(log(wolfP/(1-wolfP)), rmax=5)
+  logit <- log(wolfP/(1-wolfP))
+  lmr <- Lmoments::Lcoefs( logit, rmax=5)
+  print(lmr)
+  lmc <- lmomco::lmoms.cov(logit, se="lmrse")
+  print(lmc)
   df$logitmu        <- round(          lmr[1],    digits=d)
   df$logitvar       <- round((sqrt(pi)*lmr[2])^2, digits=d)
   df$logitlam2      <- round(          lmr[2],    digits=d)
   df$logittau3      <- round(          lmr[3],    digits=d)
   df$logittau4      <- round(          lmr[4],    digits=d)
   df$logittau5      <- round(          lmr[5],    digits=d)
+  df$logitmuse      <- round(          lmc[1],    digits=d)
+  df$logitl2se      <- round(          lmc[2],    digits=d)
+  df$logitt3se      <- round(          lmc[3],    digits=d)
+  df$logitt4se      <- round(          lmc[4],    digits=d)
+  df$logitt5se      <- round(          lmc[5],    digits=d)
   D <- rbind(D, df)
+  write.table(D, file=OUTFILE, row.names=FALSE, sep="\t")
 
   if(SHOW_PLOT) {
     mu <- lm(log(D$mu)~log(D$n)); vr <- lm(log(D$var)~log(D$n))
@@ -91,5 +125,6 @@ for(n in ns) {
     axis(4, at=axTicks(2),        labels=TRUE,  lwd=0, lwd.ticks=1, col="salmon4")
     mtext("Variance", side=4, line=2, las=0, col="salmon4")
   }
+  message("writing to '", OUTFILE, "'")
   write.table(D, file=OUTFILE, row.names=FALSE, sep="\t")
 }
