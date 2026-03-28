@@ -5,6 +5,7 @@ Changes in version 2.2.12 (2026-NN-NN)
 -  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
 -  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
      expanded Examples section therein to include a Ubeda-Flores (2022) example.
+-  Minor extensions and edits to wolfCOP.Rd.
 -  Added wolfCOPsammc() as a Monte Carlo integration version and subsetting to
      achieve much faster computation times as the sample size scales up, which gives
      the original 2015 wolfCOP(as.sample=TRUE) function poor CPU time.
