@@ -3,11 +3,11 @@
 \alias{wolfCOP}
 \title{Schweizer and Wolff Sigma of a Copula}
 \description{
-Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
+Compute the \emph{measure of dependency} known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
 
 \deqn{\sigma_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl|\mathbf{C}(u,v) - uv\bigr|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 
-which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association, without the positive sign restriction, is similar to the following form of \emph{Spearman Rho} (\code{\link{rhoCOP}}) of a copula:
+which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association is similar, without the positive sign restriction, to the following form of \emph{Spearman Rho} (\code{\link{rhoCOP}}) in terms of a copula:
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl[\mathbf{C}(u,v) - uv\bigr]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
@@ -15,8 +15,8 @@ If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.
 
 \enc{Úbeda-Flores}{Ubeda-Flores} (2022) studies the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
 
-By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined cumulative distribution function is
-\deqn{H(x, y) = F(x)G(x) = \mathbf(C)(u,v) = uv\mbox{.}}
+By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined \emph{cumulative distribution function} is
+\deqn{H(x, y) = F(x)G(x) = \mathbf{C}(u,v) = uv\mbox{.}}
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -60,11 +60,11 @@ This composited copula intersects, that is, passes through, the \code{\link{P}} 
    rhoCOP(cop=composite2COP, para=para) # 0.02845131 (theoretical)
   hoefCOP(cop=composite2COP, para=para) # 0.08563823 (theoretical)
 }
-In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \emph{Blomqvist Beta} (\code{\link{blomCOP}}), \emph{Gini Gamma} (\code{\link{giniCOP}}), and \emph{Kendall Tau} (\code{\link{tauCOP}}). Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version of Sigma is triggered by
+In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \emph{Blomqvist Beta} (\code{\link{blomCOP}}), \emph{Gini Gamma} (\code{\link{giniCOP}}), and \emph{Kendall Tau} (\code{\link{tauCOP}}). Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version of \eqn{\hat{\sigma}_\mathbf{C}} is triggered by
 \preformatted{
   wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (an example sample)
 }
-with a Monte Carlo integration version more suitable to very large sample sizes or difficult to integrate copula families located at \code{\link{wolfCOPsamc}}.
+with a \emph{Monte Carlo integration} version possibly more suitable as sample size gets large (\eqn{n > 1000}, say) or difficult to integrate copula families located at \code{\link{wolfCOPsamc}}.
 }
 \references{
 \enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
