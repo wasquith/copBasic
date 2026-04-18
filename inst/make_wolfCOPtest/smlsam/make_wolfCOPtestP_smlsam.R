@@ -78,8 +78,8 @@ A <- A[order(A$n, A$probs),]
 A$nsim <- NULL
 # print(A$wolfemp[A$n == 5], 16)
 
-data_wolfCOPtest_smlsam <- A
-save(data_wolfCOPtest_smlsam, file="data_wolfCOPtest_smlsam.RData")
+wolfCOPtest_data_smlsam <- A
+save(wolfCOPtest_data_smlsam, file="wolfCOPtest_data_smlsam.RData")
 
 plot(qnorm(A$probs), A$wolfemp, type="l",
      xlab="Standard normal variate", ylab="Schweizer-Wolff sigma")
