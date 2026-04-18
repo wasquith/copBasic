@@ -3,20 +3,28 @@
 \alias{wolfCOP}
 \title{Schweizer and Wolff Sigma of a Copula}
 \description{
-Compute the \emph{measure of dependency} known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
+Compute the measure of association known as \emph{Schweizer--Wolff Sigma} \eqn{\sigma_\mathbf{C}} of a copula according to Nelsen (2006, p. 209) by
 
 \deqn{\sigma_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl|\mathbf{C}(u,v) - uv\bigr|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 
-which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association is similar, without the positive sign restriction, to the following form of \emph{Spearman Rho} (\code{\link{rhoCOP}}) in terms of a copula:
+which is \eqn{0 \le \sigma_\mathbf{C} \le 1}. It is obvious that this measure of association, without the positive sign restriction, is similar to the following form of \emph{Spearman Rho} (\code{\link{rhoCOP}}) of a copula:
 
 \deqn{\rho_\mathbf{C} = 12\int\!\!\int_{\mathcal{I}^2} \bigl[\mathbf{C}(u,v) - uv\bigr]\,\mathrm{d}u\mathrm{d}v\mbox{.}}
 
 If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.PQD}}), then \eqn{\sigma_\mathbf{C} = \rho_\mathbf{C}}; conversely if a copula is \emph{negatively quadrant dependent} (NQD), then \eqn{\sigma_\mathbf{C} = -\rho_\mathbf{C}}. However, a feature making \eqn{\sigma_\mathbf{C}} especially attractive is that for random variables \eqn{X} and \eqn{Y}, which are not PQD or NQD---copulas that are neither larger nor smaller than \eqn{\mathbf{\Pi}}---is that \dQuote{\eqn{\sigma_\mathbf{C}} is often a better measure of [dependency] than \eqn{\rho_\mathbf{C}}} (Nelsen, 2006, p. 209).
 
-\enc{Úbeda-Flores}{Ubeda-Flores} (2022) studies the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
+\enc{Úbeda-Flores}{Ubeda-Flores} (2022) study the maximum difference between \eqn{\sigma_\mathbf{C} - |\rho_\mathbf{C}| \approx 0.60496} for a special class of singular copula (see \bold{Examples}), but states that it \dQuote{remains an open problem to check if, for any copula \eqn{\mathbf{C}_\Theta},} that the listed maximum is the maximum difference possible.
 
-By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined \emph{cumulative distribution function} is
-\deqn{H(x, y) = F(x)G(x) = \mathbf{C}(u,v) = uv\mbox{.}}
+Li \emph{et al.} (2019) compare \eqn{\sigma_\mathbf{C}} (they label it \eqn{\delta^\mathrm{E}_i}, \dQuote{the extended delta index}) to alternative measures of dependency with emphasis on information content. Those authors also shown that dependence can also be measured by
+
+\deqn{\delta_i = \frac{1}{2}\int\!\!\int_{\mathcal{I}^2} \bigl|c(u,v) - 1|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
+
+where \eqn{c(u,v)} is a \emph{copula density} (\code{\link{densityCOP}}). Li \emph{et al.} (2019, p. 45) \dQuote{measure how much the model output \eqn{Y} and the input \eqn{X_i} are dependent,} and \dQuote{importance of the inputs globally and
+quantitatively with model free and moment independent properties.}
+
+By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined cumulative distribution function is
+
+\deqn{H(x, y) = F(x)G(x) = \mathbf(C)(u,v) = uv\mbox{.}}
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -60,16 +68,18 @@ This composited copula intersects, that is, passes through, the \code{\link{P}} 
    rhoCOP(cop=composite2COP, para=para) # 0.02845131 (theoretical)
   hoefCOP(cop=composite2COP, para=para) # 0.08563823 (theoretical)
 }
-In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \emph{Blomqvist Beta} (\code{\link{blomCOP}}), \emph{Gini Gamma} (\code{\link{giniCOP}}), and \emph{Kendall Tau} (\code{\link{tauCOP}}). Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version of \eqn{\hat{\sigma}_\mathbf{C}} is triggered by
+In fact, the output above also shows Schweizer--Wolff Sigma to be larger than \emph{Blomqvist Beta} (\code{\link{blomCOP}}), \emph{Gini Gamma} (\code{\link{giniCOP}}), and \emph{Kendall Tau} (\code{\link{tauCOP}}). Schweizer--Wolff Sigma has captured the fact that although the symbols plot near randomly on the figure, the symbol coloring for PQD and NQD clearly shows local dependency differences. The sample version of Sigma is triggered by
 \preformatted{
   wolfCOP(para=D, as.sample=TRUE) # 0.09278467 (an example sample)
 }
-with a \emph{Monte Carlo integration} version possibly more suitable as sample size gets large (\eqn{n > 1000}, say) or difficult to integrate copula families located at \code{\link{wolfCOPsamc}}.
+with a Monte Carlo integration version more suitable to very large sample sizes or difficult to integrate copula families located at \code{\link{wolfCOPsamc}}.
 }
 \references{
-\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
+Li, L. Liu, Y., and Lu, Z., 2019, A new dependence measure for importance analysis---Application to an environmental model: Applied Mathematical Modelling, v. 74, pp. 43--61, \doi{10.1016/j.apm.2019.04.046}.
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
+
+\enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, A note on the maximum difference between Schweizer and Wolff's Sigma and the absolute value of Spearman's Rho: Transactions on Fuzzy Sets and Systems, v. 1, no. 2, pp. 1--5.
 }

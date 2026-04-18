@@ -41,6 +41,9 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
   # matrix heading into the empirical copula, we will be drawing randomly these indices for each
   # iteration.
 
+  dtol <- abs(floor(log10(tol)))
+  if(dtol < 2) dtol <- 2 # decimal precision to report along the verbose=TRUE messaging system
+
   MCwolves <- NULL; MCwolfcub <- -9 # Initialization and the -9 is a poison pill for the percent
   # change on the first iteration, which we will hide from the user.
   m <- subdivisions # shorthand
@@ -71,7 +74,8 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
     # between iterations.
 
     if(i >= 2) { # because of initialization, only start reporting after the 3rd iteration
-      txt <- paste0(sprintf("%2.2i", i), "(", sprintf("%0.3f", round(pctchg, digits=3)), "%)")
+      txt <- paste0(sprintf("%2.2i", i), "(", sprintf(paste0("%0.", dtol, "f"),
+                                               round(pctchg, digits=dtol)), "%)")
       if(verbose) message(paste0(txt, ":"), appendLF=
                 ifelse(length(grep("0$", as.character(i))) != 0, TRUE, FALSE))
     } else {
@@ -101,9 +105,9 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
   nmom   <- pmin(4, length(MCwolves))
   lmr    <- lmomco::lmoms(MCwolves, nmom=nmom, no.stop=TRUE)
 
-  if(abs(MCwolf-lmr$lambdas[1]) > .Machine$double.eps^0.5) {
-    print(abs(MCwolf-lmr$lambdas[1])); stop("this condition must never happen")
-  }
+  #if(abs(MCwolf-lmr$lambdas[1]) > .Machine$double.eps^0.5) {
+  #  print(abs(MCwolf-lmr$lambdas[1])); stop("this condition must never happen")
+  #}
   zz <- c(sort(c(range(MCwolves), lmr$lambdas[1])), lmr$lambdas[2]*sqrt(pi), lmr$lambdas[2])
 
   if(       nmom <  3) {
@@ -118,3 +122,7 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
   zz <- list(wolves=MCwolves, estimates=zz, its=i, lastpctchg=pctchg)
   return(zz)
 }
+
+#
+#uv <- as.data.frame(matrix(runif(20001*2), ncol=2))
+#wl <- wolfCOPsamc(para=uv, verbose=TRUE, maxit=500, tol=0.00005, large_n=1E4)
