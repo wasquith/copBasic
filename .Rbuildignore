@@ -13,3 +13,4 @@ code.json
 inst/www/avatar.jpg
 rdchanges.R
 ChangeLog
+inst/make_wolfCOPtest/
