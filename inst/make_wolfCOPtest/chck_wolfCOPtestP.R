@@ -44,12 +44,12 @@ plot(Z$n, Z$logitlam2, log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
 #stop()
 plot(Z$n, Z$logittau3, log="x", cex=log10(Z$nsim)-2.9, col=1)
 #plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1)
-#stop()
+stop()
 
 
 plotlmrdia(lmrdia(), xlim=c(0.05,0.35), ylim=c(0.1,0.20), empty=TRUE,
            xaxs="i", yaxs="i", las=1)
-points(Z$tau3,      Z$tau4,      pch=21, cex=0.8, col="turquoise4", bg="turquoise")
+points(Z$tau3,      Z$tau4,      pch=21, cex=log10(Z$nsim)-2.9, col="turquoise4", bg="turquoise")
 plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg="topleft",
            noaep4=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
            nolimits=TRUE, lwd.cex=2, expand.names=TRUE)
@@ -62,22 +62,49 @@ for(i in seq_len(length(nevels))) {
 }
 
 
-plotlmrdia(lmrdia(), xlim=c(0.05,0.35), ylim=c(0.1,0.20), empty=TRUE,
-           xaxs="i", yaxs="i", las=1)
-points(Z$logittau3, Z$logittau4, pch=21, cex=0.8, col="salmon4",    bg="salmon1"  )
+plotlmrdia(lmrdia(), xlim=c(0.1,0.35), ylim=c(0.11,0.20), empty=TRUE, autoaxes=FALSE,
+           xaxs="i", yaxs="i", lwd.cex=1.3)
+points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-2.9, col="salmon4",    bg="salmon1"  )
+par(las=1)
+xtix <- c(0.07, seq(0.10, 0.35, by=0.05) )
+ytix <- c(0.11, seq(0.12, 0.20, by=0.02) )
+axis(1, at=xtix, labels=sprintf("%0.2f", xtix), lwd=0, lwd.ticks=1)
+axis(3, at=xtix, labels=FALSE, lwd=0, lwd.ticks=1)
+axis(2, at=ytix, labels=sprintf("%0.2f", ytix), lwd=0, lwd.ticks=1)
+axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1)
+xtix <- c(      seq(0.11, 0.34, by=0.01) )
+ytix <- c(      seq(0.11, 0.19, by=0.01) )
+xtix <- as.numeric( xtix[grep("\\d[05]$", sprintf("%0.2f", xtix), invert=TRUE)] )
+axis(1, at=xtix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
+axis(3, at=xtix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
+axis(2, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
+axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
 
 xy <- NULL
-for(n in 3:100) {
+for(n in 3:2000) {
   xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
                              tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
 }
 row.names(xy) <- NULL
 lines( xy[,1], xy[,2], col="wheat2", lwd=2)
-points(xy[,1], xy[,2], col="wheat4", pch=16, cex=0.3)
+xy <- NULL
+for(n in c(3:30, seq(35, 80, by=5))) {
+  xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
+                             tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
+}
+row.names(xy) <- NULL
+points(xy[,1], xy[,2], col="wheat4", pch=17, cex=0.7)
+
+legend("bottomright", c("Predicted L-skew and L-kurtosis by regressions in wolfCOPtest()",
+                        "Weighted mean for a sample size with symbol size scaling to log10 count",
+                        "Mean for sample size or range of sample sizes (not all labeled, see source code"),
+       box.lty=0, inset=0.01, cex=0.9,
+       lty=c(1, NA, NA), lwd=c(2, NA, NA), col=c("wheat2", "salmon4", "black"), pch=c(NA, 21, 16),
+       pt.bg=c(NA, "salmon1", NA), pt.cex=c(NA, 1, 0.5))
 
 plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg="topleft",
            noaep4=TRUE, nogev=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
-           nolimits=TRUE, lwd.cex=2, expand.names=TRUE)
+           nolimits=TRUE, lwd.cex=2, expand.names=TRUE, inset=0.01)
 gno <- lmrdia()$gno; pe3 <- lmrdia()$pe3
 x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2
 x[x < par()$usr[1] | x > par()$usr[2]] <- NA
@@ -137,7 +164,17 @@ for(i in seq_len(length(nevels)-1)) {
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
 
-nevels <- seq(200,2000, by=100)
+nevels <- seq(200,1000, by=100)
+for(i in seq_len(length(nevels)-1)) {
+  wnt <- nevels[i] < Z$n & Z$n < nevels[i+1]
+  txt <- paste0(nevels[i], "-", nevels[i+1])
+  with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
+  #with(Z[wnt,], text(  mean(logittau3), mean(logittau4), txt,
+  #                   pos=3, offset=0.3, cex=0.7, col="grey10"))
+}
+
+
+nevels <- seq(1000,2000, by=1000)
 for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] < Z$n & Z$n < nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
