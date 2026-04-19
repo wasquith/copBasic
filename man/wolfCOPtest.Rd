@@ -10,7 +10,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                   probs=c(0.90, 0.95, 0.98, 0.99, 0.995), ...)
 }
 \arguments{
-  \item{x}{Nonexceedance probabilities \eqn{u} in the \eqn{X} direction if \code{asuv=TRUE}, else data in the \eqn{X} direction for which nonexceedance probabilities will be computed by plotting-position formula. If \code{x} is a single value, it is assumed to be a previously computed \eqn{\sigma_\mathbf{C}} and \code{y} will be considered as the sample size. Note, the statistical estimation is based on samples of \eqn{n \ge 9}, if the sample size is less than this, then internally \eqn{n = 9} is set for the computations;}
+  \item{x}{Nonexceedance probabilities \eqn{u} in the \eqn{X} direction if \code{asuv=TRUE}, else data in the \eqn{X} direction for which nonexceedance probabilities will be computed by plotting-position formula. If \code{x} is a single value, it is assumed to be a previously computed \eqn{\sigma_\mathbf{C}} and \code{y} will be considered as the sample size. Note, the statistical estimation is based on samples of \eqn{n \ge 3}, if the sample size is less than this, then internally \eqn{n = 3} is set for the computations;}
   \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (\code{lmomco::pp()} function);}
   \item{asuv}{Logical identifying whether the \code{x} and \code{y} are already in nonexceedance probabilities or rather such need to be computed internally by plotting-position formula (\code{lmomco::pp()} function);}
   \item{aslist}{Logical to return a list of the test results rather than a vector;}
@@ -20,7 +20,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{...}{Additional arguments to pass to \code{lmomco::pp}.}
 }
 \details{
-The algorithm is based on simulation of \eqn{\mathbf{\Pi}} and computation of the L-moments of a logit transform of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts based on Monte Carlo simulation are located at \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
+The algorithm is based on simulation of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts based on Monte Carlo simulation are located in the directory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
 
 A logit transformation and its inversion are defined as
 \deqn{\eta = \mathrm{log}\biggl(\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}}\biggr)\mbox{\  and}
@@ -31,13 +31,13 @@ A logit transformation and its inversion are defined as
 
 The predicted L-moments are used to drive either generalized normal distribution model (GNO) (\code{lmomco::pargno}, \code{lmomco::cdfgno}, \code{lmomco::quagno}) or Pearson type III (PE3) (\code{lmomco::parpe3}, \code{lmomco::cdfpe3}, \code{lmomco::quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
 
-The switch between approximating distributions occurs at relatively small sample sizes (see internals of \code{wolfCOPtest}). Evidence exists of the decision between these two parametric model based on L-moment ratio diagram evidence and inspection of upper tail from exact sampling distributions (\eqn{n \in 3, \cdots, 25}). The small-sample algorithms are located at \code{inst/} \code{make_wolfCOPtest/}\code{smlsam/} \code{make_}\code{wolfCOPtestP_}\code{smlsam.R}).
+The switch between approximating distributions occurs at relatively small sample sizes (see internals of \code{wolfCOPtest}). Evidence exists of the decision between these two parametric model based on L-moment ratio diagram evidence and inspection of upper tail from empirical sampling distributions (\eqn{n \in 3, \cdots, 30}) (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
 }
 \value{
   The value for \eqn{\sigma_\mathbf{C}} is returned.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}
+\seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest_data_smlsam}}
 }
 \examples{
 uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=6)
@@ -76,3 +76,4 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 \keyword{Pearson type III distribution}
 \keyword{GNO (see generalized normal distribution)}
 \keyword{PE3 (see Pearson type III distribution)}
+\keyword{logit transform}
