@@ -49,6 +49,8 @@ where \eqn{\hat{\mathbf{C}}_n} is the simplest empirical copula of
 \deqn{\hat{\mathbf{C}}_n\biggl(\frac{i}{n}, \frac{j}{n}\biggr) =
 	\frac{1}{n}\{\# \mathrm{\ of\ } (U_k \le U_i, V_k \le V_j)\}}
 
+It is upon this estimator that the extensive simulations leading to \code{\link{wolfCOPtest}} are based.
+
 An extended example is informative. First, declare a composite of two different Plackett copulas (\code{\link{PLcop}}) and simulate a few hundred values:
 \preformatted{
    para <- list(cop1 =PLcop,  cop2=PLcop,
