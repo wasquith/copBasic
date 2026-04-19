@@ -4,8 +4,9 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # The probs are quantile levels of the sigma to report, and these are useful to check against the
   # simulations but also to produce these as critical values should the user be interested in
   # these as well as the p-value.
-  if(is.null(probs))      probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
-  if( length(probs) == 0) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
+  if(is.null(probs)      ) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
+  if( length(probs) == 0 ) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
+  if( length(probs) == "") probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
 
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
     rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- ngiven <- y[1] # and the sample size is in y[1]
@@ -41,10 +42,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.01516218, -1.0959219, 1.07789859, -1.295605478)
-    l2coe <- c(0.13633107, -0.00270431, 0.08863234, -2.181258)
-    t3coe <- c(0.0753184, 0.0064329, 0.16425899, -1.8718758)
-    t4coe <- c(0.12250061, 0.00033172, 0.0449041, -2.647656258)
+    mucoe <- c(-0.01562742, -1.09581144, 1.07826651, -1.29531258)
+    l2coe <- c( 0.13615089, -0.00266698, 0.08868858, -2.174218758)
+    t3coe <- c( 0.07551076,  0.00632286, 0.16391238, -1.86718758)
+    t4coe <- c( 0.12289938,  0.00019976, 0.04448524, -2.658593758)
   # DISABLED } else {
   # DISABLED   # Nonlinear regression coefficients computed PRESS minimization of residuals for the
   # DISABLED   # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
