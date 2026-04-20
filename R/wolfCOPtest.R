@@ -35,17 +35,22 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
   }
 
-  dtype <- ifelse(n <= 10, "gno", "pe3") # based partly on L-moment ratio diagram but also
-  # study of the terminal output of the make_wolfCOPtestP_smlsam.R script and the upper tail.
+  dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chckk_wolfCOPtestP.R
+  # and the L-moment ratio diagram on the logit transform of the sigma, that there is a heuristic
+  # change over from GNO to PE3 at about n=40. HOWEVER ------------------------------------------
+  # Study of the terminal output of the make_wolfCOPtestP_smlsam.R script and the upper tail,
+  # informs us that the PE3 is reaching into the upper tail already better than the GNO by sample
+  # size of 6 to 9 at p-values as fine as 0.001, so we move to the pe3 throughout.
+  dtype <- "pe3"
 
   # DISABLED if(bylogit) {
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.01562742, -1.09581144, 1.07826651, -1.29531258)
-    l2coe <- c( 0.13615089, -0.00266698, 0.08868858, -2.174218758)
-    t3coe <- c( 0.07551076,  0.00632286, 0.16391238, -1.86718758)
-    t4coe <- c( 0.12289938,  0.00019976, 0.04448524, -2.658593758)
+    mucoe <- c(0.0032191, -1.0990487, 1.06320574, -1.316113288)
+    l2coe <- c(0.13839711, -0.00319472, 0.08747338, -2.244921878)
+    t3coe <- c(0.07719095, 0.00595989, 0.16292203, -1.889453138)
+    t4coe <- c(0.12419169, -0.00017232, 0.04373096, -2.758)
   # DISABLED } else {
   # DISABLED   # Nonlinear regression coefficients computed PRESS minimization of residuals for the
   # DISABLED   # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
@@ -62,7 +67,15 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   t3    <- t3coe[1] + t3coe[2] * log10(n) + t3coe[3] * log10(n)^t3coe[4] # Tau3    (L-skew)
   t4    <- t4coe[1] + t4coe[2] * log10(n) + t4coe[3] * log10(n)^t4coe[4] # Tau4    (L-kurtosis)
   lmrs  <- c(mu, l2, t3, t4) # Tidy list of the Lmoments of the logit(Sigma) distribution
-  para  <-  lmomco::lmom2par(lmomco::vec2lmom(c(mu, l2, t3, t4)), type=dtype) # Lmoment ratio diagram shows
+  if(dtype == "gno") {
+    para  <-  lmomco::pargno(lmomco::vec2lmom(c(mu, l2, t3, t4)), useHosking=FALSE)
+  } else if(dtype == "pe3") {
+    para  <-  lmomco::parpe3(lmomco::vec2lmom(c(mu, l2, t3, t4)), useHosking=FALSE)
+  } else {
+    stop("should not be here in logic")
+  }
+
+  # Lmoment ratio diagram shows
   # Really close adherence to a generalized normal distribution (3-parameter log-normal)
   # and hence that distribution is chosen here.
   # DISABLED if(bylogit) {
@@ -93,7 +106,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # We appear to use less system time on system.time(), when we find the file and load it instead
   # of using the data() call.
   smlsam <- system.file("data/wolfCOPtest_data_smlsam.RData", package="copBasic")
-  if(n <= 30 & file.exists(smlsam)) {
+  if(n <= 40 & file.exists(smlsam)) {
     wolfCOPtest_data_smlsam <- NULL # initialize whether or no so R CMD check --as-cran will pass by visibility
     load(smlsam)
     #data(wolfCOPtest_data_smlsam) # importFrom("utils", "data") # in NAMESPACE required
@@ -102,9 +115,9 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     sata <- sata[order(sata$probs),]
     row.names(sata) <- NULL; # print(sata, 16)
     suppressWarnings( nep_small <- approx(sata$wolfemp, y=sata$probs, xout=rwolf)$y )
-    pval_small <- round(1 - nep_small, digits=16); names(pval_small) <- "p.value(sample_le30)"
+    pval_small <- round(1 - nep_small, digits=16); names(pval_small) <- "p.value(sample_le40)"
   } else {
-    pval_small <- NA; names(pval_small) <- "p.value(sample_le30)"
+    pval_small <- NA; names(pval_small) <- "p.value(sample_le40)"
   }
 
   pval <- round(1 - neps, digits=16); names(pval) <- paste0("p.value(dist_", dtype, ")")
