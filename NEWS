@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.12 (2026-NN-NN)
+Changes in version 2.2.12 (2026-04-19)
 -  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
 -  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
      expanded Examples section therein to include a Ubeda-Flores (2022) example.
@@ -10,13 +10,16 @@ Changes in version 2.2.12 (2026-NN-NN)
      achieve much faster computation times as the sample size scales up, which gives
      the original 2015 wolfCOP(as.sample=TRUE) function poor CPU time.
 -  Added experimental wolfCOPtest() as a hypothesis testing against the Independence
-     copula with no known analogs in the literature.
+     copula with no known analogs in the literature. Inclusion of a new directory
+     inst/make_wolfCOPtest/ that contains the build algorithms and output from large
+     simulations conducted therein using the Independence copula.
 -  Minor edits to copBasic-package.Rd to accommodate expansion of Schweizer-Wolff
      Sigma.
 
 
 Changes in version 2.2.11 (2025-11-02)
 -  Extra table ending \cr is now NOTEd in r-devel-linux-x86_64*, so removed the \cr.
+
 
 Changes in version 2.2.10 (2025-11-02)
 -  Added JOMAcop for the Joe-Ma (2000) copula shown in Joe (2014) with changes to the
