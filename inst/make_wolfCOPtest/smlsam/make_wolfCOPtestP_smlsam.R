@@ -13,12 +13,12 @@ d <- 16
 probs <- seq(0.001, 0.999, by=0.001)
 probs <- pnorm(seq(-4.26, 4.26, by=0.02))
 FCORE <- "smlsam_mc_wolfPI"
-
+stop("SAFE STOP")
 H <- NULL
 for(k in 9) {#seq_len(9)) {
   ALLUNI <- NULL
 
-  ns  <- 3:30
+  ns  <- 3:40
   UNI <- NULL
   for(n in ns) {
     OUTFILE <- paste0(FCORE, "_", n, ".txt")

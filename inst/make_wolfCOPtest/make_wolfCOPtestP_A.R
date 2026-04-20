@@ -10,9 +10,9 @@ library(copBasic)
 SHOW_PLOT <- FALSE
 
 FCORE <- "mc_wolfPI"
-RUNNO  <- 95:95
+RUNNO  <- 102:102
 ns <- unique( as.integer( 10^(c(seq(log10(10), log10(1000), by=0.05)) ) ) )
-ns <- rep(c(631,633,635,637,641,643,645,647,653,657,667,669,671,673,675), 4)
+ns <- rep(c(2000), 10)
 #stop()
 for(runno in RUNNO) {
   OUTFILE <- paste0(FCORE, "_", runno, ".txt")

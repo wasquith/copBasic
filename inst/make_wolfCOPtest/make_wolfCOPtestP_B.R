@@ -8,12 +8,6 @@ library(lmomco  )
 library(mgcv    )
 
 # --------------------------------------------------------------------------------------------------
-# Using some text files of the output of several runs (even if incomplete) of make_wolfCOPtestP_A.R
-# with a different intermediate output file name, load some results.
-#D <-          read.table("wolfPI.txt",   header=TRUE)              # from running make_wolfCOPtestP_A.R
-#D <- rbind(D, read.table("wolfPIy.txt",  header=TRUE))             # from running make_wolfCOPtestP_A.R
-#D <- rbind(D, read.table("wolfPIz.txt",  header=TRUE))             # from running make_wolfCOPtestP_A.R
-
 D <- read.table("aa_lapsims.txt",  header=TRUE)
 for(f in list.files(pattern="^mc_wolfPI")) {
   D <- rbind(D, read.table(f, header=TRUE))
@@ -235,10 +229,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, bylogit=TRUE, dtype="gno",
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.01524626, -1.09592416, 1.07797559, -1.295410168)
-    l2coe <- c(0.13651546, -0.00275936, 0.08849981, -2.1843758)
-    t3coe <- c(0.07385001, 0.00678137, 0.16538229, -1.85781258)
-    t4coe <- c(0.12225675, 0.00041096, 0.04507729, -2.63758)
+    mucoe <- c(0.0032191, -1.0990487, 1.06320574, -1.316113288)
+    l2coe <- c(0.13839711, -0.00319472, 0.08747338, -2.244921878)
+    t3coe <- c(0.07719095, 0.00595989, 0.16292203, -1.889453138)
+    t4coe <- c(0.12419169, -0.00017232, 0.04373096, -2.758)
   } else {
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
