@@ -95,7 +95,7 @@ Spearman Footrule \tab \eqn{\psi_\mathbf{C}} \tab \code{\link{footCOP}} \tab biv
 Spearman Rho \tab \eqn{\rho_\mathbf{C}} \tab \code{\link{rhoCOP}} \tab bivariate association\cr
 Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\sigma_\mathbf{C}} \tab \code{\link{wolfCOP}} \tab bivariate association\cr
 Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\hat\sigma_\mathbf{C}} \tab \code{\link{wolfCOPsamc}} \tab bivariate association\cr
-Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\mathrm{NULL}{:}\sigma_\mathbf{C}{=}\mathbf{\Pi}} \tab \code{\link{wolfCOPtest}} \tab bivariate association\cr
+Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\sigma_\mathbf{C}{=}\mathbf{\Pi}} \tab \code{\link{wolfCOPtest}} \tab bivariate association\cr
 Density of a copula\tab \eqn{c(u,v)} \tab \code{\link{densityCOP}} \tab copula density\cr
 Density visualization \tab \eqn{{-}{-}} \tab \code{\link{densityCOPplot}} \tab copula density\cr
 Empirical copula \tab \eqn{\mathbf{C}_n(u,v)} \tab \code{\link{EMPIRcop}} \tab copula\cr
@@ -257,7 +257,7 @@ Thus, a \dQuote{better understanding of the statistical characteristics of [mult
 
 \bold{Interaction of copBasic to the Copulas and Features of Other Packages}
 
-The \pkg{copBasic} package (\emph{c.} 2008--11) was not originally intended to be a port of the numerous bivariate copulas or over re-implementation other bivariate copulas available in \R, but in support of didactic and teaching efforts. Though as the package passed its 10th year in 2018, the original intent changed to a more generalized purpose as more copula were added and other features by request. It is useful to point out a demonstration showing an implementation of the \emph{Gaussian copula} from the \pkg{copula} package, which is shown in the \bold{Note} section of \code{\link{med.regressCOP}} in a circumstance of ordinary least squares linear regression compared to \emph{median regression} of a copula as well as prediction limits of both regressions. Another demonstration in context of \emph{maximum pseudo-log-likelihood estimation} of copula parameters is seen in the \bold{Note} section \code{\link{mleCOP}}, and also see \dQuote{\bold{API to the copula package}} or \dQuote{\bold{package copula (comparison to)}} entries in the Index of this user manual.
+The \pkg{copBasic} package (\emph{c.}2008--11) was not originally intended to be a port of the numerous bivariate copulas or over reimplementation other bivariate copulas available in \R, but in support of didactic and teaching efforts. Though as the package passed its 10th year in 2018, the original intent changed to a more generalized purpose as more copula were added and other features by request. It is useful to point out a demonstration showing an implementation of the \emph{Gaussian copula} from the \pkg{copula} package, which is shown in the \bold{Note} section of \code{\link{med.regressCOP}} in a circumstance of ordinary least squares linear regression compared to \emph{median regression} of a copula as well as prediction limits of both regressions. Another demonstration in context of \emph{maximum pseudo-log-likelihood estimation} of copula parameters is seen in the \bold{Note} section \code{\link{mleCOP}}, and also see \dQuote{\bold{API to the copula package}} or \dQuote{\bold{package copula (comparison to)}} entries in the Index of this user manual.
 
 \if{html}{\figure{CopulaRelationsFigure4pkg.jpg}}
 \if{latex}{\figure{CopulaRelationsFigure4pkg.pdf}{options: width=4in, trim=1in 2.25in 0.75in 1in, clip}}

@@ -17,14 +17,14 @@ If a copula is \emph{positively quadrant dependent} (PQD, see \code{\link{isCOP.
 
 Li \emph{et al.} (2019) compare \eqn{\sigma_\mathbf{C}} (they label it \eqn{\delta^\mathrm{E}_i}, \dQuote{the extended delta index}) to alternative measures of dependency with emphasis on information content. Those authors also shown that dependence can also be measured by
 
-\deqn{\delta_i = \frac{1}{2}\int\!\!\int_{\mathcal{I}^2} \bigl|c(u,v) - 1|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
+\deqn{\delta_i = \frac{1}{2}\int\!\!\int_{\mathcal{I}^2} \bigl|c(u,v) - 1\bigr|\,\mathrm{d}u\mathrm{d}v\mbox{,}}
 
 where \eqn{c(u,v)} is a \emph{copula density} (\code{\link{densityCOP}}). Li \emph{et al.} (2019, p. 45) \dQuote{measure how much the model output \eqn{Y} and the input \eqn{X_i} are dependent,} and \dQuote{importance of the inputs globally and
 quantitatively with model free and moment independent properties.}
 
 By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined cumulative distribution function is
 
-\deqn{H(x, y) = F(x)G(x) = \mathbf(C)(u,v) = uv\mbox{.}}
+\deqn{H(x, y) = F(x)G(x) = \mathbf{C}(u,v) = uv\mbox{.}}
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)

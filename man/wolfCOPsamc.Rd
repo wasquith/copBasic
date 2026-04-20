@@ -11,8 +11,8 @@ for which the integrals in the above formula are replaced with Monte Carlo integ
 }
 \usage{
 wolfCOPsamc(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
-           tol=0.005, minit=10, maxit=100, subdivisions=200, large_n=5E3,
-           trace=FALSE, verbose=FALSE, ...)
+            tol=0.005, minit=10, maxit=100, subdivisions=200, large_n=5E3,
+            trace=FALSE, verbose=FALSE, ...)
 }
 \arguments{
   \item{u}{Optional nonexceedance probability \eqn{u} in the \eqn{X} direction. This argument can also by a two-column data frame from which the \code{para} argument to \code{\link{EMPIRcop}} (if \code{cop=EMPIRcop}) is internally constructed;}
@@ -32,12 +32,12 @@ wolfCOPsamc(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
 \value{
   A list of the Monte Carlo integration results is returned containing
 \item{wolves}{A vector of the \eqn{\sigma_\mathbf{C}} by iteration;}
-\item{estimates}{The minimum, mean (the formal estimate \eqn{\hat\sigma_\mathbf(C)}), maximum, standard deviation (computed from second L-moment), L-scale (second L-moment), L-skew, and L-kurtosis of the \code{wolves};}
+\item{estimates}{The minimum, mean (the formal estimate \eqn{\hat\sigma_\mathbf{C}}), maximum, standard deviation (computed from second L-moment), L-scale (second L-moment), L-skew, and L-kurtosis of the \code{wolves};}
 \item{its}{Number of iterations before termination by \code{maxits} or upon reaching \code{tol};}
 \item{lastpctchg}{The percent change on the last iteration.}
 }
 \note{
-Beyond about 1,000 sample sizes \code{wolfCOP(as.sample=TRUE)} scales in time very poorly, so we seen in the following recipe the giant increase in speed at a small cost in precision on the Schweizer-Wolff Sigma estimate.
+Beyond about 1,000 sample sizes \code{wolfCOP(as.sample=TRUE)} scales in time poorly, so we see in the following recipe the giant increase in speed at a small cost in precision on the Schweizer--Wolff Sigma estimate.
 \preformatted{
   UV <- simCOP(3000, cop=CLcop, para=3, graphics=FALSE, seed=473)
   theowolf <- wolfCOP( cop=CLcop, para=3) # 0.7864391
@@ -50,7 +50,7 @@ Beyond about 1,000 sample sizes \code{wolfCOP(as.sample=TRUE)} scales in time ve
 }
 
 
-If one wanted to make some comparisons of computed results between \code{\link{wolfCOP}} and the \code{wolfCOPsamc}, the following recipe, with a suitably large sample size, that we see a general spread around the equal value line. The use of the Monte Carlo integration approach is not advised when computational speed of \code{\link{wolfCOP}} is sufficient.
+If one wanted to make some comparisons of computed results between \code{\link{wolfCOP}} and \code{wolfCOPsamc}, the following recipe, with a suitably large sample size, that we see a general spread around the equal value line. The use of Monte Carlo integration approach is not advised when computational speed of \code{\link{wolfCOP}} is sufficient.
 \preformatted{
   nsam <- 1000; nsim <- 20; wolf <- mcwolf <- rep(NA, length=nsim)
   for(i in seq_len(nsim)) {
