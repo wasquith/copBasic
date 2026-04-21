@@ -77,9 +77,10 @@ for(i in seq_len(length(nevels))) {
 }
 
 
-pdf("wolfCOPlogitTau34.pdf", useDingbats=FALSE)
+pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
 plotlmrdia(lmrdia(), xlim=c(0.1,0.35), ylim=c(0.11,0.20), empty=TRUE, autoaxes=FALSE,
            xaxs="i", yaxs="i", lwd.cex=1.3)
+mtext("L-moment Ratio Diagram of Logit Transformation of Simulated Schweizer–Wolff Sigma\nfrom Monte Carlo Using the Independence Copula", line=1, cex=0.9, font=2)
 par(las=1)
 xtix <- c(0.07, seq(0.10, 0.35, by=0.05) )
 ytix <- c(0.11, seq(0.12, 0.20, by=0.02) )
@@ -110,12 +111,12 @@ for(n in c(3:14)) {
 row.names(xy) <- NULL
 points(xy[,1], xy[,2], col="wheat4", pch=17, cex=0.8)
 
-txt <- c("Predicted logits of Tau3 and Tau4\nby regressions in wolfCOPtest()",
-         "Predictions for near plotting sample sizes\n(n 3-14 plotted)",
-         "Weighted mean for a sample size with\nsymbol size scaling to log10 count",
-         "Mean for sample size or range of sample\nsizes (not all labeled, see source code)",
-         "Weighted mean for samples size\nwithin the range 1,000-3,000")
-par(lheight=0.8)
+txt <- c("Predicted Tau3 and Tau4 logits\n  by regressions within wolfCOPtest(...)",
+         "Predictions for the near plotting sample\n  sizes (n = 3-14 plotted)",
+         "Weighted mean for a sample size with\n  symbol size scaling to log10 count",
+         "Mean for sample size or range of sample\n  sizes (not all labeled, by 100s to 1,000)",
+         "Weighted mean for samples size\n  within the range 1,000-3,000")
+par(lheight=0.85)
 legend("bottomright", txt,
        box.lty=0, inset=0.01, cex=0.8, y.intersp=1.6, adj=c(0, 0.8),
        lty=c(1, NA, NA, NA, NA), lwd=c(2, NA, NA, NA, NA),
@@ -191,7 +192,7 @@ for(i in seq_len(length(nevels)-1)) {
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
 
-nevels <- seq(100,200, by=100)
+nevels <- seq(100,300, by=100)
 for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
@@ -200,7 +201,7 @@ for(i in seq_len(length(nevels)-1)) {
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
 
-nevels <- seq(200,1000, by=100)
+nevels <- seq(300,1000, by=100)
 for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
