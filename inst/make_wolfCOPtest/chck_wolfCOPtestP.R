@@ -3,6 +3,12 @@ setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 library(copBasic)
 library(lmomco)
 
+#n_at_minLam1 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[1])$par
+#n_at_minLam2 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[2])$par
+n_at_minTau3 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[3])$par
+#n_at_minTau4 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[4])$par
+n_at_minTau3 <- 3000
+
 files <- sort(list.files(pattern="^mc_wolfPI"))
 D <- read.table("aa_lapsims.txt",  header=TRUE)
 for(f in list.files(pattern="^mc_wolfPI")) {
@@ -67,7 +73,7 @@ axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
 points(Z$tau3,      Z$tau4,      pch=21, cex=log10(Z$nsim)-2.9, col="turquoise4", bg="turquoise")
 plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg="topleft",
            noaep4=TRUE, nogev=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
-           nolimits=TRUE, lwd.cex=2, expand.names=TRUE)
+           nolimits=TRUE, lwd.cex=2, expand.names=TRUE, legendcex=0.7)
 nevels <- seq(3,14, by=1)
 for(i in seq_len(length(nevels))) {
   wnt <- nevels[i] == Z$n
@@ -95,16 +101,17 @@ axis(1, at=xtix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
 axis(3, at=xtix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
 axis(2, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
 axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
-points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-2.9, col="salmon4",    bg="salmon1"  )
+points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-3, col="salmon4",    bg="salmon1"  )
 xy <- NULL
-for(n in c(3:100, seq(100,3000, by=100))) {
+ns <- sort(unique(c(3:99, n_at_minTau3, 10^seq(2, log10(n_at_minTau3), by=0.1))))
+for(n in ns) {
   xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
                              tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
 }
 row.names(xy) <- NULL
 lines( xy[,1], xy[,2], col="wheat2", lwd=2)
 xy <- NULL
-for(n in c(3:14)) {
+for(n in c(3:14, 17, 19, 25)) {
   xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
                              tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
 }
@@ -112,13 +119,13 @@ row.names(xy) <- NULL
 points(xy[,1], xy[,2], col="wheat4", pch=17, cex=0.8)
 
 txt <- c("Predicted Tau3 and Tau4 logits\n  by regressions within wolfCOPtest(...)",
-         "Predictions for the near plotting sample\n  sizes (n = 3-14 plotted)",
+         "Predictions for the near plotting sample\n  sizes (n = 3-14,17,19,25 plotted)",
          "Weighted mean for a sample size with\n  symbol size scaling to log10 count",
          "Mean for sample size or range of sample\n  sizes (not all labeled, by 100s to 1,000)",
          "Weighted mean for samples size\n  within the range 1,000-3,000")
 par(lheight=0.85)
 legend("bottomright", txt,
-       box.lty=0, inset=0.01, cex=0.8, y.intersp=1.6, adj=c(0, 0.8),
+       box.lty=0, inset=0.01, cex=0.7, y.intersp=1.6, adj=c(0, 0.8),
        lty=c(1, NA, NA, NA, NA), lwd=c(2, NA, NA, NA, NA),
        col=c("wheat2", "wheat4", "salmon4", "black", "black"),
        pch=c(NA, 17, 21, 16, 21), pt.lwd=c(1, 1, 1, 1, 1.21),
@@ -128,12 +135,13 @@ par(lheight=1)
 plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg="topleft",
            noaep4=TRUE, nogev=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
            nolimits=TRUE, lwd.cex=2, expand.names=TRUE, inset=0.01, legendcex=0.8)
-gno <- lmrdia()$gno; pe3 <- lmrdia()$pe3
-x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2
-x[x < par()$usr[1] | x > par()$usr[2]] <- NA
-y[y < par()$usr[1] | y > par()$usr[2]] <- NA
-lines(x, y, lty=3)
 
+gno <- lmrdia(usrtrim=TRUE)$gno; pe3 <- lmrdia(usrtrim=TRUE)$pe3
+x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2
+#x[x < par()$usr[1] | x > par()$usr[2]] <- NA
+#y[y < par()$usr[1] | y > par()$usr[2]] <- NA
+lines(x, y, lty=4, col="deepskyblue3")
+text(0.305, 0.1775, "Halfway between the\ntwo distributions", srt=44, cex=0.9, col="deepskyblue3")
 
 
 nevels <- seq(1000, 3000, by=2000)
@@ -141,7 +149,7 @@ for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim),
-                       pch=21, cex=1.8, col="black", bg="white", lwd=1.21))
+                       pch=21, cex=1.2, col="black", bg="white", lwd=1.21))
   #with(Z[wnt,], text(  mean(logittau3), mean(logittau4), txt,
   #                   pos=3, offset=0.3, cex=0.7, col="grey10"))
 }
@@ -152,14 +160,18 @@ for(i in seq_len(length(nevels))) {
   wnt <- nevels[i] == Z$n
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), nevels[i],
+                     pos=1, offset=0.26, cex=0.7, col="grey95", font=2))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), nevels[i],
                      pos=1, offset=0.3, cex=0.7, col="grey10", font=2))
 }
 
 nevels <- seq(16,20, by=2)
 for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
-  txt <- paste0(nevels[i], "-", nevels[i+1])
+  txt <- paste0(nevels[i],   "-",  nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
+                     adj=c(1.15, 0.38), offset=0.3, cex=0.7, col="grey95", font=2, srt=90))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
@@ -169,6 +181,8 @@ for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
+                     adj=c(1.15, 0.38), offset=0.3, cex=0.7, col="grey95", font=2, srt=90))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
@@ -180,6 +194,8 @@ for(i in seq_len(length(nevels)-1)) {
   txt <- paste0(nevels[i], "-", nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
+                     adj=c(1.15, 0.38), offset=0.3, cex=0.7, col="grey95", font=2, srt=90))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
 
@@ -189,6 +205,8 @@ for(i in seq_len(length(nevels)-1)) {
   txt <- paste0(nevels[i], "-", nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
+                     adj=c(1.15, 0.38), offset=0.3, cex=0.7, col="grey95", font=2, srt=90))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
 
@@ -197,6 +215,8 @@ for(i in seq_len(length(nevels)-1)) {
   wnt <- nevels[i] <= Z$n & Z$n <= nevels[i+1]
   txt <- paste0(nevels[i], "-", nevels[i+1])
   with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), pch=16, cex=0.5))
+  with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
+                     adj=c(1.15, 0.38), offset=0.3, cex=0.7, col="grey95", font=2, srt=90))
   with(Z[wnt,], text(  weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim), txt,
                      adj=c(1.15, 0.5), offset=0.3, cex=0.7, col="grey10", font=2, srt=90))
 }
@@ -209,5 +229,7 @@ for(i in seq_len(length(nevels)-1)) {
   #with(Z[wnt,], text(  mean(logittau3), mean(logittau4), txt,
   #                   pos=3, offset=0.3, cex=0.7, col="grey10"))
 }
-text(0.305, 0.1775, "Halfway between the\ntwo distributions", srt=44, cex=0.9)
+
+
+
 dev.off()
