@@ -35,7 +35,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
   }
 
-  dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chckk_wolfCOPtestP.R
+  dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chck_wolfCOPtestP.R
   # and the L-moment ratio diagram on the logit transform of the sigma, that there is a heuristic
   # change over from GNO to PE3 at about n=40. HOWEVER ------------------------------------------
   # Study of the terminal output of the make_wolfCOPtestP_smlsam.R script and the upper tail,
@@ -47,10 +47,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(0.0032191, -1.0990487, 1.06320574, -1.316113288)
-    l2coe <- c(0.13839711, -0.00319472, 0.08747338, -2.244921878)
-    t3coe <- c(0.07719095, 0.00595989, 0.16292203, -1.889453138)
-    t4coe <- c(0.12419169, -0.00017232, 0.04373096, -2.758)
+    mucoe <- c(-0.00495326, -1.09756265, 1.06987736, -1.30781258)
+    l2coe <- c(0.13767621, -0.00299843, 0.08801107, -2.229492198)
+    t3coe <- c(0.07968628, 0.00539535, 0.16098291, -1.916406258)
+    t4coe <- c(0.12410138, -0.00012268, 0.0437761, -2.7531258)
   # DISABLED } else {
   # DISABLED   # Nonlinear regression coefficients computed PRESS minimization of residuals for the
   # DISABLED   # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
