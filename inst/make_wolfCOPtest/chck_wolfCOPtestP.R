@@ -16,7 +16,7 @@ for(f in list.files(pattern="^mc_wolfPI")) {
 }
 D <- D[order(D$n),]
 D <- D[complete.cases(D),]
-write.table(D, file="aa_macmini.txt", sep="\t", row.names=FALSE, quote=FALSE)
+write.table(D, file="aa_allsims.txt", sep="\t", row.names=FALSE, quote=FALSE)
 
 h <- aggregate(D, by=list(D$n), length)
 print(paste0(h$Group.1[h$nsim < 3], collapse=","))
@@ -49,13 +49,13 @@ plot(Z$n, Z$logitmu,   log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
 plot(Z$n, Z$logitlam2, log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
 #stop()
 plot(Z$n, Z$logittau3, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.35))
-#plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.20))
+plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.20))
 #stop()
 
 
 plotlmrdia(lmrdia(), xlim=c(0.1,0.35), ylim=c(0.1,0.20), empty=TRUE, autoaxes=FALSE,
            xaxs="i", yaxs="i", lwd.cex=1.3)
-par(las=1)#11768000
+par(las=1)
 xtix <- c(0.07, seq(0.10, 0.35, by=0.05) )
 ytix <- c(0.11, seq(0.12, 0.20, by=0.02) )
 axis(1, at=xtix, labels=sprintf("%0.2f", xtix), lwd=0, lwd.ticks=1)
@@ -136,10 +136,10 @@ plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg=
            noaep4=TRUE, nogev=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
            nolimits=TRUE, lwd.cex=2, expand.names=TRUE, inset=0.01, legendcex=0.8)
 
-gno <- lmrdia(usrtrim=TRUE)$gno; pe3 <- lmrdia(usrtrim=TRUE)$pe3
-x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2
-#x[x < par()$usr[1] | x > par()$usr[2]] <- NA
-#y[y < par()$usr[1] | y > par()$usr[2]] <- NA
+gno <- lmrdia()$gno; pe3 <- lmrdia()$pe3
+x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2; suppressWarnings( rm(gno, pe3))
+x[x < par()$usr[1] | x > par()$usr[2]] <- NA
+y[y < par()$usr[1] | y > par()$usr[2]] <- NA
 lines(x, y, lty=4, col="deepskyblue3")
 text(0.305, 0.1775, "Halfway between the\ntwo distributions", srt=44, cex=0.9, col="deepskyblue3")
 
