@@ -15,6 +15,7 @@ Changes in version 2.2.12 (2026-04-19)
      simulations conducted therein using the Independence copula.
 -  Minor edits to copBasic-package.Rd to accommodate expansion of Schweizer-Wolff
      Sigma.
+-  Completed a spelling check sweep across the .Rd files.
 
 
 Changes in version 2.2.11 (2025-11-02)
