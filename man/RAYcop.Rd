@@ -26,7 +26,7 @@ RAYcop(u, v, para=NULL, rho=NULL, method=c("default"),
   Value(s) for the copula are returned.
 }
 \note{
-Documentation in Zeng and others [Part II] appear to have corrected the Marcum-Q function solution to the copula. The essence of that solution is with a Chi-distribution computation the Marcum-Q. Testing indictates that they have the correct solution, but the derivative for the conditional simulation as built into the design of \pkg{copBasic} has difficulties. Perhaps this is related to numerical precision of the Marcum-Q?
+Documentation in Zeng and others [Part II] appear to have corrected the Marcum-Q function solution to the copula. The essence of that solution is with a Chi-distribution computation the Marcum-Q. Testing indicates that they have the correct solution, but the derivative for the conditional simulation as built into the design of \pkg{copBasic} has difficulties. Perhaps this is related to numerical precision of the Marcum-Q?
 \preformatted{
   sapply(seq_len(length((u))), function(i) {
     a1 <- -log(1-u[i])

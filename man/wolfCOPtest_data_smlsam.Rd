@@ -17,8 +17,40 @@ An \R \code{data.frame} titled \code{wolfCOPtest_data_smlsam} with
   \item{wolfemp}{Value for \eqn{\hat\sigma_\mathbf{C}} (\code{\link{wolfCOP}});}
 }
 }
+\seealso{\code{\link{wolfCOPtest}}}
 \examples{
 data(wolfCOPtest_data_smlsam)
+
+\dontrun{
+  # Demonstrate the empirical distributions of Schweizer-Wolff against a parametric
+  # distribution model. We see quite quickly that the distribution model mimics
+  # the empirical distribution at quite small sample sizes.
+  data("wolfCOPtest_data_smlsam")
+  ff <- pnorm(seq(-3, 3, by=0.1))
+  plot(c(-3, 3), c(0,1), type="n", xlab="Standard normal variate",
+       ylab="Schweizer-Wolff Sigma given C(u,v)=PI")
+  ns <- c(3, 5, 10, 20, 40)
+  for(n in ns) {
+    sata <- wolfCOPtest_data_smlsam[wolfCOPtest_data_smlsam$n == n,]
+    lines(qnorm(sata$probs), sata$wolfemp, col="red", lwd=2)
+  }
+  ns <- c(3, 4, 5, 7, 10, 15, 20, 30, 40, 50, 70, 100, 130, 200, 500, 1000, 5000)
+  for(n in ns) {
+    wt   <- wolfCOPtest(wolf, n) # next isolate the distribution type
+    type <- gsub("\\)$", "", gsub("p.value\\(dist_", "", names(wt$p.value)[1]))
+    para <- lmomco::vec2par(wt$distpara_by_lmoms, type=type) # type == pe3
+    qq   <- 1/(1 + exp(-qlmomco(ff, para)))
+    lines(qnorm(ff), qq, col="blue")
+    text(0, 1/(1 + exp(-qlmomco(0.5, para))), n, cex=0.8, font=2)
+  }
+  par(lheight=0.8)
+  txt <- c(paste0(lmomco::prettydist(type), " model by estimated L-moments\n",
+                  "of Sigma distribution for select sample sizes"),
+           paste0("Empirical distribution for select sample sizes\n",
+                  "in wolfCOPtest_data_smlsam data object"))
+  legend("topleft", txt, box.lty=0, inset=0.01, cex=0.8, adj=c(0, 0.8),
+         y.intersp=1.6, lwd=c(1,2), col=c("blue", "red"), bg=NA)
+  par(lheight=1) #}
 
 \dontrun{
   W <- seq(0, 1, by=0.005) # Span all Schweizer-Wolff Sigma. If the first argument to
@@ -36,3 +68,6 @@ data(wolfCOPtest_data_smlsam)
 }
 \keyword{datasets}
 \keyword{Schweizer and Wolff Sigma}
+\keyword{Pearson type III distribution}
+\keyword{PE3 (see Pearson type III distribution)}
+\keyword{logit transform}

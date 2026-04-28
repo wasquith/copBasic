@@ -136,7 +136,7 @@ hoefCOP(cop=EMPIRcop,   para=uv, ctype="checkerboard")          # 0.4952427}
 # variable uv. It is suggested to not run with a sample size much larger than the
 # above n=34 if the Bernstein comparison is intended (wanted) simply because of
 # lengthy(!) run times, but the n=34 does provide a solid demonstration how the
-# level curves for berstein weights are quite smooth.
+# level curves for Berstein weights are quite smooth.
 
 \dontrun{
 # Now let us construct as many as three sets of level curves to the sample

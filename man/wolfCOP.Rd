@@ -83,6 +83,8 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
 \enc{Póczos}{Poczos}, \enc{Barnabás}{Barnabas}, Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
+Schweizer, B., and Wolff, E.F., 1981, On nonparametric measures of dependence for random variables: The Annuals of Statistics, v. 9, no. 4, pp. 879--855, \url{https://www.jstor.org/stable/2240856}.
+
 \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, A note on the maximum difference between Schweizer and Wolff's Sigma and the absolute value of Spearman's Rho: Transactions on Fuzzy Sets and Systems, v. 1, no. 2, pp. 1--5.
 }
 \author{W.H. Asquith}
