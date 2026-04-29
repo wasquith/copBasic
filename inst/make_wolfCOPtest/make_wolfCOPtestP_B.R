@@ -51,6 +51,13 @@ row.names(Z) <- NULL
 #Z <- Z[Z$tau3 < 0.235,]
 #Z <- Z[Z$tau4 < 0.18,]
 
+AUX <- read.table("wolfCOPaux_A.txt", sep="\t", header=TRUE)
+AUX$wgts <- sqrt(AUX$nsim); AUX$wgts <- AUX$wgts/sum(AUX$wgts) * length(AUX$wgts)
+AUX <- merge(Z, AUX, all=TRUE)
+AUX <- AUX[order(AUX$n),]
+
+Z <- AUX
+
 
 plotlmrdia(lmrdia(), xlim=c(0.05, 0.3), ylim=c(0.1, 0.20), empty=TRUE)
 points(Z$tau3,      Z$tau4,       pch=21, col="turquoise4", bg="turquoise1", lwd=0.6, cex=sqrt(Z$wgts))
