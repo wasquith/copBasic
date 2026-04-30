@@ -36,12 +36,12 @@ data(wolfCOPtest_data_smlsam)
   }
   ns <- c(3, 4, 5, 7, 10, 15, 20, 30, 40, 50, 70, 100, 130, 200, 500, 1000, 5000)
   for(n in ns) {
-    wt   <- wolfCOPtest(wolf, n) # next isolate the distribution type
+    wt   <- wolfCOPtest(0, n) # next isolate the distribution type
     type <- gsub("\\)$", "", gsub("p.value\\(dist_", "", names(wt$p.value)[1]))
     para <- lmomco::vec2par(wt$distpara_by_lmoms, type=type) # type == pe3
-    qq   <- 1/(1 + exp(-qlmomco(ff, para)))
+    qq   <- 1/(1 + exp(-lmomco::qlmomco(ff, para)))
     lines(qnorm(ff), qq, col="blue")
-    text(0, 1/(1 + exp(-qlmomco(0.5, para))), n, cex=0.8, font=2)
+    text(0, 1/(1 + exp(-lmomco::qlmomco(0.5, para))), n, cex=0.8, font=2)
   }
   par(lheight=0.8)
   txt <- c(paste0(lmomco::prettydist(type), " model by estimated L-moments\n",

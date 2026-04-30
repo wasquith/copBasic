@@ -43,15 +43,15 @@ uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=8)  # approx p-value 0.001
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 
 uv <- simCOP(n=62, cop=P,   graphics=FALSE, seed=8)
-wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.3
+wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.2
 # Note, the small sample p-values are NA for the two previous computations because the
 # sample size has become "large", but in the next example, we can have a look at the two
 # p-values by the Pearson type III distribution to the predicted L-moments for the sample
 # size and then the small-sample empirical tables in object wolfCOPtest_data_smlsam.
-uv <- simCOP(n=13, cop=P,   graphics=FALSE, seed=8)
+uv <- simCOP(n=13, cop=P,   graphics=FALSE, seed=81)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 #   p.value(dist_pe3) p.value(sample_le40)
-#           0.2529151            0.2493159
+#           0.2551848            0.2514400
 
 \dontrun{
   optim(1000, function(n) wolfCOPtest(0,n)$lmoms_logit_sigma[3])$par
