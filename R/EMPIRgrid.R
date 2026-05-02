@@ -1,5 +1,5 @@
 "EMPIRgrid" <-
-function(para=NULL, deluv=0.05, verbose=FALSE, ...) {
+function(para=NULL, deluv=0.05, verbose=FALSE, gridonly=FALSE, ...) {
 
   if(is.null(para)) {
     warning("parameters (the observed u and v) for empirical copula are NULL")
@@ -29,7 +29,7 @@ function(para=NULL, deluv=0.05, verbose=FALSE, ...) {
 
   rownames(cop) <- as.character(us)
   colnames(cop) <- as.character(vs)
-
+  if(gridonly) return(cop)
   zzz <- list(u=us, v=us, empcop=cop, deluv=deluv)
   return(zzz)
 }
