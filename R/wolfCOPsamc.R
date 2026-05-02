@@ -1,13 +1,13 @@
 "wolfCOPsamc" <-
 function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
          tol=0.005, minit=10, maxit=100, subdivisions=200, large_n=5E3,
-         trace=FALSE, verbose=FALSE, ...) {
+         includelmoms=FALSE, trace=FALSE, verbose=FALSE, ...) {
 
   if(is.null(para)) {
     if(is.null(v)) {
-      para <- u
+      para <- as.data.frame(u)
     } else {
-      para <- data.frame(u=u, v=v)
+      pa?ra <- data.frame(u=u, v=v)
     }
   }
 
@@ -56,7 +56,7 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
     if(a > nrow(RT) | b > nrow(RT) | (b - a)+1 < m) { # Silently enter into random number generation
       # print(c("resampling", a, b, m))               # if we have run out of precomputed MC values
       rt <- matrix(runif(m*2), ncol=2)                # in the RT. Defaults settings should be good
-    } else {                                          # enought that this seldom occurs in practice.
+    } else {                                          # enough that this seldom occurs in practice.
       #print(c(a,b, nrow(RT)))
       rt <- RT[a:b,] # subset the RT to those indices of the current iteration
     }
@@ -68,8 +68,8 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
       mcwolf <- 12 * sum(sapply(rt[,2], function(v) { # Here, we can sneak in cop=Copula Family
                sum(abs(cop(rt[,1],  v, para=para,      ...) - rt[,1] * v )) }) ) / (m^2 - 1)
     }
-    MCwolves <- c(MCwolves, mcwolf) # A growing vector of the Schweizer-Wolff sigmas
-    MCwolf   <- mean(MCwolves)      # Compute the grand mean of the growing sample size of sigmas
+    MCwolves <-    c(MCwolves, mcwolf) # A growing vector of the Schweizer-Wolff sigmas
+    MCwolf   <- mean(MCwolves)         # Compute the grand mean of the growing sample size of sigmas
     pctchg   <- abs( 100 * (MCwolf - MCwolfcub) / MCwolfcub ) # Absolute percent change in mean
     # between iterations.
 
@@ -102,27 +102,60 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
   }
   if(verbose) message("done")
 
-  nmom   <- pmin(4, length(MCwolves))
-  lmr    <- lmomco::lmoms(MCwolves, nmom=nmom, no.stop=TRUE)
+  nmom     <- pmin(5, length(   MCwolves))
+  lmr      <- lmomco::lmoms(    MCwolves,               nmom=nmom, no.stop=TRUE)
 
   #if(abs(MCwolf-lmr$lambdas[1]) > .Machine$double.eps^0.5) {
   #  print(abs(MCwolf-lmr$lambdas[1])); stop("this condition must never happen")
   #}
-  zz <- c(sort(c(range(MCwolves), lmr$lambdas[1])), lmr$lambdas[2]*sqrt(pi), lmr$lambdas[2])
-
-  if(       nmom <  3) {
-    zz <- c(zz, NA, NA)
-  } else if(nmom == 3) {
-    zz <- c(zz, lmr$ratios[3], NA)
-  } else if(nmom >= 4) {
-    zz <- c(zz, lmr$ratios[3:4])
+  yy <- c(sort(c(range(MCwolves), lmr$lambdas[1])))
+  names(yy) <- c("min", "mean", "max")
+  if(includelmoms) {
+    yy <- c(yy, (lmr$lambdas[2]*sqrt(pi))^2, lmr$lambdas[2])
+    if(       nmom <  3) {
+      yy <- c(yy, NA, NA, NA)
+    } else if(nmom == 3) {
+      yy <- c(yy, lmr$ratios[3], NA, NA)
+    } else if(nmom == 4) {
+      yy <- c(yy, lmr$ratios[3:4], NA)
+    } else if(nmom >= 5) {
+      yy <- c(yy, lmr$ratios[3:5])
+    }
+    names(yy) <- c("min", "mean", "max", "var", "lscale", "tau3", "tau4", "tau5")
   }
 
-  names(zz) <- c("min", "mean", "max", "stdev", "lscale", "lskew", "lkurtosis")
-  zz <- list(wolves=MCwolves, estimates=zz, its=i, lastpctchg=pctchg)
+  lmr <- lmomco::lmoms(log(MCwolves/(1-MCwolves)), nmom=nmom, no.stop=TRUE)
+  zz <- c(sort(c(range(log(MCwolves/(1-MCwolves))), lmr$lambdas[1])))
+  print(zz)
+  names(zz) <- c("min", "mean", "max")
+  if(includelmoms) {
+    zz <- c(zz, (lmr$lambdas[2]*sqrt(pi))^2, lmr$lambdas[2])
+    if(       nmom <  3) {
+      zz <- c(zz, NA, NA, NA)
+    } else if(nmom == 3) {
+      zz <- c(zz, lmr$ratios[3], NA, NA)
+    } else if(nmom == 4) {
+      zz <- c(zz, lmr$ratios[3:4], NA)
+    } else if(nmom >= 5) {
+      zz <- c(zz, lmr$ratios[3:5])
+    }
+    names(zz) <- c("logitmin",    "logitmean", "logitmax",  "logitvar",
+                   "logitlscale", "logittau3", "logittau4", "logittau5")
+  }
+  zz <- list(wolves=MCwolves, estimates=yy, logitestimates=zz, its=i, lastpctchg=pctchg)
   return(zz)
 }
 
 #
 #uv <- as.data.frame(matrix(runif(20001*2), ncol=2))
 #wl <- wolfCOPsamc(para=uv, verbose=TRUE, maxit=500, tol=0.00005, large_n=1E4)
+
+#uv <- simCOP(10000, cop=PSP, graphics=FALSE)
+#wc <- wolfCOPsamc(uv, tol=0.00005, verbose=TRUE, usetime=TRUE)
+#plot(wc$wolves)
+#lines(par()$usr[1:2], rep(wolfCOP(cop=PSP), 2))
+#x   <- seq(0,1, by=0.001)
+#lmr <- lmomco::vec2lmom(c(wc$logitestimates[c(2,5:8)]))
+#gld <- lmomco::parst3(lmr)
+#plot(x, dlmomco(log(x/(1-x)), gld), type="l")
+

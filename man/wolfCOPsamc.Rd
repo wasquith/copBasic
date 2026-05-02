@@ -12,7 +12,7 @@ for which the integrals in the above formula are replaced with Monte Carlo integ
 \usage{
 wolfCOPsamc(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
             tol=0.005, minit=10, maxit=100, subdivisions=200, large_n=5E3,
-            trace=FALSE, verbose=FALSE, ...)
+            includelmoms=FALSE, trace=FALSE, verbose=FALSE, ...)
 }
 \arguments{
   \item{u}{Optional nonexceedance probability \eqn{u} in the \eqn{X} direction. This argument can also by a two-column data frame from which the \code{para} argument to \code{\link{EMPIRcop}} when \code{cop=EMPIRcop}) is internally constructed;}
@@ -25,6 +25,7 @@ wolfCOPsamc(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
   \item{maxit}{Maximum number of iterations;}
   \item{subdivisions}{Number of subdivisions and somewhat an analog to the term used in numerical integration. This subdivisions will be the size of the Monte Carlo sample for each iteration;}
   \item{large_n}{For an empirical copula and as the sample size gets large, not only does the \eqn{\sigma_\mathbf{C}} computation slow down because a double summation is involved, but the counting that empirical copula must also perform gets large, therefore, the \code{para} that will be ultimately passed to the empirical copula is randomly subsetted by \code{large_n}. This is done in order to speed up iteration times at expense of increasing time that \code{tol} presumably is reached;}
+  \item{includelmoms}{A logical to include upto the first five linear moments for \eqn{\sigma_\mathbf{C}} and logit-transformed \eqn{\mathrm{log}[\sigma_\mathbf{C}/(1-\sigma_\mathbf{C})]} in the returned list.}
   \item{trace}{A logical, if true, that will produce a scatter plot of the sample (or the current iteration subset [refer to \code{large_n}]) along with the random sample points used for the current Monte Carlo iteration;}
   \item{verbose}{A logical providing percent change results by iteration to the console; and}
   \item{...}{Additional arguments to pass to the \code{halton()} function of the \pkg{randtoolbox} and the copula specified by \code{cop} (\code{\link{EMPIRcop}}) or a copula family.}
@@ -32,7 +33,8 @@ wolfCOPsamc(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
 \value{
   A list of the Monte Carlo integration results is returned containing
 \item{wolves}{A vector of the \eqn{\sigma_\mathbf{C}} by iteration;}
-\item{estimates}{The minimum, mean (the formal estimate \eqn{\hat\sigma_\mathbf{C}}), maximum, standard deviation (computed from second L-moment), L-scale (second L-moment), L-skew, and L-kurtosis of the \code{wolves};}
+\item{estimates}{The minimum, mean (the formal estimate \eqn{\hat\sigma_\mathbf{C}}), maximum along with optional variance (computed from second L-moment), L-scale (second L-moment), L-skew, and L-kurtosis of the \code{wolves};}
+\item{estimates}{Using logit-transformation of the \code{wolves}, the minimum, mean, maximum along with optional variance (computed from second L-moment), L-scale (second L-moment), L-skew, and L-kurtosis of the \code{wolves};}
 \item{its}{Number of iterations before termination by \code{maxits} or upon reaching \code{tol};}
 \item{lastpctchg}{The percent change on the last iteration.}
 }
