@@ -48,6 +48,16 @@ The \emph{empirical copula frequency} can be defined (Nelson, 2006, p. 219) as
                            \mathbf{C}_n\biggl(\frac{i-1}{n}, \frac{j}{n}\biggr) -
                            \mathbf{C}_n\biggl(\frac{i}{n}, \frac{j-1}{n}\biggr) +
                            \mathbf{C}_n\biggl(\frac{i-i}{n}, \frac{j-1}{n}\biggr)\mbox{.}}
+
+Remembering that the several asymptotically equivalent definitions of the empirical copula do converge as \eqn{n} becomes large, we can show small-sample congruence between the empirical copula from the \pkg{copula} package and \pkg{copBasic} to the Weibull version of \code{EMPIRcop} because of \pkg{copula::pobs()} is itself Weibull:
+\preformatted{
+  uv <- as.matrix( simCOP(50, cop=P) )
+  ctype <- "weibull"; # Try the other ctypes supported by EMPIRcop
+  a <- EMPIRcop(uv[,1], uv[,2], para=as.data.frame(uv), ctype=ctype)
+  b <- copula::C.n(uv, uv, offset=0) # if ctype="weibull" equal values
+  plot(a, b, xlab=paste0('copBasic EMPIRcop(ctype="', ctype, '")'),
+             ylab="copula::C.n"); abline(0,1, col="red")
+}
 }
 \usage{
 EMPIRcop(u, v, para=NULL,
@@ -136,10 +146,10 @@ hoefCOP(cop=EMPIRcop,   para=uv, ctype="checkerboard")          # 0.4952427}
 # variable uv. It is suggested to not run with a sample size much larger than the
 # above n=34 if the Bernstein comparison is intended (wanted) simply because of
 # lengthy(!) run times, but the n=34 does provide a solid demonstration how the
-# level curves for Berstein weights are quite smooth.
+# level curves for Bernstein weights are quite smooth.
 
 \dontrun{
-# Now let us construct as many as three sets of level curves to the sample
+# Now, let us construct as many as three sets of level curves to the sample
 # resided in the uv sample from above using the PSP copula.
 level.curvesCOP(cop=PSP); # TRUE, parametric, fast, BLACK CURVES
 
@@ -185,4 +195,5 @@ lines(the.trace, lwd=2, col=2) # The diagonal of the copula #}
 \concept{Hazen empirical copula}
 \concept{Weibull copula}
 \concept{Weibull empirical copula}
+\keyword{package copula (comparison to)}
 
