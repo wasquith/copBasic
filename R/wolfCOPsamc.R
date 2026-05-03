@@ -7,7 +7,7 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
     if(is.null(v)) {
       para <- as.data.frame(u)
     } else {
-      pa?ra <- data.frame(u=u, v=v)
+      para <- data.frame(u=u, v=v)
     }
   }
 
