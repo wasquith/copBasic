@@ -54,19 +54,14 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 #           0.2551848            0.2514400
 
 \dontrun{
-  optim(1000, function(n) wolfCOPtest(0,n)$lmoms_logit_sigma[3])$par
-  optim(1000, function(n) wolfCOPtest(0,n)$lmoms_logit_sigma[4])$par
-}
-
-\dontrun{
-  # This example has a long run time but will show that the Sigma is performing close to
+  # This example needs larger nsim but will show that the Sigma is performing close to
   # Spearman Rho, which helps establish the veracity of the algorithms. If the user were
   # to switch out the copula P and replace with CIRCcop (circular copula), then one will
   # see Sigma performing similarly but Rho failing because the CIRCcop is an example of
   # perfect dependence in a setting of independence. Use of much larger nsim for this
   # example will hone the apparent rejection to about 0.05 for P, but clearly we see
   # divergence in performance for CIRCcop.
-  alpha <- 0.05; n <- 42; nsim <- 3000; cop <- P
+  alpha <- 0.05; n <- 42; nsim <- 5000; cop <- P
   set.seed(1)
   wolf   <- replicate(nsim, { wolfCOP(para=simCOP(n=n, cop,
                               graphics=FALSE),  as.sample=TRUE) })
@@ -79,10 +74,11 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
                    cor.test(uv[,1], uv[,2], method="spearman")$p.value })
   message("           Spearman Rho(n=", n, ") type I error rate = ",
            sum(rhopv  < alpha) / nsim)
-  #       P : Schweizer-Wolff Sigma(n=42) type I error rate = 0.045
-  #       P :          Spearman Rho(n=42) type I error rate = 0.043
-  # CIRCcop : Schweizer-Wolff Sigma(n=42) type I error rate = 0.277
-  # CIRCcop :          Spearman Rho(n=42) type I error rate = 0.0013
+  # For nsim <- 15000
+  #       P : Schweizer-Wolff Sigma(n=42) type I error rate = 0.0497
+  #       P :          Spearman Rho(n=42) type I error rate = 0.0479
+  # CIRCcop : Schweizer-Wolff Sigma(n=42) type I error rate = 0.2852
+  # CIRCcop :          Spearman Rho(n=42) type I error rate = 0.0001
   # These example computations show that Rho does not "sense" the perfect dependence of
   # CIRCcop because its "correlation" is zero but Sigma has much high rejection rate.}
 }
