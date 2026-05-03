@@ -7,7 +7,7 @@ library(lmomco)
 #n_at_minLam2 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[2])$par
 n_at_minTau3 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[3])$par
 #n_at_minTau4 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[4])$par
-n_at_minTau3 <- 3000
+n_at_minTau3 <- 10000
 
 D <- NULL
 D <- read.table("aa_lapsims.txt", sep="\t", header=TRUE)
@@ -60,6 +60,7 @@ LMR <- aggregate(AUX, by=list(AUX$n), mean); jjj <- aggregate(AUX, by=list(AUX$n
 LMR$nsim <- jjj$nsim; rm(jjj); LMR$Group.1 <- NULL # compute means and total up sims by sample size
 AUX <- LMR
 AUX$wgts <- sqrt(AUX$nsim); AUX$wgts <- AUX$wgts/sum(AUX$wgts) * length(AUX$wgts)
+AUX <- AUX[AUX$n >= 5000,]
 
 AUX <- merge(Z, AUX, all=TRUE)
 Z <- AUX
@@ -70,7 +71,7 @@ plot(Z$n, Z$logitlam2, log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
 #stop()
 plot(Z$n, Z$logittau3, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.35))
 plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.20))
-
+#stop()
 
 plotlmrdia(lmrdia(), xlim=c(0.1,0.35), ylim=c(0.1,0.20), empty=TRUE, autoaxes=FALSE,
            xaxs="i", yaxs="i", lwd.cex=1.3)
@@ -124,10 +125,10 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
   points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-3, col="salmon4",    bg="salmon1", lwd=0.7  )
   xy <- NULL
-  ns <- sort(unique(10^seq(0, 4, by=0.02)))
+  ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
-    xy <- rbind(xy, data.frame(tau3=wolfCOPtest2(0, n)$lmoms_logit_sigma[3],
-                               tau4=wolfCOPtest2(0, n)$lmoms_logit_sigma[4]))
+    xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
+                               tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
   }
   row.names(xy) <- NULL
   xy <- xy[par()$usr[1] <= xy[,1] & xy[,1] <= par()$usr[2],]
@@ -135,8 +136,8 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   lines( xy[,1], xy[,2], col="wheat2", lwd=2)
   xy <- NULL
   for(n in c(3:14, 17, 19, 25)) {
-    xy <- rbind(xy, data.frame(tau3=wolfCOPtest2(0, n)$lmoms_logit_sigma[3],
-                               tau4=wolfCOPtest2(0, n)$lmoms_logit_sigma[4]))
+    xy <- rbind(xy, data.frame(tau3=wolfCOPtest(0, n)$lmoms_logit_sigma[3],
+                               tau4=wolfCOPtest(0, n)$lmoms_logit_sigma[4]))
   }
   row.names(xy) <- NULL
   xy <- xy[par()$usr[1] <= xy[,1] & xy[,1] <= par()$usr[2],]
@@ -168,7 +169,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   lines(x, y, lty=4, col="deepskyblue3")
   text(0.292, 0.1725, "Halfway between the\ntwo distributions", srt=40, cex=0.9, col="deepskyblue3")
 
-  nevels <- seq(3000, 11000, by=7000)
+  nevels <- seq(3000, 30000, by=27000)
   for(i in seq_len(length(nevels)-1)) {
     wnt <- nevels[i] <= Z$n-1 & Z$n <= nevels[i+1]+1
     txt <- paste0(nevels[i], "-", nevels[i+1])
