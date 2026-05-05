@@ -1,4 +1,4 @@
-"wolfCOPtest2" <-
+"wolfCOPtest" <-
 function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                probs=c(0.90, 0.95, 0.98, 0.99, 0.995), ...) {
   # The probs are quantile levels of the sigma to report, and these are useful to check against the
@@ -50,10 +50,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(0.04564608, -1.10684982, 1.02858995, -1.36093758)
-    l2coe <- c(0.12772039, -0.00036535, 0.0954984, -2.036914068)
-    t3coe <- c(0.08827982, 0.0032132, 0.15446976, -2.001953138)
-    t4coe <- c(0.12558378, -0.00054097, 0.04265488, -2.856258)
+    mucoe <- c(0.04101697, -1.10623278, 1.03232601, -1.354003918)
+    l2coe <- c(0.13128171, -0.00131413, 0.09270827, -2.096484378)
+    t3coe <- c(0.07926188, 0.00534858, 0.16142146, -1.98)
+    t4coe <- c(0.12289022, 0.00026704, 0.04465629, -2.694531258)
   # DISABLED } else {
   # DISABLED   # Nonlinear regression coefficients computed PRESS minimization of residuals for the
   # DISABLED   # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
@@ -68,13 +68,13 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # m <- 3000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
   # is technically close to reality but with the curvilinear regression being used, we eschew the
   # prediction not being monotonic decreasing with sample size want it to have an apparent asymptote.
-  m <- ifelse(n > 100000, 100000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
+  m <- ifelse(n > 10000, 10000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
   # having a hook in it as sample sizes increases to infinite.
   mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
   l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
   t3    <- t3coe[1] + t3coe[2] * log10(m) + t3coe[3] * log10(m)^t3coe[4] # Tau3    (L-skew)
   t4    <- t4coe[1] + t4coe[2] * log10(m) + t4coe[3] * log10(m)^t4coe[4] # Tau4    (L-kurtosis)
-  if(t4 < (5 * t3^2 - 1)/4) t4 <- (5 * t3^2 - 1)/4
+  if(t4 < (5 * t3^2 - 1)/4) t4 <- (5 * t3^2 - 1)/4 # theoretical limits of Tau4
   lmrs  <- c(mu, l2, t3, t4) # Tidy list of the Lmoments of the logit(Sigma) distribution
   if(dtype == "gno") {
     para  <-  lmomco::pargno(lmomco::vec2lmom(c(mu, l2, t3, t4)), useHosking=FALSE)
