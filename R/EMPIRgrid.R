@@ -1,5 +1,5 @@
 "EMPIRgrid" <-
-function(para=NULL, deluv=0.05, verbose=FALSE, gridonly=FALSE, ...) {
+function(para=NULL, deluv=0.05, gridonly=FALSE, verbose=FALSE, ...) {
 
   if(is.null(para)) {
     warning("parameters (the observed u and v) for empirical copula are NULL")
