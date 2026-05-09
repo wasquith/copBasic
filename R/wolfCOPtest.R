@@ -46,23 +46,13 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # size of 6 to 9 at p-values as fine as 0.001, so we move to the pe3 throughout.
   dtype <- "pe3"
 
-  # DISABLED if(bylogit) {
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(0.04101697, -1.10623278, 1.03232601, -1.354003918)
-    l2coe <- c(0.13128171, -0.00131413, 0.09270827, -2.096484378)
-    t3coe <- c(0.07926188, 0.00534858, 0.16142146, -1.98)
-    t4coe <- c(0.12289022, 0.00026704, 0.04465629, -2.694531258)
-  # DISABLED } else {
-  # DISABLED   # Nonlinear regression coefficients computed PRESS minimization of residuals for the
-  # DISABLED   # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
-  # DISABLED   # distribution not using its logit assuming the Independence copula.
-  # DISABLED   mucoe <- c(-5.13011976, 0.17965821, 5.43973795, -0.14481258)
-  # DISABLED   l2coe <- c(0.1117815, -0.07903764, 0.02014877, 1.71258)
-  # DISABLED   t3coe <- c(0.22033934, 0.00035634, 0.00707766, -2.8248)
-  # DISABLED   t4coe <- c(0.16112678, -0.00011312, -0.01705013, -2.9168)
-  # DISABLED }
+    mucoe <- c(-0.00425458, -1.09959743, 1.06902222, -1.294287118)
+    l2coe <- c(0.13181378, -0.00141346, 0.09241578, -2.10034188)
+    t3coe <- c(0.07689407, 0.00562344, 0.16298825, -1.850585948)
+    t4coe <- c(0.12159035, 0.00043727, 0.0449407, -2.474902348)
 
   # Apply the regressions using the hardwired coefficients herein
   # m <- 3000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
@@ -87,13 +77,8 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # Lmoment ratio diagram shows
   # Really close adherence to a generalized normal distribution (3-parameter log-normal)
   # and hence that distribution is chosen here.
-  # DISABLED if(bylogit) {
     neps  <-               lmomco::par2cdf(lwolf, para, paracheck=FALSE)   # CDF of logit(SIGMA)
     quans <- 1 / (1 + exp(-lmomco::par2qua(probs, para, paracheck=FALSE))) # QUA of inverse logit --> quans are Sigmas
-  # DISABLED } else { # The neps are the nonexceedance probabilities.
-  # DISABLED   neps  <-               lmomco::par2cdf(rwolf, para, paracheck=FALSE)   # CDF of SIGMA
-  # DISABLED   quans <-               lmomco::par2qua(probs, para, paracheck=FALSE)   # QUA no retransformation --> are Sigmas
-  # DISABLED }
 
   quans     <- round(quans,     digits=digits) # Estimated upper-tail quantiles of Sigma distribution
   lmrs      <- round(lmrs,      digits=digits) # Lmoments of the logit(Sigma) distribution
@@ -106,8 +91,6 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   names(para$para) <- paste0("para", seq_len(length(para$para)), "_TEXT_sigmas")
   names(lmrs)      <- gsub("_TEXT_", "logit", names(lmrs     ))
   names(para$para) <- gsub("_TEXT_", "logit", names(para$para))
-  # DISABLED names(lmrs)      <- gsub("_TEXT_", ifelse(bylogit, "logit", "_"), names(lmrs     ))
-  # DISABLED names(para$para) <- gsub("_TEXT_", ifelse(bylogit, "logit", "_"), names(para$para))
 
   quatxt           <- paste0("fit_f", gsub("\\.", "p", as.character(100 * probs)))
   names(quans)     <- quatxt
@@ -144,40 +127,12 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   names(zz) <- c("sample_size", "sigma", "logit_sigma",
                  names(pval), names(para$para), names(lmrs), quatxt)
   names(zz) <- gsub("_TEXT_", "logit", names(zz))
-  # DISABLED names(zz) <- gsub("_TEXT_", ifelse(bylogit, "logit", "_"), names(zz))
   if(aslist) {
     wz <- c(rwolf, lwolf); names(wz) <- c("sigma", "logit_sigma")
     zz <- list(sample_size=n, statistic=wz, p.value=pval, distpara_by_lmoms=para$para)
-    # DISABLED if(bylogit) {
-      zz$lmoms_logit_sigma <- lmrs # L-moments of the logit(SIGMAS) distribution
-    # DISABLED } else {
-    # DISABLED   zz$lmoms_sigma       <- lmrs # L-moments of the       SIGMAS  distribution
-    # DISABLED }
+    zz$lmoms_logit_sigma <- lmrs # L-moments of the logit(SIGMAS) distribution
     zz$sigma_quantiles <- quans # Put these last because this length of vector is mutable, and it
     # visually makes these better on the right side of aslist=FALSE (vector return), in particular.
   }
   return(zz)
 }
-
-
-
-#CPU <- NULL
-#for(n in as.integer(10^seq(log10(100), log10(1000), by=.05))) {
-#  UV <- simCOP(n=n, cop=CLcop, para=2, graphics=FALSE)
-#  THwolf <- wolfCOP(cop=PSP, para=2, )
-#  a <- system.time(MC <- wolfCOPsamc(UV[,1], UV[,2]))
-#  b <- system.time(SA <- wolfCOP(para=UV, as.sample=TRUE))
-#  CPU <- rbind(CPU, data.frame(n=n, a=a[3], b=b[3],
-#                               mc=MC$estimates[2], sam=SA))
-#}
-#plot(  CPU$n, CPU$b, log="xy")
-#points(CPU$n, CPU$a, pch=16)
-#
-#plot(  CPU$n, CPU$mc,  log="xy")
-#points(CPU$n, CPU$sam, pch=16)
-
-# probs <- pnorm(seq(-3.72, +3.72, by=0.02))
-# para  <- vec2par(wolfCOPtest(0, 2000)$distpara_by_lmoms, type="pe3")
-# quans <- 1 / (1 + exp(-lmomco::par2qua(probs, para)))
-# plot(qnorm(probs), quans, type="l", ylim=c(0,1))
-
