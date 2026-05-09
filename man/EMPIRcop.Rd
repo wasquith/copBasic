@@ -27,16 +27,17 @@ which can be triggered by \code{ctype="hazen"}. This form is named for this pack
      \frac{1}{n}\sum_{i=1}^n \mathbf{1}\biggl(\frac{R_i}{n+1} \le u_i, \frac{S_i}{n+1} \le v_i \biggr)\mbox{,}}
 which can be triggered by \code{ctype="weibull"}. This form is named for this package because of direct similarity of the \emph{Weibull plotting position} to the definition, and this form is the default (see argument description).
 
-\emph{Bernstein Empirical Copula}---The empirical copula can be extended nonparametrically as the \emph{Bernstein empirical copula} (\enc{Hernández-Maldonado}{Hernandez-Maldonado}, \enc{Díaz-Viera}{Diaz-Viera}, and Erdely, 2012) and is formulated as
+\emph{Bernstein Empirical Copula}---The empirical copula can be extended nonparametrically as the \emph{Bernstein empirical copula} (\enc{Hernández-Maldonado}{Hernandez-Maldonado} \emph{et al.}, 2012) and is formulated as
 
 \deqn{\mathbf{C}^\mathcal{B}_n(u,v; \eta) = \sum_{i=1}^n\sum_{j=1}^n \mathbf{C}_{n}\biggl(\frac{i}{n},\frac{j}{n}\biggr) \times \eta(i,j; u,v)\mbox{,}}
+
 where the individual \emph{Bernstein weights} \eqn{\eta(i,j)} for the \eqn{k}th paired value of the \eqn{u} and \eqn{v} vectors are
 
 \deqn{\eta(i,j; u,v) = {n \choose i} u^i (1-u)^{n-i} \times {n \choose j} u^j (1-u)^{n-j}\mbox{.}}
 
-The Bernstein extension, albeit conceptually pure in its shuffling by binomial coefficients and left- and right-tail weightings, is quite CPU intensive as inspection of the equations above indicates a nest of four \code{for()} loops in \R. (The native \R code of \pkg{copBasic} uses the \code{sapply()} function in \R liberally for substantial but not a blazing fast speed increase.) The Bernstein extension results in a smoother surface of the empirical copula and can be triggered by \code{ctype="bernstein"}. Remark, \enc{Hernández-Maldonado}{Hernandez-Maldonado} and others (2024) provide a fast algorithm for the Bernstein smoothing---this is not yet implemented in \pkg{copBasic}.
+The Bernstein extension, albeit conceptually pure in its shuffling by binomial coefficients and left- and right-tail weightings, is quite CPU intensive as inspection of the equations above indicates a nest of four \code{for()} loops in \R. (The native \R code of \pkg{copBasic} uses the \code{sapply()} function in \R liberally for substantial but not a blazing fast speed increase.) The Bernstein extension results in a smoother surface of the empirical copula and can be triggered by \code{ctype="bernstein"}. Remark, \enc{Hernández-Maldonado}{Hernandez-Maldonado} \emph{et al.} (2024) provide a fast algorithm for the Bernstein smoothing---this implemented in \code{\link{EMPIRgrid_fast}}.
 
-\emph{Checkerboard Empirical Copula}---A simple smoothing to the empirical copula is the \emph{checkerboard empirical copula} (Segers et al., 2017) that has been adapted from the \pkg{copula} package. It is numerically intensive like the Bernstein and possibly of limited usefulness for large sample sizes. The checkerboard extension can be triggered by \code{ctype="checkerboard"} and is formulated as
+\emph{Checkerboard Empirical Copula}---A simple smoothing to the empirical copula is the \emph{checkerboard empirical copula} (Segers \emph{et al.}, 2017) that has been adapted from the \pkg{copula} package. It is numerically intensive like the Bernstein and possibly of limited usefulness for large sample sizes. The checkerboard extension can be triggered by \code{ctype="checkerboard"} and is formulated as
 
 \deqn{\mathbf{C}^\sharp_{n}(U) = \frac{1}{n+o} \sum_{i=1}^n\prod_{i=1}^d \mathrm{min}[\mathrm{max}[n U_j - R^{(n)}_{i,j} + 1,0],1]\mathrm{,}}
 
@@ -196,4 +197,5 @@ lines(the.trace, lwd=2, col=2) # The diagonal of the copula #}
 \concept{Weibull copula}
 \concept{Weibull empirical copula}
 \keyword{package copula (comparison to)}
+\keyword{Bernstein polynomial}
 
