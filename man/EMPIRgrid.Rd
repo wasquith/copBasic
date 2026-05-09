@@ -3,16 +3,16 @@
 \alias{EMPIRgrid}
 \title{Grid of the Bivariate Empirical Copula}
 \description{
-Generate a gridded representation of the \emph{bivariate empirical copula} (see \code{\link{EMPIRcop}}, Salvadori \emph{et al.}, 2007, p. 140).  This function has the primary intention of supporting 3-D renderings or 2-D images of the \emph{copulatic surface}, but many empirical copula functions in \pkg{copBasic} rely on the grid of the empirical copula---unlike the functions that support parametric copulas.
+Generate a gridded representation of the \emph{bivariate empirical copula} (see \code{\link{EMPIRcop}}, Salvadori \emph{et al.}, 2007, p. 140).  This function has the primary intention of supporting 3-D renderings or 2-D images of the \emph{copulatic surface}, but many empirical copula functions in \pkg{copBasic} rely on the grid of the empirical copula---unlike the functions that support parametric copulas. The algorithm within \code{EMPIRgrid} is slow because of nested loops, but a much faster version with some tweaks (not having an explicit \code{deluv}) is available under \code{\link{EMPIRgrid_fast}}.
 }
 \usage{
-EMPIRgrid(para=NULL, deluv=0.05, verbose=FALSE, gridonly=FALSE, ...)
+EMPIRgrid(para=NULL, deluv=0.05, gridonly=FALSE, verbose=FALSE, ...)
 }
 \arguments{
-  \item{para}{A vector (single element) of parameters---the U-statistics of the data (see example);}
+  \item{para}{A matrix of \eqn{u} and \eqn{v} vectors as an alternative to \code{uv} for syntax compatibility for other situations in \pkg{copBasic};}
   \item{deluv}{A delta value of the both the \eqn{u} and \eqn{v} axes (grid edges) for empirical copula estimation by the \code{\link{EMPIRcop}} function;}
-  \item{verbose}{A logical controlling whether the progress during grid building is to be shown;}
-  \item{gridonly}{A logical to return the \code{empcop} component (\eqn{\mathbf{C}_{n}(u,v)}); and}
+  \item{gridonly}{A logical to return the \code{empcop} component (\eqn{\mathbf{C}_{n}(u,v)});}
+  \item{verbose}{A logical controlling whether the progress during grid building is to be shown; and}
   \item{...}{Additional arguments to pass to \code{\link{EMPIRcop}}.}
 }
 \value{
@@ -25,7 +25,7 @@ The extensive suite of examples is included here because the various ways that a
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRcopdf}}}
+\seealso{\code{\link{EMPIRcop}}, \code{\link{EMPIRgrid_fast}}, \code{\link{EMPIRgrid_lkup}}, \code{\link{EMPIRcopdf}}}
 \examples{
 \dontrun{
 # EXAMPLE 1:
@@ -170,3 +170,4 @@ dev.off() #}
 \keyword{empirical copula}
 \keyword{empirical copula (utility)}
 \keyword{copulatic surface}
+\keyword{gridded empirical copula}

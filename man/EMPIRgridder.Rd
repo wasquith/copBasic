@@ -77,3 +77,5 @@ lines(some.lines, lwd=4, col=5, lty=2)#}
 \keyword{empirical copula}
 \keyword{empirical copula (derivatives)}
 \keyword{derivative}
+\keyword{copulatic surface}
+\keyword{gridded empirical copula}
