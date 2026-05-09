@@ -22,6 +22,9 @@ Changes in version 2.2.12 (2026-05-02)
 -  Completed a spelling check sweep across the .Rd files.
 -  Added gridonly argument to EMPIRgrid() with default to false.
 -  Added some more text to EMPIRcop.Rd with a numerical comparison to copula::C.n().
+-  Added EMPIRgrid_fast() with cross link to EMPIRgrid(). EMPIRgrid_fast() uses a
+      fasting faster algorithm that was published in the literature in 2024.
+-  Added EMPIRgrid_lkup(), bilinear interpolated lookup of gridded empirical copula.
 
 
 Changes in version 2.2.11 (2025-11-02)
