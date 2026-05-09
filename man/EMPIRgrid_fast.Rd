@@ -26,6 +26,13 @@ EMPIRgrid_fast(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
 \author{W.H. Asquith}
 \seealso{\code{\link{EMPIRgrid}}, \code{\link{EMPIRgrid_lkup}}}
 \examples{
+
+  para <- list(cop=GHcop, para=3, breve=.1)
+  uv <- simCOP(10, cop=breveCOP, para=para)
+  gf <- EMPIRgrid_fast(para=uv, gridonly=TRUE)
+  gg <- EMPIRgrid(para=uv, gridonly=TRUE, deluv=0.1, ctype="1/n")
+  print(sum(gf - gg)) # should be zero
+
   n <- 5; uv <- as.matrix(matrix(runif(n *2), ncol=2))
   empCOP <- EMPIRgrid_fast(uv, ctype="1/n",       gridonly=TRUE)
             image(empCOP, main="1/n")

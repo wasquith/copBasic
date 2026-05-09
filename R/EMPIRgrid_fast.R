@@ -38,9 +38,11 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
   ID     <- ID[order(ID[,pvcn]),]
   ID[,4] <- seq_len(n) # sort on the primary first, so that when we sort on the secondary
   ID     <- ID[order(ID[,svcn]),] # that the ID remains in that order, which gets us a
-  ID[,3] <- seq_len(n) # clearer access to pvcoo
+  ID[,3] <- seq_len(n) # cleaner access to pvcoo
   # This change in ordering sequence between the variables differs, but seems required relative
   # to the steps in 10.1016/j.amc.2024.128827.
+  #print(ID)
+
   empCOP <- matrix(data=0, nrow=n+1, ncol=n+1)
   for(j in 1:n) { # adaption of n from n+1 relative to 10.1016/j.amc.2024.128827
     empCOP[j+1, n+1] <- j/n # true Frechet-Hoeffding limits : Regardless of plotting position for the
@@ -53,9 +55,9 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
   for(svid in 2:n) { # adaption to avoid systematic svid+1 on below index access
     if(verbose) message(n+1 - svid,"-", appendLF=FALSE) # tweak index so that sequence ends at "1"
     # V <- matrix(data=NA, nrow=n+1, ncol=n+1)     # CONSOLE VISUALIZATION OF THE COORDINATES
-    pvcoo <- ID[svid, 4] # coordinate/rank of the primary variable
+    pvcoo <- ID[svid-1, 4] # coordinate/rank of the primary variable
     # V[pvcoo+1, svid] <- 1                        # CONSOLE VISUALIZATION OF THE COORDINATES
-    # print(V)                                     # CONSOLE VISUALIZATION OF THE COORDINATES
+    #print(V)                                     # CONSOLE VISUALIZATION OF THE COORDINATES
     #for(j in pvcoo:n) { # j+1s are for 1-based R relative to 0-based C++ of 10.1016/j.amc.2024.128827
     for(j in (pvcoo:n)+1) { # adaption to simplify indexing to avoid j+1 in indices below
       empCOP[j, svid] <- delprob         + empCOP[j, svid-1]
