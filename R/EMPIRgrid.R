@@ -5,14 +5,19 @@ function(para=NULL, deluv=0.05, gridonly=FALSE, verbose=FALSE, ...) {
     warning("parameters (the observed u and v) for empirical copula are NULL")
     return(NULL)
   }
-  if(exists("para", para)) {
-     if(length(names(para$para)) != 2) {
+  if(is.list(para)) {
+    if(exists("para", para)) {
+      para$para <- as.data.frame(para$para)
+      if(ncol(para$para) != 2) {
         warning("a data.frame having only two columns is required in the 'para$para' argument")
         return(NULL)
-     }
-  } else if(length(names(para)) != 2) {
+      }
+    }
+  } else if(ncol(para) != 2) {
      warning("a data.frame having only two columns is required in the 'para' argument")
      return(NULL)
+  } else {
+    para <- as.data.frame(para)
   }
 
   us <- seq(0,1, by=deluv);
@@ -31,6 +36,10 @@ function(para=NULL, deluv=0.05, gridonly=FALSE, verbose=FALSE, ...) {
   colnames(cop) <- as.character(vs)
   if(gridonly) return(cop)
   zzz <- list(u=us, v=us, empcop=cop, deluv=deluv)
+  zzz$ctype  <- "unknown"
+  dots <- list(...)
+  if(exists("ctype", dots)) zzz$ctype <- dots$ctype
+  class(zzz) <- c("empirical.copula.grid", class(zzz))
   return(zzz)
 }
 

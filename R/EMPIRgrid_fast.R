@@ -31,7 +31,7 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
   # relation to our handling of u,v orientation elsewhere in the package. This choice here
   # can lead to confusion on u,v in the Bernstein loop. Just ignore that confusion because
   # the choice of svncn and pvcn ordering was made solely to avoid the transposition of the
-  # matrix on return().
+  # matrix on return() to save some CPU time.
   svcn   <- 2 # 10.1016/j.amc.2024.128827 does not reuse these variables but I do so here
   pvcn   <- 1 # 10.1016/j.amc.2024.128827 does not reuse these variables but I do so here
   ID     <- cbind(uv, matrix(data=0, nrow=n, ncol=2))
@@ -56,6 +56,9 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
     if(verbose) message(n+1 - svid,"-", appendLF=FALSE) # tweak index so that sequence ends at "1"
     # V <- matrix(data=NA, nrow=n+1, ncol=n+1)     # CONSOLE VISUALIZATION OF THE COORDINATES
     pvcoo <- ID[svid-1, 4] # coordinate/rank of the primary variable
+    # Warning, playing with row indexing is tricky; make sure that all samples in the ID matrix
+    # get traversed except(?) the terminal because we always know(?) where the last sample will land?
+    # The svid-1 ensure that we start at the top of the ID matrix.
     # V[pvcoo+1, svid] <- 1                        # CONSOLE VISUALIZATION OF THE COORDINATES
     #print(V)                                     # CONSOLE VISUALIZATION OF THE COORDINATES
     #for(j in pvcoo:n) { # j+1s are for 1-based R relative to 0-based C++ of 10.1016/j.amc.2024.128827
@@ -70,16 +73,20 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
     #cat("-----------------------\n")
   }
   if(verbose) message("done")
+  rcnm <- c(0, seq_len(n)/n)
+  rownames(empCOP) <- colnames(empCOP) <- rcnm
 
   if(ctype != "bernstein") { # Bernstein smooth was not required, so return.
     if(gridonly) {
-      return(empCOP)                   # The grid of the empirical copula.
+      return(empCOP)        # The grid of the empirical copula.
     } else {
       zzz        <- list()
-      zzz$u      <- c(0, seq_len(n)/n) # Vector of the U probabilities with Frechet-Hoeffding limits
-      zzz$v      <- zzz$u              # Replicate the U probabilities as the V probabilities
-      zzz$empcop <- empCOP             # The grid of the empirical copula.
-      zzz$deluv  <- 1/n                # The base deluv, which is the inversion of sample size.
+      zzz$u      <- rcnm    # Vector of the U probabilities with Frechet-Hoeffding limits
+      zzz$v      <- zzz$u   # Replicate the U probabilities as the V probabilities
+      zzz$empcop <- empCOP  # The grid of the empirical copula.
+      zzz$deluv  <- 1/n     # The base deluv, which is the inversion of sample size.
+      zzz$ctype  <- ctype
+      class(zzz) <- c("empirical.copula.grid", class(zzz))
       return(zzz)
     }
   }
@@ -111,14 +118,18 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
   }
   if(verbose) message("done")
 
+  rownames(berCOP) <- colnames(berCOP) <- rcnm
+
   if(gridonly) {
-    return(berCOP)                   # The grid of the empirical copula after Bernstein smooth.
+    return(berCOP)        # The grid of the empirical copula after Bernstein smooth.
   } else {
     zzz        <- list()
-    zzz$u      <- c(0, seq_len(n)/n) # Vector of the U probabilities with Frechet-Hoeffding limits
-    zzz$v      <- zzz$u              # Replicate the U probabilities as the V probabilities
-    zzz$empcop <- berCOP             # The grid of the empirical copula after Bernstein smooth.
-    zzz$deluv  <- 1/n                # The base deluv, which is the inversion of sample size.
+    zzz$u      <- rcnm    # Vector of the U probabilities with Frechet-Hoeffding limits
+    zzz$v      <- zzz$u   # Replicate the U probabilities as the V probabilities
+    zzz$empcop <- berCOP  # The grid of the empirical copula after Bernstein smooth.
+    zzz$deluv  <- 1/n     # The base deluv, which is the inversion of sample size.
+    zzz$ctype  <- ctype
+    class(zzz) <- c("empirical.copula.grid", class(zzz))
     return(zzz)
   }
 }
