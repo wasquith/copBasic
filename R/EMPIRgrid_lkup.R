@@ -14,8 +14,11 @@ function(u,v, para=NULL, ...) {
   if(is.null(para)) {
     para <- EMPIRgrid_fast(cbind(u,v), gridonly=FALSE, ...)
   }
+  if(! any(class(para) == "empirical.copula.grid")) {
+    warning("expecting class to be 'empirical.copula.grid'")
+  }
   if(! exists('empcop', para)) {
-    warning("para does not contain the gridded empirical copula")
+    warning("para does not contain in para$empcop for matrix of the gridded empirical copula")
   }
   # Extract the u and v probabilities of the gridded empirical copula and then make a vector of the
   ui <- para$u; vi <- para$v; ix <- seq_len(length(ui)) # indices for look up purposes to come.
@@ -42,6 +45,7 @@ function(u,v, para=NULL, ...) {
   f22  <- sapply(six, function(k) para$empcop[ x2i[k], y2i[k] ])   # vectorized function values
 
   cop <- w11*f11 + w12*f12 + w21*f21 + w22*f22         # vectorized weighted mean computation
+  cop[d == 0] <- f11[d == 0] # all denominators == 0 mean that the coordinates are on a single cell
   return(cop)
 }
 
