@@ -5,10 +5,10 @@
 \description{
 Compute joint probability through a gridded \emph{empirical copula} \eqn{\mathbf{C}_n(u,v)} using bilinear interpolation (vectorized, no \code{for} looping). The function is designed to act like \code{\link{EMPIRcop}}, but in lieu of consuming the bivariate data in \code{para} argument, the \code{EMPIRgrid_lkup} operates off a precomputed gridded list representation of the empirical copula computed either from \code{\link{EMPIRgrid}} (legacy) or \code{\link{EMPIRgrid_fast}}. Given a gridded empirical copula denoted as \eqn{\ddot{\mathbf{C}}_n} and bounding cells of a rectangle \eqn{11} (lower left), \eqn{12} (lower right), \eqn{21} (upper left), and \eqn{22}, the \eqn{\mathbf{C}_n(u,v)} can be estimated by bilinear interpolation in a weighted mean form as:
 
-\deqn{\mathbf{C}_n(u,v) \approx w_{11} \ddot{\mathbf{C}}_{11} +
-                                w_{12} \ddot{\mathbf{C}}_{12} +
-                                w_{21} \ddot{\mathbf{C}}_{21} +
-                                w_{22} \ddot{\mathbf{C}}_{22}\text{,}}
+\deqn{\mathbf{C}_n(u,v) \approx w_{11}\times\ddot{\mathbf{C}}_{11} +
+                                w_{12}\times\ddot{\mathbf{C}}_{12} +
+                                w_{21}\times\ddot{\mathbf{C}}_{21} +
+                                w_{22}\times\ddot{\mathbf{C}}_{22}\text{,}}
 for which the weights are
 \deqn{w_{11} = \frac{(u_2 - u  )(v_2 - v  )}{(u_2 - u_1)(v_2 - v_1)}\text{,\ }
       w_{12} = \frac{(u_2 - u  )(v   - v_1)}{(u_2 - u_1)(v_2 - v_1)}\text{,}}
