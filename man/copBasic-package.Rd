@@ -29,7 +29,7 @@ Frank \tab \eqn{\mathbf{FR}(u,v)} \tab \code{\link{FRcop}} \tab copula\cr
 Galambos copula \tab \eqn{\mathbf{GL}(u,v)} \tab \code{\link{GLcop}} \tab copula\cr
 Gumbel\enc{–}{-}Hougaard copula \tab \eqn{\mathbf{GH}(u,v)} \tab \code{\link{GHcop}} \tab copula\cr
 Hairpin copula \tab \eqn{\mathbf{HAIRPIN(u,v)}} \tab \code{\link{HAIRPINcop}} \tab copula\cr
-\enc{Hüsler}{Husler}\enc{–}{-}Reiss copula \tab \eqn{\mathbf{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
+\enc{Hüsler}{Husler}\enc{–}{-}Reiss copula \tab \eqn{\;{HR}(u,v)} \tab \code{\link{HRcop}} \tab copula\cr
 Joe B5 (the \dQuote{Joe}) copula \tab \eqn{\mathbf{B5}(u,v)} \tab \code{\link{JOcopB5}} \tab copula\cr
 Joe\enc{–}{-}Ma copula \tab \eqn{\mathbf{JOMA}(u,v)} \tab \code{\link{JOMAcop}} \tab copula\cr
 Marshall\enc{–}{-}Olkin copula \tab \eqn{\mathbf{MO}(u,v)} \tab \code{\link{MOcop}} \tab copula\cr
@@ -54,7 +54,7 @@ A few comments on notation herein are needed. A bold math typeface is used to re
 
 \emph{Random variables} \eqn{X} and \eqn{Y} respectively denote the horizontal and vertical directions in \eqn{\mathcal{R}^2}. Their probabilistic counterparts are uniformly distributed random variables on \eqn{[0, 1]}, are respectively denoted as \eqn{U} and \eqn{V}, and necessarily also are the respective directions in \eqn{\mathcal{I}^2} (\eqn{U} denotes the horizontal, \eqn{V} denotes the vertical). Often realizations of these random variables are respectively \eqn{x} and \eqn{y} for \eqn{X} and \eqn{Y} and \eqn{u} and \eqn{v} for \eqn{U} and \eqn{V}. There is an obvious difference between nonexceedance probability \eqn{F} and its complement, which is exceedance probability defined as \eqn{1-F}. Both \eqn{u} and \eqn{v} herein are in nonexceedance probability. Arguments to many functions herein are \code{u} \eqn{= u} and \code{v} \eqn{= v} and are almost \emph{exclusively nonexceedance} but there are instances for which the probability arguments are \code{u} \eqn{= 1 - u = u'} and \code{v} \eqn{= 1 - v = v'}.\cr
 
-\bold{Bivariate Association} --- Several of the functions listed above are measures of \emph{bivariate association.} Two of the measures (\emph{Kendall Tau}, \code{\link{tauCOP}}; \emph{Spearman Rho}, \code{\link{rhoCOP}}) are widely known. \R provides native support for their sample estimation of course (\code{stats::cor()}), but each function can be used to call the \code{cor()} function for parallelism to the other measures of this package. The other measures (\emph{Blomqvist Beta}, \emph{Gini Gamma}, \emph{Hoeffding Phi}, \emph{Schweizer--Wolff Sigma}, \emph{Spearman Footrule}) support sample estimation by specially formed calls to their respective functions: \code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{wolfCOP}}, and \code{\link{footCOP}}. Gini Gamma (\code{\link{giniCOP}}) documentation (also \code{\link{joeskewCOP}}) shows extensive use of theoretical and sample computations for these and other functions.\cr
+\bold{Bivariate Association} --- Several of the functions listed above are measures of \emph{bivariate association.} Two of the measures (\emph{Kendall Tau}, \code{\link{tauCOP}}; \emph{Spearman Rho}, \code{\link{rhoCOP}}) are widely known. \R provides native support for their sample estimation of course (\code{stats::cor()}), but each function can be used to call the \code{cor()} function for parallelism to the other measures of this package. The other measures (\emph{Blomqvist Beta}, \emph{Gini Gamma}, \emph{Hoeffding Phi}, \emph{Schweizer--Wolff Sigma}, \emph{Spearman Footrule}) support sample estimation by specially formed calls to their respective functions: \code{\link{blomCOP}}, \code{\link{giniCOP}}, \code{\link{hoefCOP}}, \code{\link{wolfCOP}}, and \code{\link{footCOP}}. \emph{Gini Gamma} (\code{\link{giniCOP}}) documentation (also \code{\link{joeskewCOP}}) shows extensive use of theoretical and sample computations for these and other functions.\cr
 
 
 \bold{Helpful Navigation of the copBasic Package}
@@ -98,10 +98,6 @@ Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\hat\sigma_\mathbf{C}} \tab \code{\li
 Schweizer\enc{–}{-}Wolff Sigma \tab \eqn{\sigma_\mathbf{C}{=}\mathbf{\Pi}} \tab \code{\link{wolfCOPtest}} \tab bivariate association\cr
 Density of a copula\tab \eqn{c(u,v)} \tab \code{\link{densityCOP}} \tab copula density\cr
 Density visualization \tab \eqn{{-}{-}} \tab \code{\link{densityCOPplot}} \tab copula density\cr
-Empirical copula \tab \eqn{\mathbf{C}_n(u,v)} \tab \code{\link{EMPIRcop}} \tab copula\cr
-Empirical simulation \tab \eqn{{-}{-}} \tab \code{\link{EMPIRsim}} \tab copula simulation\cr
-Empirical simulation \tab \eqn{{-}{-}} \tab \code{\link{EMPIRsimv}} \tab copula simulation\cr
-Empirical copulatic surface \tab \eqn{{-}{-}} \tab \code{\link{EMPIRgrid}} \tab copulatic surface\cr
 Parametric copulatic surface \tab \eqn{{-}{-}} \tab \code{\link{gridCOP}} \tab copulatic surface\cr
 Parametric simulation \tab \eqn{{-}{-}} \tab \code{\link{simCOP}} or   \code{\link{rCOP}}\tab copula simulation\cr
 Parametric simulation \tab \eqn{{-}{-}} \tab \code{\link{simCOPmicro}} \tab copula simulation\cr
@@ -112,6 +108,17 @@ Root mean square error \tab \eqn{\mathrm{RMSE}_\mathbf{C}} \tab \code{\link{rmse
 Another goodness-of-fit \tab \eqn{T_n} \tab \code{\link{statTn}} \tab goodness-of-fit\cr
 }
 
+Some entry points into the package for \emph{empirical copula} are listed in the following table:
+
+\tabular{lclr}{
+\bold{Name} \tab \bold{Symbol} \tab \bold{Function} \tab \bold{Concept} \cr
+Empirical copula \tab \eqn{\mathbf{C}_n(u,v)} \tab \code{\link{EMPIRcop}} \tab copula\cr
+Empirical simulation \tab \eqn{{-}{-}} \tab \code{\link{EMPIRsim}} \tab copula simulation\cr
+Empirical simulation \tab \eqn{{-}{-}} \tab \code{\link{EMPIRsimv}} \tab copula simulation\cr
+Empirical (legacy) surface \tab \eqn{\ddot{\mathbf{C}}_n(u,v)} \tab \code{\link{EMPIRgrid}} \tab copulatic surface\cr
+Empirical (fast) surface \tab \eqn{\ddot{\mathbf{C}}_n(u,v)} \tab \code{\link{EMPIRgrid_fast}} \tab copulatic surface\cr
+Empirical copula (grid lookup) \tab \eqn{\ddot{\mathbf{C}}_n(u,v)} \tab \code{\link{EMPIRgrid_lkup}} \tab copulatic surface\cr
+}
 
 \bold{Goodness-of-fit} --- Concerning \emph{goodness-of-fit} and although not quite the same as copula properties (such as \dQuote{correlation}) per se as the coefficients aforementioned in the prior paragraph, three goodness-of-fit metrics of a copula compared to the empirical copula, which are all based the \emph{mean square error} (MSE), are \code{\link{aicCOP}}, \code{\link{bicCOP}}, and \code{\link{rmseCOP}}. This triad of functions is useful for making decisions on whether a copula is more favorable than another to a given dataset. However, because they are genetically related by using MSE and if these are used for copula fitting by minimization, the fits will be identical. A statement of \dQuote{not quite the same} is made because the previously described copula properties are generally defined as types of deviations from other copulas (such as \code{\link{P}}). Another goodness-of-fit statistic is \code{\link{statTn}}, which is based on magnitude summation of fitted copula difference from the empirical copula. These four (\code{\link{aicCOP}}, \code{\link{bicCOP}}, \code{\link{rmseCOP}}, and \code{\link{statTn}}) collectively are relative simple and readily understood measures. These bulk sample statistics are useful, but generally thought to not capture the nuances of tail behavior (\code{\link{semicorCOP}} and \code{\link{taildepCOP}} might be useful).\cr
 
@@ -142,7 +149,7 @@ Copula section \tab \eqn{t \mapsto \mathbf{C}(t,a)} \tab \code{\link{sectionCOP}
 Copula section \tab \eqn{t \mapsto \mathbf{C}(a,t)} \tab \code{\link{sectionCOP}} \tab copula theory\cr
 }
 
-The previous two tables do not list all of the myriad of special functions to support similar operations on \emph{empirical copulas}. All empirical copula operators and utilities are prepended with \code{EMPIR} in the function name. An additional note concerning package nomenclature is that an appended \dQuote{\code{2}} to a function name indicates \eqn{U} \emph{wrt} \eqn{V} (\emph{e.g.} \code{\link{EMPIRgridderinv2}} for an inversion of the partial derivatives \eqn{\delta \mathbf{C}/\delta v} across the grid of the empirical copula).
+The previous three tables do not list all of the myriad of special functions to support similar operations on \emph{empirical copulas}. All empirical copula operators and utilities are prepended with \code{EMPIR} in the function name. An additional note concerning package nomenclature is that an appended \dQuote{\code{2}} to a function name indicates \eqn{U} \emph{wrt} \eqn{V} (\emph{e.g.} \code{\link{EMPIRgridderinv2}} for an inversion of the partial derivatives \eqn{\delta \mathbf{C}/\delta v} across the grid of the empirical copula).
 
 Some additional functions to compute often salient features or characteristics of copulas or bivariate data, including functions for bivariate inference or goodness-of-fit, are listed in the following table:\cr\cr
 
@@ -201,7 +208,7 @@ Two copulas also can be combined through a weighted convex combination using \co
 
 \tabular{cclr}{
 \bold{No. of copulas} \tab \bold{Combining Parameters} \tab \bold{Function} \tab \bold{Concept}\cr
-1 \tab \eqn{\beta} \tab \code{\link{breveCOP}} \tab adding permuation asymmetry\cr
+1 \tab \eqn{\beta} \tab \code{\link{breveCOP}} \tab adding permutation asymmetry\cr
 1 \tab \eqn{\alpha, \beta} \tab \code{\link{composite1COP}} \tab copula combination\cr
 1 \tab \eqn{\alpha, \beta} \tab \code{\link{khoudraji1COP}} \tab copula combination\cr
 1 \tab \eqn{\alpha, \beta} \tab \code{\link{khoudrajiPCOP}} \tab copula combination\cr
