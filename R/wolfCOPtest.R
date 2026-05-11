@@ -49,16 +49,16 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.00425458, -1.09959743, 1.06902222, -1.294287118)
-    l2coe <- c(0.13181378, -0.00141346, 0.09241578, -2.10034188)
-    t3coe <- c(0.07689407, 0.00562344, 0.16298825, -1.850585948)
-    t4coe <- c(0.12159035, 0.00043727, 0.0449407, -2.474902348)
+    mucoe <- c(-0.00629469, -1.09917354, 1.0707241, -1.292724618)
+    l2coe <- c(0.13237122, -0.00155776, 0.09201811, -2.112207038)
+    t3coe <- c(0.08092112, 0.00460682, 0.15977677, -1.886132818)
+    t4coe <- c(0.12249453, 0.00013212, 0.04430464, -2.503222668)
 
   # Apply the regressions using the hardwired coefficients herein
   # m <- 3000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
   # is technically close to reality but with the curvilinear regression being used, we eschew the
   # prediction not being monotonic decreasing with sample size want it to have an apparent asymptote.
-  m <- ifelse(n > 10000, 10000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
+  m <- ifelse(n > 4000, 4000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
   # having a hook in it as sample sizes increases to infinite.
   mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
   l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
