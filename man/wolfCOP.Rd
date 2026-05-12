@@ -25,6 +25,8 @@ quantitatively with model free and moment independent properties.}
 By definition for two random variables \eqn{U} and \eqn{V} with cumulative distribution functions of \eqn{F(u)} and \eqn{F(v)}, the variables are \emph{independent}, if and only if, for all subsets (conditions) selecting values \eqn{u} and \eqn{y} of \eqn{U \le u} and \eqn{V \le v}, when for all \eqn{u} and \eqn{v}, the combined cumulative distribution function is
 
 \deqn{H(x, y) = F(x)G(x) = \mathbf{C}(u,v) = uv\mbox{.}}
+
+Note, structural similarity between \eqn{\sigma_\mathbf{C}} and the definition for \code{\link{LzCOPpermsym}}. It seems to follow, by intuition, if therein, the copula on the left were to be replaced with the \emph{permutation symmetric} (\emph{exchangeable symmetric}) copula \code{\link{isCOP.permsym }}, such as \eqn{\mathbf{\Pi} = uv = vu}, then the copula on the right, now being, without loss of generality, \eqn{\mathbf{C}(u,v)} or \eqn{\mathbf{C}(v,u)}, then \eqn{\sigma_\mathbf{C}} must respond partly to dependence existing in the presence of \emph{permutation asymmetry}.
 }
 \usage{
 wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
@@ -94,8 +96,7 @@ Schweizer, B., and Wolff, E.F., 1981, On nonparametric measures of dependence fo
          \code{\link{joeskewCOP}}, \code{\link{uvlmoms}}, \code{\link{ORDSUMcop}}
 }
 \examples{
-\dontrun{
-wolfCOP(cop=PSP) # 0.4784176}
+wolfCOP(cop=PSP) # 0.4784176
 
 \dontrun{
   # Maximum Difference between Sigma and Absolute Spearman Rho
