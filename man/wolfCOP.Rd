@@ -42,6 +42,34 @@ wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002, ...)
 \value{
   The value for \eqn{\sigma_\mathbf{C}} is returned.
 }
+\details{
+Consideration of speed performance between the \code{as.sample=TRUE} for the sample estimator argued by \enc{Póczos}{Poczos} \emph{et al.}, 2015) (refer to section \bold{Note}), the \code{\link{EMPIRgrid_fast}} is inserted for \eqn{n \ge 1{,}000} with addendum to compute \eqn{\sigma_\mathbf{C}} with supporting evidence for this operational decision made within the following operations:
+\preformatted{
+  "MYwolfCOPgrid" <- function(uv, ctype="1/n", ...) {
+    ef <- EMPIRgrid_fast(para=uv, gridonly=FALSE, ctype=ctype); pf <- ef$empcop
+    # gu <- gv <- as.numeric( rownames(ef$empcop) ) # a bit more speed
+    gu <- as.numeric( rownames(ef$empcop) )
+    for(i in seq_len(nrow(pf))) pf[i,] <- gu * gu[i]
+    return(12 * (1/ef$deluv) * mean(abs(ef$empcop - pf)) /
+                                       (cumprod(dim(pf))[1] - 1))
+  }
+
+  ns <- as.integer( 10^seq(1, 3.5, by=0.1) )
+  WG <- WS <- vector(mode="numeric", length(ns))
+  for(i in seq_len(length(ns))) {
+    uv <- simCOP(n=ns[i], cop=P, para=NULL, graphics=FALSE)
+    WG[i] <- wolfCOP(para=uv, as.sample=TRUE); WS[i] <- MYwolfCOPgrid(uv)
+  }
+
+  opts <- par(xpd=NA, no.readonly=FALSE)
+  df <- data.frame(n=ns, wolf_grid=WG, wolf_sample=WS)
+  plot(df$n, df$wolf_grid, pch=16, cex=0.5, xlim=c(10, 10000), ylim=c(0, 0.60),
+       xaxs="i", yaxs="i", log="x", las=1,
+       xlab="Sample size of Independence copula", ylab="Schweizer-Wolff Sigma")
+  points(df$n, df$wolf_sample)
+  par(opts)
+}
+}
 \note{
 A natural estimator for \eqn{\sigma_\mathbf{C}} is through the \emph{empirical copula} (\enc{Póczos}{Poczos} \emph{et al.}, 2015) and can be computed as
 \deqn{\hat{\sigma}_\mathbf{C} = \frac{12}{n^2 - 1}
@@ -51,7 +79,7 @@ where \eqn{\hat{\mathbf{C}}_n} is the simplest empirical copula of
 \deqn{\hat{\mathbf{C}}_n\biggl(\frac{i}{n}, \frac{j}{n}\biggr) =
 	\frac{1}{n}\{\# \mathrm{\ of\ } (U_k \le U_i, V_k \le V_j)\}}
 
-It is upon this estimator that the extensive simulations leading to \code{\link{wolfCOPtest}} are based.
+It is upon this estimator that the extensive simulations leading to \code{\link{wolfCOPtest}} are partly based with large sample sizes being computed through the algorithm shown in the \bold{Details} with sample size overlaps to understand limits of differences in the estimator.
 
 An extended example is informative. First, declare a composite of two different Plackett copulas (\code{\link{PLcop}}) and simulate a few hundred values:
 \preformatted{
