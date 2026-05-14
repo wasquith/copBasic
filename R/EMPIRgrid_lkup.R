@@ -23,8 +23,10 @@ function(u,v, para=NULL, ...) {
   # Extract the u and v probabilities of the gridded empirical copula and then make a vector of the
   ui <- para$u; vi <- para$v; ix <- seq_len(length(ui)) # indices for look up purposes to come.
 
-  # https://en.wikipedia.org/wiki/Bilinear_interpolation
+  u[u < 0] <- 0; u[u > 1] <- 1
+  v[v < 0] <- 0; v[v > 1] <- 1
 
+  # https://en.wikipedia.org/wiki/Bilinear_interpolation
   x1i <- sapply(u, function(u) max( ix[ui <= u]) ) # lower indices of x  --->  x1
   y1i <- sapply(v, function(v) max( ix[vi <= v]) ) # lower indices of y  --->  y1
   x2i <- sapply(u, function(u) min( ix[ui >= u]) ) # upper indices of x  --->  y1
