@@ -8,9 +8,14 @@ function(uv=NULL, ctype=c("1/n", "bernstein"), para=NULL,
 
   if(is.null(uv) & ! is.null(para)) uv <- para
   uv <- as.matrix(uv)
-  n  <- nrow(uv) # sample size
   if(ncol(uv) != 2) {
     warning("ncol(uv) != 2, function is only built for bivariate data handling")
+    return(NULL)
+  }
+
+  n  <- nrow(uv) # sample size
+  if(n == 1) {
+    warning("sample size n=", nrow(n), " is degenerate for this function")
     return(NULL)
   }
 
