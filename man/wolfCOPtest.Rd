@@ -3,7 +3,7 @@
 \alias{wolfCOPtest}
 \title{Empirically Created Schweizer and Wolff Sigma Test Against an Independence Copula}
 \description{
-\emph{EXPERIMENTAL}---Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \eqn{\mathbf{\Pi}}, \code{\link{P}}). Schweizer--Wolff Sigma is defined under \code{\link{wolfCOP}}. This test has been highly tuned from small samples to large by extensive simulation. The test here implemented is intimately tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access this dataset themselves unless for curiosity.
+Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \eqn{\mathbf{\Pi}}, \code{\link{P}}). The Schweizer--Wolff Sigma is defined under \code{\link{wolfCOP}}. This test has been highly tuned from small samples to large by extensive simulation. The test, as implemented, is intimately tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access the that dataset themselves unless for checking veracity of the simulations.
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
@@ -17,12 +17,12 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
   \item{probs}{Quantiles by nonexceedance probability to extract from the fitted distribution---these are common upper-tail critical values. If \code{probs} is empty, then 0.95 nonexceedance probability is silently used; and}
-  \item{...}{Additional arguments to pass to \code{lmomco::pp()}.}
+  \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
 The algorithm is based on simulation of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts based on Monte Carlo simulation are located in the directory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
 
-A logit transformation and its inversion are defined as
+The \emph{logit transformation} and its inversion are defined as
 
 \deqn{\eta = \mathrm{log}\biggl(\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}}\biggr)\mbox{\  and}
 }
@@ -40,18 +40,18 @@ The predicted L-moments are used to drive from the \pkg{lmomco} package the Pear
 }
 \examples{
 uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=8)  # approx p-value 0.001
-wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
+wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # PSP is not independence.
 
 uv <- simCOP(n=62, cop=P,   graphics=FALSE, seed=8)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.2
-# Note, the small sample p-values are NA for the two previous computations because the
-# sample size has become "large", but in the next example, we can have a look at the two
-# p-values by the Pearson type III distribution to the predicted L-moments for the sample
-# size and then the small-sample empirical tables in object wolfCOPtest_data_smlsam.
+# Note, the small sample p-values are NA for two previous examples because the sample
+# size has become "large", but in the next example, we can inspect two p-values
+# (1) by the Pearson type III distribution to the predicted L-moments for the sample
+# size and (2) by the small-sample empirical tables in object wolfCOPtest_data_smlsam.
 uv <- simCOP(n=13, cop=P,   graphics=FALSE, seed=81)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
-#   p.value(dist_pe3) p.value(sample_le40)
-#           0.2551848            0.2514400
+#   p.value(dist_pe3) p.value(sample_le40)  # four signif. figures kept here as
+#          0.2550***            0.25144**   # simulations might tune up internals
 
 \dontrun{
   # This example needs larger nsim but will show that the Sigma is performing close to
@@ -61,26 +61,28 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # perfect dependence in a setting of independence. Use of much larger nsim for this
   # example will hone the apparent rejection to about 0.05 for P, but clearly we see
   # divergence in performance for CIRCcop.
-  alpha <- 0.05; n <- 42; nsim <- 5000; cop <- P
+  alpha <- 0.05; n <- 42; nsim <- 2E4; cop <- P
   set.seed(1)
-  wolf   <- replicate(nsim, { wolfCOP(para=simCOP(n=n, cop,
-                              graphics=FALSE),  as.sample=TRUE) })
+  wolf   <- replicate(nsim, { wolfCOP(para=simCOP(n=n, cop, graphics=FALSE),
+                              as.sample=TRUE, nlarge=0, usefastgrid=TRUE) })
   wolfpv <- sapply(wolf, function(w) {
                    wolfCOPtest(w, n, asuv=TRUE, aslist=FALSE)[4]})
-  message("Schweizer-Wolff Sigma(n=", n, ") type I error rate = ",
+  message("  Schweizer-Wolff Sigma(n=", n, ") type I error rate = ",
            sum(wolfpv < alpha) / nsim)
   set.seed(1)
   rhopv <- replicate(nsim, { uv <- simCOP(n=n, cop=cop, graphics=FALSE);
-                   cor.test(uv[,1], uv[,2], method="spearman")$p.value })
+                    cor.test(uv[,1], uv[,2], method="spearman")$p.value })
   message("           Spearman Rho(n=", n, ") type I error rate = ",
            sum(rhopv  < alpha) / nsim)
-  # For nsim <- 15000
-  #       P : Schweizer-Wolff Sigma(n=42) type I error rate = 0.0497
-  #       P :          Spearman Rho(n=42) type I error rate = 0.0479
-  # CIRCcop : Schweizer-Wolff Sigma(n=42) type I error rate = 0.2852
-  # CIRCcop :          Spearman Rho(n=42) type I error rate = 0.0001
-  # These example computations show that Rho does not "sense" the perfect dependence of
-  # CIRCcop because its "correlation" is zero but Sigma has much high rejection rate.}
+  # For nsim <- 20000
+  #       P : Schweizer-Wolff Sigma(n=42) type I error rate = 0.04935
+  #       P :          Spearman Rho(n=42) type I error rate = 0.04805
+  # CIRCcop : Schweizer-Wolff Sigma(n=42) type I error rate = 0.28125
+  # CIRCcop :          Spearman Rho(n=42) type I error rate = 0.0010
+  # Such example computations show that Rho does not "sense" the perfect dependence
+  # of CIRCcop because its "correlation" is zero but has obvious dependence when
+  # plotted. Therefore, Sigma has a much higher rejection rate that will go to unity
+  # as the sample size increase.}
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
