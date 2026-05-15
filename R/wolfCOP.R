@@ -1,6 +1,6 @@
 "wolfCOP" <-
 function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002,
-         nlarge=1000, usefastgrid=TRUE, ...) {
+         nlarge=500, usefastgrid=TRUE, ...) {
 
     if(as.sample) {
       if(is.null(para)) {
@@ -66,4 +66,3 @@ function(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002,
    #names(wolf) <- "Sigma:integrate()"
    return(wolf)
 }
-

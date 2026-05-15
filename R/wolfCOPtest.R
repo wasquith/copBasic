@@ -49,13 +49,13 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.00629469, -1.09917354, 1.0707241, -1.292724618)
-    l2coe <- c(0.13237122, -0.00155776, 0.09201811, -2.112207038)
-    t3coe <- c(0.08092112, 0.00460682, 0.15977677, -1.886132818)
-    t4coe <- c(0.12249453, 0.00013212, 0.04430464, -2.503222668)
+    mucoe <- c(-0.01139649, -1.09840192, +1.07484331, -1.286523448)
+    l2coe <- c(+0.13220920, -0.00147861, +0.09215077, -2.114648448)
+    t3coe <- c(+0.07696919, +0.00556896, +0.16268524, -1.846875800)
+    t4coe <- c(+0.12182691, +0.00035186, +0.04477289, -2.479101568)
 
   # Apply the regressions using the hardwired coefficients herein
-  # m <- 3000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
+  # m <- 4000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
   # is technically close to reality but with the curvilinear regression being used, we eschew the
   # prediction not being monotonic decreasing with sample size want it to have an apparent asymptote.
   m <- ifelse(n > 4000, 4000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
@@ -136,3 +136,16 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   }
   return(zz)
 }
+
+
+
+#plotlmrdia(lmrdia(usrtrim=TRUE), xlim=c(0.10,0.30), ylim=c(0.11,0.16), autoaxes=FALSE,
+#             xaxs="i", yaxs="i", lwd.cex=1.3); xy <- NULL
+#ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
+#for(n in ns) {
+#  xy <- rbind(xy, data.frame(tau3=wolfCOPtest2(0, n)$lmoms_logit_sigma[3],
+#                             tau4=wolfCOPtest2(0, n)$lmoms_logit_sigma[4]))
+#}
+#xy <- xy[par()$usr[1] <= xy[,1] & xy[,1] <= par()$usr[2],]
+#xy <- xy[par()$usr[3] <= xy[,2] & xy[,2] <= par()$usr[4],]
+#lines( xy[,1], xy[,2], col="black", lwd=4)
