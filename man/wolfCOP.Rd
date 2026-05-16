@@ -46,7 +46,7 @@ wolfCOP(cop=NULL, para=NULL, as.sample=FALSE, brute=FALSE, delta=0.002,
 The value for \eqn{\sigma_\mathbf{C}} is returned, and the sample \eqn{\hat\sigma_\mathbf{C}} computation versions have \code{names()} attached to verify to the user which subsystem was used given the \code{nlarge} and \code{usefastgrid} arguments.
 }
 \details{
-A natural estimator for \eqn{\sigma_\mathbf{C}} is through the \emph{empirical copula} (\enc{Pózos}{Poczos} \emph{et al.}, 2015) and can be computed as
+A natural estimator for \eqn{\sigma_\mathbf{C}} is through the \emph{empirical copula} (\enc{Póczos}{Poczos} \emph{et al.}, 2015) and can be computed as
 \deqn{\hat{\sigma}_\mathbf{C} = \frac{12}{n^2 - 1}
         \sum_{i=1}^n\sum_{j=1}^n \bigg|\hat{\mathbf{C}}_n\biggl(\frac{i}{n}, \frac{j}{n}\biggr) -
                  \frac{i}{n}\times\frac{j}{n}\bigg|\mbox{,}}
@@ -56,7 +56,7 @@ where \eqn{\hat{\mathbf{C}}_n} is the simplest empirical copula of
 
 The sample version of \eqn{\hat\sigma_\mathbf{C}} is triggered by \code{wolfCOP(para=D, as.sample=TRUE)} for the double summation if \code{usefastgrid} is false and or \code{usefastgrid} is true and the same size is smaller than \code{nlarge}. A Monte Carlo integration version potentially suitable to very large sample sizes or difficult to integrate copula families is located at \code{\link{wolfCOPsamc}}, but the function itself is likely of limited general use because of the implementation of \code{\link{EMPIRgrid_fast}} inside \code{wolfCOP}. It is upon the fast estimator listed above that the extensive simulations leading to \code{\link{wolfCOPtest}} are based. In general, there are several asymptotically equivalent definitions of the empirical copula and some of which are implemented in \code{\link{EMPIRcop}}.
 
-Consideration of speed performance between the \code{as.sample=TRUE} for the sample estimator argued by \enc{Pózos}{Poczos} \emph{et al.}, 2015) (refer to section \bold{Note}), the \code{\link{EMPIRgrid_fast}} is measurably faster by about \eqn{n \ge 500}. The following code shows numerical equivalence between these estimators, but use of other \emph{empirical copula} will have divergence unless samples are large:
+Consideration of speed performance between the \code{as.sample=TRUE} for the sample estimator argued by \enc{Póczos}{Poczos} \emph{et al.}, 2015) (refer to section \bold{Note}), the \code{\link{EMPIRgrid_fast}} is measurably faster by about \eqn{n \ge 500}. The following code shows numerical equivalence between these estimators, but use of other \emph{empirical copula} will have divergence unless samples are large:
 \preformatted{
   "MYwolfCOPgrid" <- function(uv, ctype="1/n", ...) {
     ef <- EMPIRgrid_fast(para=uv, gridonly=FALSE, ctype=ctype)
@@ -115,7 +115,7 @@ Li, L. Liu, Y., and Lu, Z., 2019, A new dependence measure for importance analys
 
 Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 
-\enc{Pczos}{Poczos}, \enc{Barnabs}{Barnabas}, Krishner, S., \enc{Pl}{Pal}, D., \enc{Szepesvri}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
+\enc{Póczos}{Poczos}, B., Krishner, S., \enc{Pál}{Pal}, D., \enc{Szepesvári}{Szepesvari}, C., and Schneider, J., 2015, Robust nonparametric copula based dependence estimators, accessed on August 11, 2015, at \url{https://www.cs.cmu.edu/~bapoczos/articles/poczos11nipscopula.pdf}.
 
 Schweizer, B., and Wolff, E.F., 1981, On nonparametric measures of dependence for random variables: The Annuals of Statistics, v. 9, no. 4, pp. 879--855, \url{https://www.jstor.org/stable/2240856}.
 
