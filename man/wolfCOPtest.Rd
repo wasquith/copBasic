@@ -3,7 +3,7 @@
 \alias{wolfCOPtest}
 \title{Empirically Created Schweizer and Wolff Sigma Test Against an Independence Copula}
 \description{
-Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where  \eqn{\sigma_\mathbf{C}} is defined under \code{\link{wolfCOP}}. This test has been empirically tuned from small to large samples by extensive simulation; and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access the that dataset themselves unless for checking veracity of the simulations.
+Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where  \eqn{\sigma_\mathbf{C}} is defined under \code{\link{wolfCOP}}. This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned from small to large samples by extensive simulation; and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access the that dataset themselves unless for checking veracity of the simulations. There are no other known hypothesis tests for \eqn{\sigma_\mathbf{C}} known in the literature.
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
@@ -56,7 +56,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.2
 uv <- simCOP(n=13, cop=P,   graphics=FALSE, seed=81)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 #   p.value(dist_pe3) p.value(sample_le40)  # four signif. figures kept here as
-#          0.2550***            0.25144**   # simulations might tune up internals
+#          0.2549***            0.25144**   # simulations might tune up internals
 
 \dontrun{
   # This example needs larger nsim but will show that the Sigma is performing close to
@@ -66,7 +66,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # perfect dependence in a setting of independence. Use of much larger nsim for this
   # example will hone the apparent rejection to about 0.05 for P, but clearly we see
   # divergence in performance for CIRCcop.
-  alpha <- 0.05; n <- 42; nsim <- 2E4; cop <- P
+  alpha <- 0.05; n <- 42; nsim <- 20000; cop <- P
   set.seed(1)
   wolf   <- replicate(nsim, { wolfCOP(para=simCOP(n=n, cop, graphics=FALSE),
                               as.sample=TRUE, nlarge=0, usefastgrid=TRUE) })
@@ -80,7 +80,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   message("           Spearman Rho(n=", n, ") NULL=P rejection rate = ",
            sum(rhopv  < alpha) / nsim)
   # For nsim <- 20000
-  #       P : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.04935
+  #       P : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.04930
   #       P :          Spearman Rho(n=42) NULL=P rejection rate = 0.04805
   # CIRCcop : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.28125
   # CIRCcop :          Spearman Rho(n=42) NULL=P rejection rate = 0.0010
@@ -90,27 +90,29 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # as the sample size increase.}
 
 \dontrun{
-  plotlmrdia(lmrdia(usrtrim=TRUE), xlim=c(0.11,0.24), ylim=c(0.12,0.16),
-             autoaxes=TRUE, xaxs="i", yaxs="i", lwd.cex=1.3, nopoints=TRUE)
+  lmomco::plotlmrdia(lmomco::lmrdia(usrtrim=TRUE), nopoints=TRUE,
+                     xlim=c(0.11,0.24), ylim=c(0.12,0.16),
+                     autoaxes=TRUE, xaxs="i", yaxs="i", lwd.cex=1.3)
   xy <- st <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.01), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
-    lmr <- wolfCOPtest2(0, n, usepade=FALSE)$lmoms_logit_sigma
-    xy <- rbind(xy, data.frame(mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
+    lmr <- wolfCOPtest(0, n, usepade=FALSE)$lmoms_logit_sigma; if(is.null(lmr)) next
+    xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
-  xy <- xy[par()$usr[1] <= xy[,3] & xy[,3] <= par()$usr[2],]
-  xy <- xy[par()$usr[3] <= xy[,4] & xy[,4] <= par()$usr[4],]
-  lines( xy[,3], xy[,4], col="grey20", lwd=4)
+  xy <- xy[par()$usr[1] <= xy$tau3 & xy$tau3 <= par()$usr[2],]
+  xy <- xy[par()$usr[3] <= xy$tau4 & xy$tau4 <= par()$usr[4],]
+  lines(xy$tau3, xy$tau4, col="grey20", lwd=4)
   for(n in ns) {
-    lmr <- wolfCOPtest2(0, n, usepade=TRUE)$lmoms_logit_sigma
-    st <- rbind(st, data.frame(mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
+    lmr <- wolfCOPtest(0, n, usepade=TRUE)$lmoms_logit_sigma; if(is.null(lmr)) next
+    st <- rbind(st, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
-  st <- st[par()$usr[1] <= st[,3] & st[,3] <= par()$usr[2],]
-  st <- st[par()$usr[3] <= st[,4] & st[,4] <= par()$usr[4],]
-  lines( st[,3], st[,4], col="red1", lwd=2) #}
+  st <- st[par()$usr[1] <= st$tau3 & st$tau3 <= par()$usr[2],]
+  st <- st[par()$usr[3] <= st$tau4 & st$tau4 <= par()$usr[4],]
+  lines(st$tau3, st$tau4, col="red1", lwd=2) #}
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
+\keyword{Schweizer and Wolff Sigma (hypothesis test)}
 \keyword{generalized normal distribution}
 \keyword{Pearson type III distribution}
 \keyword{GNO (see generalized normal distribution)}
