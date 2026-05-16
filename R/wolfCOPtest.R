@@ -1,6 +1,6 @@
 "wolfCOPtest" <-
 function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
-               probs=c(0.90, 0.95, 0.98, 0.99, 0.995), ...) {
+               probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE, ...) {
   # The probs are quantile levels of the sigma to report, and these are useful to check against the
   # simulations but also to produce these as critical values should the user be interested in
   # these as well as the p-value.
@@ -10,6 +10,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
     rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- y[1] # and the sample size is in y[1]
+    if(! is.finite(lwolf)) lwolf <- log((1-.Machine$double.eps)/(1 - (1-.Machine$double.eps)))
     if(n < 3) {
       warning("sample size is <3, returning NULL")
       return(NULL)
@@ -36,6 +37,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
     rwolf <- wolfCOP(para=uv, as.sample=TRUE) # Schweizer-Wolff Sigma : wolf in (0,1)
     lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
+    if(! is.finite(lwolf)) lwolf <- log((1-.Machine$double.eps)/(1 - (1-.Machine$double.eps)))
   }
 
   dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chck_wolfCOPtestP.R
@@ -46,30 +48,67 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # size of 6 to 9 at p-values as fine as 0.001, so we move to the pe3 throughout.
   dtype <- "pe3"
 
-    # Nonlinear regression coefficients computed PRESS minimization of residuals for the
-    # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
-    # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.01139649, -1.09840192, +1.07484331, -1.286523448)
-    l2coe <- c(+0.13220920, -0.00147861, +0.09215077, -2.114648448)
-    t3coe <- c(+0.07696919, +0.00556896, +0.16268524, -1.846875800)
-    t4coe <- c(+0.12182691, +0.00035186, +0.04477289, -2.479101568)
-
   # Apply the regressions using the hardwired coefficients herein
   # m <- 4000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
   # is technically close to reality but with the curvilinear regression being used, we eschew the
-  # prediction not being monotonic decreasing with sample size want it to have an apparent asymptote.
-  m <- ifelse(n > 4000, 4000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
+  # prediction not being monotonic decreasing with sample size want it to have an apparent asymptotic.
+  m <- ifelse(n > 10000, 10000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
   # having a hook in it as sample sizes increases to infinite.
-  mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
-  l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
-  t3    <- t3coe[1] + t3coe[2] * log10(m) + t3coe[3] * log10(m)^t3coe[4] # Tau3    (L-skew)
-  t4    <- t4coe[1] + t4coe[2] * log10(m) + t4coe[3] * log10(m)^t4coe[4] # Tau4    (L-kurtosis)
+
+  if(usepade) { # See copBasic/inst/make_wolfCOPtest/genmod_wolfCOPtestP_B.R
+    "myPade" <- function(x, a=0, b=0) { # https://en.wikipedia.org/wiki/Pade_approximant
+                   j <- seq_len(length(a))-1; k <- seq_len(length(b))
+                   R <- vector(mode="numeric", length(x)) # The response R(x)
+                   for(i in seq_len(length(x))) { # for each of the values in x
+                     nj <-     sum(sapply(j, function(j) a[j+1]*x[i]^j)) # j=0 to m
+                     dk <- 1 + sum(sapply(k, function(k) b[k  ]*x[i]^k)) # k=1 to n
+                     R[i] <- nj / dk
+                   }
+                   return(R) }
+    myAlst <- list(
+         logitmu = c(11.5397173324509, -6.85097029886382, -4.74235568687226, -0.198046814965253),
+         logitlam2 = c(-0.317740939729506, 0.0463526427933416, 0.854874048115419),
+         logittau3 = c(0.626735982527971, -0.522243112767634, 0.415471025002729),
+         logittau4 = c(0.431100578782376, -0.460317290439041, 0.363372837526229))
+    myBlst <- list(
+         logitmu = c(5.9167498970596),
+         logitlam2 = c(-7.4358330118878, 9.35102271988569, -0.290886001481736),
+         logittau3 = c(-0.769018698037879, 1.09760347489778, 0.88803860071204, -0.101167914934562),
+         logittau4 = c(-0.453464714121642, 0.970844970331973, 0.532014896153529, -0.0529530222228696))
+    #if(n < 6) n <- 6
+    mu    <- myPade(log10(n), a=myAlst$logitmu,   b=myBlst$logitmu  )
+    l2    <- myPade(log10(n), a=myAlst$logitlam2, b=myBlst$logitlam2)
+    t3    <- myPade(log10(m), a=myAlst$logittau3, b=myBlst$logittau3)
+    t4    <- myPade(log10(m), a=myAlst$logittau4, b=myBlst$logittau4)
+  } else {
+    # Nonlinear regression coefficients computed PRESS minimization of residuals for the
+    # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
+    # distribution (its logit) assuming the Independence copula.
+    mucoe <- c(-0.01002992, -1.09866181, 1.07367739, -1.287695318)
+    l2coe <- c(0.13165505, -0.00135104, 0.09247397, -2.099023448)
+    t3coe <- c(0.07682259, 0.00560839, 0.16291398, -1.8468758)
+    t4coe <- c(0.12174226, 0.00037708, 0.04493843, -2.480761728)
+    mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
+    l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
+    t3    <- t3coe[1] + t3coe[2] * log10(m) + t3coe[3] * log10(m)^t3coe[4] # Tau3    (L-skew)
+    t4    <- t4coe[1] + t4coe[2] * log10(m) + t4coe[3] * log10(m)^t4coe[4] # Tau4    (L-kurtosis)
+  }
+
   if(t4 < (5 * t3^2 - 1)/4) t4 <- (5 * t3^2 - 1)/4 # theoretical limits of Tau4
   lmrs  <- c(mu, l2, t3, t4) # Tidy list of the Lmoments of the logit(Sigma) distribution
+  lmro  <- lmomco::vec2lmom(lmrs, checklmom=FALSE)
+  if( ! lmomco::are.lmom.valid(lmro) ) {
+    warning("L-moments are invalid, sample size beyond empirical logit estimator(s)?\n",
+            "   Lambdas ", paste(round(lmro$lambdas, digits=6), collapse=", "), "\n",
+            "    Ratios ", paste(round(lmro$ratios,  digits=6), collapse=", "), "\n",
+            "Pretrapping of T3-T4 has been made, do you see a negative Lambda2?\n",
+            "If so, then that means that the variation is predicted negative!")
+    return(NULL)
+  }
   if(dtype == "gno") {
-    para  <-  lmomco::pargno(lmomco::vec2lmom(c(mu, l2, t3, t4)), useHosking=FALSE)
+    para  <-  lmomco::pargno(lmro, useHosking=FALSE)
   } else if(dtype == "pe3") {
-    para  <-  lmomco::parpe3(lmomco::vec2lmom(c(mu, l2, t3, t4)), useHosking=FALSE)
+    para  <-  lmomco::parpe3(lmro, useHosking=FALSE)
   } else {
     stop("should not be here in logic")
   }
@@ -99,6 +138,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   # of using the data() call.
   smlsam <- system.file("data/wolfCOPtest_data_smlsam.RData", package="copBasic")
   max_n_in_smlsam <- 40 # max sample size within wolfCOPtest_data_smlsam$n (yes hard wired)
+  n <- as.integer(n)
   if(n <= max_n_in_smlsam & file.exists(smlsam)) {
     wolfCOPtest_data_smlsam <- NULL # initialize whether or no so R CMD check --as-cran will pass by visibility
     load(smlsam)
@@ -136,16 +176,3 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   }
   return(zz)
 }
-
-
-
-#plotlmrdia(lmrdia(usrtrim=TRUE), xlim=c(0.10,0.30), ylim=c(0.11,0.16), autoaxes=FALSE,
-#             xaxs="i", yaxs="i", lwd.cex=1.3); xy <- NULL
-#ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
-#for(n in ns) {
-#  xy <- rbind(xy, data.frame(tau3=wolfCOPtest2(0, n)$lmoms_logit_sigma[3],
-#                             tau4=wolfCOPtest2(0, n)$lmoms_logit_sigma[4]))
-#}
-#xy <- xy[par()$usr[1] <= xy[,1] & xy[,1] <= par()$usr[2],]
-#xy <- xy[par()$usr[3] <= xy[,2] & xy[,2] <= par()$usr[4],]
-#lines( xy[,1], xy[,2], col="black", lwd=4)
