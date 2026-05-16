@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.12 (2026-05-02)
+Changes in version 2.2.12 (2026-05-16)
 -  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
 -  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
      expanded Examples section therein to include a Ubeda-Flores (2022) example.
@@ -9,22 +9,25 @@ Changes in version 2.2.12 (2026-05-02)
 -  Added wolfCOPsamc() as a Monte Carlo integration version and subsetting to
      achieve much faster computation times as the sample size scales up, which gives
      the original 2015 wolfCOP(as.sample=TRUE) function poor CPU time.
--  Added experimental wolfCOPtest() as a hypothesis testing against the Independence
-     copula with no known analogs in the literature. Inclusion of a new directory
+-  Added wolfCOPtest() as a hypothesis testing against the Independence copula with
+     no known analogs in the literature. Inclusion of a new directory to repository
      inst/make_wolfCOPtest/ that contains the build algorithms and output from large
      simulations conducted therein using the Independence copula.
 -  Added data object wolfCOPtest_data_smlsam that contains empirical distributions
      of Schweizer-Wolff Sigma for sample sizes of 3-40 for better implementation of
      the wolfCOPtest() across small to large samples.
--  Minor edits to copBasic-package.Rd to accommodate expansion of Schweizer-Wolff
-     Sigma.
--  A few spelling corrections to this NEWS file.
--  Completed a spelling check sweep across the .Rd files.
+-  Edits to copBasic-package.Rd to accommodate expansion of Schweizer-Wolff Sigma.
+-  Spelling corrections to this NEWS file.
+-  Spelling check sweep across the .Rd files.
 -  Added gridonly argument to EMPIRgrid() with default to false.
 -  Added some more text to EMPIRcop.Rd with a numerical comparison to copula::C.n().
 -  Added EMPIRgrid_fast() with cross link to EMPIRgrid(). EMPIRgrid_fast() uses a
       fasting faster algorithm that was published in the literature in 2024.
 -  Added EMPIRgrid_lkup(), bilinear interpolated lookup of gridded empirical copula.
+-  Adjusted EMPIRgrid() to silently flip para or para$para to data.frame before the
+      call to EMPIRcop(). === I need to have a future look at matrix and data.frame
+      handling nuances in all the EMPIR* family ===
+-  Enhanced trapping of bad argument combinations in ORDSUMcop.R and ORDSUWcop.R.
 
 
 Changes in version 2.2.11 (2025-11-02)
