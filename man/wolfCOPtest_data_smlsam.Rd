@@ -39,6 +39,8 @@ data(wolfCOPtest_data_smlsam)
   ns <- c(3, 4, 5, 7, 10, 15, 20, 30, 40, 50, 70, 100, 130, 200, 500, 1000, 5000)
   for(n in ns) {
     wt   <- wolfCOPtest(0, n) # next isolate the distribution type
+    # If copy and paste from R help, then one needs to add backslashes to avoid
+    # unrecognized escape errors from R in the next line of code.
     type <- gsub("\\)$", "", gsub("p.value\\(dist_", "", names(wt$p.value)[1]))
     para <- lmomco::vec2par(wt$distpara_by_lmoms, type=type) # type == pe3
     qq   <- 1/(1 + exp(-lmomco::qlmomco(ff, para)))
@@ -55,17 +57,18 @@ data(wolfCOPtest_data_smlsam)
   par(lheight=1) #}
 
 \dontrun{
-  W <- seq(0, 1, by=0.005) # Span all Schweizer-Wolff Sigma. If the first argument to
-  # wolfCOPtest is scalar and so is the second, these are treated as sigma and the
-  # sample size. The parametric dist. is the generalized normal for all these sample
-  # sizes and switches to Pearson type III at n > 41 (refer to inst/make_wolfCOPtest/).
-  for(i in 3:40) { # samples sizes 3 to 40 in wolfCOP_data_smlsam
-    Pd <- sapply(W, function(w) wolfCOPtest(w, i)$p.value[1])
-    Pe <- sapply(W, function(w) wolfCOPtest(w, i)$p.value[2])
+  W <- seq(0, 1, by=0.01) # Span all Schweizer-Wolff Sigma, when the first and second
+  # arguments to wolfCOPtest are scalars, these are treated as sigma and sample size.
+  for(i in 3:40) { # samples sizes 3 to 40 in wolfCOPtest_data_smlsam.
+    Pd <- sapply(W, function(w) wolfCOPtest(w, i, usepade=FALSE)$p.value[1])
+    Pe <- sapply(W, function(w) wolfCOPtest(w, i, usepade=FALSE)$p.value[2])
+    Pp <- sapply(W, function(w) wolfCOPtest(w, i, usepade=TRUE )$p.value[1])
     # p-value by the generalized normal (parametric) distribution
-    plot( W, Pd, type="l", col="grey50", lwd=7, main=i)
+    plot( W, Pd, type="l", col="grey70", lty=2, lwd=7, main=paste0("n=", i),
+         xlab="Schweizer-Wolff Sigma", ylab="Nonexceedance probability")
+    points(W, Pp, col="skyblue2", lwd=1) # large sample p-values
     # p-value derived from wolfCOP_data_smlsam tables:
-    lines(W, Pe, col="darkgreen", lwd=2) # small sample p-values
+    lines(W, Pe, col="green4",    lwd=4) # small sample p-values
   } #}
 }
 \keyword{datasets}
