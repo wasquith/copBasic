@@ -126,7 +126,7 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
 
   lmr <- lmomco::lmoms(log(MCwolves/(1-MCwolves)), nmom=nmom, no.stop=TRUE)
   zz <- c(sort(c(range(log(MCwolves/(1-MCwolves))), lmr$lambdas[1])))
-  print(zz)
+  # print(zz)
   names(zz) <- c("min", "mean", "max")
   if(includelmoms) {
     zz <- c(zz, (lmr$lambdas[2]*sqrt(pi))^2, lmr$lambdas[2])
@@ -158,4 +158,3 @@ function(u=NULL, v=NULL, cop=EMPIRcop, para=NULL, para_has_paras=FALSE,
 #lmr <- lmomco::vec2lmom(c(wc$logitestimates[c(2,5:8)]))
 #gld <- lmomco::parst3(lmr)
 #plot(x, dlmomco(log(x/(1-x)), gld), type="l")
-
