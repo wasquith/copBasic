@@ -43,16 +43,21 @@ Beyond about 1,000 sample sizes \code{wolfCOP(as.sample=TRUE)} scales in time po
 \preformatted{
   UV       <- simCOP(3000, cop=CLcop, para=3, graphics=FALSE, seed=473)
   theowolf <- wolfCOP(     cop=CLcop, para=3) # 0.7864391
-  system.time(  smwolf <- wolfCOP(    para=UV, as.sample=TRUE) )
-  system.time(  mcwolf <- wolfCOPsamc(para=UV,   usetime=TRUE) )
-  #   user  system elapsed   WOLF(sample) = 0.8002883
-  # 146.273  13.643 159.894
-  #   user  system elapsed   WOLF(mean)   = 0.799871285
-  #  14.893   1.225  16.118
+  system.time( sfwolf <- wolfCOP(    para=UV, as.sample=TRUE,
+                                          nlarge=1, usefastgrid=TRUE ) )
+  system.time( smwolf <- wolfCOP(    para=UV, as.sample=TRUE,
+                                          nlarge=1, usefastgrid=FALSE) )
+  system.time( mcwolf <- wolfCOPsamc(para=UV,   usetime=TRUE) )
+  #   user  system elapsed   WOLF(sample fast) = 0.8002883
+  #  0.600   0.017   0.616
+  #   user  system elapsed   WOLF(sample slow) = 0.8002883
+  # 188.072  25.594 213.632
+  #   user  system elapsed   WOLF(monte carlo) = 0.799808
+  #  12.729   1.449  14.191
 }
 
 
-If one wanted to make some comparisons of computed results between \code{\link{wolfCOP}} and \code{wolfCOPsamc}, the following recipe, with a suitably large sample size, that we see a general spread around the equal value line. The use of Monte Carlo integration approach is not advised when computational speed of \code{\link{wolfCOP}} is sufficient.
+If one wanted to make some comparisons of computed results between \code{\link{wolfCOP}} and \code{wolfCOPsamc}, the following recipe, with a suitably large sample size, that we see a general spread around the equal value line. The use of Monte Carlo integration approach is not advised when computational speed of \code{\link{wolfCOP}} is sufficient.  This \code{wolfCOPsamc} function is potentially of less usefulness than suggested because of the \code{\link{EMPIRgrid_fast}} within \code{\link{wolfCOP}} for rapid estimation by a gridded empirical copula.
 \preformatted{
   nsam <- 1000; nsim <- 20; wolf <- mcwolf <- rep(NA, length=nsim)
   for(i in seq_len(nsim)) {
@@ -83,15 +88,15 @@ UV <- simCOP(40, para=para, cop=GHcop, seed=1) # Simulate a sample
 wolfCOP(    para=para, cop=GHcop)      # Theo. value + next 2 lines
 wolfCOPsamc(para=para, cop=GHcop)$estimate[2] # Same as next line
 wolfCOPsamc(para=para, cop=GHcop, para_has_paras=TRUE)$estimate[2]
-wolfCOP(    para=UV, as.sample=TRUE)   # original package implementation
+wolfCOP(    para=UV, as.sample=TRUE, usefastgrid=TRUE, nlarge=1) # Spring 2026
+wolfCOP(    para=UV, as.sample=TRUE, usefastgrid=FALSE) # original pkg implementation
 wolfCOPsamc(para=UV)$estimate[2]       # Monte Carlo estimate
 
 \dontrun{
   # Test the trace and verbose arguments
   para <- list(cop=c(P, M), part=c(0,0.5,1))
   UV   <- simCOP(1000, cop=ORDSUWcop, para=para)
-  SW   <- wolfCOPsamc(para=UV, tol=0.0005, trace=TRUE, verbose=TRUE)
-}
+  SW   <- wolfCOPsamc(para=UV, tol=0.0005, trace=TRUE, verbose=TRUE) #}
 
 \dontrun{
   # Test the various interfaces for a sample computation along with
@@ -138,11 +143,11 @@ wolfCOPsamc(para=UV)$estimate[2]       # Monte Carlo estimate
     parallel::clusterExport( cl, "nsam") # make "nsam" visible in cluster FUN
     if(doMC) { # set tolerance "up" just for some speed increase for the example
       wolves <- parallel::parSapply(cl=cl, seq_len(nsim), FUN=function(i) {
-           copBasic::wolfCOPsamc(para=as.data.frame(matrix(runif(nsam*2),
+           wolfCOPsamc(para=as.data.frame(matrix(runif(nsam*2),
                            ncol=2)), tol=0.01, usetime=TRUE)$estimates[2] })
     } else {
       wolves <- parallel::parSapply(cl=cl, seq_len(nsim), FUN=function(i) {
-           copBasic::wolfCOP(    para=as.data.frame(matrix(runif(nsam*2),
+           wolfCOP(    para=as.data.frame(matrix(runif(nsam*2),
                            ncol=2)), as.sample=TRUE)                      })
     }
     parallel::stopCluster(cl) # stop the cluster as it will be restarted as needed
