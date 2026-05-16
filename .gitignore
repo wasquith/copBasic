@@ -47,8 +47,10 @@ inst/make_wolfCOPtest/montecarlo_wolfPI_*.txt
 inst/make_wolfCOPtest/nohup*.out
 inst/make_wolfCOPtest/Rplots.pdf
 inst/make_wolfCOPtest/smlsam/smlsam_mc_wolfPI_*.txt
-inst/make_wolfCOPtest/mc_wolfPI_*.txt
-inst/make_wolfCOPtest/aa_allsims.txt
-inst/make_wolfCOPtest/aa_lapsims.txt
-inst/make_wolfCOPtest/aa_macmini.txt
 inst/make_wolfCOPtest/smlsam/wolfCOPtest_data_smlsam.RData
+inst/make_wolfCOPtest/mc_wolfPI/aa_allsims.txt
+inst/make_wolfCOPtest/mc_wolfPI/aa_lapsims.txt
+inst/make_wolfCOPtest/mc_wolfPI/aa_macmini.txt
+inst/make_wolfCOPtest/mc_wolfPI/mc_wolfPI_*.txt
+inst/make_wolfCOPtest/wolfCOP_EMPIRgrid_fast/wolfCOP_EMPIRgrid_fast*.txt
+inst/make_wolfCOPtest/wolfCOPlogitTau34.pdf
