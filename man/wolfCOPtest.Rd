@@ -66,16 +66,16 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # perfect dependence in a setting of independence. Use of much larger nsim for this
   # example will hone the apparent rejection to about 0.05 for P, but clearly we see
   # divergence in performance for CIRCcop.
-  alpha <- 0.05; n <- 42; nsim <- 20000; cop <- P
+  alpha <- 0.05; n <- 42; nsim <- 20000; cop <- P; p <- NULL
   set.seed(1)
-  wolf   <- replicate(nsim, { wolfCOP(para=simCOP(n=n, cop, graphics=FALSE),
+  wolf   <- replicate(nsim, { wolfCOP(para=rCOP(n=n, cop, para=p),
                               as.sample=TRUE, nlarge=0, usefastgrid=TRUE) })
   wolfpv <- sapply(wolf, function(w) {
                    wolfCOPtest(w, n, asuv=TRUE, aslist=FALSE)[4]})
   message("  Schweizer-Wolff Sigma(n=", n, ") NULL=P rejection rate = ",
            sum(wolfpv < alpha) / nsim)
   set.seed(1)
-  rhopv <- replicate(nsim, { uv <- simCOP(n=n, cop=cop, graphics=FALSE);
+  rhopv <- replicate(nsim, { uv <- rCOP(n=n, cop=cop, para=p);
                     cor.test(uv[,1], uv[,2], method="spearman")$p.value })
   message("           Spearman Rho(n=", n, ") NULL=P rejection rate = ",
            sum(rhopv  < alpha) / nsim)
