@@ -23,7 +23,7 @@ Benv <- new.env()
 use_whole_sample  <- FALSE
 use_weights <- FALSE
 log10_increment   <- 0.04
-max_nm_complexity <- 5
+max_nm_complexity <- 4
 
 
 xo <- log10( Z$n )
@@ -66,6 +66,7 @@ function(par, m=NA, n=NA, x=NA, y=NA, w=1) {
 }
 
 strs <- c("logitmu", "logitlam2", "logittau3", "logittau4")
+strs <- strs[1:4]
 for(str in strs) {
   message("---- ", toupper(str), " ------------ Pade approximant notation [m/n]f(x) ------------ ")
   yo <- Z[,str] # response variable
@@ -137,17 +138,28 @@ for(str in strs) {
   lines(xa, ypa, lwd=3); mtext(txt, line=1)
 }
 
+
+t3pwr <- sapply(xa, function(k) wolfCOPtest(0, k)$lmoms_logit_sigma[3])
+t4pwr <- sapply(xa, function(k) wolfCOPtest(0, k)$lmoms_logit_sigma[4])
+plot(t3pwr, t4pwr, type="l", xlim=c(0.10,0.32), ylim=c(0.11,0.20),
+     xlab="Lskew", ylab="Lkurtosis")
+lines(pade_logittau3, pade_logittau4, col="red1")
+
+
+
 # Now go and paste these into wolfCOPtest.R
 txt <- paste0("myAlst <- list(\n",  paste(
- sapply(1:4, function(k) paste0("         ", names(Alst)[k],
-                         paste0(" = c(", paste(get(names(Alst)[k], Alst), collapse=", ")), ")")),
+ sapply(seq_len(length(Alst)), function(k) paste0("         ", names(Alst)[k],
+                                     paste0(" = c(", paste(get(names(Alst)[k], Alst),
+                collapse=", ")), ")")),
                 collapse=",\n"), ")")
 message(txt)
 eval(str2expression(txt))
 
 txt <- paste0("myBlst <- list(\n",  paste(
- sapply(1:4, function(k) paste0("         ", names(Blst)[k],
-                         paste0(" = c(", paste(get(names(Blst)[k], Blst), collapse=", ")), ")")),
+ sapply(seq_len(length(Blst)), function(k) paste0("         ", names(Blst)[k],
+                                     paste0(" = c(", paste(get(names(Blst)[k], Blst),
+                collapse=", ")), ")")),
                 collapse=",\n"), ")")
 message(txt)
 eval(str2expression(txt))

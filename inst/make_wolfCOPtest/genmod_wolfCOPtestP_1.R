@@ -59,7 +59,17 @@ for(file in files) {
   AUX <- rbind(AUX, df)
 }
 AUX <- AUX[AUX$n >= 8,]
-
+ZAUX <- NULL
+for(k in sort(unique(AUX$n))) {
+  y <- AUX[AUX$n == k,]
+  z <- y[1,]
+  strs <- c("logitmu",   "logitvar",  "logitlam2", "logittau3", "logittau4", "logittau5")
+  for(i in seq_len(length(strs))) z[,strs[i]] <- weighted.mean(y[,strs[i]], y$nsim)
+  z[,1] <- sum(y$nsim)
+  z[,2] <- y$n[1]
+  ZAUX <- rbind(ZAUX, z)
+}
+ZAUX$wgts <- sqrt(ZAUX$nsim); ZAUX$wgts <- ZAUX$wgts/sum(ZAUX$wgts) * length(ZAUX$wgts)
 
 
 AUX$wgts <- sqrt(AUX$nsim); AUX$wgts <- AUX$wgts/sum(AUX$wgts) * length(AUX$wgts)
@@ -69,12 +79,12 @@ LMR$nsim <- jjj$nsim; rm(jjj); LMR$Group.1 <- NULL # compute means and total up 
 AUX <- LMR
 AUX$wgts <- sqrt(AUX$nsim); AUX$wgts <- AUX$wgts/sum(AUX$wgts) * length(AUX$wgts)
 
-Z <- Z[Z$n <= 1000,]
+#Z <- Z[Z$n <= 1000,]
 Z <- merge(Z, AUX, all=TRUE)
 Z <- Z
 Z <- Z[order(Z$n, decreasing=TRUE),]
 
-Z <- AUX
+Z <- ZAUX
 
 
 plotlmrdia(lmrdia(), xlim=c(0.05, 0.3), ylim=c(0.1, 0.20), empty=TRUE)
