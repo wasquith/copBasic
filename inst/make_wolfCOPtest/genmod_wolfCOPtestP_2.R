@@ -16,13 +16,14 @@ function(x, a=0, b=0) {
    return(R)
 }
 
+#Z <- Z[Z$n <= 10000,]
 Aenv <- new.env()
 Benv <- new.env()
 
 use_whole_sample  <- FALSE
 use_weights <- FALSE
-log10_increment   <- 0.02
-max_nm_complexity <- 6
+log10_increment   <- 0.04
+max_nm_complexity <- 5
 
 
 xo <- log10( Z$n )
@@ -34,7 +35,7 @@ if(use_whole_sample) {
 } else {
   x  <- seq(min(xo), max(xo), by=log10_increment)
   w  <- approx(xo, wo, xout=x, rule=2)$y
-  w  <- length(x)*sqrt(w)/sum(sqrt(w))
+  w  <- length(x) * sqrt(w) / sum(sqrt(w))
 }
 if(! use_weights) w <- rep(1, length(w))
 
@@ -46,6 +47,8 @@ function(par, m=NA, n=NA, x=NA, y=NA, w=1) {
   # print(c(mix, nix))           # diagnostics
   # a <- par[mix]; b <- par[nix] # diagnostics
   # print(a); print(b); stop()   # diagnostics
+  #ypE36 <- PadeApproximant(c(3:6), a=par[mix], b=par[nix])
+  #if(any(diff(ypE36) > 0)) return(1E6) # for an expected monotonic at least decreasing tail
   yp  <- PadeApproximant(x, a=par[mix], b=par[nix])
   #plot(x, yp-y)
   #uv  <- data.frame(U=lmomco::pp(x,    sort=FALSE),
@@ -64,27 +67,34 @@ function(par, m=NA, n=NA, x=NA, y=NA, w=1) {
 
 strs <- c("logitmu", "logitlam2", "logittau3", "logittau4")
 for(str in strs) {
-  message("-------------------------------------------------------------")
+  message("---- ", toupper(str), " ------------ Pade approximant notation [m/n]f(x) ------------ ")
   yo <- Z[,str] # response variable
   if(use_whole_sample) {
     y <- yo # revert to the whole sample
   } else {
-    y  <- approx(xo, yo, xout=x, rule=2)$y # a bit suboptimal to interpolate but this way we get
-    # equal parts of the sample size in logarithms spread evenly with some speed increase to study and the
-    # interpolation of the weights already made
+    y  <- approx(log10(xo), yo, xout=log10(x), rule=2)$y # suboptimal to interpolate but this way we
+    # get equal parts of the sample size in logarithms spread evenly with some speed increase to
+    # study and the interpolation of the weights already made
   }
   ERR <- +Inf; KEY <- ""; A <- B <- NA # characteristics of the optimal solution for str
   for(m in 0:max_nm_complexity) {
     for(n in 1:max_nm_complexity) {
-      key <- paste0("m=", m, ":n=", n); message(key, appendLF=FALSE)
-      for(o in 1:3) { # subloop to grab different initial conditions
+      key <- paste0("[", m, "/", n, "]"); message(key, appendLF=FALSE)
+      for(o in 1:4) { # subloop to grab different initial conditions
         ai <- runif(m+1, min=-1, max=+1) # stress the system with random starting points
         bi <- runif(n,   min=-1, max=+1) # stress the system with random starting points
         init.par <- c(ai, bi) # initial vector of m+1, n concatenation of A,B coefficients
-        rt <- optim(init.par, ofunc, m=m, n=n, x=x, y=y, w=w) # Nelder-Mead optimization
+        if(str == "logitlam2") {
+          rt <- optim(init.par, ofunc, m=m, n=n, x=x, y=log(y), w=w) # Nelder-Mead optimization
+        } else {
+          rt <- optim(init.par, ofunc, m=m, n=n, x=x, y=y, w=w) # Nelder-Mead optimization
+        }
         a  <- rt$par[seq_len(m+1)]; b <- rt$par[m+1 + seq_len(n)] # optimized A and B coefficients
-        yp <- PadeApproximant(x, a=a, b=b)   # make the final predictions
+        yp <- PadeApproximant(x, a=a, b=b)     # make the final predictions
+        if(str == "logitlam2") yp <- exp( yp ) # make the final predictions (Lam2 is also positive)
         err <- sum(w*(y - yp)^2, na.rm=TRUE) # accumulate a square error
+        #ypE36 <- PadeApproximant(c(3:6), a=a, b=b)
+        #if(any(diff(ypE36) > 0)) err <- +Inf # for an expected monotonic at least decreasing tail
         if(err < ERR) { # if we have found a new minimum error, let us preserve those results
           ERR <- err; KEY <- key; A <- a; B <- b
           assign(str, A, envir=Aenv); assign(str, B, envir=Benv)
@@ -101,6 +111,8 @@ for(str in strs) {
   }
 }
 
+
+xa <- 10^seq(log10(5),6, by=0.02)
 pade_logitmu <- pade_logitlam2 <- pade_logittau3 <- pade_logittau4 <- NULL
 Alst <- as.list(Aenv)
 Blst <- as.list(Benv)
@@ -111,16 +123,18 @@ for(str in strs) {
   x   <- Z$n
   w   <- length(Z$nsim)*sqrt(Z$nsim)/sum(sqrt(Z$nsim))
   y   <- Z[,str]
-  yp  <- PadeApproximant(log10(x), a=a, b=b)
+  yp  <- PadeApproximant(log10(x),  a=a, b=b)
+  ypa <- PadeApproximant(log10(xa), a=a, b=b)
+  if(str == "logitlam2") { yp <- exp(yp); ypa <- exp(ypa) }
   if(str == "logitmu"  ) pade_logitmu   <- yp
   if(str == "logitlam2") pade_logitlam2 <- yp
   if(str == "logittau3") pade_logittau3 <- yp
   if(str == "logittau4") pade_logittau4 <- yp
   err <- sum(w*(y - yp)^2)
   txt <- paste0("m=", m, " and n=", n, "\nerr=", round(err, digits=6))
-  plot( x, y, pch=21, col=grey(0.7), bg="white", log="x", cex=w+.5,
-        xlab="Sample size", ylab=str)
-  lines(x, yp, lwd=3); mtext(txt, line=1)
+  plot( x, y, pch=21, col="deepskyblue1", bg="white", log="x", cex=w+.5,
+        xlab="Sample size", ylab=str, xlim=range(xa), ylim=range(ypa))
+  lines(xa, ypa, lwd=3); mtext(txt, line=1)
 }
 
 # Now go and paste these into wolfCOPtest.R
