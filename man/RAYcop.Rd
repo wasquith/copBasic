@@ -49,7 +49,7 @@ Bo\enc{š}{s}koskia, P., Debenjaka, A., Boshkoskab, B.M., 2018, Rayleigh copula 
 
 Zeng, X., Ren, J., Wang, Z., Marshall, S., and Durrani, T., 2014, Copulas for statistical signal processing (Part I)---Extensions and generalization: Signal Processing v. 14, pp. 691--702, \doi{10.1016/j.sigpro.2013.07.009}.
 
-Zeng, X., Ren, J., Sun, M., Marshall, S., and Durrani, T., 2014, Copulas for statistical signal processing (Part II)---Simulation, optimal selection and practical applications: Signal Processing, v. 94, pp. 681--690, \doi{10.1016/j.sigpro.2013.07.006}.
+Zeng, X., Ren, J., Sun, M., Marshall, S., and Durrani, T., 2014, Copulas for statistical signal processing (Part II)---Simulation, optimal selection and practical applications: Signal Processing,\cr v. 94, pp. 681--690, \doi{10.1016/j.sigpro.2013.07.006}.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{M}}, \code{\link{P}}
