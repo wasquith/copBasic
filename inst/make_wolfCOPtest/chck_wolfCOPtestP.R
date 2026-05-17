@@ -6,8 +6,8 @@ library(lmomco)
 # Triggers error if there is no minimum, which we fundamentally expect for mean and L-scale
 #n_at_minLam1 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[1])$par
 #n_at_minLam2 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[2])$par
-#n_at_minTau3 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[3])$par
-#n_at_minTau4 <- optim(1000, function(n) wolfCOPtest(0, n)$lmoms_logit_sigma[4])$par
+#n_at_minTau3 <- optim(1000, function(n) wolfCOPtest(0, n, usepade=TRUE)$lmoms_logit_sigma[3])$par
+#n_at_minTau4 <- optim(1000, function(n) wolfCOPtest(0, n, usepade=TRUE)$lmoms_logit_sigma[4])$par
 
 D <- NULL
 D <- read.table("mc_wolfPI/aa_allsimsREF.txt", sep="\t", header=TRUE)
@@ -59,6 +59,17 @@ for(file in files) {
   AUX <- rbind(AUX, df)
 }
 AUX <- AUX[AUX$n >= 8,]
+ZAUX <- NULL
+for(k in sort(unique(AUX$n))) {
+  y <- AUX[AUX$n == k,]
+  z <- y[1,]
+  strs <- c("logitmu",   "logitvar",  "logitlam2", "logittau3", "logittau4", "logittau5")
+  for(i in seq_len(length(strs))) z[,strs[i]] <- weighted.mean(y[,strs[i]], y$nsim)
+  z[,1] <- sum(y$nsim)
+  z[,2] <- y$n[1]
+  ZAUX <- rbind(ZAUX, z)
+}
+ZAUX$wgts <- sqrt(ZAUX$nsim); ZAUX$wgts <- ZAUX$wgts/sum(ZAUX$wgts) * length(ZAUX$wgts)
 
 
 AUX$wgts <- sqrt(AUX$nsim); AUX$wgts <- AUX$wgts/sum(AUX$wgts) * length(AUX$wgts)
@@ -75,7 +86,7 @@ Z <- Z
 Z <- Z[order(Z$n, decreasing=TRUE),]
 
 
-Z <- AUX
+Z <- ZAUX
 
 plot(Z$n, Z$logitmu,   log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
 plot(Z$n, Z$logitlam2, log="x", cex=log10(Z$nsim)-2.9, col=1); #stop()
@@ -84,7 +95,7 @@ plot(Z$n, Z$logittau3, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.35))
 plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.20))
 #stop()
 
-
+THE_TEST <- wolfCOPtest
 usepade <- FALSE
 pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   plotlmrdia(lmrdia(), xlim=c(0.10,0.32), ylim=c(0.11,0.20), empty=TRUE, autoaxes=FALSE,
@@ -111,7 +122,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   xy <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
-    lmr <- wolfCOPtest(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
+    lmr <- THE_TEST(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   row.names(xy) <- NULL
@@ -120,7 +131,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   lines(xy$tau3, xy$tau4, col="wheat2", lwd=2)
   xy <- NULL
   for(n in c(8:14,17,19,25)) {
-    lmr <- wolfCOPtest(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
+    lmr <- THE_TEST(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   row.names(xy) <- NULL
@@ -240,7 +251,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   xy <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
-    lmr <- wolfCOPtest(0, n, usepade=TRUE)$lmoms_logit_sigma; if(is.null(lmr)) next
+    lmr <- THE_TEST(0, n, usepade=TRUE)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   row.names(xy) <- NULL
