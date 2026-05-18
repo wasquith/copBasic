@@ -119,6 +119,19 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   axis(4, at=ytix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.3)
   axis(1, at=0.32, labels=TRUE, lwd=0, lwd.ticks=0, tcl=-0.3)
   points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-4.3, col="salmon4",    bg="salmon1", lwd=0.7  )
+
+
+  nevels <- seq(4000, 10000, by=6000)
+  for(i in seq_len(length(nevels)-1)) {
+    wnt <- nevels[i] <= Z$n-1 & Z$n <= nevels[i+1]+1
+    txt <- paste0(nevels[i], "-", nevels[i+1])
+    with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim),
+                         pch=21, cex=1.2, col="black", bg="white", lwd=1.21))
+    #with(Z[wnt,], text(  mean(logittau3), mean(logittau4), txt,
+    #                   pos=3, offset=0.3, cex=0.7, col="grey10"))
+  }
+
+
   xy <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
@@ -139,23 +152,25 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   xy <- xy[par()$usr[3] <= xy$tau4 & xy$tau4 <= par()$usr[4],]
   points(xy$tau3, xy$tau4, col="wheat4", pch=17, cex=0.8)
 
-  txt <- c("Predicted Tau3 and Tau4 logits\n  by regressions within wolfCOPtest(...)",
+  txt <- c("Predicted Tau3 and Tau4 logits by regression\n  in wolfCOPtest(..., usepade=FALSE)",
+           "Predicted Tau3 and Tau4 logits by Padé\n  approximant in wolfCOPtest(..., usepade=TRUE)",
            "Predictions for the near plotting sample\n  sizes (n = 8-14,17,19,25 plotted)",
            "Weighted mean for a sample size with\n  symbol size scaling to log10 count",
            "Mean for sample size or range of sample\n  sizes (not all labeled, by 100s up to 1,000)",
            "Weighted mean for samples sizes\n  within the range 4,000-10,000")
   par(lheight=0.85)
   legend("bottomright", txt,
-         box.lty=0, inset=0.01, cex=0.7, y.intersp=1.6, adj=c(0, 0.8),
-         lty=c(1, NA, NA, NA, NA), lwd=c(2, NA, NA, NA, NA),
-         col=c("wheat2", "wheat4", "salmon4", "black", "black"),
-         pch=c(NA, 17, 21, 16, 21), pt.lwd=c(1, 1, 1, 1, 1.21),
-         pt.bg=c(NA, NA, "salmon1", NA, "white"), pt.cex=c(NA, 0.8, 1, 0.5, 1.8))
+         box.lty=0, inset=0.01, cex=0.6, y.intersp=1.6, adj=c(0, 0.8),
+         lty=c(1, 1, NA, NA, NA, NA), lwd=c(2, 1, NA, NA, NA, NA),
+         col=c("wheat2", "red1", "wheat4", "salmon4", "black", "black"),
+         pch=c(NA, NA, 17, 21, 16, 21), pt.lwd=c(1, 1, 1, 1, 1, 1.21),
+         pt.bg=c(NA, NA, NA, "salmon1", NA, "white"), pt.cex=c(NA, NA, 0.8, 1, 0.5, 1.2))
   par(lheight=1)
 
   plotlmrdia(lmrdia(usrtrim=TRUE), add=TRUE, nopoints=TRUE, autolegend=TRUE, xleg="topleft",
              noaep4=TRUE, nogev=TRUE, nogpa=TRUE, nogov=TRUE, noglo=TRUE, nopdq3=TRUE,
              nolimits=TRUE, lwd.cex=2, expand.names=TRUE, inset=0.01, legendcex=0.8)
+
 
   gno <- lmrdia()$gno; pe3 <- lmrdia()$pe3
   x <- pe3[,1]; y <- (gno[,2]+pe3[,2])/2; suppressWarnings( rm(gno, pe3))
@@ -163,16 +178,6 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   y[y < par()$usr[1] | y > par()$usr[2]] <- NA
   lines(x, y, lty=4, col="deepskyblue3")
   text(0.292, 0.1725, "Halfway between the\ntwo distributions", srt=40, cex=0.9, col="deepskyblue3")
-
-  nevels <- seq(4000, 10000, by=6000)
-  for(i in seq_len(length(nevels)-1)) {
-    wnt <- nevels[i] <= Z$n-1 & Z$n <= nevels[i+1]+1
-    txt <- paste0(nevels[i], "-", nevels[i+1])
-    with(Z[wnt,], points(weighted.mean(logittau3, nsim), weighted.mean(logittau4, nsim),
-                         pch=21, cex=1.2, col="black", bg="white", lwd=1.21))
-    #with(Z[wnt,], text(  mean(logittau3), mean(logittau4), txt,
-    #                   pos=3, offset=0.3, cex=0.7, col="grey10"))
-  }
 
   nevels <- seq(7,14, by=1)
   for(i in seq_len(length(nevels))) {
