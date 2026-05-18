@@ -47,10 +47,10 @@ a <- wolfCOPvec(n=5, silent=FALSE, aslmoms=TRUE, nmom=5)
 stop()
 
 replicates <- 10
-ncores <- 4
+ncores <- 5
 nsim  <- 1000
 ns <- 2+ as.integer(10^seq(3,4, by=.1))[-1]
-ns <- rep(10001, 10)
+ns <- rep(1586, 10)
 SMR <- NULL
 for(n in ns) {
   tm1 <- as.numeric( Sys.time() )
