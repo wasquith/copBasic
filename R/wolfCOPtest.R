@@ -49,10 +49,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   dtype <- "pe3"
 
   # Apply the regressions using the hardwired coefficients herein
-  # m <- 4000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
+  # m <- 7000 # sample sizes for which we declare that Tau3 and Tau4 have become constant, which is
   # is technically close to reality but with the curvilinear regression being used, we eschew the
   # prediction not being monotonic decreasing with sample size want it to have an apparent asymptotic.
-  m <- ifelse(n > 10000, 10000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
+  m <- ifelse(n > 7000, 7000, n) # This keeps the apparent trajectory of a Tau3 and Tau4 plot
   # having a hook in it as sample sizes increases to infinite.
 
   if(usepade) { # See copBasic/inst/make_wolfCOPtest/genmod_wolfCOPtestP_B.R
@@ -65,29 +65,36 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                      R[i] <- nj / dk
                    }
                    return(R) }
+
     myAlst <- list(
-         logitmu = c(11.5397173324509, -6.85097029886382, -4.74235568687226, -0.198046814965253),
-         logitlam2 = c(-0.317740939729506, 0.0463526427933416, 0.854874048115419),
-         logittau3 = c(0.626735982527971, -0.522243112767634, 0.415471025002729),
-         logittau4 = c(0.431100578782376, -0.460317290439041, 0.363372837526229))
+         logitmu = c(3.22505751817977, -0.915990158877043, 0.967465808418283, -3.40707532868352),
+         logitlam2 = c(-4.81815999220734, 10.0896872864149),
+         logittau3 = c(1.09499958951764, -0.39965628645059, 0.497606810543813),
+         logittau4 = c(0.0963673653663518, -0.180543732512747, 0.14871284556827, 0.234137175245599))
     myBlst <- list(
-         logitmu = c(5.9167498970596),
-         logitlam2 = c(-7.4358330118878, 9.35102271988569, -0.290886001481736),
-         logittau3 = c(-0.769018698037879, 1.09760347489778, 0.88803860071204, -0.101167914934562),
-         logittau4 = c(-0.453464714121642, 0.970844970331973, 0.532014896153529, -0.0529530222228696))
+         logitmu = c(-0.312728450592508, 3.01615693521397),
+         logitlam2 = c(-4.47041708077035, -0.0428413982170646),
+         logittau3 = c(-0.36925380858122, 4.22752165636147),
+         logittau4 = c(-2.67356792376944, 1.61273757646706, 1.84737967199012))
+
+myAlst$logittau3 = c(0.419388445589677, -0.239278068201461, 0.27384119567352)
+myAlst$logittau4 = c(0.0963673653663518, -0.180543732512747, 0.14871284556827, 0.234137175245599)
+myBlst$logittau3 = c(-1.69280984486574, 2.54017968160616)
+myBlst$logittau4 = c(-2.67356792376944, 1.61273757646706, 1.84737967199012)
+
     #if(n < 6) n <- 6
-    mu    <- myPade(log10(n), a=myAlst$logitmu,   b=myBlst$logitmu  )
-    l2    <- myPade(log10(n), a=myAlst$logitlam2, b=myBlst$logitlam2)
-    t3    <- myPade(log10(m), a=myAlst$logittau3, b=myBlst$logittau3)
-    t4    <- myPade(log10(m), a=myAlst$logittau4, b=myBlst$logittau4)
+    mu    <-      myPade(log10(n), a=myAlst$logitmu,   b=myBlst$logitmu  )
+    l2    <- exp( myPade(log10(n), a=myAlst$logitlam2, b=myBlst$logitlam2) )
+    t3    <-      myPade(log10(m), a=myAlst$logittau3, b=myBlst$logittau3)
+    t4    <-      myPade(log10(m), a=myAlst$logittau4, b=myBlst$logittau4)
   } else {
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.01002992, -1.09866181, 1.07367739, -1.287695318)
-    l2coe <- c(0.13165505, -0.00135104, 0.09247397, -2.099023448)
-    t3coe <- c(0.07682259, 0.00560839, 0.16291398, -1.8468758)
-    t4coe <- c(0.12174226, 0.00037708, 0.04493843, -2.480761728)
+    mucoe <- c(-0.00906848, -1.09867402, 1.07282973, -1.289648448)
+    l2coe <- c(0.13167974, -0.00133478, 0.09245407, -2.102636728)
+    t3coe <- c(0.07716433, 0.00555985, 0.16266616, -1.852148448)
+    t4coe <- c(0.1228706, 5.492e-05, 0.04418449, -2.541992198)
     mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
     l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
     t3    <- t3coe[1] + t3coe[2] * log10(m) + t3coe[3] * log10(m)^t3coe[4] # Tau3    (L-skew)
