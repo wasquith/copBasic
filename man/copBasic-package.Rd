@@ -266,7 +266,7 @@ Thus, a \dQuote{better understanding of the statistical characteristics of [mult
 
 The \pkg{copBasic} package (\emph{c.}2008--11) was not originally intended to be a port of the numerous bivariate copulas or over reimplementation other bivariate copulas available in \R, but in support of didactic and teaching efforts. Though as the package passed its 10th year in 2018, the original intent changed to a more generalized purpose as more copula were added and other features by request. It is useful to point out a demonstration showing an implementation of the \emph{Gaussian copula} from the \pkg{copula} package, which is shown in the \bold{Note} section of \code{\link{med.regressCOP}} in a circumstance of ordinary least squares linear regression compared to \emph{median regression} of a copula as well as prediction limits of both regressions. Another demonstration in context of \emph{maximum pseudo-log-likelihood estimation} of copula parameters is seen in the \bold{Note} section \code{\link{mleCOP}}, and also see \dQuote{\bold{API to the copula package}} or \dQuote{\bold{package copula (comparison to)}} entries in the Index of this user manual.
 
-\if{html}{\figure{CopulaRelationsFigure4pkg.jpg}}
+\if{html}{\figure{CopulaRelationsFigure4pkg.jpg}{options: width="75\%"}}
 \if{latex}{\figure{CopulaRelationsFigure4pkg.pdf}{options: width=4in, trim=1in 2.25in 0.75in 1in, clip}}
 
 

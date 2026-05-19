@@ -33,6 +33,12 @@ The \emph{logit transformation} and its inversion are defined as
 }
 
 The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information. Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a heuristic change from GNO to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range of use for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better. Therefore, the \code{wolfCOPtest} function exclusively uses the PE3. Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
+
+To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a range of representative sample sizes \eqn{n \in 8, ... 10{,}001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
+
+\if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width="75\%"}}
+\if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=4in, trim=0in 0in 0in 0in, clip}}
+
 }
 \value{
   Extensive list or named vector output the test is returned.
@@ -43,12 +49,13 @@ The predicted L-moments are used to drive from the \pkg{lmomco} package the Pear
 \examples{
 uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=8)
 # Approx p-value 0.001 PSP is not independence.
+# There is no p.value(sample_le40) entry on the return because too large sample size.
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE, usepade=FALSE)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE, usepade=TRUE )
 # See how the p-values between the empirical approximations are about the same.
 
 uv <- simCOP(n=62, cop=P,   graphics=FALSE, seed=8)
-wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.2
+wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.200***
 # Note, the small sample p-values are NA for two previous examples because the sample
 # size has become "large", but in the next example, we can inspect two p-values
 # (1) by the Pearson type III distribution to the predicted L-moments for the sample
@@ -80,10 +87,10 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   message("           Spearman Rho(n=", n, ") NULL=P rejection rate = ",
            sum(rhopv  < alpha) / nsim)
   # For nsim <- 20000
-  #       P : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.04930
+  #       P : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.04935
   #       P :          Spearman Rho(n=42) NULL=P rejection rate = 0.04805
-  # CIRCcop : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.28125
-  # CIRCcop :          Spearman Rho(n=42) NULL=P rejection rate = 0.0010
+  # CIRCcop : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.28130
+  # CIRCcop :          Spearman Rho(n=42) NULL=P rejection rate = 0.00100
   # Such example computations show that Rho does not "sense" the perfect dependence
   # of CIRCcop because its "correlation" is zero but has obvious dependence when
   # plotted. Therefore, Sigma has a much higher rejection rate that will go to unity
@@ -91,7 +98,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 
 \dontrun{
   lmomco::plotlmrdia(lmomco::lmrdia(usrtrim=TRUE), nopoints=TRUE,
-                     xlim=c(0.11,0.24), ylim=c(0.12,0.16),
+                     xlim=c(0.11,0.32), ylim=c(0.12,0.20),
                      autoaxes=TRUE, xaxs="i", yaxs="i", lwd.cex=1.3)
   xy <- st <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.01), 10^seq(0, 4, by=0.02))))
