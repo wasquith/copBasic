@@ -3,12 +3,11 @@
 \alias{wolfCOPtest}
 \title{Empirically Created Schweizer and Wolff Sigma Test Against an Independence Copula}
 \description{
-Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where  \eqn{\sigma_\mathbf{C}} is defined under \code{\link{wolfCOP}}. This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned from small to large samples by extensive simulation; and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access the that dataset themselves unless for checking veracity of the simulations. There are no other known hypothesis tests for \eqn{\sigma_\mathbf{C}} known in the literature.
+Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where  \eqn{\sigma_\mathbf{C}} is defined under \code{\link{wolfCOP}}. This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned from small to large samples by extensive simulation; and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users will not need to access the that dataset themselves unless for checking veracity of the simulations. There are no other known hypothesis tests for \eqn{\sigma_\mathbf{C}} in the literature.
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
-                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995),
-                  usepade=FALSE, ...)
+                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE, ...)
 }
 \arguments{
   \item{x}{Nonexceedance probabilities \eqn{u} in the \eqn{X} direction if \code{asuv=TRUE}, else data in the \eqn{X} direction for which nonexceedance probabilities will be computed by plotting-position formula. If \code{x} is a single value, it is assumed to be a previously computed \eqn{\sigma_\mathbf{C}} and \code{y} will be considered as the sample size. Note, statistical estimation is based on samples of \eqn{n \ge 3}, if the sample size is less than this, then internally \eqn{n = 3} is set for the computations;}
