@@ -120,7 +120,7 @@ if(BYLOGIT) {
 } else {
   mu <- Z$mu; l2 <- Z$lam2;t3 <- Z$tau3; t4 <- Z$tau4
 }
-x <- seq(log10(7), log10(10000), by=.05) # Vector of sample sizes for plotting the predictions of the
+x <- seq(log10(7), log10(20000), by=.05) # Vector of sample sizes for plotting the predictions of the
 # regressions during the power optimization scheme.
 
 "ofunc" <- function(pwr, type=c("press", "wolf"), v=NA, w=NA) {
@@ -137,7 +137,7 @@ x <- seq(log10(7), log10(10000), by=.05) # Vector of sample sizes for plotting t
 }
 message("power   PRESS  WOLF")
 
-ifelse(BYLOGIT, ylim <- c(-4.2,0.5), ylim <- c(0,0.7))
+ifelse(BYLOGIT, ylim <- c(-5.2,0.5), ylim <- c(0,0.7))
 y <- mu # MEAN LOGIT OF WOLFF SIGMA DISTRIBUTION
 plot(10^n, y, log="x", col="grey50", xlab="Sample size", las=1, xlim=10^range(x), ylim=ylim,
      ylab="Mu of logit transform of Schweizer–Wolff Sigma distribution")
