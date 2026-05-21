@@ -8,10 +8,11 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   if( length(probs) == 0 ) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
   if( length(probs) == "") probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
 
+  lo <- .Machine$double.eps; hi <- 1 - lo
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
     rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- y[1] # and the sample size is in y[1]
-    if(lwolf == -Inf) lwolf <- log(   .Machine$double.eps  / (1 -    .Machine$double.eps) )
-    if(lwolf == +Inf) lwolf <- log((1-.Machine$double.eps) / (1 - (1-.Machine$double.eps)))
+    if(lwolf == -Inf) lwolf <- log(lo / (1 - lo))
+    if(lwolf == +Inf) lwolf <- log(hi / (1 - hi))
     if(n < 3) {
       warning("sample size is <3, returning NULL")
       return(NULL)
@@ -38,8 +39,8 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
     rwolf <- wolfCOP(para=uv, as.sample=TRUE) # Schweizer-Wolff Sigma : wolf in (0,1)
     lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
-    if(lwolf == -Inf) lwolf <- log(   .Machine$double.eps  / (1 -    .Machine$double.eps) )
-    if(lwolf == +Inf) lwolf <- log((1-.Machine$double.eps) / (1 - (1-.Machine$double.eps)))
+    if(lwolf == -Inf) lwolf <- log(lo / (1 - lo))
+    if(lwolf == +Inf) lwolf <- log(hi / (1 - hi))
   }
 
   dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chck_wolfCOPtestP.R
@@ -69,20 +70,15 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                    return(R) }
 
     myAlst <- list(
-         logitmu = c(3.22505751817977, -0.915990158877043, 0.967465808418283, -3.40707532868352),
+         logitmu   = c(3.22505751817977, -0.915990158877043, 0.967465808418283, -3.40707532868352),
          logitlam2 = c(-4.81815999220734, 10.0896872864149),
          logittau3 = c(1.09499958951764, -0.39965628645059, 0.497606810543813),
          logittau4 = c(0.0963673653663518, -0.180543732512747, 0.14871284556827, 0.234137175245599))
     myBlst <- list(
-         logitmu = c(-0.312728450592508, 3.01615693521397),
+         logitmu   = c(-0.312728450592508, 3.01615693521397),
          logitlam2 = c(-4.47041708077035, -0.0428413982170646),
          logittau3 = c(-0.36925380858122, 4.22752165636147),
          logittau4 = c(-2.67356792376944, 1.61273757646706, 1.84737967199012))
-
-myAlst$logittau3 = c(0.419388445589677, -0.239278068201461, 0.27384119567352)
-myAlst$logittau4 = c(0.0963673653663518, -0.180543732512747, 0.14871284556827, 0.234137175245599)
-myBlst$logittau3 = c(-1.69280984486574, 2.54017968160616)
-myBlst$logittau4 = c(-2.67356792376944, 1.61273757646706, 1.84737967199012)
 
     #if(n < 6) n <- 6
     mu    <-      myPade(log10(n), a=myAlst$logitmu,   b=myBlst$logitmu  )
@@ -93,10 +89,10 @@ myBlst$logittau4 = c(-2.67356792376944, 1.61273757646706, 1.84737967199012)
     # Nonlinear regression coefficients computed PRESS minimization of residuals for the
     # exponent on log10(sample size) term. The regressions come from simulation of the Sigma
     # distribution (its logit) assuming the Independence copula.
-    mucoe <- c(-0.00906848, -1.09867402, 1.07282973, -1.289648448)
-    l2coe <- c(0.13167974, -0.00133478, 0.09245407, -2.102636728)
-    t3coe <- c(0.07716433, 0.00555985, 0.16266616, -1.852148448)
-    t4coe <- c(0.1228706, 5.492e-05, 0.04418449, -2.541992198)
+    mucoe <- c(-0.00568001, -1.09924807, 1.070086,   -1.293310558)
+    l2coe <- c( 0.13029126, -0.00099355, 0.09344292, -2.07221688 )
+    t3coe <- c( 0.07670933,  0.00566279, 0.16300227, -1.847265638)
+    t4coe <- c( 0.12341757, -9.825e-05,  0.04381592, -2.574804698)
     mu    <- mucoe[1] + mucoe[2] * log10(n) + mucoe[3] * log10(n)^mucoe[4] # Mean    (Lambda1)
     l2    <- l2coe[1] + l2coe[2] * log10(n) + l2coe[3] * log10(n)^l2coe[4] # Lambda2 (L-scale)
     t3    <- t3coe[1] + t3coe[2] * log10(m) + t3coe[3] * log10(m)^t3coe[4] # Tau3    (L-skew)
