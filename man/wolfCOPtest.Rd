@@ -91,7 +91,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # For nsim <- 20000
   #       P : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.04935
   #       P :          Spearman Rho(n=42) NULL=P rejection rate = 0.04805
-  # CIRCcop : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.28130
+  # CIRCcop : Schweizer-Wolff Sigma(n=42) NULL=P rejection rate = 0.28125
   # CIRCcop :          Spearman Rho(n=42) NULL=P rejection rate = 0.00100
   # Such example computations show that Rho does not "sense" the perfect dependence
   # of CIRCcop because its "correlation" is zero but has obvious dependence when
@@ -99,9 +99,9 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # as the sample size increase.}
 
 \dontrun{
-  lmomco::plotlmrdia(lmomco::lmrdia(usrtrim=TRUE), nopoints=TRUE,
-                     xlim=c(0.11,0.32), ylim=c(0.12,0.20),
-                     autoaxes=TRUE, xaxs="i", yaxs="i", lwd.cex=1.3)
+  lmomco::plotlmrdia(lmomco::lmrdia(usrtrim=TRUE), nopoints=TRUE, xleg="topleft",
+                    xlim=c(0.11,0.32), ylim=c(0.12,0.20), autolegend=TRUE,
+                    expand.names=TRUE, autoaxes=TRUE, xaxs="i", yaxs="i", lwd.cex=1.3)
   xy <- st <- NULL
   ns <- sort(unique(c(10^seq(0,1,0.01), 10^seq(0, 4, by=0.02))))
   for(n in ns) {
@@ -110,14 +110,17 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   }
   xy <- xy[par()$usr[1] <= xy$tau3 & xy$tau3 <= par()$usr[2],]
   xy <- xy[par()$usr[3] <= xy$tau4 & xy$tau4 <= par()$usr[4],]
-  lines(xy$tau3, xy$tau4, col="grey20", lwd=4)
+  lines(xy$tau3, xy$tau4, col="grey60", lwd=7)
   for(n in ns) {
     lmr <- wolfCOPtest(0, n, usepade=TRUE)$lmoms_logit_sigma; if(is.null(lmr)) next
     st <- rbind(st, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   st <- st[par()$usr[1] <= st$tau3 & st$tau3 <= par()$usr[2],]
   st <- st[par()$usr[3] <= st$tau4 & st$tau4 <= par()$usr[4],]
-  lines(st$tau3, st$tau4, col="red1", lwd=2) #}
+  lines(st$tau3, st$tau4, col="red1", lwd=2)
+  txt <- c("Logit transform sampling Sigma distribution, wolfCOPtest(usepade=FALSE)",
+           "Logit transform sampling Sigma distribution, wolfCOPtest(usepade=TRUE )")
+  legend("bottomright", txt, lwd=c(7,2), col=c("grey50", "red1"), bty="n", cex=0.9) #}
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
