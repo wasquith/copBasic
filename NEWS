@@ -1,14 +1,14 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.12 (2026-05-16)
+Changes in version 2.2.12 (2026-05-20)
 -  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
 -  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
      expanded Examples section therein to include a Ubeda-Flores (2022) example.
 -  Minor extensions and edits to wolfCOP.Rd.
 -  Added wolfCOPsamc() as a Monte Carlo integration version and subsetting to
      achieve much faster computation times as the sample size scales up, which gives
-     the original 2015 wolfCOP(as.sample=TRUE) function poor CPU time.
+     the original 2015 wolfCOP(as.sample=TRUE) implementation with poor CPU time.
 -  Added wolfCOPtest() as a hypothesis testing against the Independence copula with
      no known analogs in the literature. Inclusion of a new directory to repository
      inst/make_wolfCOPtest/ that contains the build algorithms and output from large
@@ -28,6 +28,8 @@ Changes in version 2.2.12 (2026-05-16)
       call to EMPIRcop(). === I need to have a future look at matrix and data.frame
       handling nuances in all the EMPIR* family ===
 -  Enhanced trapping of bad argument combinations in ORDSUMcop.R and ORDSUWcop.R.
+-  Migration from Sobol to Halton sequences in bilmoms() because scrambling in
+      randtoolbox::sobol() has been disabled and I forgot about the use in bilmoms().
 
 
 Changes in version 2.2.11 (2025-11-02)

@@ -23,20 +23,23 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 \details{
 The algorithm is based on Monte Carlo simulations of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts for the simulations are located in the directory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
 
-The \emph{logit transformation} and its inversion are defined as
+The \emph{logit transformation} is defined as
 
-\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\bigl(\sigma_\mathbf{C}/(1-\sigma_\mathbf{C})\bigr) = \eta\mbox{\  and}
+\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\bigl(\sigma_\mathbf{C}/(1-\sigma_\mathbf{C})\bigr) = \eta\mbox{,}
 }
+and its inverse is defined as
 \deqn{
 \sigma_\mathbf{C} = \mathrm{logit}^{(-1)}(\eta) = 1/\bigl(1 + \mathrm{exp}(-\eta)\bigr)\mbox{.}
 }
 
-The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information. Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a heuristic change from GNO to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range of use for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better. Therefore, the \code{wolfCOPtest} function exclusively uses the PE3. Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
+The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information. Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a heuristic change from GNO to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range of use for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better. Therefore, the \code{wolfCOPtest} function exclusively uses the PE3.
 
-To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a range of representative sample sizes \eqn{n \in 8, ... 10{,}001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
+Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
+
+To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a range of representative sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
 
 \if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width="75\%"}}
-\if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=4in, trim=0in 0in 0in 0in, clip}}
+\if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}
 
 }
 \value{
@@ -62,7 +65,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE) # approx p-value 0.200***
 uv <- simCOP(n=13, cop=P,   graphics=FALSE, seed=81)
 wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 #   p.value(dist_pe3) p.value(sample_le40)  # four signif. figures kept here as
-#          0.2549***            0.25144**   # simulations might tune up internals
+#          0.2550***            0.25144**   # simulations might tune up internals
 
 \dontrun{
   # This example needs larger nsim but will show that the Sigma is performing close to

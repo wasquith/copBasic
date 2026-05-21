@@ -65,7 +65,7 @@ data(wolfCOPtest_data_smlsam)
     Pp <- sapply(W, function(w) wolfCOPtest(w, i, usepade=TRUE )$p.value[1])
     # p-value by the generalized normal (parametric) distribution
     plot( W, Pd, type="l", col="grey70", lty=2, lwd=7, main=paste0("n=", i),
-         xlab="Schweizer-Wolff Sigma", ylab="Nonexceedance probability")
+         xlab="Schweizer-Wolff Sigma", ylab="Exceedance probability (p-value)")
     points(W, Pp, col="skyblue2", lwd=1) # large sample p-values
     # p-value derived from wolfCOP_data_smlsam tables:
     lines(W, Pe, col="green4",    lwd=4) # small sample p-values
