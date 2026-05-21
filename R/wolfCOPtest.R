@@ -10,7 +10,8 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
     rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- y[1] # and the sample size is in y[1]
-    if(! is.finite(lwolf)) lwolf <- log((1-.Machine$double.eps)/(1 - (1-.Machine$double.eps)))
+    if(lwolf == -Inf) lwolf <- log(   .Machine$double.eps  / (1 -    .Machine$double.eps) )
+    if(lwolf == +Inf) lwolf <- log((1-.Machine$double.eps) / (1 - (1-.Machine$double.eps)))
     if(n < 3) {
       warning("sample size is <3, returning NULL")
       return(NULL)
@@ -37,7 +38,8 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
     rwolf <- wolfCOP(para=uv, as.sample=TRUE) # Schweizer-Wolff Sigma : wolf in (0,1)
     lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
-    if(! is.finite(lwolf)) lwolf <- log((1-.Machine$double.eps)/(1 - (1-.Machine$double.eps)))
+    if(lwolf == -Inf) lwolf <- log(   .Machine$double.eps  / (1 -    .Machine$double.eps) )
+    if(lwolf == +Inf) lwolf <- log((1-.Machine$double.eps) / (1 - (1-.Machine$double.eps)))
   }
 
   dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chck_wolfCOPtestP.R
