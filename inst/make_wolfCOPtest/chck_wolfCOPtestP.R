@@ -96,7 +96,6 @@ plot(Z$n, Z$logittau4, log="x", cex=log10(Z$nsim)-2.9, col=1, ylim=c(0.1,0.20))
 #stop()
 
 THE_TEST <- wolfCOPtest
-usepade <- FALSE
 pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   plotlmrdia(lmrdia(), xlim=c(0.10,0.32), ylim=c(0.11,0.20), empty=TRUE, autoaxes=FALSE,
              xaxs="i", yaxs="i", lwd.cex=1.3)
@@ -121,7 +120,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   points(Z$logittau3, Z$logittau4, pch=21, cex=log10(Z$nsim)-4.3, col="salmon4",    bg="salmon1", lwd=0.7  )
 
 
-  nevels <- seq(4000, 10000, by=6000)
+  nevels <- seq(4000, 20000, by=16000)
   for(i in seq_len(length(nevels)-1)) {
     wnt <- nevels[i] <= Z$n-1 & Z$n <= nevels[i+1]+1
     txt <- paste0(nevels[i], "-", nevels[i+1])
@@ -133,9 +132,9 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
 
 
   xy <- NULL
-  ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
+  ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, log10(20000), by=0.02))))
   for(n in ns) {
-    lmr <- THE_TEST(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
+    lmr <- THE_TEST(0, n, usepade=FALSE)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   row.names(xy) <- NULL
@@ -144,7 +143,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   lines(xy$tau3, xy$tau4, col="wheat2", lwd=2)
   xy <- NULL
   for(n in c(8:14,17,19,25)) {
-    lmr <- THE_TEST(0, n, usepade=usepade)$lmoms_logit_sigma; if(is.null(lmr)) next
+    lmr <- THE_TEST(0, n, usepade=FALSE)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
   }
   row.names(xy) <- NULL
@@ -157,7 +156,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
            "Predictions for the near plotting sample\n  sizes (n = 8-14,17,19,25 plotted)",
            "Weighted mean for a sample size with\n  symbol size scaling to log10 count",
            "Mean for sample size or range of sample\n  sizes (not all labeled, by 100s up to 1,000)",
-           "Weighted mean for samples sizes\n  within the range 4,000-10,000")
+           "Weighted mean for samples sizes\n  within the range 4,000-15,000")
   par(lheight=0.85)
   legend("bottomright", txt,
          box.lty=0, inset=0.01, cex=0.6, y.intersp=1.6, adj=c(0, 0.8),
@@ -254,7 +253,7 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   }
 
   xy <- NULL
-  ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, 4, by=0.02))))
+  ns <- sort(unique(c(10^seq(0,1,0.001), 10^seq(0, log10(20000), by=0.02))))
   for(n in ns) {
     lmr <- THE_TEST(0, n, usepade=TRUE)$lmoms_logit_sigma; if(is.null(lmr)) next
     xy <- rbind(xy, data.frame(n=n, mu=lmr[1], lam2=lmr[2], tau3=lmr[3], tau4=lmr[4]))
@@ -263,5 +262,6 @@ pdf("wolfCOPlogitTau34.pdf", width=7, height=7, useDingbats=FALSE)
   xy <- xy[par()$usr[1] <= xy$tau3 & xy$tau3 <= par()$usr[2],]
   xy <- xy[par()$usr[3] <= xy$tau4 & xy$tau4 <= par()$usr[4],]
   lines(xy$tau3, xy$tau4, col="red1")
+  #with(Z[Z$n == 15001,], points(logittau3, logittau4, pch=3, cex=1.4, lwd=0.5))
 dev.off()
 par(xpd=FALSE)
