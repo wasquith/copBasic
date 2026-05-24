@@ -38,7 +38,7 @@ Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-va
 
 To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a range of representative sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
 
-\if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width="75\%"}}
+\if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width=500}}
 \if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}
 
 }

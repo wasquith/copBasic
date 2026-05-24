@@ -1,6 +1,13 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.2.14 (2026-05-21)
+-  Changed html figure options to ununited pixels as per CRAN submit 2.2.13.
+
+Changes in version 2.2.13 (2026-05-21)
+-  Changed html figure options to pixels as per attempt to CRAN submit 2.2.12.
+
+
 Changes in version 2.2.12 (2026-05-20)
 -  Added to footCOP.Rd a recent citation (Beliakov et al., 2022) to Spearman Footrule.
 -  Added to wolfCOP.Rd a recent citation to Schweizer-Wolff Sigma in wolfCOP.Rd and
