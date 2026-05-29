@@ -11,7 +11,7 @@ This function solves the integral using the \code{\link{derCOP}} function. Verif
 }
 \usage{
 EvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, nsim=1E5,
-    subdivisions=100L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...)
+   subdivisions=200L, rel.tol=.Machine$double.eps^0.25, abs.tol=rel.tol, ...)
 }
 \arguments{
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
