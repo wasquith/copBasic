@@ -22,7 +22,7 @@ EuvCOP(v=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, asuv=FALSE, nsim=1E5,
   \item{cop}{A copula function with vectorization as in \code{asCOP};}
   \item{para}{Vector of parameters or other data structures, if needed, to pass to the copula;}
   \item{asuv}{Return a data frame of the \eqn{U} and \eqn{V};}
-  \item{nsim}{Number of simulations for Monte Carlo integration when the numerical integration fails (see \bold{Note});}
+  \item{nsim}{Number of simulations for \emph{Monte Carlo integration} if numerical integration were to fail (refer to \bold{Note});}
   \item{subdivisions}{Argument of same name passed to \code{integrate()};}
   \item{rel.tol}{Argument of same name passed to \code{integrate()};}
   \item{abs.tol}{Argument of same name passed to \code{integrate()}; and}
