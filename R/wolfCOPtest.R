@@ -18,6 +18,11 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       return(NULL)
     }
   } else {
+    # The && is needed to avoid this case
+    # Error in if (!is.null(ncol(x)) & ncol(x) == 2) { : argument is of length zero
+    if(! is.null(ncol(x)) && ncol(x) == 2) { # This permit the x to be a two column table
+      y <- x[,2]; x <- x[,1]                # from which the x,y are formed.
+    }
     if(length(x) != length(y)) {
       warning("length x != length y, returning NULL")
       return(NULL)
@@ -174,7 +179,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   names(zz) <- gsub("_TEXT_", "logit", names(zz))
   if(aslist) {
     wz <- c(rwolf, lwolf); names(wz) <- c("sigma", "logit_sigma")
-    zz <- list(sample_size=n, statistic=wz, p.value=pval, distpara_by_lmoms=para$para)
+    zz <- list(sample_size=n, estimate=rwolf, statistic=wz, p.value=pval, distpara_by_lmoms=para$para)
     zz$lmoms_logit_sigma <- lmrs # L-moments of the logit(SIGMAS) distribution
     zz$sigma_quantiles <- quans # Put these last because this length of vector is mutable, and it
     # visually makes these better on the right side of aslist=FALSE (vector return), in particular.
