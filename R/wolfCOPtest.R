@@ -30,10 +30,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     uv <- data.frame(u=x, v=y)
     if(na.rm) uv <- uv[complete.cases(uv),]
     n <- nrow(uv) # sample size
-    if(n < 3) { # This handling of the sample size dates from an much earlier version of this function
-      # that had a lower limit of 9. With the empirical distributions for sample sizes 3-40 now supported,
-      # we drop the minimum sample size down to 3 but with the logic here, we effectively permit samples
-      # sizes to be incoming down to
+    if(n < 3) { # This handling of the sample size dates from an much earlier version of this
+      # function that had a lower limit of 9. With the empirical distributions for sample sizes
+      # 3-40 now supported, we drop the minimum sample size down to 3 but with the logic here,
+      # we effectively permit samples sizes to be incoming down to:
       warning("sample size is <3; returning NULL")
       return(NULL)
     }
