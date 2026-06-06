@@ -25,7 +25,7 @@ LMRvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, nsim=1E5,
   \item{u}{Nonexceedance probability \eqn{u} in the \eqn{X} direction;}
   \item{cop}{A copula function with vectorization as in \code{asCOP};}
   \item{para}{Vector of parameters or other data structures, if needed, to pass to the copula;}
-  \item{nsim}{Number of simulations for Monte Carlo integration when the numerical integration fails;}
+  \item{nsim}{Number of simulations for \emph{Monte Carlo integration} if numerical integration were to fail;}
   \item{subdivisions}{Argument of same name passed to \code{integrate()};}
   \item{rel.tol}{Argument of same name passed to \code{integrate()};}
   \item{abs.tol}{Argument of same name passed to \code{integrate()}; and}
@@ -39,6 +39,8 @@ LMRvuCOP(u=seq(0.01, 0.99, by=0.01), cop=NULL, para=NULL, nsim=1E5,
   \item{T3}{The conditional L-skew \eqn{\tau_3|U=u};}
   \item{T4}{The conditional L-kurtosis \eqn{\tau_4|U=u};}}
 \references{
+Asquith, W.H., 2011, Distributional analysis with L-moment statistics using the R environment for statistical computing: Createspace Independent Publishing Platform, ISBN 978--146350841--8.
+
 Jones, M.C., 2004, On some expressions for variance, covariance, skewness and L-moments:
 Journal of Statistical Planning and Inference, v.126, pp. 97--106, \doi{10.1016/j.jspi.2003.09.001}.
 
