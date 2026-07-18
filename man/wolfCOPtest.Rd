@@ -9,17 +9,19 @@ This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned fr
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
-                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE, ...)
+                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE,
+            ties.method=c("average", "first", "last", "random", "max", "min"), ...)
 }
 \arguments{
   \item{x}{Nonexceedance probabilities \eqn{u} in the \eqn{X} direction if \code{asuv=TRUE}, else data in the \eqn{X} direction for which nonexceedance probabilities will be computed by plotting-position formula. If \code{x} is a single value, it is assumed to be a previously computed \eqn{\sigma_\mathbf{C}} and \code{y} will be considered as the sample size. Note, statistical estimation is based on samples of \eqn{n \ge 3}, if the sample size is less than this, then internally \eqn{n = 3} is set for the computations. The \code{x} can also be a two column data structure and the \code{y} will be taken from the second column;}
-  \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (\code{lmomco::pp()} function);}
-  \item{asuv}{Logical identifying whether the \code{x} and \code{y} are already in nonexceedance probabilities or rather such need to be computed internally by plotting-position formula (\code{lmomco::pp()} function);}
+  \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (refer to \code{lmomco::pp()} function, but simply the \code{rank(...)} function is used);}
+  \item{asuv}{Logical identifying whether the \code{x} and \code{y} are already in nonexceedance probabilities or rather such need to be computed internally by plotting-position formula (refer to \code{lmomco::pp()} function, but simply the \code{rank(...)} function is used);}
   \item{aslist}{Logical to return a list of the test results rather than a vector;}
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
   \item{probs}{Quantiles by nonexceedance probability to extract from the fitted distribution---these are common upper-tail critical values. If \code{probs} is empty, then 0.95 nonexceedance probability is silently used;}
-  \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms; and}
+  \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms;}
+  \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is false, and \code{ties.method} is set to random, then internally simulation is made on the ranking and a mean }
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
@@ -45,7 +47,7 @@ To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \em
 
 }
 \value{
-Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature similar calls between the functions.
+Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so that there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature similar calls between the functions.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest_data_smlsam}}
