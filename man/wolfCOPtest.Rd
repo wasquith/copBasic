@@ -148,6 +148,42 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
            sum(wolf2pv < alpha) / nsim)
   message("  Schweizer-Wolff Sigma(n=", n, ") NULL=P rejection rate = ",
            sum(wolf3pv < alpha) / nsim) # }
+
+\dontrun{
+  # Here is a cross check of sorts between wolfCOPtest and the Independence test
+  # available in the copula package. We use a Clayton copula with small bivariate
+  # association and will see for this circumstance that wolfCOPtest out performs
+  # copula::indepTest by just a small amount by rejecting the NULL more often.
+  sample_size <- 100; ALPHA <- 0.05
+  THECOP  <- CLcop; THEPARA <- 0.20; rhoCOP(cop=CLcop, para=0.20) # 0.1358466
+
+  nsim <- 10000; digits <- as.integer(floor(log10(nsim)))
+  J <- copula::indepTestSim(sample_size, 2, N=100000)
+
+  W <- I <- NULL
+  for(i in seq_len(nsim)) {
+    if(is.null(W)) {
+      uv <- copBasic::simCOP(sample_size, cop=THECOP, para=THEPARA)
+      mtext("Copula simulation reference figure", line=0.5, font=2)
+    } else {
+      uv <- copBasic::rCOP(sample_size, cop=THECOP, para=THEPARA)
+    }
+    I <- c(I, copula::indepTest(uv, J)$pvalues[1])
+    W <- c(W, copBasic::wolfCOPtest(uv[,1], uv[,2], asuV=TRUE )$p.value[1])
+  }
+
+  par(lend=2, las=1); hyphen <- "\u00ad"
+  plot( sort(rank(I))/(length(I)+1), sort(I), type="l", xaxs="i", yaxs="i",
+       xlab="Nonexceedance probability", lwd=3, col="grey50",
+       ylab=paste0("P", hyphen, "value of respective test of independence"))
+  lines(sort(rank(W))/(length(W)+1), sort(W), col="darkorange1")
+  txt <- c(paste0("Independence test (copula::indepTest) has rejection rate = ",
+                  round(sum(I < ALPHA)/nsim, digits=digits), ""),
+           paste0("Schweizer-Wolff test (copBasic::wolfCOPtest) has rejection rate = ",
+                  round(sum(W < ALPHA)/nsim, digits=digits), ""))
+  legend("topleft", txt, bty="o", box.lty=0, bg=NA, inset=0.02, cex=0.9,
+         lwd=c(3,1), col=c("grey50", "darkorange1"))
+  mtext(paste0("Empirical distribution of p", hyphen, "values"), line=0.5, font=2) #}
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
