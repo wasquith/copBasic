@@ -47,6 +47,7 @@ Rayleigh copula \tab \eqn{\mathbf{RAY}(u,v)} \tab \code{\link{RAYcop}} \tab copu
 g-EV copula (Gaussian extreme value) \tab \eqn{\mathbf{gEV}(u,v)} \tab \code{\link{gEVcop}} \tab copula\cr
 t-EV copula (t-distribution extreme value) \tab \eqn{\mathbf{tEV}(u,v)} \tab \code{\link{tEVcop}} \tab copula\cr
 t-Student copula (refer also to \code{\link{NORMcop}}) \tab \eqn{\mathbf{T}(u,v)} \tab \code{\link{Tcop}} \tab copula\cr
+Triangular copula \tab \eqn{\mathbf{TRI}(u,v)} \tab \code{\link{TRIcop}} \tab copula\cr
 }
 
 
