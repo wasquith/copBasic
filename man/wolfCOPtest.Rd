@@ -9,7 +9,8 @@ This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned fr
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
-                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE,
+                  probs=c(0.90, 0.95, 0.98, 0.99, 0.995),
+                  zmat=NULL, statf=mean, usepade=FALSE, simphi=20,
             ties.method=c("average", "first", "last", "random", "max", "min"), ...)
 }
 \arguments{
@@ -20,7 +21,10 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
   \item{probs}{Quantiles by nonexceedance probability to extract from the fitted distribution---these are common upper-tail critical values. If \code{probs} is empty, then 0.95 nonexceedance probability is silently used;}
+  \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples});}
+  \item{statf}{Statistical function for reducing simulated \eqn{\sigma} values (mean or median suggested);}
   \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms;}
+  \item{rndphi}{A multiplier on ties or censored value counts to drive the simulations;}
   \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is false, and \code{ties.method} is set to random, then internally simulation is made on the ranking and a mean }
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
@@ -157,7 +161,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   sample_size <- 100; ALPHA <- 0.05
   THECOP  <- CLcop; THEPARA <- 0.20; rhoCOP(cop=CLcop, para=0.20) # 0.1358466
 
-  nsim <- 10000; digits <- as.integer(floor(log10(nsim)))
+  nsim <- 20000; digits <- as.integer(floor(log10(nsim)))
   J <- copula::indepTestSim(sample_size, 2, N=100000)
 
   W <- I <- NULL
@@ -184,6 +188,35 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   legend("topleft", txt, bty="o", box.lty=0, bg=NA, inset=0.02, cex=0.9,
          lwd=c(3,1), col=c("grey50", "darkorange1"))
   mtext(paste0("Empirical distribution of p", hyphen, "values"), line=0.5, font=2) #}
+
+\dontrun{
+  set.seed(10)
+  yy <- 1980:2021; n <- length(yy) # Simulated log-Pearson III annual peak streamflows
+  qq <- 10^sapply(yy, function(y) { # put a small drift in the log10 mean and variation
+              para <- lmomco::vec2par(c(3.5+(y-min(yy))*0.005,
+                                        0.5-(y-min(yy))*0.0009, 0.3), type="pe3")
+              lmomco::rlmomco(1, para) }) # flow
+  zul <- zur <- rep(NA, n) # initialize the lower and upper limits for years
+  zvl <- zvr <- rep(NA, n) # initialize the lower and upper limits for flows
+  # Make some highly contrived censoring for the 3, 6, 9, 13, and 35+th observations.
+  zul[ 3] <- yy[ 3] - 1.1; zur[3]  <- yy[ 3] + 1.1
+  zul[13] <- yy[13] - 1.5; zur[13] <- yy[13] + 2.4
+  zvl[ 3] <- 0+0.049; zvr[3] <- qq[3]
+  zvl[ 6] <- qq[6]; zvr[6] <- max(qq)+sqrt(.Machine$double.eps)
+  zvl[ 9] <- 10^(log10(qq[9]) - 0.3); zvr[9] <- 10^(log10(qq[9]) + 0.2)
+  qq[9] <- sqrt(zvl[9]*zvr[9])
+  zvl[(n-6):n] <- 0+0.049; zvr[(n-6):n] <- qq[(n-6):n]
+
+  xy <- cbind(yy,qq); zmat <- cbind(zul, zur, zvl, zvr)
+  simwolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=mean)
+  plot(yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow")
+  segments(x=zul, x1=zur, y=qq, y1=qq, col="darkgoldenrod3")
+  segments(x=yy, x1=yy, y=zvl, y1=zvr, col="darkgoldenrod3")
+  points(yy, qq, pch=21, col="darkgoldenrod4", bg="darkgoldenrod1")
+  naive <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random")
+  txt <- paste0("Sigma simulation p.value=", round(simwolf$p.value[1], digits=3),
+                "; Naive p-value=", round(naive$p.value[1], digits=3))
+  mtext(txt, line=1) #}
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}

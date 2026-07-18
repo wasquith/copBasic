@@ -1,12 +1,23 @@
 "wolfCOPtest" <-
 function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
-               probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE, ...) {
+               probs=c(0.90, 0.95, 0.98, 0.99, 0.995),
+               zmat=NULL, statf=mean, usepade=FALSE, rndphi=20,
+               ties.method=c("average", "first", "last", "random", "max", "min"), ...) {
+  ties.method <- match.arg(ties.method)
   # The probs are quantile levels of the sigma to report, and these are useful to check against the
   # simulations but also to produce these as critical values should the user be interested in
   # these as well as the p-value.
   if(is.null(probs)      ) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
   if( length(probs) == 0 ) probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
   if( length(probs) == "") probs <- 0.95 # 95th percentile or rather the 5-percent critical value (upper tail).
+
+  if(! is.null(zmat)) {
+    if(ncol(zmat) != 4) {
+      warning("zmat when given must be given as four columns, returning NULL")
+      return(NULL)
+    }
+    ties.method <- "random"
+  }
 
   lo <- .Machine$double.eps; hi <- 1 - lo
   if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
@@ -17,6 +28,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       warning("sample size is <3, returning NULL")
       return(NULL)
     }
+    nuuniq <- nvuniq <- rwolves <- "wolf_direct"
   } else {
     # The && is needed to avoid this case
     # Error in if (!is.null(ncol(x)) & ncol(x) == 2) { : argument is of length zero
@@ -28,8 +40,22 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       return(NULL)
     }
     uv <- data.frame(u=x, v=y)
-    if(na.rm) uv <- uv[complete.cases(uv),]
+    if(na.rm) {
+      wnt <- complete.cases(uv)
+      uv <- uv[wnt,]
+      if(! is.null(zmat)) {
+        zul <- zmat[wnt,1]; zvl <- zmat[wnt,2]; zur <- zmat[wnt,3]; zvr <- zmat[wnt,4]
+      }
+    }
+
+    nuuniq <- nvuniq <- rwolves <- NA
     n <- nrow(uv) # sample size
+    if(is.null(zmat)) {
+      zul <- zvl <- zur <- zvr <- rep(NA, nrow(uv))
+    } else {
+      zul <- zmat[,1]; zvl <- zmat[,2]; zvl <- zmat[,3]; zvr <- zmat[,4]
+    }
+
     if(n < 3) { # This handling of the sample size dates from an much earlier version of this
       # function that had a lower limit of 9. With the empirical distributions for sample sizes
       # 3-40 now supported, we drop the minimum sample size down to 3 but with the logic here,
@@ -37,16 +63,45 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       warning("sample size is <3; returning NULL")
       return(NULL)
     }
-    if(! asuv) { # if true, then the user has provided the paired observations of probability
-      uv[,1] <- lmomco::pp(uv[,1], sort=FALSE, ...)
-      uv[,2] <- lmomco::pp(uv[,2], sort=FALSE, ...)
+    nrndsim <- "zero needed"
+    if(any(! is.na(zul)) || any(! is.na(zvl))) {
+      nuuniq <- nvuniq <- "wolves_by_zmatrix"
+      nrndsim <- rndphi * (length(zul[! is.na(zul)]) + length(zvl[! is.na(zvl)]))
+      ix <- seq_len(n)
+      rwolves <- vector(mode="numeric", length=nrndsim)
+      for(i in seq_len(nrndsim)) {
+        ruv <- uv; wu <- ! is.na(zul); wv <- ! is.na(zvl)
+        ruv[wu, 1] <- sapply(ix[wu], function(k) runif(1, min=zul[k], max=zur[k]))
+        ruv[wv, 2] <- sapply(ix[wv], function(k) runif(1, min=zvl[k], max=zvr[k]))
+        ruv[,1] <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
+        ruv[,2] <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
+        rwolves[i] <- wolfCOP(para=ruv, as.sample=TRUE)
+      }
+      rwolf <- statf(rwolves)
+    } else {
+      nuuniq <- length(unique(uv[,1])); nvuniq <- length(unique(uv[,2]))
+      if(! asuv & (nuuniq != n | nvuniq != n) & ties.method == "random") {
+        nrndsim <- rndphi * (n - pmin(length(nuuniq), length(nvuniq)))
+        rwolves <- vector(mode="numeric", length=nrndsim)
+        for(i in seq_len(nrndsim)) {
+          ruv <- uv[sample(seq_len(nrow(uv)), nrow(uv)),]
+          ruv[,1] <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
+          ruv[,2] <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
+          rwolves[i] <- wolfCOP(para=ruv, as.sample=TRUE)
+        }
+        rwolf <- statf(rwolves)
+      } else {
+       if(! asuv) { # if true, then the user has provided the paired observations of probability
+          uv[,1] <- lmomco::pp(uv[,1], sort=FALSE, ties.method=ties.method, ...)
+          uv[,2] <- lmomco::pp(uv[,2], sort=FALSE, ties.method=ties.method, ...)
+        }
+        rwolf <- wolfCOP(para=uv, as.sample=TRUE) # Schweizer-Wolff Sigma : wolf in (0,1)
+      }
     }
-
-    rwolf <- wolfCOP(para=uv, as.sample=TRUE) # Schweizer-Wolff Sigma : wolf in (0,1)
-    lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
-    if(lwolf == -Inf) lwolf <- log(lo / (1 - lo))
-    if(lwolf == +Inf) lwolf <- log(hi / (1 - hi))
   }
+  lwolf <- log(rwolf / (1 - rwolf)) # logit transform of the Sigma
+  if(lwolf == -Inf) lwolf <- log(lo / (1 - lo))
+  if(lwolf == +Inf) lwolf <- log(hi / (1 - hi))
 
   dtype <- ifelse(n <= 40, "gno", "pe3") # We can see via inst/make_wolfCOPtest/chck_wolfCOPtestP.R
   # and the L-moment ratio diagram on the logit transform of the sigma, that there is a heuristic
@@ -173,16 +228,22 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   pval <- round(1 - neps, digits=16); names(pval) <- paste0("p.value(dist_", dtype, ")")
   pval <- c(pval, pval_small)
 
-  zz <- c(n, rwolf, lwolf, pval, para$para, lmrs, quans)
+  zz <- c(n, rwolf, lwolf, pval, para$para, lmrs, quans, nuuniq, nvuniq, rwolves)
   names(zz) <- c("sample_size", "sigma", "logit_sigma",
-                 names(pval), names(para$para), names(lmrs), quatxt)
+                 names(pval), names(para$para), names(lmrs), quatxt,
+                 "num_uuniq", "num_vuniq", "rand_sigma")
   names(zz) <- gsub("_TEXT_", "logit", names(zz))
+
   if(aslist) {
     wz <- c(rwolf, lwolf); names(wz) <- c("sigma", "logit_sigma")
-    zz <- list(sample_size=n, estimate=rwolf, statistic=wz, p.value=pval, distpara_by_lmoms=para$para)
+    zz <- list(sample_size=n, estimate=rwolf, statistic=wz, p.value=pval,
+               distpara_by_lmoms=para$para)
     zz$lmoms_logit_sigma <- lmrs # L-moments of the logit(SIGMAS) distribution
-    zz$sigma_quantiles <- quans # Put these last because this length of vector is mutable, and it
+    zz$sigma_quantiles   <- quans # Put these last because this length of vector is mutable, and it
     # visually makes these better on the right side of aslist=FALSE (vector return), in particular.
+    zz$num_uuniq  <- nuuniq
+    zz$num_vuniq  <- nvuniq
+    zz$rand_sigma <- rwolves
   }
   return(zz)
 }
