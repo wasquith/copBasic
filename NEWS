@@ -10,6 +10,8 @@ Changes in version 2.2.15 (2026-07-18)
 -  Edits to wolfCOPtest_data_smlsam.Rd.
 -  Added TRIcop() and table extension copBasic-package.Rd and NAMESPACE.
 -  Edits to wolfCOPtest.Rd and Examples extension to copula::indepTest() comparison.
+-  Extension of wolfCOPtest() for a censored data matrix, which brings this function
+     to a more general operational state for some unusual byt practical circumstances.
 
 
 Changes in version 2.2.14 (2026-05-21)
