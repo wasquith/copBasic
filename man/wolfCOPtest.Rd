@@ -10,22 +10,22 @@ This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned fr
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                   probs=c(0.90, 0.95, 0.98, 0.99, 0.995),
-                  zmat=NULL, statf=mean, usepade=FALSE, simphi=20,
+                  zmat=NULL, statf=mean, rndphi=20, usepade=FALSE,
             ties.method=c("average", "first", "last", "random", "max", "min"), ...)
 }
 \arguments{
   \item{x}{Nonexceedance probabilities \eqn{u} in the \eqn{X} direction if \code{asuv=TRUE}, else data in the \eqn{X} direction for which nonexceedance probabilities will be computed by plotting-position formula. If \code{x} is a single value, it is assumed to be a previously computed \eqn{\sigma_\mathbf{C}} and \code{y} will be considered as the sample size. Note, statistical estimation is based on samples of \eqn{n \ge 3}, if the sample size is less than this, then internally \eqn{n = 3} is set for the computations. The \code{x} can also be a two column data structure and the \code{y} will be taken from the second column;}
-  \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (refer to \code{lmomco::pp()} function, but simply the \code{rank(...)} function is used);}
+  \item{y}{Nonexceedance probabilities \eqn{v} in the \eqn{Y} direction if \code{asuv=TRUE}, else data in the \eqn{Y} direction for which nonexceedance probabilities will be computed by plotting-position formula (refer to \code{lmomco::pp()} function, but simply the\cr\code{rank(...)} function is used);}
   \item{asuv}{Logical identifying whether the \code{x} and \code{y} are already in nonexceedance probabilities or rather such need to be computed internally by plotting-position formula (refer to \code{lmomco::pp()} function, but simply the \code{rank(...)} function is used);}
   \item{aslist}{Logical to return a list of the test results rather than a vector;}
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
   \item{probs}{Quantiles by nonexceedance probability to extract from the fitted distribution---these are common upper-tail critical values. If \code{probs} is empty, then 0.95 nonexceedance probability is silently used;}
-  \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples});}
-  \item{statf}{Statistical function for reducing simulated \eqn{\sigma} values (mean or median suggested);}
+  \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples}). Note, if \code{zmat} is given, then \code{ties.method} is set \code{"random"} and \code{asuv} false;}
+  \item{statf}{Statistical function for reducing simulated \eqn{\sigma} values (mean or median suggested), but a user could \code{plot(density(}\code{result$rand_sigma))} and reach their own decisions on centrality measure;}
+  \item{rndphi}{A multiplier on the number of ties or censored values to drive simulation of samples as part of populating the \code{rand_sigma} element, when applicable, on the function return;}
   \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms;}
-  \item{rndphi}{A multiplier on ties or censored value counts to drive the simulations;}
-  \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is false, and \code{ties.method} is set to random, then internally simulation is made on the ranking and a mean }
+  \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is false, and \code{ties.method} is set to random, then internally simulation is made on the ranking and \code{statf};}
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
@@ -40,9 +40,12 @@ and its inverse is defined as
 \sigma_\mathbf{C} = \mathrm{logit}^{(-1)}(\eta) = 1/\bigl(1 + \mathrm{exp}(-\eta)\bigr)\mbox{.}
 }
 
-The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information. Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a generalized normal distribution (GNO) to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the PE3.
-
 Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
+
+The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
+
+Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a generalized normal distribution (GNO) to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the PE3.
+
 
 To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a representative range of sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
 
@@ -190,33 +193,41 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   mtext(paste0("Empirical distribution of p", hyphen, "values"), line=0.5, font=2) #}
 
 \dontrun{
-  set.seed(10)
+  # DATA CENSORING EXAMPLE ------------------------------------------------------------
+  set.seed(10) # Example using the zmat feature for support of censoring by simulation.
+  muslp <- 0.005; sdslp <- 0.019 # drift with exp used to keep parameter positive
   yy <- 1980:2021; n <- length(yy) # Simulated log-Pearson III annual peak streamflows
   qq <- 10^sapply(yy, function(y) { # put a small drift in the log10 mean and variation
-              para <- lmomco::vec2par(c(3.5+(y-min(yy))*0.005,
-                                        0.5-(y-min(yy))*0.0009, 0.3), type="pe3")
+              para <- lmomco::vec2par(c(3.5+(y-min(yy))*muslp,
+                               exp(log(0.5)-(y-min(yy))*sdslp), 0.3), type="pe3")
               lmomco::rlmomco(1, para) }) # flow
   zul <- zur <- rep(NA, n) # initialize the lower and upper limits for years
   zvl <- zvr <- rep(NA, n) # initialize the lower and upper limits for flows
+  # NA years are not simulated and the data are used as is
   # Make some highly contrived censoring for the 3, 6, 9, 13, and 35+th observations.
   zul[ 3] <- yy[ 3] - 1.1; zur[3]  <- yy[ 3] + 1.1
   zul[13] <- yy[13] - 1.5; zur[13] <- yy[13] + 2.4
-  zvl[ 3] <- 0+0.049; zvr[3] <- qq[3]
-  zvl[ 6] <- qq[6]; zvr[6] <- max(qq)+sqrt(.Machine$double.eps)
-  zvl[ 9] <- 10^(log10(qq[9]) - 0.3); zvr[9] <- 10^(log10(qq[9]) + 0.2)
-  qq[9] <- sqrt(zvl[9]*zvr[9])
+  zvl[ 3] <- 0 + 0.049; zvr[3] <- qq[3]
+  zvl[ 6] <- qq[6]; zvr[6] <- max(qq) + sqrt(.Machine$double.eps) # nudge above max
+  zvl[ 9] <- 10^(log10(qq[9]) - 0.3); zvr[9] <- 10^(log10(qq[9]) + 0.2) # log-cycles
+   qq[ 9] <- sqrt( zvl[9] * zvr[9] ) # geometric mean
   zvl[(n-6):n] <- 0+0.049; zvr[(n-6):n] <- qq[(n-6):n]
 
   xy <- cbind(yy,qq); zmat <- cbind(zul, zur, zvl, zvr)
-  simwolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=mean)
-  plot(yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow")
-  segments(x=zul, x1=zur, y=qq, y1=qq, col="darkgoldenrod3")
-  segments(x=yy, x1=yy, y=zvl, y1=zvr, col="darkgoldenrod3")
+  swolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=median, rndphi=100)
+  plot(  yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow")
+  segments(x=zul, x1=zur, y=qq,  y1=qq,  col="darkgoldenrod3")
+  segments(x=yy,  x1=yy,  y=zvl, y1=zvr, col="darkgoldenrod3")
   points(yy, qq, pch=21, col="darkgoldenrod4", bg="darkgoldenrod1")
   naive <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random")
-  txt <- paste0("Sigma simulation p.value=", round(simwolf$p.value[1], digits=3),
+  txt <- paste0("Sigma simulation (nsim=",
+                prettyNum(length(swolf$rand_sigma), big.mark=","),
+                ") p.value=", round(swolf$p.value[1], digits=3),
                 "; Naive p-value=", round(naive$p.value[1], digits=3))
-  mtext(txt, line=1) #}
+  mtext(txt, line=1) # Visually the point values tell us to expect independence to be
+  # rejected, but when the data censoring is taken into account and simulation used,
+  # we do not reject independence that is heavily influenced by the last seven data
+  # values on the right being censored down through the bottom axis. }
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
@@ -227,3 +238,4 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 \keyword{PE3 (see Pearson type III distribution)}
 \keyword{logit transform}
 \concept{Hypothesis test for Schweizer and Wolff Sigma}
+\keyword{censored data}
