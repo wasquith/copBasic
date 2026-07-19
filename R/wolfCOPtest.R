@@ -1,7 +1,7 @@
 "wolfCOPtest" <-
 function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                probs=c(0.90, 0.95, 0.98, 0.99, 0.995),
-               zmat=NULL, statf=mean, usepade=FALSE, rndphi=20,
+               zmat=NULL, statf=mean, rndphi=20, usepade=FALSE,
                ties.method=c("average", "first", "last", "random", "max", "min"), ...) {
   ties.method <- match.arg(ties.method)
   # The probs are quantile levels of the sigma to report, and these are useful to check against the
@@ -17,6 +17,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       return(NULL)
     }
     ties.method <- "random"
+    asuv <- FALSE
   }
 
   lo <- .Machine$double.eps; hi <- 1 - lo
@@ -70,11 +71,11 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       ix <- seq_len(n)
       rwolves <- vector(mode="numeric", length=nrndsim)
       for(i in seq_len(nrndsim)) {
-        ruv <- uv; wu <- ! is.na(zul); wv <- ! is.na(zvl)
+        ruv        <- uv; wu <- ! is.na(zul); wv <- ! is.na(zvl)
         ruv[wu, 1] <- sapply(ix[wu], function(k) runif(1, min=zul[k], max=zur[k]))
         ruv[wv, 2] <- sapply(ix[wv], function(k) runif(1, min=zvl[k], max=zvr[k]))
-        ruv[,1] <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
-        ruv[,2] <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
+        ruv[   ,1] <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
+        ruv[   ,2] <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
         rwolves[i] <- wolfCOP(para=ruv, as.sample=TRUE)
       }
       rwolf <- statf(rwolves)
@@ -84,9 +85,9 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
         nrndsim <- rndphi * (n - pmin(length(nuuniq), length(nvuniq)))
         rwolves <- vector(mode="numeric", length=nrndsim)
         for(i in seq_len(nrndsim)) {
-          ruv <- uv[sample(seq_len(nrow(uv)), nrow(uv)),]
-          ruv[,1] <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
-          ruv[,2] <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
+          ruv        <- uv[sample(seq_len(nrow(uv)), nrow(uv)),]
+          ruv[,1]    <- lmomco::pp(ruv[,1], sort=FALSE, ties.method=ties.method, ...)
+          ruv[,2]    <- lmomco::pp(ruv[,2], sort=FALSE, ties.method=ties.method, ...)
           rwolves[i] <- wolfCOP(para=ruv, as.sample=TRUE)
         }
         rwolf <- statf(rwolves)
