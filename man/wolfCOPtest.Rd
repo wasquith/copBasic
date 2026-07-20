@@ -200,34 +200,37 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   qq <- 10^sapply(yy, function(y) { # put a small drift in the log10 mean and variation
               para <- lmomco::vec2par(c(3.5+(y-min(yy))*muslp,
                                exp(log(0.5)-(y-min(yy))*sdslp), 0.3), type="pe3")
-              lmomco::rlmomco(1, para) }) # flow
+                      lmomco::rlmomco(1, para) }) # flow
   zul <- zur <- rep(NA, n) # initialize the lower and upper limits for years
   zvl <- zvr <- rep(NA, n) # initialize the lower and upper limits for flows
   # NA years are not simulated and the data are used as is
   # Make some highly contrived censoring for the 3, 6, 9, 13, and 35+th observations.
-  zul[ 3] <- yy[ 3] - 1.1; zur[3]  <- yy[ 3] + 1.1
+  zul[ 3] <- yy[ 3] - 1.1; zur[ 3] <- yy[ 3] + 1.1
   zul[13] <- yy[13] - 1.5; zur[13] <- yy[13] + 2.4
-  zvl[ 3] <- 0 + 0.049; zvr[3] <- qq[3]
+  zvl[ 3] <- 10; zvr[3] <- qq[3]
   zvl[ 6] <- qq[6]; zvr[6] <- max(qq) + sqrt(.Machine$double.eps) # nudge above max
   zvl[ 9] <- 10^(log10(qq[9]) - 0.3); zvr[9] <- 10^(log10(qq[9]) + 0.2) # log-cycles
    qq[ 9] <- sqrt( zvl[9] * zvr[9] ) # geometric mean
-  zvl[(n-6):n] <- 0+0.049; zvr[(n-6):n] <- qq[(n-6):n]
+  zvl[(n-6):n] <- 10; zvr[(n-6):n] <- qq[(n-6):n]
 
   xy <- cbind(yy,qq); zmat <- cbind(zul, zur, zvl, zvr)
   swolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=median, rndphi=100)
-  plot(  yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow")
+  ylim <- c(10, 5E4)
+  plot(  yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow", ylim=ylim)
   segments(x=zul, x1=zur, y=qq,  y1=qq,  col="darkgoldenrod3")
   segments(x=yy,  x1=yy,  y=zvl, y1=zvr, col="darkgoldenrod3")
   points(yy, qq, pch=21, col="darkgoldenrod4", bg="darkgoldenrod1")
   naive <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random")
   txt <- paste0("Sigma simulation (nsim=",
                 prettyNum(length(swolf$rand_sigma), big.mark=","),
-                ") p.value=", round(swolf$p.value[1], digits=3),
+                ") p.value=",       round(swolf$p.value[1], digits=3),
                 "; Naive p-value=", round(naive$p.value[1], digits=3))
   mtext(txt, line=1) # Visually the point values tell us to expect independence to be
   # rejected, but when the data censoring is taken into account and simulation used,
   # we do not reject independence that is heavily influenced by the last seven data
-  # values on the right being censored down through the bottom axis. }
+  # values on the right being censored down through the bottom axis.
+  p <- sapply(           swolf$rand_sigma, function(k) { # distribution of p-values
+          wolfCOPtest(k, swolf$sample_size)$p.value[1]) }) # }
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
