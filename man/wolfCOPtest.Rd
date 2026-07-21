@@ -21,11 +21,11 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{na.rm}{A logical to trigger a \code{complete.cases} operation on internal matrix of the data as probabilities;}
   \item{digits}{Digits for rounding before return;}
   \item{probs}{Quantiles by nonexceedance probability to extract from the fitted distribution---these are common upper-tail critical values. If \code{probs} is empty, then 0.95 nonexceedance probability is silently used;}
-  \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples}). Note, if \code{zmat} is given, then \code{ties.method} is set \code{"random"} and \code{asuv} false;}
+  \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples}). Note, if \code{zmat} is given, then \code{ties.method} is set \code{"random"} and \code{asuv} is set false;}
   \item{statf}{Statistical function for reducing simulated \eqn{\sigma} values (mean or median suggested), but a user could \code{plot(density(}\code{result$rand_sigma))} and reach their own decisions on centrality measure;}
   \item{rndphi}{A multiplier on the number of ties or censored values to drive simulation of samples as part of populating the \code{rand_sigma} element, when applicable, on the function return;}
   \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms;}
-  \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is false, and \code{ties.method} is set to random, then internally simulation is made on the ranking and \code{statf};}
+  \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is set false, and \code{ties.method} is set to random, then simulation is made internally on the ranking and \code{statf} used to compute the \eqn{\sigma} estimate;}
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
@@ -33,11 +33,11 @@ The implementation here is based on \emph{Monte Carlo simulations} of \eqn{\math
 
 The \emph{logit transformation} is defined as
 
-\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\bigl(\sigma_\mathbf{C}/(1-\sigma_\mathbf{C})\bigr) = \eta\mbox{,}
+\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}} = \eta\mbox{,}
 }
 and its inverse is defined as
 \deqn{
-\sigma_\mathbf{C} = \mathrm{logit}^{(-1)}(\eta) = 1/\bigl(1 + \mathrm{exp}(-\eta)\bigr)\mbox{.}
+\sigma_\mathbf{C} = \mathrm{logit}^{(-1)}(\eta) = \frac{1}{1 + \mathrm{exp}(-\eta)}\mbox{.}
 }
 
 Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
@@ -137,7 +137,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # Here is a cross check in properties of the mathematics computing W.
   # The examples here also show the pass of 2-columns in x; so, a local copy
   # of a simulations is not needed before passing to wolfCOPtest().
-  alpha <- 0.05; n <- 42; nsim <- 200; cop <- P; p <- NULL
+  alpha <- 0.05; n <- 42; nsim <- 2000; cop <- P; p <- NULL
   set.seed(1)
   wolf1   <- replicate(nsim, { wolfCOP(para=rCOP(n=n, cop, para=p),
                               as.sample=TRUE, nlarge=0, usefastgrid=TRUE) })
@@ -149,11 +149,11 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   set.seed(1)
   wolf3pv <- replicate(nsim, { # here the probabilities computed internally
                    wolfCOPtest(rCOP(n=n, cop, para=p), asuv=FALSE)$p.value[1]})
-  message("  Schweizer-Wolff Sigma(n=", n, ") NULL=P rejection rate = ",
+  message("  Schweizer-Wolff Sigma(n=", n, ") NULL: P rejection rate = ",
            sum(wolf1pv < alpha) / nsim)
-  message("  Schweizer-Wolff Sigma(n=", n, ") NULL=P rejection rate = ",
+  message("  Schweizer-Wolff Sigma(n=", n, ") NULL: P rejection rate = ",
            sum(wolf2pv < alpha) / nsim)
-  message("  Schweizer-Wolff Sigma(n=", n, ") NULL=P rejection rate = ",
+  message("  Schweizer-Wolff Sigma(n=", n, ") NULL: P rejection rate = ",
            sum(wolf3pv < alpha) / nsim) # }
 
 \dontrun{
@@ -162,32 +162,32 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # association and will see for this circumstance that wolfCOPtest out performs
   # copula::indepTest by just a small amount by rejecting the NULL more often.
   sample_size <- 100; ALPHA <- 0.05
-  THECOP  <- CLcop; THEPARA <- 0.20; rhoCOP(cop=CLcop, para=0.20) # 0.1358466
+  THECOP  <- CLcop; THEPARA <- 0.20; rhoCOP(cop=THECOP, para=0.20) # 0.1358466
 
-  nsim <- 20000; digits <- as.integer(floor(log10(nsim)))
+  nsim <- 2000; digits <- as.integer( floor( log10(nsim) ) )
   J <- copula::indepTestSim(sample_size, 2, N=100000)
 
   W <- I <- NULL
   for(i in seq_len(nsim)) {
     if(is.null(W)) {
-      uv <- copBasic::simCOP(sample_size, cop=THECOP, para=THEPARA)
-      mtext("Copula simulation reference figure", line=0.5, font=2)
+      uv <- copBasic::simCOP( sample_size, cop=THECOP, para=THEPARA )
+      mtext("Copula simulation reference figure", line=0.5, font=2 )
     } else {
-      uv <- copBasic::rCOP(sample_size, cop=THECOP, para=THEPARA)
+      uv <- copBasic::rCOP(   sample_size, cop=THECOP, para=THEPARA)
     }
-    I <- c(I, copula::indepTest(uv, J)$pvalues[1])
+    I <- c(I,   copula::indepTest(  uv,         J             )$pvalues[1])
     W <- c(W, copBasic::wolfCOPtest(uv[,1], uv[,2], asuV=TRUE )$p.value[1])
   }
 
   par(lend=2, las=1); hyphen <- "\u00ad"
-  plot( sort(rank(I))/(length(I)+1), sort(I), type="l", xaxs="i", yaxs="i",
+  plot( sort( rank(I) ) / ( length(I) + 1 ), sort(I), type="l", xaxs="i", yaxs="i",
        xlab="Nonexceedance probability", lwd=3, col="grey50",
        ylab=paste0("P", hyphen, "value of respective test of independence"))
-  lines(sort(rank(W))/(length(W)+1), sort(W), col="darkorange1")
+  lines(sort( rank(W) ) / ( length(W) + 1 ), sort(W), col="darkorange1")
   txt <- c(paste0("Independence test (copula::indepTest) has rejection rate = ",
-                  round(sum(I < ALPHA)/nsim, digits=digits), ""),
+                  round( sum(I < ALPHA) / nsim, digits=digits), ""),
            paste0("Schweizer-Wolff test (copBasic::wolfCOPtest) has rejection rate = ",
-                  round(sum(W < ALPHA)/nsim, digits=digits), ""))
+                  round( sum(W < ALPHA) / nsim, digits=digits), ""))
   legend("topleft", txt, bty="o", box.lty=0, bg=NA, inset=0.02, cex=0.9,
          lwd=c(3,1), col=c("grey50", "darkorange1"))
   mtext(paste0("Empirical distribution of p", hyphen, "values"), line=0.5, font=2) #}
@@ -213,24 +213,28 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
    qq[ 9] <- sqrt( zvl[9] * zvr[9] ) # geometric mean
   zvl[(n-6):n] <- 10; zvr[(n-6):n] <- qq[(n-6):n]
 
-  xy <- cbind(yy,qq); zmat <- cbind(zul, zur, zvl, zvr)
-  swolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=median, rndphi=100)
-  ylim <- c(10, 5E4)
+  xy <- cbind(yy, qq); zmat <- cbind(zul, zur, zvl, zvr)
+  swolf <- wolfCOPtest(xy[,1], xy[,2], zmat=zmat, asuv=FALSE, statf=median, rndphi=500)
+  ylim <- log10( range( qq ) ); ylim <- 10^c( floor( ylim[1] ), ceiling( ylim[2] ) )
   plot(  yy, qq, type="n", log="y", xlab="Water year", ylab="Streamflow", ylim=ylim)
   segments(x=zul, x1=zur, y=qq,  y1=qq,  col="darkgoldenrod3")
   segments(x=yy,  x1=yy,  y=zvl, y1=zvr, col="darkgoldenrod3")
-  points(yy, qq, pch=21, col="darkgoldenrod4", bg="darkgoldenrod1")
+  points(yy, qq,  bg="darkgoldenrod1",   col="darkgoldenrod4",  pch=21)
   naive <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random")
   txt <- paste0("Sigma simulation (nsim=",
-                prettyNum(length(swolf$rand_sigma), big.mark=","),
-                ") p.value=",       round(swolf$p.value[1], digits=3),
-                "; Naive p-value=", round(naive$p.value[1], digits=3))
+                prettyNum(length(swolf$rand_sigma), big.mark=","),   ") ",
+                "p.value=",       round(swolf$p.value[1], digits=3), "; ",
+                "Naive p.value=", round(naive$p.value[1], digits=3))
   mtext(txt, line=1) # Visually the point values tell us to expect independence to be
   # rejected, but when the data censoring is taken into account and simulation used,
   # we do not reject independence that is heavily influenced by the last seven data
   # values on the right being censored down through the bottom axis.
-  p <- sapply(           swolf$rand_sigma, function(k) { # distribution of p-values
-          wolfCOPtest(k, swolf$sample_size)$p.value[1]) }) # }
+  swolf$rand_sigma <- sort(swolf$rand_sigma)
+  p <- sapply(swolf$rand_sigma, function(k) { # distribution of p-values
+                        n <- ifelse(swolf$sample_size <= 40, 2, 1)
+                     wolfCOPtest(k, swolf$sample_size)$p.value[n] })
+  swolf$rand_p.values <- p
+  # plot(swolf$rand_sigma, swolf$rand_p.values, pch=16, col=grey(0, 0.05)) # }
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}

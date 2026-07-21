@@ -21,10 +21,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   }
 
   lo <- .Machine$double.eps; hi <- 1 - lo
-  if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma
-    rwolf <- x[1]; lwolf <- log(rwolf/(1-rwolf)); n <- y[1] # and the sample size is in y[1]
-    if(lwolf == -Inf) lwolf <- log(lo / (1 - lo))
-    if(lwolf == +Inf) lwolf <- log(hi / (1 - hi))
+  if(length(x) == 1) { # If x is just one value, then it is treated as the Schweizer-Wolff Sigma and
+       rwolf <- x[1]; lwolf <- log( rwolf / (1-rwolf) ); n <- y[1] # the sample size is in y[1]
+    if(lwolf == -Inf) lwolf <- log(    lo / (1 - lo)  )
+    if(lwolf == +Inf) lwolf <- log(    hi / (1 - hi)  )
     if(n < 3) {
       warning("sample size is <3, returning NULL")
       return(NULL)
@@ -41,8 +41,14 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       return(NULL)
     }
     uv <- data.frame(u=x, v=y)
+    if(! is.null(zmat)) {
+      if(nrow(uv) != nrow(zmat)) {
+        warning("nrow of uv and zmat are not equal, returning NULL")
+        return(NULL)
+      }
+    }
     if(na.rm) {
-      wnt <- complete.cases(uv)
+      wnt <- stats::complete.cases(uv)
       uv <- uv[wnt,]
       if(! is.null(zmat)) {
         zul <- zmat[wnt,1]; zvl <- zmat[wnt,2]; zur <- zmat[wnt,3]; zvr <- zmat[wnt,4]
@@ -52,20 +58,24 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     nuuniq <- nvuniq <- rwolves <- NA
     n <- nrow(uv) # sample size
     if(is.null(zmat)) {
-      zul <- zvl <- zur <- zvr <- rep(NA, nrow(uv))
+      zul <- zvl <- zur <- zvr <- rep(NA, n)
     } else {
       zul <- zmat[,1]; zvl <- zmat[,2]; zvl <- zmat[,3]; zvr <- zmat[,4]
     }
 
     if(n < 3) { # This handling of the sample size dates from an much earlier version of this
       # function that had a lower limit of 9. With the empirical distributions for sample sizes
-      # 3-40 now supported, we drop the minimum sample size down to 3 but with the logic here,
+      # 3-40 supported, we drop the minimum sample size down to 3 but with the logic here,
       # we effectively permit samples sizes to be incoming down to:
       warning("sample size is <3; returning NULL")
       return(NULL)
     }
     nrndsim <- "zero needed"
     if(any(! is.na(zul)) || any(! is.na(zvl))) {
+      if(! is.function(statf)) {
+        warning("statf is needed, but it is not a function, returning NULL")
+        return(NULL)
+      }
       nuuniq <- nvuniq <- "wolves_by_zmatrix"
       nrndsim <- rndphi * (length(zul[! is.na(zul)]) + length(zvl[! is.na(zvl)]))
       ix <- seq_len(n)
@@ -80,6 +90,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
       }
       rwolf <- statf(rwolves)
     } else {
+      if(! is.function(statf)) {
+        warning("statf is needed, but it is not a function, returning NULL")
+        return(NULL)
+      }
       nuuniq <- length(unique(uv[,1])); nvuniq <- length(unique(uv[,2]))
       if(! asuv & (nuuniq != n | nvuniq != n) & ties.method == "random") {
         nrndsim <- rndphi * (n - pmin(length(nuuniq), length(nvuniq)))
@@ -162,7 +176,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
 
   if(t4 < (5 * t3^2 - 1)/4) t4 <- (5 * t3^2 - 1)/4 # theoretical limits of Tau4
   lmrs  <- c(mu, l2, t3, t4) # Tidy list of the Lmoments of the logit(Sigma) distribution
-  lmro  <- lmomco::vec2lmom(lmrs, checklmom=FALSE)
+  lmro  <- lmomco::vec2lmom(lmrs, checklmom=FALSE) # Lmoment "o"bject
   if( ! lmomco::are.lmom.valid(lmro) ) {
     warning("L-moments are invalid, sample size beyond empirical logit estimator(s)?\n",
             "   Lambdas ", paste(round(lmro$lambdas, digits=6), collapse=", "), "\n",
@@ -218,7 +232,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     } else {
       sata <- sata[order(sata$probs),] # should be sorted already but do so again if needing to inspect
       row.names(sata) <- NULL; # print(sata, 16)
-      suppressWarnings( nep_small <- approx(sata$wolfemp, y=sata$probs, xout=rwolf)$y )
+      suppressWarnings( nep_small <- stats::approx(sata$wolfemp, y=sata$probs, xout=rwolf)$y )
       pval_small <- round(1 - nep_small, digits=16)
       names(pval_small) <- paste0("p.value(sample_le", max_n_in_smlsam, ")")
     }
@@ -239,7 +253,7 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
     wz <- c(rwolf, lwolf); names(wz) <- c("sigma", "logit_sigma")
     zz <- list(sample_size=n, estimate=rwolf, statistic=wz, p.value=pval,
                distpara_by_lmoms=para$para)
-    zz$lmoms_logit_sigma <- lmrs # L-moments of the logit(SIGMAS) distribution
+    zz$lmoms_logit_sigma <- lmrs  # L-moments of the logit(SIGMAS) distribution
     zz$sigma_quantiles   <- quans # Put these last because this length of vector is mutable, and it
     # visually makes these better on the right side of aslist=FALSE (vector return), in particular.
     zz$num_uuniq  <- nuuniq
