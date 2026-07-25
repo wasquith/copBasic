@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.15 (2026-07-18)
+Changes in version 2.2.15 (2026-07-22)
 -  Added LMR[uv|vu]COP() as conditional L-moment computation engines as an analog to
      E[uv|vu]COP that is strictly for the simple conditional mean.
 -  Increased subdivisions to 200 in E[uv|vu]COP as these will be the defaults in
