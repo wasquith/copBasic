@@ -3,9 +3,9 @@
 \alias{wolfCOPtest}
 \title{Empirically Created Schweizer and Wolff Sigma Test Against an Independence Copula}
 \description{
-Perform a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where  \eqn{\sigma_\mathbf{C}} is defined under \code{\link{wolfCOP}}. There are no other known hypothesis tests for \eqn{\sigma_\mathbf{C}} in the literature.
+Perform an \emph{Independence test} based on a \emph{Schweizer--Wolff Sigma} test for \eqn{\sigma_\mathbf{C}} stemming from a Null hypothesis of \eqn{\mathrm{NULL} : \mathbf{C} = \mathbf{\Pi}} (\emph{Independence copula}, \code{\link{P}}), where \eqn{\sigma_\mathbf{C}} is defined and computed under \code{\link{wolfCOP}}. There are no other known hypothesis tests tied to Schweizer--Wolff Sigma \eqn{\sigma_\mathbf{C}} in the literature.
 
-This \emph{Schweizer--Wolff Sigma hypothesis test} has been empirically tuned from small to large samples by extensive simulation, and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users generally will not need to access that dataset themselves unless perhaps for checking veracity of the simulations.
+This \emph{Schweizer--Wolff Sigma hypothesis test} in \pkg{copBasic} has been empirically tuned from small to large samples by extensive simulation, and, as implemented, the test is closely tied to the version of sample computation by \code{\link{wolfCOP}} using a particular form of the empirical copula (refer to that function for details). The \code{wolfCOPtest} function internally loads the \code{\link{wolfCOPtest_data_smlsam}} tables, and most users generally will not need to access that those tables themselves unless perhaps for checking veracity of the simulations.
 }
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
@@ -29,11 +29,11 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
-The implementation here is based on \emph{Monte Carlo simulations} of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts for the simulations are located in the directory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
+The implementation here in \pkg{copBasic} is based on \emph{Monte Carlo simulations} of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts for the simulations are located in the subdirectory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
 
 The \emph{logit transformation} is defined as
 
-\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}} = \eta\mbox{,}
+\deqn{\mathrm{logit}\bigl(\sigma_\mathbf{C}\bigr) = \mathrm{log}\biggl(\frac{\sigma_\mathbf{C}}{1-\sigma_\mathbf{C}}\biggr) = \eta\mbox{,}
 }
 and its inverse is defined as
 \deqn{
@@ -44,7 +44,7 @@ Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-va
 
 The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
 
-Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a generalized normal distribution (GNO) to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) suggest the PE3 tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the PE3.
+Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a generalized normal distribution (GNO) to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) suggest the PE3 upper tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the PE3.
 
 
 To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a representative range of sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
@@ -54,7 +54,7 @@ To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \em
 
 }
 \value{
-Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so that there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature similar calls between the functions.
+Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so that there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature-similar calls between the functions.
 }
 \author{W.H. Asquith}
 \seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest_data_smlsam}}
@@ -246,3 +246,4 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 \keyword{logit transform}
 \concept{Hypothesis test for Schweizer and Wolff Sigma}
 \keyword{censored data}
+\keyword{independence test}
