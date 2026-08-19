@@ -9,6 +9,8 @@ Changes in version 2.2.16 (2026-NN-NN)
      number added), and LzCOPpermsym.Rd.
 -  giniCOP.Rd tinkering with math notation improvements, minor edits, and added a
      comparison of Gini gamma sampling variation to that of Schweizer-Wolff Sigma.
+-  Minor edits to joint.curvesCOP[2].Rd.
+-  Minor edits to wolfCOPtest.Rd.
 
 
 Changes in version 2.2.15 (2026-07-22)
