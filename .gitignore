@@ -55,3 +55,5 @@ inst/make_wolfCOPtest/mc_wolfPI/mc_wolfPI_*.txt
 inst/make_wolfCOPtest/wolfCOP_EMPIRgrid_fast/wolfCOP_EMPIRgrid_fast*.txt
 inst/make_wolfCOPtest/wolfCOPlogitTau34.pdf
 inst/make_wolfCOPtest/mc_wolfPI/aa_allsimsREF.txt
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL*txt
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plots.pdf
