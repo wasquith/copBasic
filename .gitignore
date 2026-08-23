@@ -57,3 +57,9 @@ inst/make_wolfCOPtest/wolfCOPlogitTau34.pdf
 inst/make_wolfCOPtest/mc_wolfPI/aa_allsimsREF.txt
 inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL*txt
 inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plots.pdf
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotA.pdf
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotB.pdf
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotA.jpg
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotA.png
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotB.jpg
+inst/make_wolfCOPtest/zz_chck_wolfCOPtestCL_plotB.png
