@@ -29,7 +29,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{...}{Additional arguments to pass to the \code{lmomco::pp()} function.}
 }
 \details{
-The implementation here in \pkg{copBasic} is based on \emph{Monte Carlo simulations} of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts for the simulations are located in the subdirectory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
+The implementation here in \pkg{copBasic} to approximate p-values is based on \emph{Monte Carlo simulations} of \eqn{\mathbf{\Pi}} and computation of the L-moments of a \emph{logit transform} of the computed \eqn{\sigma_\mathbf{\Pi}} for which nonlinear regression of the L-moments to the sample size have been created. Development scripts for the simulations are located in the subdirectory \code{inst/make_}\code{wolfCOPtest/} of \pkg{copBasic} sources.
 
 The \emph{logit transformation} is defined as
 
@@ -247,3 +247,4 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
 \concept{Hypothesis test for Schweizer and Wolff Sigma}
 \keyword{censored data}
 \keyword{independence test}
+\keyword{Package copula}
