@@ -8,7 +8,7 @@ library(parallel)
 # available in the copula package. We use a Clayton copula with various bivariate
 # associations and will see for these circumstances that wolfCOPtest out performs
 # copula::indepTest by just a small amount by rejecting the NULL more often.
-OUFILE <- "zz_chck_wolfCOPtestCLsim10kG.txt"
+OUFILE <- "zz_chck_wolfCOPtestCLsim10kM.txt"
 NSIM   <- as.integer( 10000 ); ALPHA <- 0.05
 myCOPTXT <- "CLcop"
 myCOP    <-  CLcop
@@ -22,14 +22,12 @@ sample_sizes <- sample(sample_sizes, length(sample_sizes), replace=FALSE)
 # Randomly order the sample sizes by a hunch that it helps how the cluster might
 # partition work. Reorder the data frame d is trivial.
 
-sample_sizes <- c(10, 20, 100)
-
 "IWfunc" <- function(n) {
   J <- copula::indepTestSim(n, 2, N=100000); WW <- II <- TT <- NULL
   for(i in seq_len(NSIM)) {
     uv <- copBasic::rCOP(n, cop=myCOP, para=myPARA); I <- W <- KT <- NULL
     try(I  <-   copula::indepTest(  uv,         J                   )$pvalues[1])
-    try(W  <- copBasic::wolfCOPtest(uv[,1], uv[,2],       asuV=TRUE )$p.value[1])
+    try(W  <- copBasic::wolfCOPtest(uv[,1], uv[,2],       asuv=TRUE )$p.value[1])
     try(KT <-              cor.test(uv[,1], uv[,2], method="kendall")$p.value[1])
      if(is.null(I)) I <- NA; if(is.null(W)) W <- NA; if(is.null(KT)) KT <- NA
     II <- c(II, I);         WW <- c(WW, W);         TT <- c(TT, KT)
@@ -70,6 +68,7 @@ write.table(D, file=OUFILE, sep="\t", row.names=FALSE, quote=FALSE)
 
 stop()
 
+
 ALPHA <- 0.05
 D <- read.table("zz_chck_wolfCOPtestCLsim50kA.txt", header=TRUE)
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kB.txt", header=TRUE))
@@ -77,6 +76,13 @@ D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kC.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kD.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kE.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kF.txt", header=TRUE))
+D$Trejrate <- NA
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kI.txt", header=TRUE))
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kJ.txt", header=TRUE))
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kK.txt", header=TRUE))
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kL.txt", header=TRUE))
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kM.txt", header=TRUE))
+
 
 
 H <- NULL
@@ -87,8 +93,8 @@ for(t in sort(unique(D$tau_given))) {
     H <- rbind(H, data.frame(copula="CLcop", nsim=sum(G$nsim), n=G$n[1], alpha=G$alpha[1],
                              rho_given=G$rho_given[1], tau_given=G$tau_given[1], para=G$para[1],
                              rho=weighted.mean(G$rho, w=G$nsim), tau=weighted.mean(G$tau, w=G$nsim),
-                             Irejrate=weighted.mean(G$Irejrate, w=G$nsim),
-                             Wrejrate=weighted.mean(G$Wrejrate, w=G$nsim)))
+                             Irejrate=weighted.mean(G$Irejrate, w=G$nsim, na.rm=TRUE),
+                             Wrejrate=weighted.mean(G$Wrejrate, w=G$nsim, na.rm=TRUE)))
   }
 }
 D <- H
@@ -130,6 +136,7 @@ pdf("zz_chck_wolfCOPtestCL_plotA.pdf", useDingbats=FALSE, width=7, height=6)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.2)
   for(t in sort(unique(D$tau_given))) {
     J <- D[D$tau_given == t,]; col <- cols$col[cols$tau_given == t]
+    lines(J$n, J$Trejrate, col=col, lwd=4); lines(J$n, J$Wrejrate, col="grey50")
     lines(J$n, J$Irejrate, col=col, lty=2); lines(J$n, J$Wrejrate, col=col)
     if(t < 0.30) {
       w <- 70; ix <- seq_len(nrow(J));
@@ -145,7 +152,7 @@ pdf("zz_chck_wolfCOPtestCL_plotA.pdf", useDingbats=FALSE, width=7, height=6)
     dx <- (log10(xb)-log10(xa)) / diff(par()$usr[1:2])
     dy <- (      yb -      ya ) / diff(par()$usr[3:4])
     srt <- (180/pi) * atan(a*dy/dx); if(srt < 0) srt <- 0
-    xtx <- paste0("T = ", sprintf("%0.2f", t)); if(t == 0) xtx <- "0"
+    xtx <- paste0("T = ", sprintf("%0.2f", t)); if(t == 0) xtx <- "T = 0"
     text(w, ya, xtx, col="white", cex=0.7, adj=c(0.5, 0.4), font=2, srt=srt)
     text(w, ya, xtx, col="white", cex=0.7, adj=c(0.5, 0.6), font=2, srt=srt)
     text(w, ya, xtx, col=col,     cex=0.7, adj=c(0.5, 0.5), font=2, srt=srt)
@@ -214,7 +221,7 @@ pdf("zz_chck_wolfCOPtestCL_plotB.pdf", useDingbats=FALSE, width=7, height=6)
     dx <- (      xb -      xa ) / diff(par()$usr[1:2])
     dy <- (      yb -      ya ) / diff(par()$usr[3:4])
     srt <- (180/pi) * atan(a*dy/dx); if(srt < 0) srt <- 0
-    xtx <- paste0("T = ", sprintf("%0.2f", t)); if(t == 0) xtx <- "0"
+    xtx <- paste0("T = ", sprintf("%0.2f", t)); if(t == 0) xtx <- "T = 0"
     if(t <= 0.4) {
       text(w,        ya,        xtx, col="white", cex=0.7, adj=c(0.5,0.4), font=2, srt=srt)
       text(w,        ya,        xtx, col="white", cex=0.7, adj=c(0.5,0.6), font=2, srt=srt)
