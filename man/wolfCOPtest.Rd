@@ -42,15 +42,16 @@ and its inverse is defined as
 
 Sample-sample empirical distributions (\eqn{n \in 3, \cdots, 40}) will have p-values reported on output and missing for \eqn{n \ge 41} (refer to \code{\link{wolfCOPtest_data_smlsam}} for more details).
 
-The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (PE3) (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
+The predicted L-moments are used to drive from the \pkg{lmomco} package the Pearson type III (\code{parpe3}, \code{cdfpe3}, \code{quape3}) of the \emph{logit transform} of \eqn{\sigma_\mathbf{\Pi}} to compute the p-value and supporting information.
 
-Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a generalized normal distribution (GNO) to PE3 at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) suggest the PE3 upper tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the PE3.
+Evaluation of an \emph{L-moment ratio diagram} (refer to \pkg{lmomco} functions \code{plotlmrdia()} and \code{lmrdia()}) shows a change from a Generalized Normal distribution to Pearson Type III at about \eqn{n = 40}, but inspection of upper-tail empirical distributions (and hence p-values in the practical range for \eqn{\mathrm{NULL}} rejection) visually suggest that the Pearson Type III upper tail is better choice for overall application. The \code{wolfCOPtest} function, therefore, exclusively uses the Pearson Type III until further evidence were to manifest.
 
 
-To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a representative range of sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the PE3 as the distribution model for the hypothesis test.
+To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \emph{L-skew} and \emph{L-kurtosis} diagram for the logit transform of the \emph{L-moments} of the \eqn{\hat\sigma_\mathbf{C}} based on \code{\link{EMPIRgrid_fast}} in the aforementioned build directory of the \pkg{copBasic} package. The figure is based on nearly \eqn{900} million simulations summed across a representative range of sample sizes \eqn{n \in 8, \cdots 15001}, and provides support for the decision by the author to use the Pearson Type III as the distribution model for the hypothesis test.
 
 \if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width=500}}
-\if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}
+\if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
+\bold{Figure. L-moment ratio diagram of simulated values for {Schweizer--Wolff Sigma} showing trajectory transitioning from near a Generalized Normal to a Pearson Type III as sample size increases along with parametric equations fits implemented for the Hypothesis Test}
 
 }
 \value{
@@ -157,6 +158,16 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
            sum(wolf3pv < alpha) / nsim) # }
 
 \dontrun{
+  # A micro cross check between wolfCOPtest and Independence test of copula package
+  n <- 60; J <- copula::indepTestSim(n, p=2, N=100000, verbose=FALSE)
+  for(i in 1:20) {
+    uv <- simCOP(n, cop=MOcop, para=c(0.2, 0.8), seed=i)
+    pw <- wolfCOPtest(uv, asuv=FALSE)$p.value[1]
+    pi <- copula::indepTest(uv, J)$pvalues[1]
+    mtext(paste0("seed=", i, "; wolfCOPtest=", pw, "; indepTest=", pi))
+  } # }
+
+\dontrun{
   # Here is a cross check of sorts between wolfCOPtest and the Independence test
   # available in the copula package. We use a Clayton copula with small bivariate
   # association and will see for this circumstance that wolfCOPtest out performs
@@ -196,6 +207,8 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   # DATA CENSORING EXAMPLE ------------------------------------------------------------
   set.seed(10) # Example using the zmat feature for support of censoring by simulation.
   muslp <- 0.005; sdslp <- 0.019 # drift with exp used to keep parameter positive
+  # (1) Try rerunning the example moving sdslp up and down and review the results.
+  # (2) Try disabling the censoring for the 35+th observations and repeat (1).
   yy <- 1980:2021; n <- length(yy) # Simulated log-Pearson III annual peak streamflows
   qq <- 10^sapply(yy, function(y) { # put a small drift in the log10 mean and variation
               para <- lmomco::vec2par(c(3.5+(y-min(yy))*muslp,
@@ -205,8 +218,8 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   zvl <- zvr <- rep(NA, n) # initialize the lower and upper limits for flows
   # NA years are not simulated and the data are used as is
   # Make some highly contrived censoring for the 3, 6, 9, 13, and 35+th observations.
-  zul[ 3] <- yy[ 3] - 1.1; zur[ 3] <- yy[ 3] + 1.1
-  zul[13] <- yy[13] - 1.5; zur[13] <- yy[13] + 2.4
+  zul[ 3] <- yy[ 3] - 1.1; zur[ 3] <- yy[ 3] + 1.1 # Unusual to not know the year, but
+  zul[13] <- yy[13] - 1.5; zur[13] <- yy[13] + 2.4 # showing generalization as needed.
   zvl[ 3] <- 10; zvr[3] <- qq[3]
   zvl[ 6] <- qq[6]; zvr[6] <- max(qq) + sqrt(.Machine$double.eps) # nudge above max
   zvl[ 9] <- 10^(log10(qq[9]) - 0.3); zvr[9] <- 10^(log10(qq[9]) + 0.2) # log-cycles
@@ -220,7 +233,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   segments(x=zul, x1=zur, y=qq,  y1=qq,  col="darkgoldenrod3")
   segments(x=yy,  x1=yy,  y=zvl, y1=zvr, col="darkgoldenrod3")
   points(yy, qq,  bg="darkgoldenrod1",   col="darkgoldenrod4",  pch=21)
-  naive <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random")
+  naive   <- wolfCOPtest(xy[,1], xy[,2], asuv=FALSE, ties.method="random" )
   txt <- paste0("Sigma simulation (nsim=",
                 prettyNum(length(swolf$rand_sigma), big.mark=","),   ") ",
                 "p.value=",       round(swolf$p.value[1], digits=3), "; ",
@@ -233,7 +246,7 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
   p <- sapply(swolf$rand_sigma, function(k) { # distribution of p-values
                         n <- ifelse(swolf$sample_size <= 40, 2, 1)
                      wolfCOPtest(k, swolf$sample_size)$p.value[n] })
-  swolf$rand_p.values <- p
+  names(p) <- NULL; swolf$rand_p.values <- p
   # plot(swolf$rand_sigma, swolf$rand_p.values, pch=16, col=grey(0, 0.05)) # }
 }
 \keyword{copula (hypothesis test)}
