@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.16 (2026-NN-NN)
+Changes in version 2.2.16 (2026-08-30)
 -  Absolute value symbol scale up in hoefCOP.Rd and LzCOPpermsym.Rd and added doi
      number to an article in hoefCOP.Rd.
 -  Tinkering with math notation improvements in derCOPinv.Rd, EuvCOP.Rd, EvuCOP.Rd,
@@ -11,6 +11,10 @@ Changes in version 2.2.16 (2026-NN-NN)
      comparison of Gini gamma sampling variation to that of Schweizer-Wolff Sigma.
 -  Minor edits to joint.curvesCOP[2].Rd.
 -  Minor edits to wolfCOPtest.Rd.
+-  Math edits in wolfCOP.Rd.
+-  Added wolfCOPtest_check.Rd as additional documentation of veracity of wolfCOPtest
+     and this meant some additional scripting in inst/make_wolfCOPtest/ and some
+     .gitignore changes to the repository.
 
 
 Changes in version 2.2.15 (2026-07-22)
