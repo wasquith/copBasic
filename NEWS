@@ -15,6 +15,7 @@ Changes in version 2.2.16 (2026-08-30)
 -  Added wolfCOPtest_check.Rd as additional documentation of veracity of wolfCOPtest
      and this meant some additional scripting in inst/make_wolfCOPtest/ and some
      .gitignore changes to the repository.
+-  Argument para variations passing to CIRCcop.R needed special trapping for para=NA.
 
 
 Changes in version 2.2.15 (2026-07-22)
