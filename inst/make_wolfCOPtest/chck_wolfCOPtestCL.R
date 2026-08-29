@@ -1,5 +1,7 @@
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
+stop("SAFE STOP AT BEGINNING")
+
 library(copBasic)
 library( copula )
 library(parallel)
@@ -8,7 +10,7 @@ library(parallel)
 # available in the copula package. We use a Clayton copula with various bivariate
 # associations and will see for these circumstances that wolfCOPtest out performs
 # copula::indepTest by just a small amount by rejecting the NULL more often.
-OUFILE <- "zz_chck_wolfCOPtestCLsim10kM.txt"
+OUFILE <- "zz_chck_wolfCOPtestCLsim10kO.txt"
 NSIM   <- as.integer( 10000 ); ALPHA <- 0.05
 myCOPTXT <- "CLcop"
 myCOP    <-  CLcop
@@ -82,6 +84,7 @@ D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kJ.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kK.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kL.txt", header=TRUE))
 D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kM.txt", header=TRUE))
+D <- rbind(D, read.table("zz_chck_wolfCOPtestCLsim10kN.txt", header=TRUE))
 
 
 
@@ -222,7 +225,11 @@ pdf("zz_chck_wolfCOPtestCL_plotB.pdf", useDingbats=FALSE, width=7, height=6)
     dy <- (      yb -      ya ) / diff(par()$usr[3:4])
     srt <- (180/pi) * atan(a*dy/dx); if(srt < 0) srt <- 0
     xtx <- paste0("T = ", sprintf("%0.2f", t)); if(t == 0) xtx <- "T = 0"
-    if(t <= 0.4) {
+    if(t == 0.40) {
+      text(w-0.005,        ya-0.002,        xtx, col="white", cex=0.7, adj=c(0.5,0.4), font=2, srt=srt)
+      text(w-0.005,        ya-0.002,        xtx, col="white", cex=0.7, adj=c(0.5,0.6), font=2, srt=srt)
+      text(w-0.005,        ya-0.002,        xtx, col=col,     cex=0.7, adj=c(0.5,0.5), font=2, srt=srt)
+    } else if(t <= 0.38) {
       text(w,        ya,        xtx, col="white", cex=0.7, adj=c(0.5,0.4), font=2, srt=srt)
       text(w,        ya,        xtx, col="white", cex=0.7, adj=c(0.5,0.6), font=2, srt=srt)
       text(w,        ya,        xtx, col=col,     cex=0.7, adj=c(0.5,0.5), font=2, srt=srt)
