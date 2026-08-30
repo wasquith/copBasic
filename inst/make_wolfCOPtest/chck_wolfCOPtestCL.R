@@ -115,7 +115,7 @@ topcol <- cols$col[cols$tau_given == "0.48"]
 
 pdf("zz_chck_wolfCOPtestCL_plotA.pdf", useDingbats=FALSE, width=7, height=6)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0))
-  txt <- paste0("Rejection rate by method at alpha = ", ALPHA)
+  txt <- paste0("Null hypothesis rejection rate by method at alpha = ", ALPHA)
   plot(range(D$n), c(0,1+ALPHA), log="x", type="n", las=1, bty="n",
        xlab="", ylab=txt, xaxs="i", yaxs="i", xaxt="n", yaxt="n")
   mtext("Sample size (logarithmic scale)", side=1, line=1.8)
@@ -139,8 +139,8 @@ pdf("zz_chck_wolfCOPtestCL_plotA.pdf", useDingbats=FALSE, width=7, height=6)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.2)
   for(t in sort(unique(D$tau_given))) {
     J <- D[D$tau_given == t,]; col <- cols$col[cols$tau_given == t]
-    lines(J$n, J$Trejrate, col=col, lwd=4); lines(J$n, J$Wrejrate, col="grey50")
-    lines(J$n, J$Irejrate, col=col, lty=2); lines(J$n, J$Wrejrate, col=col)
+    #lines(J$n, J$Trejrate, col=col, lwd=4); lines(J$n, J$Wrejrate, col="grey50")
+    lines(J$n, J$Irejrate, col=col, lty=2, lwd=1); lines(J$n, J$Wrejrate, col=col, lty=1, lwd=1.5)
     if(t < 0.30) {
       w <- 70; ix <- seq_len(nrow(J));
       wnt <- ix[J$n == w];   xa <- J$n[wnt]; ya <- (J$Irejrate[wnt] + J$Wrejrate[wnt]) / 2
@@ -163,7 +163,7 @@ pdf("zz_chck_wolfCOPtestCL_plotA.pdf", useDingbats=FALSE, width=7, height=6)
   lxt <- c("Significance level alpha = 0.05",
            "copBasic::wolfCOPtest (colored by Kendall Tau [T])",
            "copula::indepTest (colored by Kendall Tau [T])")
-  legend("topleft", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 1, 1),
+  legend("topleft", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 1.5, 1), seg.len=3.5,
                          col=c("grey50", topcol, topcol),    lty=c(1, 1, 2))
   polygon(10^c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
              c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
@@ -173,7 +173,7 @@ dev.off()
 pdf("zz_chck_wolfCOPtestCL_plotB.pdf", useDingbats=FALSE, width=7, height=6)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0))
   x <- seq(5, 10, by=0.001)
-  txt <- paste0("Rejection rate by method at alpha = ", ALPHA)
+  txt <- paste0("Null hypothesis rejection rate by method at alpha = ", ALPHA)
   plot(range(D$n), c(0,1+ALPHA), log="", type="n", las=1, bty="n", xlim=range(x), ylim=c(0, 0.2),
        xlab="", ylab=txt, xaxs="i", yaxs="i", xaxt="n", yaxt="n")
   mtext("Sample size (arithmetic scale)", side=1, line=1.8)
@@ -196,7 +196,7 @@ pdf("zz_chck_wolfCOPtestCL_plotB.pdf", useDingbats=FALSE, width=7, height=6)
     wnt2 <- par()$usr[3] <= y2 & y2 <= par()$usr[4]
     x1 <- x2 <- x; x1 <- x1[wnt1]; x2 <- x2[wnt2]
                    y1 <- y1[wnt1]; y2 <- y2[wnt2]
-    lines(x1, y1, col=col, lty=2); lines(x2, y2, col=col)
+    lines(x1, y1, col=col, lty=2, lwd=1); lines(x2, y2, col=col, lty=1, lwd=1.5)
     JJ <-  J[par()$usr[1] <= J$n         & J$n         <= par()$usr[2],]
     JJ <- JJ[par()$usr[3] <= JJ$Irejrate & JJ$Irejrate <= par()$usr[4],]
     JJ <- JJ[par()$usr[3] <= JJ$Wrejrate & JJ$Wrejrate <= par()$usr[4],]
@@ -246,7 +246,7 @@ pdf("zz_chck_wolfCOPtestCL_plotB.pdf", useDingbats=FALSE, width=7, height=6)
   lxt <- c("Significance level alpha = 0.05",
            "copBasic::wolfCOPtest (colored by Kendall Tau [T])",
            "copula::indepTest (colored by Kendall Tau [T])")
-  legend("bottomright", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 1, 1),
+  legend("bottomright", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 1.5, 1), seg.len=3.5,
                              col=c("grey50", topcol, topcol),    lty=c(1, 1, 2))
   polygon(   c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
              c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
