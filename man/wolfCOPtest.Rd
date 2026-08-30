@@ -51,7 +51,7 @@ To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \em
 
 \if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width=500}}
 \if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure. L-moment ratio diagram of simulated values for {Schweizer--Wolff Sigma} showing trajectory transitioning from near a Generalized Normal to a Pearson Type III as sample size increases along with parametric equations fits implemented for the Hypothesis Test}
+\bold{Figure. L-moment ratio diagram of simulated values for \emph{Schweizer--Wolff Sigma} showing trajectory transitioning from near a Generalized Normal to a Pearson Type III as sample size increases along with parametric equations fits implemented for the Hypothesis Test}
 
 }
 \value{
