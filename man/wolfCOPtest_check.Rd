@@ -42,18 +42,19 @@ The relation between simulated rejection rates for independence at alpha = 0.05 
 
 The figures have the rejection rates for \code{\link{wolfCOPtest}} drawn as solid lines and rejections rates for \code{indepTest} drawn as the dashed lines. The line color ramps with the \eqn{\tau} value and these Kendall Taus are labeled and value plotted between the two curves. The two curve types show that both methods have a similarity of performance. On scrutiny, the curves for \code{\link{wolfCOPtest}} generally plot just above those for the \code{indepTest}. This is an indication of higher rejection rates of the null hypothesis as departure from independence (\eqn{\tau > 0}) seems to increases but only for a range of sample sizes. Figure 1 shows that as sample sizes become large relative to the \eqn{\tau} is a convergence towards 100-percent rejection (a rejection rate \eqn{= 1}).
 
-Figure 2 is a zoom into the lower left corner of figure 1 and is an emphasis of the method performance for very small sample sizes. It appears that \code{indepTest} for \eqn{\tau \le 0.02} barely outperforms \code{\link{wolfCOPtest}}. A general conclusion, however, from the figures is that the \code{\link{wolfCOPtest}} by \code{\link{copBasic}} is either better tuned empirically than how \code{indepTest} is implemented by \pkg{copula} or that the absolute value operation (difference between empirical copula and \eqn{\mathbf{\Pi} = uv}) in the definition of \eqn{\sigma_\mathbf{C}} in lieu of the square operation (squared difference between empirical copula and \eqn{\mathbf{\Pi} = uv}) in \eqn{S_n^{\mathbf{\Pi}}}.
+Figure 2 is a zoom into the lower left corner of figure 1 and is an emphasis of the method performance for very small sample sizes. It appears that \code{indepTest} for \eqn{\tau \le 0.02} barely outperforms \code{\link{wolfCOPtest}}. A general conclusion, however, from the figures is that the \code{\link{wolfCOPtest}} by \pkg{copBasic} is either better tuned empirically than how \code{indepTest} is implemented by \pkg{copula} or that the absolute value operation (difference between empirical copula and \eqn{\mathbf{\Pi} = uv}) in the definition of \eqn{\sigma_\mathbf{C}} in lieu of the square operation (squared difference between empirical copula and \eqn{\mathbf{\Pi} = uv}) in \eqn{S_n^{\mathbf{\Pi}}}.
+
+
+The mean difference between \code{\link{wolfCOPtest}} and \code{indepTest} rejection is about 1 percent for the \eqn{\tau \in (0,0.02, \cdots, 0.48,0.50)} with \eqn{n \in (5,20;1), (22,50;2), (55,100;5)} totalling about 3.7 million simulations. This is evidence that both methods perform similar to each other, which provides for documentation such as this for \pkg{copBasic} that the \emph{Schweizer--Wolff Sigma} test is well implemented beyond the evidence documented in \bold{Examples} of \code{\link{wolfCOPtest}}.
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotA.jpg}{options: width=500}}
-\if{latex}{\figure{chck_wolfCOPtestCL_plotA.pdf}{options: width=4.5in, trim=0in 0in 0in 0in, clip}}\cr
+\if{latex}{\figure{chck_wolfCOPtestCL_plotA.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure 1. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--100 for a Clayton copula parameterized by given Kendall Tau as indicated}
 
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotB.jpg}{options: width=500}}
-\if{latex}{\figure{chck_wolfCOPtestCL_plotB.pdf}{options: width=4.5in, trim=0in 0in 0in 0in, clip}}\cr
+\if{latex}{\figure{chck_wolfCOPtestCL_plotB.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure 2. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--20 for a Clayton copula parameterized by given Kendall Tau as indicated}\cr
-
-The mean difference between \code{\link{wolfCOPtest}} and \code{indepTest} rejection is about 1 percent for the \eqn{\tau \in (0,0.02, \cdots, 0.48,0.50)} with \eqn{n \in (5,20;1), (22,50;2), (55,100;5)} totalling about 3.7 million simulations. This is evidence that both methods perform similar to each other, which provides for documentation such as this for \pkg{copBasic} that the \emph{Schweizer--Wolff Sigma} test is well implemented beyond the evidence documented in \bold{Examples} of \code{\link{wolfCOPtest}}.
 }
 \references{
 Deheuvels, P., 1981, A non parametric test for independence: Publications de l'Institut de Statistique de l'Universit\enc{é}{e} de Paris, v. 26, no. 2, pp. 29--50. [Also available at \url{https://hal.science/hal-04083801v1}]
