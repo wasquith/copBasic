@@ -47,14 +47,29 @@ Figure 2 is a zoom into the lower left corner of figure 1 and is an emphasis of 
 
 The mean difference between \code{\link{wolfCOPtest}} and \code{indepTest} rejection is about 1 percent for the \eqn{\tau \in (0,0.02, \cdots, 0.48,0.50)} with \eqn{n \in (5,20;1), (22,50;2), (55,100;5)} totalling about 3.7 million simulations. This is evidence that both methods perform similar to each other, which provides for documentation such as this for \pkg{copBasic} that the \emph{Schweizer--Wolff Sigma} test is well implemented beyond the evidence documented in \bold{Examples} of \code{\link{wolfCOPtest}}.
 
+
+The results in figures 1 and 2 are compelling. Both figures as exemplified by empirical simulation that \code{\link{wolfCOPtest}} does out perform the independence test of \code{indepTest} as implemented within the \pkg{copula} package. Though the rejection rates of \emph{Kendall Tau} or \emph{Spearman Rho} are not otherwise indicted in those two figures (figs. 1 and 2), the practitioner could study the scripted results of \code{inst/make_wolfCOPtest/}\code{chck_}\code{wolfCOPtestCIRC.R}, which is built around application of the \emph{Circula copula} (\code{\link{CIRCcop}}) to further explore the performance of the \emph{Schweizer--Wolff Sigma} test. Those results for \eqn{m = 150{,}000} are shown in figure 3 and show for that copula (\code{\link{CIRCcop}}) that \code{\link{wolfCOPtest}} continues to outperform \code{indepTest} in terms of rejection at the 0.05 significance level.
+
+Figure 3 also has highlighted at 50\eqn{\times} the computed rejection of independence, the trajectory of the rejection of independence from the Circular copula by well-known statistics of \emph{Kendall tau} and \emph{Spearman Rho}. The trajectories of the simulations for those two statistics require a multiplication of \eqn{50} to avoid changes in vertical scale and plotting of a second vertical axis on the right.
+
+A quite curious aspect is that the rejection rates dip below the alpha = 0.05 for sample sizes \eqn{n \in 6, \cdots, 19} and possibly this is related to algorithmic estimation of nonexceedance probabilities for small samples. Beyond \eqn{n = 20} both methods reject with increasing regularity of independence. By \eqn{n \approx 80} but methods are rejecting independence at 100 percent. However, within the sample range of about \eqn{n \in (20+, \cdots, 80)}, \code{\link{wolfCOPtest}} is superior.
+
+Ultimately, it is not known for all settings or sample size whether or not \code{\link{wolfCOPtest}} will show to be generally more precise at rejection of \emph{Independence} for all sample sizes. This assertion is based entirely on the heuristics of empirical simulation. Evidence is provided, however, in this \pkg{copBasic} documentation that the implementation of a \emph{Schweizer--Wolff Sigma} test appears to have marginally better performance than \pkg{copula} package \code{indepTest}.
+
+
 \if{html}{\figure{chck_wolfCOPtestCL_plotA.jpg}{options: width=500}}
-\if{latex}{\figure{chck_wolfCOPtestCL_plotA.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
+\if{latex}{\figure{chck_wolfCOPtestCL_plotA.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure 1. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--100 for a Clayton copula parameterized by given Kendall Tau as indicated}
 
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotB.jpg}{options: width=500}}
-\if{latex}{\figure{chck_wolfCOPtestCL_plotB.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
+\if{latex}{\figure{chck_wolfCOPtestCL_plotB.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure 2. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--20 for a Clayton copula parameterized by given Kendall Tau as indicated}\cr
+
+
+\if{html}{\figure{chck_wolfCOPtestCIRC_plot.jpg}{options: width=500}}
+\if{latex}{\figure{chck_wolfCOPtestCIRC_plot.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
+\bold{Figure 3. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--100 for a Circular copula comprised of nothing but singular components}
 }
 \references{
 Deheuvels, P., 1981, A non parametric test for independence: Publications de l'Institut de Statistique de l'Universit\enc{é}{e} de Paris, v. 26, no. 2, pp. 29--50. [Also available at \url{https://hal.science/hal-04083801v1}]
