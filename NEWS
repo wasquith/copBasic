@@ -16,6 +16,7 @@ Changes in version 2.2.16 (2026-08-30)
      and this meant some additional scripting in inst/make_wolfCOPtest/ and some
      .gitignore changes to the repository.
 -  Argument para variations passing to CIRCcop.R needed special trapping for para=NA.
+-  MOcop.Rd references edit of a url to code declaration because URL appears dead.
 
 
 Changes in version 2.2.15 (2026-07-22)
