@@ -52,7 +52,6 @@ To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \em
 \if{html}{\figure{lmrdiaT34wolfP.jpg}{options: width=500}}
 \if{latex}{\figure{lmrdiaT34wolfP.pdf}{options: width=5in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure. L-moment ratio diagram of simulated values for \emph{Schweizer--Wolff Sigma} showing trajectory transitioning from near a Generalized Normal to a Pearson Type III as sample size increases along with parametric equations fits implemented for the Hypothesis Test}
-
 }
 \value{
 Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so that there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature-similar calls between the functions.
