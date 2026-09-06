@@ -59,17 +59,17 @@ Ultimately, it is not known for all settings or sample size whether or not \code
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotA.jpg}{options: width=500}}
 \if{latex}{\figure{chck_wolfCOPtestCL_plotA.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure 1. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--100 for a Clayton copula parameterized by given Kendall Tau as indicated}
+\bold{Figure 1.} Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes \eqn{n \in (5,20;1), (22,50;2), (55,100;5)} for a Clayton copula (\code{\link{CLcop}}) parameterized by given Kendall Tau as indicated.
 
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotB.jpg}{options: width=500}}
 \if{latex}{\figure{chck_wolfCOPtestCL_plotB.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure 2. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--20 for a Clayton copula parameterized by given Kendall Tau as indicated}\cr
+\bold{Figure 2.} Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--20 for a Clayton copula  (\code{\link{CLcop}}) parameterized by given Kendall Tau as indicated.\cr
 
 
 \if{html}{\figure{chck_wolfCOPtestCIRC_plot.jpg}{options: width=500}}
 \if{latex}{\figure{chck_wolfCOPtestCIRC_plot.pdf}{options: width=5.25in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure 3. Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes 5--100 for a Circular copula comprised of nothing but singular components}
+\bold{Figure 3.} Relation between simulated rejection rates for independence at alpha = 0.05 significance level for selected sample sizes \eqn{n \in (5,20;1), (22,50;2), (55,100;5)} for a Circular copula (\code{\link{CIRCcop}}) comprised of nothing but singular components.
 }
 \references{
 Deheuvels, P., 1981, A non parametric test for independence: Publications de l'Institut de Statistique de l'Universit\enc{é}{e} de Paris, v. 26, no. 2, pp. 29--50. [Also available at \url{https://hal.science/hal-04083801v1}]
