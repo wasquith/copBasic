@@ -99,15 +99,17 @@ pdf("zz_chck_wolfCOPtestCIRC_plot.pdf", useDingbats=FALSE, width=7, height=6)
   tix <- seq(0.1, 0.9, by=0.2)
   axis(2, at=tix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.2)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1, tcl=-0.2)
-  lines(D$n, D$Irejrate, col="#A55A0B", lwd=1, lty=2); lines(D$n, D$Wrejrate, col="#0070A3", lwd=1)
-  lines(D$n, 50*D$Rrejrate, col="#C09533", lwd=1, lty=4); lines(D$n, 50*D$Trejrate, col="#00A0A9", lwd=1, lty=4)
+  lines(D$n, D$Irejrate,    col="#A55A0B", lwd=2.0, lty=2)
+  lines(D$n, D$Wrejrate,    col="#0070A3", lwd=2.0, lty=1)
+  lines(D$n, 50*D$Trejrate, col="#00A0A9", lwd=1.2, lty=4)
+  lines(D$n, 50*D$Rrejrate, col="red2",    lwd=1.2, lty=4)
   lxt <- c("Significance level alpha = 0.05",
            "copBasic::wolfCOPtest on Circular copula (copBasic::CIRCcop)",
            "copula::indepTest on Circular copula (copBasic::CIRCcop)",
            '50 x rate Mann-Kendall test, stats::cor.test(method="kendall") on Circular copula',
            '50 x rate Spearman Rho test, stats::cor.test(method="spearman") on Circular copula')
-  legend("topleft", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 2, 2, 2, 2), seg.len=3.5,
-                         col=c("grey50", "#0070A3", "#A55A0B", "#00A0A9", "#C09533"),    lty=c(1, 1, 2, 1, 4))
+  legend("topleft", lxt, cex=0.7, bty="o", box.lty=0, bg=NA, lwd=c(2, 2, 2, 1.2, 1.2), seg.len=3.5,
+         col=c("grey50", "#0070A3", "#A55A0B", "#00A0A9", "red2"), lty=c(1, 1, 2, 4, 4))
   polygon(10^c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
              c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
 dev.off()
