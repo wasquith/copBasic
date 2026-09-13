@@ -106,6 +106,7 @@ D$Wrejrate <- round(D$Wrejrate, digits=6)
 
 write.table(D, file="zz_chck_wolfCOPtestCL_data.txt", sep="\t", row.names=FALSE, quote=FALSE)
 
+D <- read.table("zz_chck_wolfCOPtestCL_data.txt", sep="\t", header=TRUE)
 D <- D[as.character(D$tau_given) %in% as.character(rev( seq(0, 0.5, by=0.04) )),]
 cols <- hcl.colors(length(unique(D$tau_given))+5, palette="Roma")
 mc   <- floor(median(1:length(cols))); cols <- cols[-c(mc-2, mc-1, mc, mc+1, mc+2)]
