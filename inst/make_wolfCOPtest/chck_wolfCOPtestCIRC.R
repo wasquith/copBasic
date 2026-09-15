@@ -174,8 +174,8 @@ pdf("zz_chck_wolfCOPtestCLCIRC_plot.pdf", useDingbats=FALSE, width=7, height=6)
                       paste0("  sample Spearman Rho ",   pvt, " = ",  r1),
                       paste0("  copBasic::wolfCOPtest ", pvt, " = ",  w1),
                       paste0("  copula::indepTest ",     pvt, " = ",  i1)),
-         bty="o", box.lty=0, bg=grey(1, 0.5), cex=0.7, y.intersp=1, inset=0.01)
-
+         bty="o", box.lty=0, bg=grey(1, 0.7), cex=0.7, y.intersp=1, inset=0.01)
+  text(par()$usr[2], par()$usr[3], "(A)", adj=c(1.2,-1.1), font=2)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0), mai=c(0.24, 0.4, 0.24, 0.34))
   plot(uv2[,1], uv2[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
        xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
@@ -191,8 +191,8 @@ pdf("zz_chck_wolfCOPtestCLCIRC_plot.pdf", useDingbats=FALSE, width=7, height=6)
                       paste0("  sample Spearman Rho ",   pvt, " = ",  r2),
                       paste0("  copBasic::wolfCOPtest ", pvt, " = ",  w2),
                       paste0("  copula::indepTest ",     pvt, " = ",  i2)),
-         bty="o", box.lty=0, bg=grey(1, 0.5), cex=0.7, y.intersp=1, inset=0.01)
-
+         bty="o", box.lty=0, bg=grey(1, 0.7), cex=0.7, y.intersp=1, inset=0.01)
+  text(par()$usr[2], par()$usr[3], "(B)", adj=c(1.2,-1.1), font=2)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0), mai=c(0.5, 0.7, 0.14, 0.06))
   plot(uv3[,1], uv3[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
        xlab="", ylab=ylab, xaxs="i", yaxs="i", xaxt="n", yaxt="n")
@@ -209,8 +209,8 @@ pdf("zz_chck_wolfCOPtestCLCIRC_plot.pdf", useDingbats=FALSE, width=7, height=6)
                       paste0("  sample Spearman Rho ",   pvt, " = ",  r3),
                       paste0("  copBasic::wolfCOPtest ", pvt, " = ",  w3),
                       paste0("  copula::indepTest ",     pvt, " = ",  i3)),
-         bty="o", box.lty=0, bg=grey(1, 0.5), cex=0.7, y.intersp=1, inset=0.01)
-
+         bty="o", box.lty=0, bg=grey(1, 0.7), cex=0.7, y.intersp=1, inset=0.01)
+   text(par()$usr[2], par()$usr[3], "(C)", adj=c(1.2,-1.1), font=2)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0), mai=c(0.5, 0.4, 0.14, 0.34))
   plot(uv4[,1], uv4[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
        xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
@@ -221,13 +221,14 @@ pdf("zz_chck_wolfCOPtestCLCIRC_plot.pdf", useDingbats=FALSE, width=7, height=6)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
   polygon(c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
           c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
-  points(uv4[,1], uv4[,2], pch=21, col="#0070A3", bg="white", lwd=1.5)
+  points(uv4[,1], uv4[,2], pch=21, col="darkorchid2", bg="white", lwd=1.5)
   legend("topleft", c(paste0("Circular copula, theoretical Kendall Tau = 0"),
                       paste0("  sample Kendall Tau ",    pvt, " = ",  t4),
                       paste0("  sample Spearman Rho ",   pvt, " = ",  r4),
                       paste0("  copBasic::wolfCOPtest ", pvt, " = ",  w4),
                       paste0("  copula::indepTest ",     pvt, " = ",  i4)),
-         bty="o", box.lty=0, bg=grey(1, 0.5), cex=0.7, y.intersp=1, inset=0.01)
+         bty="o", box.lty=0, bg=grey(1, 0.7), cex=0.7, y.intersp=1, inset=0.01)
+   text(par()$usr[2], par()$usr[3], "(D)", adj=c(1.2,-1.1), font=2)
 dev.off()
 
 
