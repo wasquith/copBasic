@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.2.17 (2026-NN-NN)
+Changes in version 2.2.17 (2026-10-04)
 - Fixed legend plotting error in inst/make_wolfCOPtest/chck_wolfCOPtestCIRC.R and
     changed some line thicknesses and one line color in the plotting by that script
     after seeing the wolfCOPtest_check.Rd figure 3 after CRAN rendering in 2.2.16.
@@ -13,7 +13,9 @@ Changes in version 2.2.17 (2026-NN-NN)
     could use some consideration.
 - Minor edits to rhoCOP.Rd.
 - Addition to copBasic-package.Rd describing case of "could not find function 'cop'".
-- Minor argument extension to wolfCOPtest.[R|Rd] for add.cor.tests and maxrnd.
+- Minor argument extension to wolfCOPtest.[R|Rd] for add.cor.tests, maxrnd, statnm.
+- Added wolfCOPtest_drawsim.[R|Rd].
+- Added grDevices imports for dev.off, pdf; graphics imports for polygon.
 
 
 Changes in version 2.2.16 (2026-08-30)
