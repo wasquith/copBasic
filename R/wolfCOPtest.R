@@ -1,7 +1,7 @@
 "wolfCOPtest" <-
 function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE,
-               zmat=NULL, statf=mean, rndphi=20, maxrnd=1000,
+               zmat=NULL, statf=mean, statnm="mean", rndphi=20, maxrnd=1000,
                ties.method=c("average", "first", "last", "random", "max", "min"),
                add.cor.tests=FALSE, ...) {
 
@@ -85,7 +85,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
         warning("statf is needed, but it is not a function, returning NULL")
         return(NULL)
       }
-      nuuniq <- nvuniq <- "wolves_by_zmatrix"
+
+      #nuuniq <- nvuniq <- "wolves_by_zmatrix"
+      nuuniq <- length(unique(uv[,1])); nvuniq <- length(unique(uv[,2]))
+
       nrndsim <- rndphi * (length(zul[! is.na(zul)]) + length(zvl[! is.na(zvl)]))
       nrndsim <- pmin(nrndsim, maxrnd)
       ix <- seq_len(n)
@@ -286,7 +289,10 @@ function(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   names(zz) <- gsub("_TEXT_", "logit", names(zz))
 
   if(aslist) {
-    wz <- c(rwolf, lwolf); names(wz) <- c("sigma", "logit_sigma")
+    statxt <- quote(statf)
+    wz <- c(rwolf, lwolf)
+    names(wz) <- c(paste0("sigma", paste0("_via_statf_", statnm)), "logit_sigma")
+    names(rwolf) <- names(wz)[1]
     zz <- list(sample_size=n, estimate=rwolf, statistic=wz, p.value=pval,
                distpara_by_lmoms=para$para)
     zz$lmoms_logit_sigma <- lmrs  # L-moments of the logit(SIGMAS) distribution
