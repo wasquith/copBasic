@@ -10,7 +10,7 @@ This \emph{Schweizer--Wolff Sigma hypothesis test} in \pkg{copBasic} has been em
 \usage{
 wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
                probs=c(0.90, 0.95, 0.98, 0.99, 0.995), usepade=FALSE,
-               zmat=NULL, statf=mean, rndphi=20, maxrnd=1000,
+               zmat=NULL, statf=mean, statnm="mean", rndphi=20, maxrnd=1000,
                ties.method=c("average", "first", "last", "random", "max", "min"),
                add.cor.tests=FALSE, ...)
 }
@@ -25,6 +25,7 @@ wolfCOPtest(x, y, asuv=FALSE, aslist=TRUE, na.rm=TRUE, digits=6,
   \item{usepade}{A logical to switch, on estimation of the empirical L-moments of the logit transformed simulations, between (1) power-exponent optimized regression equations, or (2) optimized \emph{\enc{Padé}{Pade} Approximant} forms;}
   \item{zmat}{An optional matrix of four columns and rows equally those of the data values with columns 1 and 2 containing, respectively, the lower and upper limits of the \eqn{u} and columns 3 and 4 containing, respectively, the lower and upper limits of \eqn{v}. This \code{zmat} feature provides for support if data censoring is involved and simulation between the limits made (refer to \bold{Examples}). Note, if \code{zmat} is given, then \code{ties.method} is set \code{"random"} and \code{asuv} is set false;}
   \item{statf}{Statistical function for reducing simulated \eqn{\sigma} values (mean or median suggested), but a user could \code{plot(density(}\code{result$rand_sigma))} and reach their own decisions on centrality measure;}
+  \item{statnm}{A name to append to \code{names()} of the computed sigmas for the function defined by \code{statf} as part of the \code{aslist} on return;}
   \item{rndphi}{A multiplier on the number of ties or censored values to drive simulation of samples as part of populating the \code{rand_sigma} element, when applicable, on the function return;}
   \item{maxrnd}{Maximum number of random simulations to perform. This acts like a \dQuote{maximum} for an internal loop and the loop will be broken out of. This is useful to have to keep the simulations from being computed very large as to effect general processing time length;}
   \item{ties.method}{Argument of the same name for \code{rank}, but if there are ties, \code{asuv} is set false, and \code{ties.method} is set to random, then simulation is made internally on the ranking and \code{statf} used to compute the \eqn{\sigma} estimate;}
@@ -60,7 +61,7 @@ To conclude, the figure below shows the \emph{L-moment ratio diagram} of the \em
 Extensive list or named vector output the test is returned. For the list, the \code{estimate} contains duplicate information as \code{statistic[1]}; this is so that there is an \code{estimate} entry to parallel the return of \code{cor.test(...)} to help users write nomenclature-similar calls between the functions.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest_data_smlsam}}
+\seealso{\code{\link{wolfCOP}}, \code{\link{wolfCOPtest_drawsim}}, \code{\link{wolfCOPsamc}}, \code{\link{wolfCOPtest_data_smlsam}}
 }
 \examples{
 uv <- simCOP(n=62, cop=PSP, graphics=FALSE, seed=8)
@@ -250,6 +251,12 @@ wolfCOPtest(uv[,1], uv[,2], asuv=TRUE, aslist=FALSE)
                      wolfCOPtest(k, swolf$sample_size)$p.value[n] })
   names(p) <- NULL; swolf$rand_p.values <- p
   # plot(swolf$rand_sigma, swolf$rand_p.values, pch=16, col=grey(0, 0.05)) # }
+
+\dontrun{
+  # Extract the statf function name from the names() of the estimate
+  statnm <- gsub("sigma_via_statf_", "", names(swolf$estimate)[1])
+  statnm <- paste(toupper(substr(statnm, 1, 1)), # and convert first letter caps
+                          substr(statnm, 2, nchar(statnm)), sep="") # }
 }
 \keyword{copula (hypothesis test)}
 \keyword{Schweizer and Wolff Sigma}
