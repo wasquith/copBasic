@@ -68,3 +68,5 @@ inst/make_wolfCOPtest/zz_chck_wolfCOPtestCIRCsim10kB.txt
 inst/make_wolfCOPtest/zz_chck_wolfCOPtestCIRC_plot.pdf
 inst/make_wolfCOPtest/zz_chck_wolfCOPtestCIRCsim10kC.txt
 inst/make_wolfCOPtest/zz_chck_wolfCOPtestCLCIRC_plot.pdf
+inst/make_wolfCOPtest/halton_pitest1_quad.pdf
+inst/make_wolfCOPtest/halton_pitest2_vio.pdf
