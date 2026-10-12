@@ -63,9 +63,11 @@ In figure 4, the trajectories of the simulations for the \emph{Kendall tau} and 
 Ultimately, it is not known for all settings or sample size whether or not \code{\link{wolfCOPtest}} will show to be generally more precise at rejection of \emph{Independence} for all sample sizes. This assertion is based entirely on the heuristics of empirical simulation. Evidence is provided, however, in this \pkg{copBasic} documentation that the implementation of a \emph{Schweizer--Wolff Sigma} test appears to have marginally better performance than \pkg{copula} package \code{indepTest}.
 
 
+Another \dQuote{check of curiosity} is made by review of the performance of \code{\link{wolfCOPtest}}, \pkg{copula} package \code{indepTest}, \emph{Kendall Tau}, and \emph{Spearman Rho} against \eqn{\mathrm{NULL} : \mathbf{\Pi}} for \eqn{n = 10}. Instead of using uniformly random bivariates, \code{randtoolbox::halton} sequences of \dQuote{random} variates are drawn and the aforementioned hypothesis tests run. Figure 5 shows an example of four \eqn{n=10} drawings of the \emph{Halton sequence} for \eqn{(U,V)}, and results of the test for independence by the four methods are made. A small sample is chosen because the \emph{Halton sequence} fills \eqn{\mathcal{I}^2} rapidly as sample size increases. The data points are computed so as to fill the domain more rapidly than uniformly distributed variates (\code{\link{P}}), which is a purpose of such a sequence to accelerate \emph{Monte Carlo integration}. Lastly, the results in Figure 5 shows for such a small sample size that p-values from the four tests show departure from the extrema \eqn{(0,1).} (Machine time is used to seed the \emph{Halton sequence}; so, visual differences and the computed p-values would result if origin script \code{inst/}\code{make_wolfCOPtest/}\code{halton_pitest.R} were to be run again.) To end, Figure 6 shows results of a large simulation against sample \eqn{n = 10} and demonstrates true \emph{Independence testing} outperforms \emph{monotone testing} by \emph{Kendall Tau} and \emph{Spearman Rho}. Because the p-values are statistically larger for the true \emph{Independence test}, those tests appear are superior by evidence to \emph{Kendall Tau} and \emph{Spearman Rho} tests for the \emph{space-filling, low-discrepancy, Halton sequence.}
+
 \if{html}{\figure{chck_wolfCOPtestCLCIRC_plot.jpg}{options: width=450}}
 \if{latex}{\figure{chck_wolfCOPtestCLCIRC_plot.pdf}{options: width=4.6in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure 1.} Examples of three \emph{Clayton copula} for \eqn{n = 50} simulations for three given \emph{Kendall Taus} and one \emph{Circular copula} for \eqn{n = 50} simulations with p-values from four hypothesis tests shown---a common seed is used in the simulations and refer to figures 1A--C for structures of this copula.\cr
+\bold{Figure 1.} Examples of three \emph{Clayton copula} for \eqn{n = 50} simulations for three given \emph{Kendall Taus} and one \emph{Circular copula} for \eqn{n = 50} simulations with p-values from four hypothesis tests shown---matching seed for each simulation was used in the simulations and refer to figures 1A--C for structures of this copula.\cr
 
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotA.jpg}{options: width=450}}
@@ -81,6 +83,15 @@ Ultimately, it is not known for all settings or sample size whether or not \code
 \if{html}{\figure{chck_wolfCOPtestCIRC_plot.jpg}{options: width=450}}
 \if{latex}{\figure{chck_wolfCOPtestCIRC_plot.pdf}{options: width=4.6in, trim=0in 0in 0in 0in, clip}}\cr
 \bold{Figure 4.} Relation between simulated rejection rates for independence at alpha = 0.05-significance level for sample sizes \eqn{n \in (5,20;1), (22,50;2), (55,100;5), (63, 68, 72)} for a \emph{Circular copula} (\code{\link{CIRCcop}}) comprised of nothing but singular components---refer to figure 1D for structure of this copula.
+
+
+\if{html}{\figure{halton_pitest1_quad.jpg}{options: width=450}}
+\if{latex}{\figure{halton_pitest1_quad.pdf}{options: width=4.6in, trim=0in 0in 0in 0in, clip}}\cr
+\bold{Figure 5.} Relation between simulated \emph{Halton sequences} seeded by machine time for sample size \eqn{n = 10} for \eqn{m = 20{,}000} distribution simulation of p-values of hypotheses tests against \emph{Independence}.
+
+\if{html}{\figure{halton_pitest2_vio.jpg}{options: width=450}}
+\if{latex}{\figure{halton_pitest2_vio.pdf}{options: width=4.6in, trim=0in 0in 0in 0in, clip}}\cr
+\bold{Figure 6.} Relation by \emph{violin plot} showing median and interquartile range between simulated \emph{Halton sequences} seeded by machine time for sample size \eqn{n = 10} for comparison of p-values of hypotheses tests against \emph{Independence} with augmentation of the number of unique values of the computed p-value per test, and \emph{Kendall Tau} shows the smallest because of its fundamental mathematics that is further emphasized by explicit choice of density smoothing parameter \code{h=0.02}, which is small enough to visualized discrete character of the p-values of \emph{Kendall Tau} through its discrete tau-values tied closely to sample size---Declaration of \emph{Independence} on the horizontal axis seems justifiable because the four tests are based on bivariate Independence and not the \emph{Halton sequences}.
 }
 \references{
 Deheuvels, P., 1981, A non parametric test for independence: Publications de l'Institut de Statistique de l'Universit\enc{é}{e} de Paris, v. 26, no. 2, pp. 29--50. [Also available at \url{https://hal.science/hal-04083801v1}]
