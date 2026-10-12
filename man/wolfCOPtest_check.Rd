@@ -67,7 +67,7 @@ Another \dQuote{check of curiosity} is made by reviewing the performance of \cod
 
 \if{html}{\figure{chck_wolfCOPtestCLCIRC_plot.jpg}{options: width=450}}
 \if{latex}{\figure{chck_wolfCOPtestCLCIRC_plot.pdf}{options: width=4.6in, trim=0in 0in 0in 0in, clip}}\cr
-\bold{Figure 1.} Examples of three \emph{Clayton copula} for \eqn{n = 50} simulations for three given \emph{Kendall Taus} and one \emph{Circular copula} for \eqn{n = 50} simulations with p-values from four hypothesis tests shown---matching seed for each simulation was used in the simulations and refer to figures 1A--C for structures of this copula.\cr
+\bold{Figure 1.} Examples of three \emph{Clayton copula} for \eqn{n = 50} simulations for three given \emph{Kendall Taus} and one \emph{Circular copula} for \eqn{n = 50} simulations with p-values from four hypothesis tests shown---matching seed for each simulation was used in the simulations and refer to figures 1A--C for structure of that copula.\cr
 
 
 \if{html}{\figure{chck_wolfCOPtestCL_plotA.jpg}{options: width=450}}
