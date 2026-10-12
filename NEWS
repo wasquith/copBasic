@@ -1,6 +1,11 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
+Changes in version 2.3.1 (2026-11-04)
+- Expansion of wolfCOPtest_check.Rd with two more figures with further checks using
+    Halton sequences supported by new script inst/make_wolfCOPtest/halton_pitest.R.
+
+
 Changes in version 2.2.17 (2026-10-04)
 - Fixed legend plotting error in inst/make_wolfCOPtest/chck_wolfCOPtestCIRC.R and
     changed some line thicknesses and one line color in the plotting by that script
