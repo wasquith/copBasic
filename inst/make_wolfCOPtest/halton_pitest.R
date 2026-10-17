@@ -168,3 +168,18 @@ pdf(pdffile, useDingbats=FALSE, width=7, height=6)
 dev.off()
 system(paste0("pdfcrop --clip --margins 5 ", pdffile, " ", pdffile))
 
+pdffile <- "halton_pitest3_haldemo.pdf"
+pdf(pdffile, useDingbats=FALSE)
+  par(xpd=NA)
+  uv1 <- randtoolbox::halton(200, d=2, usetime=TRUE)
+  plot(uv1[,1], uv1[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
+       xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
+  axis(1, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  axis(3, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  axis(2, at=tix, labels=FALSE,  lwd=0, lwd.ticks=1)
+  axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  polygon(c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
+          c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
+  points(uv1[,1], uv1[,2], pch=21, col="grey50", bg="white", lwd=1.5)
+dev.off()
+system(paste0("pdfcrop --clip --margins 5 ", pdffile, " ", pdffile))
