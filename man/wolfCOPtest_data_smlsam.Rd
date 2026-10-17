@@ -28,12 +28,14 @@ data(wolfCOPtest_data_smlsam)
   # distribution model. We see quite quickly that the distribution model mimics
   # the empirical distribution at quite small sample sizes.
   data("wolfCOPtest_data_smlsam")
-  ff <- pnorm(seq(-3, 3, by=0.1))
+  ff <- pnorm(seq(-3, 3, by=0.1)); par(xpd=FALSE, mgp=c(2.5, 0.8, 0))
   plot(c(-3, 3), c(0,1), type="n", xlab="Standard normal variate",
-       ylab="Schweizer-Wolff Sigma given C(u,v)=PI")
+       ylab="Schweizer-Wolff Sigma given C(u,v)=PI", las=1)
   ns <- c(3, 5, 10, 20, 40)
   for(n in ns) {
     sata <- wolfCOPtest_data_smlsam[wolfCOPtest_data_smlsam$n == n,]
+    #sata <- sata[qnorm(sata$probs) >= par()$usr[1] &
+    #             qnorm(sata$probs) <= par()$usr[2],]
     lines(qnorm(sata$probs), sata$wolfemp, col="red", lwd=2)
   }
   ns <- c(3, 4, 5, 7, 10, 15, 20, 30, 40, 50, 70, 100, 130, 200, 500, 1000, 5000)
@@ -57,19 +59,37 @@ data(wolfCOPtest_data_smlsam)
   par(lheight=1) #}
 
 \dontrun{
+  # pdf("animation.pdf")
+  par(xpd=NA, mgp=c(2.5, 0.8, 0), lend=1, ljoin=1, mai=c(0.75, 0.7, 0.4, 0.2))
   W <- seq(0, 1, by=0.01) # Span all Schweizer-Wolff Sigma, when the first and second
   # arguments to wolfCOPtest are scalars, these are treated as sigma and sample size.
-  for(i in 3:40) { # samples sizes 3 to 40 in wolfCOPtest_data_smlsam.
+  ns <- c(3:20, seq(22, 40, by=2)); hyphen <- "\u00ad"
+  ns <- c(ns, rev(ns), ns, rev(ns), ns, rev(ns))
+  for(i in c(ns, rev(ns))) { # samples sizes 3 to 40 in wolfCOPtest_data_smlsam.
     Pd <- sapply(W, function(w) wolfCOPtest(w, i, usepade=FALSE)$p.value[1])
     Pe <- sapply(W, function(w) wolfCOPtest(w, i, usepade=FALSE)$p.value[2])
     Pp <- sapply(W, function(w) wolfCOPtest(w, i, usepade=TRUE )$p.value[1])
+    for(j in 1:3) {
     # p-value by the generalized normal (parametric) distribution
-    plot( W, Pd, type="l", col="grey70", lty=2, lwd=7, main=paste0("n=", i),
-         xlab="Schweizer-Wolff Sigma", ylab="Exceedance probability (p-value)")
+    plot(  W, Pd, type="l", col="grey70", lty=2, lwd=7, las=1,
+         xlab="Schweizer-Wolff Sigma",
+         ylab=paste0("Exceedance probability (p", hyphen, "value)"))
+    mtext(paste0("Sample size n = ", i), side=3, line=0.8)
+    axis(3, at=axTicks(1), labels=FALSE, lwd=0, lwd.ticks=1)
+    axis(4, at=axTicks(2), labels=FALSE, lwd=0, lwd.ticks=1)
     points(W, Pp, col="skyblue2", lwd=1) # large sample p-values
     # p-value derived from wolfCOP_data_smlsam tables:
-    lines(W, Pe, col="green4",    lwd=4) # small sample p-values
-  } #}
+    lines( W, Pe, col="green4",    lwd=4) # small sample p-values
+    legend(ifelse(i <= 10, "bottomleft", "topright"),
+           c("Distribution by Pearson type III usepade=FALSE",
+             "Empirical distribution by small sample lookup table",
+             "Distribution by Pearson type III usepade=TRUE"),
+           bty="o", box.lty=0, bg=NA, cex=0.8, inset=0.01,
+           lwd=c(7, 4, NA), lty=c(2, 1, NA), pch=c(NA, NA, 1),
+           col=c("grey70", "green4", "skyblue2"))
+    }
+  }
+  # dev.off() #}
 }
 \keyword{datasets}
 \keyword{Schweizer and Wolff Sigma}
