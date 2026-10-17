@@ -14,9 +14,9 @@ A(x,y; \rho) = y\mbox{,}
 }
 for \eqn{0 \le x/(x+y) \le \rho^2/(1+\rho^2)},
 \deqn{
-A(x,y; \rho) = (x+y - 2\rho\sqrt{xy})/(1-\rho^2)\mbox{,}
+A(x,y; \rho) = \bigl(x+y - 2\rho\sqrt{xy}\bigr)/\bigl(1-\rho^2\bigr)\mbox{,}
 }
-for \eqn{\rho^2/(1+\rho^2) \le x/(x+y) \le 1/(1+\rho^2)},
+for \eqn{\rho^2/\bigl(1+\rho^2\bigr) \le x/\bigl(x+y\bigr) \le 1/\bigl(1+\rho^2\bigr)},
 \deqn{
 A(x,y; \rho) = x\mbox{,}
 }
