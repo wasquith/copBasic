@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------------
                 NEWS for R Package "copBasic" by W.H. Asquith
 --------------------------------------------------------------------------------------
-Changes in version 2.3.1 (2026-11-04)
+Changes in version 2.3.1 (2026-11-14)
 -  Expansion of wolfCOPtest_check.Rd with two more figures with further checks using
      Halton sequences supported by new script inst/make_wolfCOPtest/halton_pitest.R.
 -  Delimiter size increase in a few locations for gEVcop.Rd.
