@@ -176,7 +176,7 @@ pdf(pdffile, useDingbats=FALSE)
        xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
   axis(1, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
   axis(3, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
-  axis(2, at=tix, labels=FALSE,  lwd=0, lwd.ticks=1)
+  axis(2, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
   polygon(c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
           c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
