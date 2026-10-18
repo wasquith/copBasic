@@ -88,7 +88,7 @@ kmeasCOP(z, cop=NULL, para=NULL, wrtV=FALSE, as.sample=FALSE,
   lines( Z, kfuncCOP(Z, cop=M), lty=4) # dash-dot line (perfect correlation)
   mtext("Kendall Functions: Independence Copula")
 }
-The figure produced shows that the theoretical relation in Joe (2014) is correct because the empirical values from the simulated sample (\emph{Empirical Kendall Function}; Nelsen \emph{et al.}, 2003) match other curves quite well. Rerunning the above code with either \eqn{\mathbf{M}} (\code{\link{M}}) or \eqn{\mathbf{W}} (\code{\link{W}}) copulas will show that the special cases listed above are consistent with the empirical estimates. The case of \eqn{\mathbf{W}(u,v)} is degenerate at \eqn{z=0}; so, the empirical computation is in error for the smallest \eqn{z} given because of interpolation. The \eqn{\mathbf{M}} copula has \eqn{F_K} along the equal value line (1:1) line.
+The figure produced shows that the theoretical relation in Joe (2014) is correct because the empirical values from the simulated sample (\emph{Empirical Kendall Function}; Nelsen \emph{et al.}, 2003) match other curves quite well. Rerunning the above code with either \eqn{\mathbf{M}} (\code{\link{M}}) or \eqn{\mathbf{W}} (\code{\link{W}}) copulas will show that the special cases listed above are consistent with the empirical estimates. The case of \eqn{\mathbf{W}(u,v)} is degenerate at \eqn{z=0}; so, the empirical computation is in error for the smallest \eqn{z} given because of interpolation. The \eqn{\mathbf{M}} copula has \eqn{F_K} along the equal value line.
 
 Now, consider a more comprehensive demonstration using the \code{\link{N4212cop}} copula with some relatively weak dependence in \eqn{\Theta = 1.17}.
 \preformatted{

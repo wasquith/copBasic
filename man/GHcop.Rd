@@ -123,13 +123,13 @@ that can be tested by the following, which also shows how to increase the tolera
   derCOPinv(cop=GHcop, u, p, para=1.56, tol=.Machine$double.eps/10) # 0.999977
 }
 
-\emph{ASYMMETRIC GUMBEL--HOUGAARD} --- Set \eqn{\tau_\mathbf{C} = 0.35} then for a symmetric and then reflection on the 1:1 line of the asymmetric Gumbel--Hougaard copula and compute the primary parameter \eqn{\Theta}, and lastly, compute three bivariate \eqn{\nu_\mathbf{C}} skewnesses (\code{\link{nuskewCOP}}):
+\emph{ASYMMETRIC GUMBEL--HOUGAARD} --- Set \eqn{\tau_\mathbf{C} = 0.35} then for a symmetric and then reflection on the equal value line of the asymmetric Gumbel--Hougaard copula and compute the primary parameter \eqn{\Theta}, and lastly, compute three bivariate \eqn{\nu_\mathbf{C}} skewnesses (\code{\link{nuskewCOP}}):
 \preformatted{
   Theta1 <- uniroot(function(t) {
                 0.35 - tauCOP(cop=GHcop, para=c(t)) },           c(1,10))$root
   Theta2 <- uniroot(function(t) { # asymmetric
                 0.35 - tauCOP(cop=GHcop, para=c(t, 0.6, 0.9)) }, c(1,30))$root
-  Theta3 <- uniroot(function(t) { # asymmetric reflection on 1:1
+  Theta3 <- uniroot(function(t) { # asymmetric reflection on equal value line
                 0.35 - tauCOP(cop=GHcop, para=c(t, 0.9, 0.6)) }, c(1,30))$root
   # Theta1 = 1.538462   and   Theta2 = Theta3 = 2.132856
   # Three "skews" based on a combination of U, V, and C(u,v) [nuskew()]
