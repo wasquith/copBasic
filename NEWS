@@ -7,6 +7,7 @@ Changes in version 2.3.1 (2026-11-14)
 -  Delimiter size increase in a few locations for gEVcop.Rd.
 -  Added proper mathbf declaration for Pi in the Product copula in running text.
 -  Edits to wolfCOPtest_data_smlsam.Rd Examples.
+-  Minor edits in aicCOP.Rd, bicCOP.Rd, GHcop.Rd, kfuncCOP.Rd, and rmseCOP.Rd.
 
 
 Changes in version 2.2.17 (2026-10-04)
