@@ -46,31 +46,31 @@ Nelsen, R.B., 2006, An introduction to copulas: New York, Springer, 269 p.
 Salvadori, G., De Michele, C., Kottegoda, N.T., and Rosso, R., 2007, Extremes in Nature---An approach using copulas: Springer, 289 p.
 }
 \author{W.H. Asquith}
-\seealso{\code{\link{COP}}, \code{\link{breveCOP}}, \code{\link{simCOP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{convexCOP}}, \code{\link{glueCOP}}, \code{\link{simcomposite3COP}}}
+\seealso{\code{\link{COP}}, \code{\link{breveCOP}}, \code{\link{simCOP}}, \code{\link{composite1COP}}, \code{\link{composite2COP}}, \code{\link{convexCOP}}, \code{\link{glueCOP}},\cr\code{\link{simcomposite3COP}}}
 \examples{
 \dontrun{
-para <- list(cop1=PLACKETTcop, cop2=N4212cop,
-             para1=10^(runif(1,min=-5,max=5)), para2=runif(1,min=1,max=100),
-             alpha=runif(1), beta=runif(1), kappa=runif(1), gamma=runif(1))
-txts <- c("Alpha=",    round(para$alpha,    digits=4),
-          "; Beta=",   round(para$beta,     digits=4),
-          "; Kappa=",  round(para$kappa,    digits=4),
-          "; Gamma=",  round(para$gamma,    digits=4),
-          "; Theta1=", round(para$para1[1], digits=5),
-          "; Theta2=", round(para$para2[1], digits=2))
-layout(matrix(1:2, byrow=TRUE))
-D <- simCOP(n=300, cop=composite3COP, para=para, cex=0.5, col=rgb(0,0,0,0.2), pch=16)
-mtext(paste(txts,collapse=""))
+  para <- list(cop1=PLACKETTcop, cop2=N4212cop,
+               para1=10^(runif(1,min=-5,max=5)), para2=runif(1,min=1,max=100),
+               alpha=runif(1), beta=runif(1), kappa=runif(1), gamma=runif(1))
+  txts <- c("Alpha=",    round(para$alpha,    digits=4),
+            "; Beta=",   round(para$beta,     digits=4),
+            "; Kappa=",  round(para$kappa,    digits=4),
+            "; Gamma=",  round(para$gamma,    digits=4),
+            "; Theta1=", round(para$para1[1], digits=5),
+            "; Theta2=", round(para$para2[1], digits=2))
+  layout(matrix(1:2, byrow=TRUE))
+  D <- simCOP(n=300, cop=composite3COP, para=para, cex=0.5, col=rgb(0,0,0,0.2), pch=16)
+  mtext(paste(txts,collapse=""))
 
-f <- round(runif(1),digits=2)
-ftxt <- c("Sectionals (thick) and derivatives (thin) at f=",f," nonexceedance prob.")
-segments(f,0,f,1, col=3, lwd=2); segments(0,f,1,f, col=2, lwd=2)
-t <- sectionCOP(f,cop=composite3COP,para=para, col=3, lwd=4)
-t <- sectionCOP(f,cop=composite3COP,para=para, dercop=TRUE, ploton=FALSE,col=3)
-t <- sectionCOP(f,cop=composite3COP,para=para, wrtV=TRUE,   ploton=FALSE,col=2,lwd=4)
-t <- sectionCOP(f,cop=composite3COP,para=para, wrtV=TRUE,   ploton=FALSE,col=2,
+  f <- round(runif(1),digits=2)
+  ftxt <- c("Sectionals (thick) and derivatives (thin) at f=",f," nonexceedance prob.")
+  segments(f,0,f,1, col=3, lwd=2); segments(0,f,1,f, col=2, lwd=2)
+  t <- sectionCOP(f,cop=composite3COP,para=para, col=3, lwd=4)
+  t <- sectionCOP(f,cop=composite3COP,para=para, dercop=TRUE, ploton=FALSE,col=3)
+  t <- sectionCOP(f,cop=composite3COP,para=para, wrtV=TRUE,   ploton=FALSE,col=2,lwd=4)
+  t <- sectionCOP(f,cop=composite3COP,para=para, wrtV=TRUE,   ploton=FALSE,col=2,
                   dercop=TRUE)
-mtext(paste(ftxt, collapse=""))#}
+  mtext(paste(ftxt, collapse=""))#}
 }
 \keyword{copula composition}
 \keyword{copula composition (four compositing parameters)}
