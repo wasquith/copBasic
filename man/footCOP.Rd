@@ -10,7 +10,7 @@ Compute the measure of association known as the \emph{Spearman Footrule} \eqn{\p
 where \eqn{\mathbf{C}(u,v)} is the copula, \eqn{\mathbf{M}(u,v)} is the \emph{\enc{Fréchet}{Frechet}--Hoeffding upper bound} (\code{\link{M}}), \eqn{\mathcal{Q}(a,b)} is a \emph{concordance function} (\code{\link{concordCOP}}) (Nelsen, 2006, p. 158), and \eqn{-0.5 \le \psi_\mathbf{C} \le 1}. The \eqn{\psi_\mathbf{C}} in terms of a single integration pass on the copula (Genest \emph{et al.}, 2010, p. 940) is
 \deqn{\psi_\mathbf{C} = 1 - \int_{\mathcal{I}^2} \bigl|u-v\bigr|\,\mathrm{d}\mathbf{C}(u,v) = 6 \int_0^1 \mathbf{C}(u,u)\,\mathrm{d}u - 2\mbox{.}}
 % http://www.encyclopediaofmath.org/index.php?title=Spearman_rho_metric&oldid=15466  (accessed Aug 9, 2015)
-Note, Nelsen \emph{et al.} (2001) use \eqn{\phi_\mathbf{C}} but that symbol is taken in \pkg{copBasic} for the \emph{Hoeffding Phi} (\code{\link{hoefCOP}}), and Spearman Footrule does not seem to appear in Nelsen (2006). From the definition, Spearman Footrule only depends on the \emph{primary diagnonal} (alt. \emph{main diagonal}, Genest \emph{et al.}, 2010) of the copula, \eqn{\mathbf{C}(t,t)} (\code{\link{diagCOP}}). The function here supports the first \eqn{\psi_\mathbf{C}} computation by \code{as.concordance=TRUE}, but the default is the later definition by the direct integration on the diagonal.
+Note, Nelsen \emph{et al.} (2001) use \eqn{\phi_\mathbf{C}} but that symbol is taken in \pkg{copBasic} for the \emph{Hoeffding Phi} (\code{\link{hoefCOP}}), and \emph{Spearman Footrule} does not seem to appear in Nelsen (2006). From the definition, \emph{Spearman Footrule} only depends on the \emph{primary diagnonal} (alt. \emph{main diagonal}, Genest \emph{et al.}, 2010) of the copula, \eqn{\mathbf{C}(t,t)} (\code{\link{diagCOP}}). The function here supports the first \eqn{\psi_\mathbf{C}} computation by \code{as.concordance=TRUE}, but the default is the later definition by the direct integration on the diagonal.
 }
 \usage{
 footCOP(cop=NULL, para=NULL, by.concordance=FALSE, as.sample=FALSE, ...)
@@ -26,7 +26,7 @@ footCOP(cop=NULL, para=NULL, by.concordance=FALSE, as.sample=FALSE, ...)
   The value for \eqn{\psi_\mathbf{C}} is returned.
 }
 \note{
-Conceptually, the sample Spearman Footrule is a standardized sum of the absolute differences in the ranks (Genest \emph{et al.}, 2010, eq. 1). The sample \eqn{\hat\psi} is
+Conceptually, the \emph{sample Spearman Footrule} is a standardized sum of the absolute differences in the ranks (Genest \emph{et al.}, 2010, eq. 1). The sample \eqn{\hat\psi} is
 
 \deqn{\hat\psi = 1 - \frac{3}{n^2 - 1}\sum_{i=1}^n \bigl|R_i - S_i\bigr|\mbox{,}}
 
@@ -50,7 +50,7 @@ which is not implemented here because the first sample version is modestly faste
 Genest \emph{et al.} (2010, p. 938) say that prior literature shows that in small samples, Spearman Footrule is less variable than the well-known \emph{Spearman Rho} (\code{\link{rhoCOP}}). For a copula having continuous partial derivatives, then as \eqn{n \rightarrow \infty}, the quantity \eqn{(\hat\psi - \psi_\mathbf{C})\sqrt{n} \sim \mathrm{Normal}(0, \mathrm{var}(\gamma_\mathbf{C}))}. Genest \emph{et al.} (2010) show variance of \eqn{\hat\psi} for the \emph{independence copula} (\eqn{\mathbf{C}(u,v) = \mathbf{\Pi}(u,v)}, \code{\link{P}}) as \eqn{\mathrm{var}(\psi_\mathbf{C}) = 2/5}. For comparison, the \emph{Gini Gamma} for independence is larger at \eqn{\mathrm{var}(\gamma_\mathbf{C}) = 2/3} (see \code{\link{giniCOP}} \bold{Note}). Genest \emph{et al.} (2010) also present additional material for estimation of the distribution \eqn{\hat\psi} variance for conditions of dependence based on copulas. In Genest \emph{et al.} (2010, p. 941), independence and two examples of dependence, \eqn{\mathrm{var}(\hat\gamma) > \mathrm{var}(\hat\psi)}, but those authors do not appear to remark on whether this inequality holds for all copula.
 }
 \references{
-Beliakov, G., de Amo, E., Juan \enc{Fernández-Sánchez}{Fernandez-Sanchez}, J., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, Best-possible bounds on the set of copulas with a given value of Spearman's footrule, Fuzzy Sets and Systems, v. 428, pp. 138--152, \doi{10.1016/j.fss.2020.11.011}.
+Beliakov, G., de Amo, E., Juan \enc{Fernández-Sánchez}{Fernandez-Sanchez}, J., \enc{Úbeda-Flores}{Ubeda-Flores}, M., 2022, Best-possible bounds on the set of copulas with a given value of Spearman's footrule: Fuzzy Sets and Systems, v. 428, pp. 138--152, \doi{10.1016/j.fss.2020.11.011}.
 
 Genest, C., \enc{Nešlehová}{Neslehova}, J., and Ghorbal, N.B., 2010, Spearman's footrule and Gini's gamma---A review with complements: Journal of Nonparametric Statistics, v. 22, no. 8, pp. 937--954, \doi{10.1080/10485250903499667}.
 
