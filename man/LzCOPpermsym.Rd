@@ -11,6 +11,7 @@ for \eqn{(u,v) \in \mathcal{I}^2}. De Baets and De Meyer (2017) comment that amo
 }
 \usage{
 LzCOPpermsym(cop=NULL, para=NULL, n=5E4,
+             empfast=FALSE, empfunc=function(x) x,
              type=c("halton", "sobol", "torus", "runif"),
              as.abs=TRUE, as.vec=FALSE, as.mat=FALSE, plot=FALSE, ...)
 }
@@ -18,6 +19,8 @@ LzCOPpermsym(cop=NULL, para=NULL, n=5E4,
   \item{cop}{A copula function;}
   \item{para}{Vector of parameters, if and as needed, to pass to the copula;}
   \item{n}{The simulation size. The default seems sufficient for many practical applications but is suboptimal because the maximum operator in the definition is expected to potentially underestimate the true maximum. When a vector is returned, the default simulation size appears sufficient for many parameter estimation schemes;}
+  \item{empfast}{Dispatch to a subsystem using \code{\link{EMPIRgrid_fast}} with potential (\code{as.mat=TRUE}) to return a matrix of difference-output between the permutation of the probabilities, return a vector of difference-output if \code{empfunc} has no effect or compute a max, mean, or other. The \code{as.abs} provides for absolute value of the differences.}
+  \item{empfunc}{A function to apply on the vector return of the \code{empfast} subsystem.}
   \item{type}{The type of random number generator on \eqn{\mathcal{I}^2} for computing the maximum (apparent) (see argument \code{n}) or a vector of signed differences (see \bold{Details});}
   \item{as.abs}{A logical controlling whether the absolute value operation in the \eqn{\mu_\infty^{\mathrm{permsym}}} definition is used. This feature permits flexibility retaining the sign of asymmetry;}
   \item{as.vec}{A logical to disable the maximum operation but instead return the a vector of signed differences in the exchanged variables. If this argument is set true, then \code{as.abs} will be set false. The return of a vector of signed differences (still multiplied by \eqn{3}) could be useful in parameter estimation schemes with a similar vector from an \emph{empirical copula} (\code{\link{EMPIRcop}}) (see \bold{Details});}
@@ -26,6 +29,8 @@ LzCOPpermsym(cop=NULL, para=NULL, n=5E4,
   \item{...}{Additional arguments to pass to support flexible implementation.}
 }
 \details{
+\emph{EMPIRICAL FAST GRIDDED COPULA}---This is a distinctly separate subsystem for this function for which the difference \code{\link{EMPIRgrid_fast}} minus \code{\link{EMPIRgrid_fast}} is computed and possible returned as matrix, a vector, or result of \code{empfunc} function call. The last \bold{Example} shows use of this subsystem. The intent is to have more flexibility in measurement of asymmetry.
+
 \emph{EFFECT OF RANDOM NUMBER GENERATION}---Package \pkg{randtoolbox} provides for random number generation on forms different than simply simulating \emph{uniform independent random variables} for \eqn{\mathcal{I}^2}. The \emph{Halton}, \emph{Sobol}, and \emph{Torus} types are implemented. The \code{plot} argument is useful for the user to see the differences in how these generators canvas the \eqn{\mathcal{I}^2} domain.
 
 The default is Halton, which visually appears to better canvas \eqn{\mathcal{I}^2} without the clumping that simple uniform random variables does and without the larger gaps of Sobol or Torus. Testing indicates that Halton might generally require the smallest simulation size of the others with simple uniform random variables potentially being the worst and hence such is not the default. Exceptions surely exist depending on the style of the asymmetry. Nevertheless, Halton, Sobol, and Torus produce more consistent estimation behavior with each having a monotone approach towards the true maximum than simple uniform random variables.
@@ -69,7 +74,7 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
   nsim <- 2E4 # note a change from default n argument in LzCOPpermsym()
   as.vec <- TRUE          # set to FALSE to use just Permutation-Mu
   rhoP <- rhoCOP(cop=GHcop, para=para)          # parent Spearman Rho
-  UVsS <- simCOP(cop=GHcop, para=para, n=nsam, seed=seed) # simulate a sample
+  UVsS <- rCOP(cop=GHcop, para=para, n=nsam, seed=seed) # simulate a sample
   rhoS <- rhoCOP(as.sample=TRUE,     para=UVsS) # sample Spearman Rho
   infS <- LzCOPpermsym(cop=EMPIRcop, para=UVsS, n=nsim, type="halton",
                        as.vec=as.vec, ctype="checkerboard")
@@ -78,7 +83,7 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
   tparf <- function(par) c(exp(par[1]) + 1,  pnorm( par[2] ), pnorm( par[3] ))
   rparf <- function(par) c(log(par[1]  - 1), qnorm( par[2] ), qnorm( par[3] ))
 
-  ofunc <- function(par, norho=FALSE, usetrans=FALSE) { # objective function
+  ofunc <- function(par, norho=FALSE, usetrans=FALSE, as.vec=TRUE) { # obj. func.
     if(usetrans) { mypara <- tparf(par) } else { mypara <- par }
     rhoT   <- rhoCOP(cop=GHcop, para=mypara)    # simulated Spearman Rho
     infT   <- LzCOPpermsym(cop=GHcop, para=mypara, n=nsim, type="halton",
@@ -90,7 +95,7 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
 
   init.par <- c(2, 0.5, 0.5) # initial parameters in real space
   tnit.par <- rparf(init.par); rt <- NULL # initial parameter guess
-  try(  rt <- optim(tnit.par, ofunc, norho=FALSE, usetrans=TRUE) )
+  try(  rt <- optim(tnit.par, ofunc, norho=FALSE, usetrans=TRUE, as.vec=as.vec) )
   # 3D optimization with unbounded parameters using transformation.
   if(is.null(rt)) stop("fatal, optim() returned NULL")
   # construct GHcop parameters from optimization with re-transformation
@@ -100,16 +105,16 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
                  cex=0.3, pch=16, col="red", ploton=FALSE) # est. parameters
   # maximum likelihood
   mara <- mleCOP(UVsS, cop=GHcop, init.para=tnit.par, parafn=tparf)$para
-
+  # --------------------------------------------------------------------------
   # metaheuristic methods follow and need lower and upper parameter bounds
   lb <- c(1, 0, 0); ub <- c(100, 1, 1)  # lower and upper parameter bounds
   # Artificial Bee Colony optimization
   # https://en.wikipedia.org/wiki/Artificial_bee_colony_algorithm
-  be <- ABCoptim::abc_optim(init.par, ofunc, norho=FALSE, lb=lb, ub=ub)
+  be <- ABCoptim::abc_optim(init.par, ofunc, lb=lb, ub=ub, norho=FALSE, as.vec=as.vec)
   sara_bee <- be$par
   # Particle Swarm optimization
   # https://en.wikipedia.org/wiki/Particle_swarm_optimization
-  ps <- pso::psoptim(init.par, ofunc, norho=FALSE,  lower=lb, upper=ub)
+  ps <- pso::psoptim(init.par, ofunc, lower=lb, upper=ub, norho=FALSE, as.vec=as.vec )
   sara_pso <- ps$par
 
   # Genetic Algorithm optimization
@@ -125,7 +130,7 @@ The critical note is that \code{\link{LpCOPpermsym}} is the integral of the abso
   level.curvesCOP(cop=GHcop, para=sara,     ploton=FALSE, col="red"     )
   level.curvesCOP(cop=GHcop, para=sara_bee, ploton=FALSE, col="orchid3" )
   level.curvesCOP(cop=GHcop, para=sara_pso, ploton=FALSE, col="seagreen")
-  level.curvesCOP(cop=GHcop, para=sara_alt, ploton=FALSE, col="wheat"   )
+  level.curvesCOP(cop=GHcop, para=sara_alt, ploton=FALSE, col="wheat4"  )
 }
 
 Comparison of level curves between the known parent, the parameter estimation using function \code{LzCOPpermsym}, and the \emph{maximum likelihood} by \code{\link{mleCOP}} shows that signed asymmetry differences can be used for parameter estimation. One could use the maximum as in the definition, but for purposes of high-dimensional optimization, using the vector might be better to prevent local minima (less optimal solutions) being found if the \eqn{\mu_\infty^{\mathrm{permsym}}} was used. Because vectors of differences between empirical copula and the fitted copula are involved, measures of fit using such differences are expected to be more favorable to optimization than using \code{LzCOPpermsym} than perhaps maximum likelihood. Some measures of fit like RMSE (\code{\link{rmseCOP}}), for example, are often, smaller for the \code{sara} fitted parameters than for the \code{mara} fitted (maximum likelihood). The maximum likelihood approach should favor towards smaller AIC (\code{\link{aicCOP}}) and BIC (\code{\link{bicCOP}}). Finally, setting \code{as.vec <- FALSE}, re-running, and thus using \eqn{\mu_\infty^{\mathrm{permsym}}}, will likely show parameter estimates, visible through the level curves, that are much less favorable.
@@ -169,8 +174,9 @@ De Baets, B., and De Meyer, H., 2017, Chapter 3---A look at copulas in a curved 
 \author{W.H. Asquith}
 \seealso{\code{\link{LpCOPpermsym}}, \code{\link{isCOP.permsym}}}
 \examples{
-LzCOPpermsym(cop=PSP)                            # 0, permutation symmetric
-LzCOPpermsym(cop=GHcop, para=c(10, 0.9, 0.3))    # 0.17722861
+LzCOPpermsym(cop=PSP)  # 0, permutation symmetric
+LzCOPpermsym(cop=GHcop, para=c(10, 0.9, 0.3), as.abs=TRUE ) #  0.1723520
+LzCOPpermsym(cop=GHcop, para=c(10, 0.9, 0.3), as.abs=FALSE) # -0.1723412  0.1723520
 
 # See also results of
 # isCOP.permsym(cop=PSP)                         # TRUE
@@ -192,16 +198,47 @@ LzCOPpermsym(cop=GHcop, para=c(10, 0.9, 0.3))    # 0.17722861
   # for u <- c(UV[,1], UV[,2]); v <- c(UV[,2], UV[,1]);
   # h <- EMPIRcop(u,v, para=UV) and then h[first half] - h[second half].
   DF <- NULL; para <- list(breve=0.2, para=10, cop=GHcop)
-  for(n in as.integer(10^seq(log10(100), log10(50000), by=0.04))) {
+  for(n in as.integer(10^seq(log10(100), log10(1000), by=0.04))) {
     UV  <- simCOP(n, cop=breveCOP, para=para, graphics=FALSE)
     hh  <- EMPIRcop(UV[,1], UV[,2], para=UV) - EMPIRcop(UV[,2], UV[,1], para=UV)
-    mad <- mean(abs(hh)); rmse <- sqrt(mean(hh^2)); max <- 3*max(hh)
-    DF  <- rbind(DF, data.frame(n, mad, rmse, max))
+    fst <- LzCOPpermsym(para=UV, empfast=TRUE, as.abs=TRUE, empfunc=mean)
+    mad <- mean(abs(hh)); rmse <- sqrt(mean(hh^2)); max <- 3*max(abs(hh))
+    DF  <- rbind(DF, data.frame(n, mad, rmse, max, fst))
   }
   ylim <- c(0, max(sapply(2:ncol(DF), function(i) max(DF[,i]))))
   plot( DF$n, DF$mad,  col="red", type="l", log="x", ylim=ylim)
   lines(DF$n, DF$rmse, col="seagreen")
-  lines(DF$n, DF$max,  col="blue") # }
+  lines(DF$n, DF$max,  col="blue"    )
+  lines(DF$n, DF$fst,  col="purple"  ) # }
+
+\dontrun{
+  uv <- rCOP(n=1000, cop=MOcop, para=c(0.9,0.2))
+  m <- LzCOPpermsym(para=uv, empfast=TRUE, as.abs=TRUE,  as.mat=FALSE, empfunc=mean)
+  m <- round(m, digits=5)
+  H <- LzCOPpermsym(para=uv, empfast=TRUE, as.abs=FALSE, as.mat=TRUE)
+  image(H); points(uv); mtext(paste0("Mean EMPIRgrid_fast |delta| = ", m))
+  H <- LzCOPpermsym(para=uv, empfast=TRUE, as.abs=TRUE,  as.mat=TRUE)
+  image(H); points(uv); mtext(paste0("Mean EMPIRgrid_fast |delta| = ", m)) # }
+
+\dontrun{
+  Wmw <- Wwm <- FST <- NULL; n <- 1000
+  ds <- c(0.001, 0.005, seq(0.01, 0.99, by=0.01), 0.995, 0.999)
+  for(d in ds) {
+    para <- list(cop=c(M,W), para=c(NA,NA), part=c(0,d,1))
+    mu   <- LzCOPpermsym(cop=ORDSUWcop, para=para, as.vec=TRUE, n=n)
+    fst  <- LzCOPpermsym(para=rCOP(n, cop=ORDSUWcop, para=para, set.seed=1),
+                         empfast=TRUE, empfunc=mean)
+    Wmw  <- rbind(Wmw, data.frame(d=d, mu=mean(abs(mu)), fst=fst))
+    para$cop <- c(W,M)
+    mu   <- LzCOPpermsym(cop=ORDSUWcop, para=para, as.vec=TRUE, n=n)
+    fst  <- LzCOPpermsym(para=rCOP(n, cop=ORDSUWcop, para=para, set.seed=1),
+                       empfast=TRUE, empfunc=mean)
+    Wwm  <- rbind(Wwm, data.frame(d=d, mu=mean(abs(mu)), fst=fst))
+  }
+  plot( Wmw$d, Wmw$mu, type="l", col="darkorange3", ylim=c(0,1))
+  lines(Wwm$d, Wmw$fst,          col="darkorange3")
+  lines(Wwm$d, Wwm$mu,           col="purple3")
+  lines(Wwm$d, Wwm$fst,          col="purple3") # }
 }
 \keyword{copula (characteristics)}
 \keyword{copula (properties)}
