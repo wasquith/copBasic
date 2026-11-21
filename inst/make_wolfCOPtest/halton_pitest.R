@@ -146,7 +146,7 @@ pdf(pdffile, useDingbats=FALSE, width=7, height=6)
                       paste0("  copBasic::wolfCOPtest ", pvt, " = ",  w3),
                       paste0("  copula::indepTest ",     pvt, " = ",  i3)),
          bty="o", box.lty=0, bg=grey(1, 0.7), cex=0.7, y.intersp=1, inset=0.01)
-   text(par()$usr[2], par()$usr[3], "(C)", adj=c(1.2,-1.1), font=2)
+  text(par()$usr[2], par()$usr[3], "(C)", adj=c(1.2,-1.1), font=2)
   par(xpd=NA, bg="white", las=1, lend=2, mgp=c(2.5, 0.8, 0), mai=c(0.5, 0.4, 0.14, 0.34))
   plot(uv4[,1], uv4[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
        xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
@@ -170,7 +170,7 @@ system(paste0("pdfcrop --clip --margins 5 ", pdffile, " ", pdffile))
 
 pdffile <- "halton_pitest3_haldemo.pdf"
 pdf(pdffile, useDingbats=FALSE)
-  par(xpd=NA)
+  par(xpd=NA); tix <- seq(0.1, 0.9, by=0.1)
   uv1 <- randtoolbox::halton(200, d=2, usetime=TRUE)
   plot(uv1[,1], uv1[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
        xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
@@ -180,6 +180,24 @@ pdf(pdffile, useDingbats=FALSE)
   axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
   polygon(c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
           c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
-  points(uv1[,1], uv1[,2], pch=21, col="grey50", bg="white", lwd=1.5)
+  points(uv1[,1], uv1[,2], pch=21, col="grey10", bg="grey90", lwd=1.5)
+dev.off()
+system(paste0("pdfcrop --clip --margins 5 ", pdffile, " ", pdffile))
+
+
+
+pdffile <- "halton_pitest4_pidemo.pdf"
+pdf(pdffile, useDingbats=FALSE)
+  par(xpd=NA); tix <- seq(0.1, 0.9, by=0.1)
+  uv1 <- cbind(runif(200), runif(200))
+  plot(uv1[,1], uv1[,2], type="n", las=1, bty="n", xlim=c(0,1), ylim=c(0,1),
+       xlab="", ylab="", xaxs="i", yaxs="i", xaxt="n", yaxt="n")
+  axis(1, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  axis(3, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  axis(2, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  axis(4, at=tix, labels=FALSE, lwd=0, lwd.ticks=1)
+  polygon(c(par()$usr[1], par()$usr[2], par()$usr[2], par()$usr[1], par()$usr[1]),
+          c(par()$usr[3], par()$usr[3], par()$usr[4], par()$usr[4], par()$usr[3]), lwd=1)
+  points(uv1[,1], uv1[,2], pch=21, col="grey10", bg="grey90", lwd=1.5)
 dev.off()
 system(paste0("pdfcrop --clip --margins 5 ", pdffile, " ", pdffile))
