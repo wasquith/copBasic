@@ -8,6 +8,8 @@ Changes in version 2.3.1 (2026-11-14)
 -  Added proper mathbf declaration for Pi in the Product copula in running text.
 -  Edits to wolfCOPtest_data_smlsam.Rd Examples.
 -  Minor edits in aicCOP.Rd, bicCOP.Rd, GHcop.Rd, kfuncCOP.Rd, and rmseCOP.Rd.
+-  Minor edits to footCOP.Rd and composite3COP.Rd.
+-  Added empfast and empfunc arguments to LzCOPpermsym() and more Examples therein.
 
 
 Changes in version 2.2.17 (2026-10-04)
